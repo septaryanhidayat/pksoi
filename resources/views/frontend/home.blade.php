@@ -229,12 +229,12 @@
             </div>
             @endif
 
-            {{-- 3 Articles Side Stack (40% Desktop) --}}
-            <div class="lg:col-span-5 flex flex-col justify-between space-y-4 reveal-fade-up delay-2">
-                <div class="space-y-3">
+            {{-- 4 Articles Side Stack (40% Desktop - Rapi & Sejajar Tanpa Ruang Kosong) --}}
+            <div class="lg:col-span-5 flex flex-col justify-between space-y-3 reveal-fade-up delay-2">
+                <div class="space-y-2.5 flex-1 flex flex-col justify-between">
                     @foreach($sidePosts as $post)
-                    <article class="bg-white p-3.5 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition flex items-center space-x-3.5 group">
-                        <div class="w-24 h-24 sm:w-28 sm:h-24 flex-shrink-0 rounded-lg overflow-hidden bg-gray-100">
+                    <article class="bg-white p-3 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition flex items-center space-x-3 group">
+                        <div class="w-20 h-20 sm:w-24 sm:h-20 flex-shrink-0 rounded-lg overflow-hidden bg-gray-100">
                             <img src="{{ $post->featured_image_url }}" alt="{{ $post->title }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
                         </div>
                         <div class="flex-1 min-w-0">
@@ -255,7 +255,7 @@
                     @endforeach
                 </div>
 
-                <a href="{{ route('artikel.index') }}" class="w-full text-center bg-[#FE6000] hover:bg-[#d85200] text-white text-xs font-bold py-3 rounded-xl transition shadow-sm block">
+                <a href="{{ route('artikel.index') }}" class="w-full text-center bg-[#FE6000] hover:bg-[#d85200] text-white text-xs font-bold py-3 rounded-xl transition shadow-sm block mt-2">
                     Lihat Semua Berita <i class="fa-solid fa-arrow-right ml-1"></i>
                 </a>
             </div>
@@ -671,18 +671,69 @@
             <div class="w-16 h-1 bg-[#FE6000] mx-auto mt-2 rounded-full"></div>
         </div>
 
-        {{-- Grid: Desktop 4 columns, Mobile 2 columns --}}
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
-            @foreach($galleryPhotos as $index => $photo)
-            <div class="group relative rounded-xl overflow-hidden shadow-md aspect-square bg-gray-800 reveal-fade-up delay-{{ ($index % 4) + 1 }}">
-                <img src="{{ $photo['url'] }}" alt="{{ $photo['title'] }}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-3">
-                    <span class="text-xs text-white font-medium line-clamp-2">
-                        {{ $photo['title'] }}
-                    </span>
+        {{-- Auto-Slider Galeri Foto Kegiatan --}}
+        <div x-data="{
+            current: 0,
+            photos: {{ Js::from($galleryPhotos) }},
+            perView: 4,
+            timer: null,
+            updatePerView() {
+                if (window.innerWidth < 640) {
+                    this.perView = 2;
+                } else if (window.innerWidth < 1024) {
+                    this.perView = 3;
+                } else {
+                    this.perView = 4;
+                }
+            },
+            maxIndex() {
+                return Math.max(0, this.photos.length - this.perView);
+            },
+            next() {
+                if (this.current >= this.maxIndex()) {
+                    this.current = 0;
+                } else {
+                    this.current++;
+                }
+            },
+            prev() {
+                if (this.current <= 0) {
+                    this.current = this.maxIndex();
+                } else {
+                    this.current--;
+                }
+            },
+            start() {
+                this.timer = setInterval(() => this.next(), 3500);
+            },
+            stop() {
+                clearInterval(this.timer);
+            }
+        }" x-init="updatePerView(); window.addEventListener('resize', () => updatePerView()); start()" @mouseenter="stop()" @mouseleave="start()" class="relative px-2 sm:px-4">
+            
+            {{-- Carousel Track --}}
+            <div class="overflow-hidden py-2">
+                <div class="flex transition-transform duration-500 ease-out" :style="'transform: translateX(-' + (current * (100 / perView)) + '%)'">
+                    <template x-for="(photo, index) in photos" :key="index">
+                        <div class="flex-shrink-0 px-2 sm:px-2.5" :style="'width: ' + (100 / perView) + '%'">
+                            <a href="{{ route('galeri.index') }}" class="group block relative rounded-2xl overflow-hidden shadow-lg aspect-square bg-gray-900 border border-gray-800 transform hover:scale-103 transition duration-300">
+                                <img :src="photo.url" :alt="photo.title" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-3 sm:p-4">
+                                    <span class="text-xs text-white font-medium line-clamp-2" x-text="photo.title"></span>
+                                </div>
+                            </a>
+                        </div>
+                    </template>
                 </div>
             </div>
-            @endforeach
+
+            {{-- Controls Panah Kiri & Kanan --}}
+            <button @click="prev()" class="absolute left-0 top-1/2 -translate-y-1/2 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-black/75 hover:bg-[#FE6000] text-white flex items-center justify-center transition border border-gray-700 shadow-xl z-20" aria-label="Previous Photo">
+                <i class="fa-solid fa-chevron-left text-xs sm:text-sm"></i>
+            </button>
+            <button @click="next()" class="absolute right-0 top-1/2 -translate-y-1/2 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-black/75 hover:bg-[#FE6000] text-white flex items-center justify-center transition border border-gray-700 shadow-xl z-20" aria-label="Next Photo">
+                <i class="fa-solid fa-chevron-right text-xs sm:text-sm"></i>
+            </button>
         </div>
 
         <div class="text-center mt-8 reveal-fade-up">
@@ -718,47 +769,101 @@
 
 
 {{-- ========================================================
-     SECTION #15: DOWNLOAD E-BOOK (Desktop 4 Col vs Mobile 2 Col)
+     SECTION #15: DOWNLOAD E-BOOK (Auto-Slider Etalase Cover Buku Persis Screenshot)
      ======================================================== --}}
-<section class="py-14 bg-gray-950 text-white overflow-hidden">
+<section class="py-14 bg-gray-100 overflow-hidden">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
-        <div class="text-center max-w-2xl mx-auto mb-10 reveal-fade-up">
-            <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#FE6000]">
-                Download E-Book
-            </h2>
-            <p class="text-xs sm:text-sm text-gray-300 mt-1">
-                Dapatkan E-Book Gratis Materi Dakwah dan Pembinaan Umat
-            </p>
-            <div class="w-16 h-1 bg-[#FE6000] mx-auto mt-2 rounded-full"></div>
-        </div>
-
-        {{-- Desktop 4 col, Mobile 2 col --}}
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
-            @foreach($ebooks as $index => $eb)
-            <div class="bg-gray-900 rounded-2xl p-3 sm:p-4 border border-gray-800 flex flex-col justify-between group hover:border-[#FE6000] transition reveal-fade-up delay-{{ $index + 1 }}">
-                <div class="aspect-[3/4] rounded-xl overflow-hidden mb-3 bg-gray-800 shadow-lg">
-                    <img src="{{ $eb['cover'] }}" alt="{{ $eb['title'] }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
-                </div>
-                <div>
-                    <h3 class="font-bold text-xs sm:text-sm text-white line-clamp-2 mb-1 group-hover:text-[#FE6000] transition">
-                        {{ $eb['title'] }}
-                    </h3>
-                    <p class="text-[10px] sm:text-xs text-gray-400 line-clamp-2 leading-relaxed mb-3">
-                        {{ $eb['desc'] }}
-                    </p>
-                </div>
-                <a href="{{ $eb['pdf'] }}" class="block w-full text-center bg-[#FE6000] hover:bg-[#d85200] text-white text-[11px] sm:text-xs font-bold py-2 rounded-lg transition shadow">
-                    <i class="fa-solid fa-download mr-1"></i> Unduh E-Book (PDF)
-                </a>
+        
+        {{-- Card Hitam Pekat Rounded Persis Gambar Referensi --}}
+        <div class="bg-black text-white rounded-3xl p-6 sm:p-10 border border-neutral-800 shadow-2xl reveal-fade-up">
+            
+            {{-- Header Rata Tengah --}}
+            <div class="text-center max-w-2xl mx-auto mb-8">
+                <h2 class="text-2xl sm:text-3xl font-black tracking-tight text-white">
+                    Download E-Book
+                </h2>
+                <p class="text-xs sm:text-sm text-[#ff5001] font-semibold mt-1">
+                    Dapatkan E-Book Gratis Materi Dakwah
+                </p>
+                <div class="w-16 h-0.5 bg-gray-400 mx-auto mt-2 rounded-full"></div>
             </div>
-            @endforeach
+
+            {{-- Slider Etalase Cover Buku (Otomatis Geser, Tanpa Tombol Unduh Per Buku) --}}
+            <div x-data="{
+                current: 0,
+                items: {{ Js::from($ebooks) }},
+                perView: 4,
+                timer: null,
+                updatePerView() {
+                    if (window.innerWidth < 640) {
+                        this.perView = 1;
+                    } else if (window.innerWidth < 1024) {
+                        this.perView = 2;
+                    } else {
+                        this.perView = 4;
+                    }
+                },
+                maxIndex() {
+                    return Math.max(0, this.items.length - this.perView);
+                },
+                next() {
+                    if (this.current >= this.maxIndex()) {
+                        this.current = 0;
+                    } else {
+                        this.current++;
+                    }
+                },
+                prev() {
+                    if (this.current <= 0) {
+                        this.current = this.maxIndex();
+                    } else {
+                        this.current--;
+                    }
+                },
+                start() {
+                    this.timer = setInterval(() => this.next(), 3500);
+                },
+                stop() {
+                    clearInterval(this.timer);
+                }
+            }" x-init="updatePerView(); window.addEventListener('resize', () => updatePerView()); start()" @mouseenter="stop()" @mouseleave="start()" class="relative px-2 sm:px-4">
+                
+                {{-- Carousel Track --}}
+                <div class="overflow-hidden py-3">
+                    <div class="flex transition-transform duration-500 ease-out" :style="'transform: translateX(-' + (current * (100 / perView)) + '%)'">
+                        <template x-for="(eb, idx) in items" :key="idx">
+                            <div class="flex-shrink-0 px-2.5 sm:px-3" :style="'width: ' + (100 / perView) + '%'">
+                                <a href="{{ route('download.ebook') }}" class="group block relative aspect-[3/4.2] rounded-2xl overflow-hidden shadow-2xl bg-neutral-900 border border-neutral-800 transform hover:scale-104 transition duration-300 cursor-pointer">
+                                    <img :src="eb.cover" :alt="eb.title" class="w-full h-full object-cover group-hover:scale-106 transition duration-500">
+                                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end justify-center p-3 text-center">
+                                        <span class="text-xs font-bold text-white truncate max-w-full" x-text="eb.title"></span>
+                                    </div>
+                                </a>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+
+                {{-- Tombol Navigasi Panah Kiri & Kanan Melayang di Sisi Slider --}}
+                <button @click="prev()" class="absolute left-0 sm:left-1 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-black/70 hover:bg-[#ff5001] text-white flex items-center justify-center transition border border-neutral-700 shadow-2xl z-20" aria-label="Previous E-Book">
+                    <i class="fa-solid fa-chevron-left text-xs sm:text-sm"></i>
+                </button>
+                <button @click="next()" class="absolute right-0 sm:right-1 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-black/70 hover:bg-[#ff5001] text-white flex items-center justify-center transition border border-neutral-700 shadow-2xl z-20" aria-label="Next E-Book">
+                    <i class="fa-solid fa-chevron-right text-xs sm:text-sm"></i>
+                </button>
+
+                {{-- Tombol Oranye Kapsul Download Menuju Halaman /e-book --}}
+                <div class="pt-6 flex justify-center">
+                    <a href="{{ route('download.ebook') }}" class="bg-[#ff5001] hover:bg-[#e04500] text-white font-black text-xs sm:text-sm px-8 py-3 rounded-2xl shadow-xl transition flex items-center space-x-2 transform hover:scale-105">
+                        <i class="fa-solid fa-download"></i>
+                        <span>Download</span>
+                    </a>
+                </div>
+
+            </div>
+
         </div>
 
-        <div class="text-center mt-8 reveal-fade-up">
-            <a href="{{ route('download.ebook') }}" class="inline-flex items-center bg-[#FE6000] hover:bg-[#d85200] text-white font-bold text-xs sm:text-sm px-6 py-2.5 rounded-full shadow transition">
-                Download Selengkapnya <i class="fa-solid fa-book-open ml-2 text-xs"></i>
-            </a>
-        </div>
     </div>
 </section>
 

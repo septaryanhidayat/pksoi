@@ -28,7 +28,7 @@
 
             {{-- ALAMAT KANTOR --}}
             <div class="space-y-3 max-w-sm">
-                <h4 class="font-extrabold text-white text-sm tracking-wide">
+                <h4 class="font-extrabold text-[#ff5001] text-base tracking-wide">
                     Alamat
                 </h4>
                 <p class="text-xs text-gray-300 leading-relaxed font-light">
@@ -48,10 +48,10 @@
 
             {{-- SOSIAL MEDIA & WEBSITE --}}
             <div class="space-y-3">
-                <h4 class="font-extrabold text-white text-sm tracking-wide">
+                <h4 class="font-extrabold text-[#ff5001] text-base tracking-wide">
                     Sosial Media
                 </h4>
-                <p class="text-xs text-gray-200 font-bold">
+                <p class="text-xs text-white font-bold">
                     DPD PKS Ogan Ilir
                 </p>
                 
@@ -101,29 +101,14 @@
 
         {{-- 3. BOTTOM COPYRIGHT & LINKS --}}
         <div class="pt-6 flex flex-col sm:flex-row justify-between items-center text-xs text-gray-400 gap-4 text-center sm:text-left">
-            
-            {{-- Language Selector & Copyright --}}
-            <div class="flex flex-col sm:flex-row items-center gap-3">
-                <div class="inline-flex items-center space-x-1.5 bg-white text-gray-900 px-2.5 py-1 rounded-md text-[11px] font-bold shadow-sm">
-                    <span>🇮🇩</span>
-                    <span>ID</span>
-                    <i class="fa-solid fa-angle-up text-[10px] text-gray-600 ml-0.5"></i>
-                </div>
-                <span>
-                    Copyright @ {{ date('Y') }} <span class="text-white font-semibold">DPD PKS Ogan Ilir</span>. All Right Reserved. Terbit: 15/09/2025. Developed by <span class="text-sky-400 font-semibold">Beranda Teknologi Digital</span>
-                </span>
-            </div>
+            <span>
+                Copyright @ 2025 <span class="text-white font-semibold">DPD PKS Ogan Ilir</span>. All Right Reserved. Terbit: 15/09/2025. Developed by <span class="text-sky-400 font-semibold">Beranda Teknologi Digital</span>
+            </span>
 
-            {{-- Privacy, Kontak & Scroll to Top --}}
-            <div class="flex items-center space-x-4">
-                <a href="{{ route('page.privacy-policy') }}" class="hover:text-white transition">Privacy Policy</a>
-                <span>&bull;</span>
-                <a href="{{ route('hubungi') }}" class="hover:text-white transition">Kontak</a>
-                
-                {{-- Blue Scroll to Top Button --}}
-                <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="w-8 h-8 rounded-full bg-[#0284c7] hover:bg-[#0369a1] text-white flex items-center justify-center shadow-md transition ml-2" aria-label="Scroll to top">
-                    <i class="fa-solid fa-chevron-up text-xs"></i>
-                </button>
+            {{-- Privacy Policy & Kontak --}}
+            <div class="flex items-center space-x-6 text-xs text-gray-300">
+                <a href="{{ route('page.privacy-policy') }}" class="hover:text-[#ff5001] transition">Privacy Policy</a>
+                <a href="{{ route('hubungi') }}" class="hover:text-[#ff5001] transition">Kontak</a>
             </div>
         </div>
 

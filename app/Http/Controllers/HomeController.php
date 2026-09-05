@@ -52,7 +52,7 @@ class HomeController extends Controller
             ->get();
 
         $featuredPost = $allPosts->first();
-        $sidePosts = $allPosts->slice(1, 3);
+        $sidePosts = $allPosts->slice(1, 4);
 
         // 4. Berita Fraksi PKS (Section 3 - 8 posts / 2 baris x 4 kolom)
         $fraksiPosts = Post::posts()
@@ -67,7 +67,7 @@ class HomeController extends Controller
             ->get();
 
         if ($fraksiPosts->count() < 8) {
-            $fraksiPosts = $allPosts->slice(4, 8);
+            $fraksiPosts = $allPosts->slice(5, 8);
         }
 
         // 5. Berita Nasional (Section 4 Kolom 1 - 6 posts)
@@ -134,16 +134,18 @@ class HomeController extends Controller
             ['url' => '/uploads/2025/09/22.webp', 'title' => 'Peringatan Hari Besar Nasional & Keagamaan'],
         ];
 
-        // 12. E-Books (Section 15 - 4 E-books)
-        $ebookDownloads = \App\Models\Download::where('category_type', 'E-Book')->take(4)->get();
-        if ($ebookDownloads->count() >= 4) {
-            $ebookCovers = [
-                "Ma'rifatullah" => '/uploads/2025/09/Marifatullah.jpg.webp',
-                "Ma'rifatul Qur'an" => '/uploads/2025/09/Marifatul-Quran-320x448.jpg.webp',
-                "Ghazwul Fikri" => '/uploads/2025/09/Ghazwul-Fikri-320x448.jpg.webp',
-                "Kurikulum" => '/uploads/2025/09/Cover-Kurikulum-Pembinaan-Dai-Muda-320x455.jpg.webp',
-            ];
+        // 12. E-Books (Section 15 - Etalase Cover E-Book Slider)
+        $ebookDownloads = \App\Models\Download::where('category_type', 'E-Book')->get();
+        $ebookCovers = [
+            "Ma'rifatullah" => '/uploads/2025/09/Marifatullah.jpg.webp',
+            "Kurikulum" => '/uploads/2025/09/Cover-Kurikulum-Pembinaan-Dai-Muda-320x455.jpg.webp',
+            "Ghazwul" => '/uploads/2025/09/Ghazwul-Fikri-320x448.jpg.webp',
+            "Qur'an" => '/uploads/2025/09/Marifatul-Quran-320x448.jpg.webp',
+            "Olahraga" => '/uploads/2025/10/ADAB-OLAHRAGA.webp',
+            "Bidayah" => '/uploads/2025/09/Marifatullah.jpg.webp',
+        ];
 
+        if ($ebookDownloads->isNotEmpty()) {
             $ebooks = $ebookDownloads->map(function ($dl) use ($ebookCovers) {
                 $cover = '/uploads/2025/09/Marifatullah.jpg.webp';
                 foreach ($ebookCovers as $key => $img) {
@@ -158,7 +160,6 @@ class HomeController extends Controller
                     'cover' => $cover,
                     'pdf' => route('download.file', $dl->id, false),
                     'direct_file' => $dl->file_path,
-                    'desc' => 'Dapatkan dan pelajari materi tarbiyah dan keilmuan Islam resmi dari PKS Ogan Ilir.',
                 ];
             })->toArray();
         } else {
@@ -168,32 +169,30 @@ class HomeController extends Controller
                     'title' => "Ma'rifatullah",
                     'cover' => '/uploads/2025/09/Marifatullah.jpg.webp',
                     'pdf' => route('download.file', 4, false),
-                    'direct_file' => '/uploads/2025/09/Ebook-Marifatullah.pdf',
-                    'desc' => 'Mengenal Allah SWT secara komprehensif sebagai landasan aqidah Islam yang lurus.',
                 ],
                 [
                     'id' => 7,
                     'title' => 'Kurikulum Pembinaan Da\'i Muda',
                     'cover' => '/uploads/2025/09/Cover-Kurikulum-Pembinaan-Dai-Muda-320x455.jpg.webp',
                     'pdf' => route('download.file', 7, false),
-                    'direct_file' => '/uploads/2025/09/Materi-Pembinaan-Dai-Muda-Tingkat-1.pdf',
-                    'desc' => 'Panduan terstruktur kurikulum pembinaan generasi muda da\'i pembawa risalah kebaikan.',
                 ],
                 [
                     'id' => 6,
                     'title' => 'Ghazwul Fikri',
                     'cover' => '/uploads/2025/09/Ghazwul-Fikri-320x448.jpg.webp',
                     'pdf' => route('download.file', 6, false),
-                    'direct_file' => '/uploads/2025/09/ghazwul-fikri_mik.pdf',
-                    'desc' => 'Menelaah perang pemikiran dan strategi membentengi generasi muslim dari pengaruh negatif.',
                 ],
                 [
                     'id' => 5,
                     'title' => "Ma'rifatul Qur'an",
                     'cover' => '/uploads/2025/09/Marifatul-Quran-320x448.jpg.webp',
                     'pdf' => route('download.file', 5, false),
-                    'direct_file' => '/uploads/2025/09/Marifatul-Quran_MIK.pdf',
-                    'desc' => 'Memahami keagungan mukjizat Al-Qur\'an sebagai pedoman hidup dan sumber inspirasi perjuangan.',
+                ],
+                [
+                    'id' => 9,
+                    'title' => 'Adab Olahraga',
+                    'cover' => '/uploads/2025/10/ADAB-OLAHRAGA.webp',
+                    'pdf' => route('download.file', 9, false),
                 ],
             ];
         }
@@ -201,10 +200,8 @@ class HomeController extends Controller
         // 13. Testimonials (Section 16 - 4 items)
         $testimonials = Testimonial::where('status', 'publish')->take(4)->get();
 
-        // 14. Visitor counter hits
-        $baseHits = 53460;
-        $totalViews = Post::sum('views_count');
-        $visitorHits = number_format($baseHits + $totalViews, 0, ',', '.');
+        // 14. Visitor counter hits diambil dari middleware / global shared
+        $visitorHits = view()->shared('visitorHits') ?? '53.512';
 
         return view('frontend.home', compact(
             'heroSlides',

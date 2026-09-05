@@ -41,12 +41,6 @@
                 <h3 class="text-lg font-extrabold text-gray-900 mb-2">
                     {{ $dpc->name }}
                 </h3>
-                @if($dpc->head_name)
-                    <div class="text-xs text-gray-700 mb-2 flex items-center">
-                        <i class="fa-solid fa-user-tie text-[#f37023] mr-2"></i>
-                        <span>Ketua: <strong>{{ $dpc->head_name }}</strong></span>
-                    </div>
-                @endif
                 @if($dpc->address)
                     <div class="text-xs text-gray-500 mb-3 flex items-start">
                         <i class="fa-solid fa-location-dot text-gray-400 mr-2 mt-0.5 flex-shrink-0"></i>

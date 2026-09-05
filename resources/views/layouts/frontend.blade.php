@@ -74,9 +74,24 @@
     {{-- FOOTER --}}
     @include('partials.footer')
 
-    {{-- FLOATING BACK TO TOP BUTTON --}}
-    <button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="fixed bottom-6 right-6 z-40 bg-[#f37023] hover:bg-[#d85c14] text-white w-11 h-11 rounded-full shadow-lg flex items-center justify-center transition-all opacity-0 pointer-events-none duration-300" aria-label="Back to Top">
-        <i class="fa-solid fa-arrow-up"></i>
+    {{-- FLOATING MULTI-BAHASA (Kiri Bawah - Penerjemah Otomatis Semua Halaman Web) --}}
+    <div class="gtranslate_wrapper"></div>
+    <script>
+        window.gtranslateSettings = {
+            "default_language": "id",
+            "languages": ["id", "ar", "zh-CN", "en", "fr", "ja", "ru"],
+            "wrapper_selector": ".gtranslate_wrapper",
+            "switcher_horizontal_position": "left",
+            "switcher_vertical_position": "bottom",
+            "float_switcher_open_direction": "top",
+            "flag_style": "3d"
+        };
+    </script>
+    <script src="https://cdn.gtranslate.net/widgets/latest/float.js" defer></script>
+
+    {{-- FLOATING BACK TO TOP BUTTON (Kanan Bawah - Melayang Biru Persis Web Lama) --}}
+    <button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="fixed bottom-5 right-5 z-50 bg-[#0284c7] hover:bg-[#0369a1] text-white w-10 h-10 sm:w-11 sm:h-11 rounded-full shadow-2xl flex items-center justify-center transition-all opacity-0 pointer-events-none duration-300 cursor-pointer" aria-label="Back to Top">
+        <i class="fa-solid fa-chevron-up text-sm"></i>
     </button>
 
     {{-- GLOBAL SCRIPTS --}}
