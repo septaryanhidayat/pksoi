@@ -32,20 +32,28 @@ class AppServiceProvider extends ServiceProvider
         }
 
         View::composer('*', function ($view) {
-            if (Schema::hasTable('settings')) {
-                $view->with('siteSettings', Setting::all()->pluck('value', 'key')->toArray());
-            } else {
-                $view->with('siteSettings', []);
+            try {
+                if (Schema::hasTable('settings')) {
+                    $view->with('siteSettings', Setting::all()->pluck('value', 'key')->toArray());
+                    return;
+                }
+            } catch (\Throwable $e) {
+                // Database not yet connected or migrating
             }
+            $view->with('siteSettings', []);
         });
 
-        if (Schema::hasTable('categories')) {
-            $headerCategories = Category::withCount('posts')
-                ->orderBy('posts_count', 'desc')
-                ->take(8)
-                ->get();
-            View::share('headerCategories', $headerCategories);
-        } else {
+        try {
+            if (Schema::hasTable('categories')) {
+                $headerCategories = Category::withCount('posts')
+                    ->orderBy('posts_count', 'desc')
+                    ->take(8)
+                    ->get();
+                View::share('headerCategories', $headerCategories);
+            } else {
+                View::share('headerCategories', collect());
+            }
+        } catch (\Throwable $e) {
             View::share('headerCategories', collect());
         }
     }
