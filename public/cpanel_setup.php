@@ -54,6 +54,37 @@ switch ($action) {
         $results['view:clear'] = runArtisan($kernel, 'view:clear');
         break;
 
+    case 'deploy_sync':
+        $currentDir = __DIR__;
+        $parentDir = dirname($currentDir);
+        $publicHtml = dirname($parentDir) . '/public_html';
+        $synced = 0;
+        if (is_dir($publicHtml) && realpath($currentDir) !== realpath($publicHtml)) {
+            $iterator = new RecursiveIteratorIterator(
+                new RecursiveDirectoryIterator($currentDir, RecursiveDirectoryIterator::SKIP_DOTS),
+                RecursiveIteratorIterator::SELF_FIRST
+            );
+            foreach ($iterator as $item) {
+                $subPath = $iterator->getSubPathName();
+                $target = $publicHtml . '/' . $subPath;
+                if ($item->isDir()) {
+                    if (!is_dir($target)) @mkdir($target, 0755, true);
+                } else {
+                    @copy($item->getPathname(), $target);
+                    $synced++;
+                }
+            }
+            $results['Asset Sync'] = "Berhasil menyinkronkan {$synced} file aset dari public/ ke public_html/";
+        } else {
+            $results['Asset Sync'] = "Aplikasi berjalan langsung pada web root ({$currentDir}). Tidak perlu copy aset.";
+        }
+        $results['storage:link'] = runArtisan($kernel, 'storage:link');
+        $results['cache:clear'] = runArtisan($kernel, 'optimize:clear');
+        $results['config:cache'] = runArtisan($kernel, 'config:cache');
+        $results['route:cache'] = runArtisan($kernel, 'route:cache');
+        $results['view:cache'] = runArtisan($kernel, 'view:cache');
+        break;
+
     case 'migrate':
         $results['migrate'] = runArtisan($kernel, 'migrate', ['--force' => true]);
         break;
@@ -97,6 +128,7 @@ switch ($action) {
         <h1>🛠️ Helper Deployment cPanel - DPD PKS Ogan Ilir</h1>
         <div class="nav-links">
             <a href="?token=<?= $secretToken ?>&action=status">Cek Status Sistem</a>
+            <a href="?token=<?= $secretToken ?>&action=deploy_sync" style="background:#16a34a;">⚡ Sinkron & Deploy Manual</a>
             <a href="?token=<?= $secretToken ?>&action=storage_link">Buat Storage Link</a>
             <a href="?token=<?= $secretToken ?>&action=optimize">Optimasi Cache (Produksi)</a>
             <a href="?token=<?= $secretToken ?>&action=clear_cache" class="gray">Bersihkan Cache</a>
