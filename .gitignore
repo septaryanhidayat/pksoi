@@ -27,6 +27,7 @@ Homestead.yaml
 Thumbs.db
 *.sqlite
 *.sqlite-journal
+*.zip
 
 # WordPress Raw Backups (Exceeds GitHub file limits)
 /BACKUP WEb LAMA/
