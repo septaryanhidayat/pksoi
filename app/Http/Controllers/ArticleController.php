@@ -43,9 +43,9 @@ class ArticleController extends Controller
             }
         }
 
-        $posts = $query->latest('published_at')->paginate(9)->withQueryString();
+        $posts = $query->orderBy('published_at', 'desc')->orderBy('id', 'desc')->paginate(9)->withQueryString();
         $categories = Category::withCount('posts')->orderBy('posts_count', 'desc')->get();
-        $recentPosts = Post::posts()->published()->latest('published_at')->take(5)->get();
+        $recentPosts = Post::posts()->published()->orderBy('published_at', 'desc')->orderBy('id', 'desc')->take(5)->get();
         $tags = Tag::all();
 
         return view('frontend.artikel.index', compact(

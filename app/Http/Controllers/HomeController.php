@@ -43,18 +43,19 @@ class HomeController extends Controller
         // 2. Sambutan Ketua DPD page
         $sambutan = Post::where('type', 'page')->where('slug', 'sambutan-ketua-dpd')->first();
 
-        // 3. Ambil semua post publik untuk fallback
+        // 3. Ambil semua post publik untuk fallback (diurutkan berita terbaru paling atas)
         $allPosts = Post::posts()
             ->published()
             ->with(['categories'])
-            ->latest('published_at')
-            ->take(30)
+            ->orderBy('published_at', 'desc')
+            ->orderBy('id', 'desc')
+            ->take(50)
             ->get();
 
         $featuredPost = $allPosts->first();
         $sidePosts = $allPosts->slice(1, 4);
 
-        // 4. Kabar Senayan (Section 5 - Fraksi PKS DPR RI, 8 posts)
+        // 4. Kabar Senayan (Section 5 - Fraksi PKS DPR RI, 8 posts terbaru)
         $senayanPosts = Post::posts()
             ->published()
             ->with(['categories'])
@@ -62,11 +63,12 @@ class HomeController extends Controller
                 $q->whereHas('categories', fn($c) => $c->whereIn('slug', ['dpr-ri', 'senayan']))
                   ->orWhereHas('tags', fn($t) => $t->whereIn('slug', ['dpr-ri', 'dpdr-ri', 'senayan', 'iqbal-romzi', 'iqbal-romzie']));
             })
-            ->latest('published_at')
+            ->orderBy('published_at', 'desc')
+            ->orderBy('id', 'desc')
             ->take(8)
             ->get();
 
-        // 5. Berita Fraksi PKS DPRD Ogan Ilir (Section 3 - Eksklusif DPRD Ogan Ilir, 8 posts)
+        // 5. Berita Fraksi PKS DPRD Ogan Ilir (Section 3 - Eksklusif DPRD Ogan Ilir, 8 posts terbaru)
         $fraksiPosts = Post::posts()
             ->published()
             ->with(['categories'])
@@ -75,39 +77,42 @@ class HomeController extends Controller
                   ->orWhereHas('tags', fn($t) => $t->whereIn('slug', ['dprd-oi', 'fraksi', 'dewan']));
             })
             ->whereNotIn('id', $senayanPosts->pluck('id'))
-            ->latest('published_at')
+            ->orderBy('published_at', 'desc')
+            ->orderBy('id', 'desc')
             ->take(8)
             ->get();
 
         if ($fraksiPosts->count() < 8) {
             $fallbackPosts = $allPosts->whereNotIn('id', $senayanPosts->pluck('id'));
-            $fraksiPosts = $fraksiPosts->merge($fallbackPosts)->take(8);
+            $fraksiPosts = $fraksiPosts->merge($fallbackPosts)->sortByDesc('published_at')->take(8);
         }
 
-        // 6. Berita Nasional (Section 4 Kolom 1 - 6 posts)
+        // 6. Berita Nasional (Section 4 Kolom 1 - 6 posts terbaru)
         $nasionalPosts = Post::posts()
             ->published()
             ->with(['categories'])
             ->whereHas('categories', fn($c) => $c->where('slug', 'nasional'))
-            ->latest('published_at')
+            ->orderBy('published_at', 'desc')
+            ->orderBy('id', 'desc')
             ->take(6)
             ->get();
 
         if ($nasionalPosts->count() < 4) {
-            $nasionalPosts = $allPosts->take(6);
+            $nasionalPosts = $allPosts->sortByDesc('published_at')->take(6);
         }
 
-        // 7. Berita Daerah (Section 4 Kolom 2 - 6 posts)
+        // 7. Berita Daerah (Section 4 Kolom 2 - 6 posts terbaru)
         $daerahPosts = Post::posts()
             ->published()
             ->with(['categories'])
             ->whereHas('categories', fn($c) => $c->whereIn('slug', ['ogan-ilir', 'berita', 'kegiatan']))
-            ->latest('published_at')
+            ->orderBy('published_at', 'desc')
+            ->orderBy('id', 'desc')
             ->take(6)
             ->get();
 
         if ($daerahPosts->count() < 4) {
-            $daerahPosts = $allPosts->slice(2, 6);
+            $daerahPosts = $allPosts->sortByDesc('published_at')->slice(2, 6);
         }
 
         // 8. Anggota Dewan Fraksi PKS (Section 6-9 - 4 dewan)

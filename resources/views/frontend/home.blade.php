@@ -721,8 +721,8 @@
                     <div class="flex transition-transform duration-500 ease-out" :style="'transform: translateX(-' + (current * (100 / perView)) + '%)'">
                         <template x-for="(photo, index) in photos" :key="index">
                             <div class="flex-shrink-0 px-2 sm:px-2.5" :style="'width: ' + (100 / perView) + '%'">
-                                <a href="{{ route('galeri.index') }}" class="group block relative rounded-2xl overflow-hidden shadow-xl aspect-[4/3.2] bg-neutral-900 border border-neutral-800 transform hover:scale-103 transition duration-300">
-                                    <img :src="photo.url" :alt="photo.title" class="w-full h-full object-cover group-hover:scale-108 transition duration-500">
+                                <a href="{{ route('galeri.index') }}" class="group block relative rounded-2xl overflow-hidden shadow-xl bg-neutral-900 border border-neutral-800 transform hover:scale-103 transition duration-300 h-64 sm:h-72 lg:h-80 w-full">
+                                    <img :src="photo.url" :alt="photo.title" class="w-full h-full object-cover object-center group-hover:scale-108 transition duration-500">
                                     <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-3 sm:p-4">
                                         <span class="text-xs text-white font-medium line-clamp-2" x-text="photo.title"></span>
                                     </div>
@@ -786,8 +786,8 @@
                     <div class="flex transition-transform duration-500 ease-out" :style="'transform: translateX(-' + (current * (100 / perView)) + '%)'">
                         <template x-for="(photo, index) in photos" :key="index">
                             <div class="flex-shrink-0 px-2 sm:px-2.5" :style="'width: ' + (100 / perView) + '%'">
-                                <a href="{{ route('galeri.index') }}" class="group block relative rounded-2xl overflow-hidden shadow-lg aspect-square bg-neutral-900 border border-neutral-800 transform hover:scale-103 transition duration-300">
-                                    <img :src="photo.url" :alt="photo.title" class="w-full h-full object-cover group-hover:scale-108 transition duration-500">
+                                <a href="{{ route('galeri.index') }}" class="group block relative rounded-2xl overflow-hidden shadow-lg bg-neutral-900 border border-neutral-800 transform hover:scale-103 transition duration-300 h-44 sm:h-52 lg:h-60 w-full">
+                                    <img :src="photo.url" :alt="photo.title" class="w-full h-full object-cover object-center group-hover:scale-108 transition duration-500">
                                     <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-3">
                                         <span class="text-xs text-white font-medium line-clamp-2" x-text="photo.title"></span>
                                     </div>
@@ -908,8 +908,8 @@
                     <div class="flex transition-transform duration-500 ease-out" :style="'transform: translateX(-' + (current * (100 / perView)) + '%)'">
                         <template x-for="(eb, idx) in items" :key="idx">
                             <div class="flex-shrink-0 px-2.5 sm:px-3" :style="'width: ' + (100 / perView) + '%'">
-                                <a href="{{ route('download.ebook') }}" class="group block relative aspect-[3/4.2] rounded-2xl overflow-hidden shadow-2xl bg-neutral-900 border border-neutral-800 transform hover:scale-104 transition duration-300 cursor-pointer">
-                                    <img :src="eb.cover" :alt="eb.title" class="w-full h-full object-cover group-hover:scale-106 transition duration-500">
+                                <a href="{{ route('download.ebook') }}" class="group block relative rounded-2xl overflow-hidden shadow-2xl bg-neutral-900 border border-neutral-800 transform hover:scale-104 transition duration-300 cursor-pointer h-72 sm:h-80 lg:h-96 w-full">
+                                    <img :src="eb.cover" :alt="eb.title" class="w-full h-full object-cover object-center group-hover:scale-106 transition duration-500">
                                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end justify-center p-3 text-center">
                                         <span class="text-xs font-bold text-white truncate max-w-full" x-text="eb.title"></span>
                                     </div>
