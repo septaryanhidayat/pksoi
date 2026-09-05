@@ -34,7 +34,16 @@ if ($foundRoot) {
     
     // Check .env DB settings
     if (file_exists($foundRoot . '/.env')) {
-        $env = parse_ini_file($foundRoot . '/.env');
+        $env = [];
+        $lines = file($foundRoot . '/.env', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+        foreach ($lines as $line) {
+            $line = trim($line);
+            if ($line === '' || str_starts_with($line, '#')) continue;
+            if (str_contains($line, '=')) {
+                [$k, $v] = explode('=', $line, 2);
+                $env[trim($k)] = trim($v, " \t\n\r\0\x0B\"'");
+            }
+        }
         echo "DB_CONNECTION: " . ($env['DB_CONNECTION'] ?? 'none') . "\n";
         echo "DB_DATABASE: " . ($env['DB_DATABASE'] ?? 'none') . "\n";
         echo "DB_USERNAME: " . ($env['DB_USERNAME'] ?? 'none') . "\n";
