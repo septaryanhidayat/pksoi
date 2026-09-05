@@ -5,12 +5,20 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\ActivityLog;
 use App\Models\AnggotaDewan;
+use App\Services\WebpService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class AdminDewanController extends Controller
 {
+    protected WebpService $webpService;
+
+    public function __construct(WebpService $webpService)
+    {
+        $this->webpService = $webpService;
+    }
+
     public function index()
     {
         $dewan = AnggotaDewan::orderBy('order', 'asc')->get();
@@ -37,9 +45,10 @@ class AdminDewanController extends Controller
         $photoPath = null;
         if ($request->hasFile('photo')) {
             $file = $request->file('photo');
-            $filename = time() . '_' . Str::slug($validated['name']) . '.webp';
-            $file->move(public_path('uploads/dewan'), $filename);
-            $photoPath = '/uploads/dewan/' . $filename;
+            $converted = $this->webpService->processUploadedFile($file, 'dewan', 85, 1200);
+            if ($converted['success']) {
+                $photoPath = $converted['url'];
+            }
         }
 
         $dewan = AnggotaDewan::create([
@@ -85,9 +94,10 @@ class AdminDewanController extends Controller
 
         if ($request->hasFile('photo')) {
             $file = $request->file('photo');
-            $filename = time() . '_' . Str::slug($validated['name']) . '.webp';
-            $file->move(public_path('uploads/dewan'), $filename);
-            $dewan->photo = '/uploads/dewan/' . $filename;
+            $converted = $this->webpService->processUploadedFile($file, 'dewan', 85, 1200);
+            if ($converted['success']) {
+                $dewan->photo = $converted['url'];
+            }
         }
 
         $dewan->name = $validated['name'];

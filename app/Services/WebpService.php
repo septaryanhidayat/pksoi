@@ -147,6 +147,26 @@ class WebpService
         if ($result['success']) {
             $result['url'] = '/' . $relativeDirectory . '/' . $uniqueName;
             $result['filename'] = $uniqueName;
+
+            // Mirror file to active web document roots (cPanel separate docroot support)
+            $docRootCandidates = array_filter([
+                $_SERVER['DOCUMENT_ROOT'] ?? null,
+                dirname(public_path()) . '/../pksoganilir.com',
+                dirname(public_path()) . '/../pksoganilir.com/public',
+                dirname(public_path()) . '/../public_html',
+                '/home/berandad/pksoganilir.com',
+                '/home/berandad/public_html',
+            ]);
+
+            foreach ($docRootCandidates as $docRoot) {
+                if ($docRoot && is_dir($docRoot) && realpath($docRoot) !== realpath(public_path())) {
+                    $targetDir = rtrim($docRoot, '/\\') . '/' . $relativeDirectory;
+                    if (!is_dir($targetDir)) {
+                        @mkdir($targetDir, 0755, true);
+                    }
+                    @copy($destinationPath, $targetDir . '/' . $uniqueName);
+                }
+            }
         }
 
         return $result;

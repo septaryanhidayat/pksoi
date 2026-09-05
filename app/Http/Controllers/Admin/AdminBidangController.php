@@ -5,12 +5,19 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\ActivityLog;
 use App\Models\Bidang;
+use App\Services\WebpService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class AdminBidangController extends Controller
 {
+    protected WebpService $webpService;
+
+    public function __construct(WebpService $webpService)
+    {
+        $this->webpService = $webpService;
+    }
     public function index()
     {
         $bidangs = Bidang::orderBy('order', 'asc')->get();
@@ -37,10 +44,10 @@ class AdminBidangController extends Controller
 
         $iconPath = $validated['icon'] ?? 'fa-solid fa-users';
         if ($request->hasFile('icon_file')) {
-            $file = $request->file('icon_file');
-            $filename = 'bidang_' . time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('uploads/bidang'), $filename);
-            $iconPath = '/uploads/bidang/' . $filename;
+            $converted = $this->webpService->processUploadedFile($request->file('icon_file'), 'bidang', 90, 512);
+            if ($converted['success']) {
+                $iconPath = $converted['url'];
+            }
         }
 
         $bidang = Bidang::create([
@@ -87,10 +94,10 @@ class AdminBidangController extends Controller
 
         $iconPath = $bidang->icon;
         if ($request->hasFile('icon_file')) {
-            $file = $request->file('icon_file');
-            $filename = 'bidang_' . time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('uploads/bidang'), $filename);
-            $iconPath = '/uploads/bidang/' . $filename;
+            $converted = $this->webpService->processUploadedFile($request->file('icon_file'), 'bidang', 90, 512);
+            if ($converted['success']) {
+                $iconPath = $converted['url'];
+            }
         } elseif ($request->filled('icon')) {
             $iconPath = $validated['icon'];
         }
