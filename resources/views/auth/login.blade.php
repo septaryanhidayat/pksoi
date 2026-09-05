@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Administrator - DPD PKS Ogan Ilir</title>
-    <link rel="icon" type="image/webp" href="/uploads/2025/09/cropped-logo-thumbnail.webp">
+    <link rel="icon" type="image/webp" href="/uploads/2025/09/logo-thumbnail.webp">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -17,7 +17,9 @@
         {{-- Brand Logo --}}
         <div class="text-center mb-8">
             <a href="{{ route('home') }}" class="inline-block group">
-                <img src="/uploads/2023/08/logo-pks-ogan-ilir.webp" alt="Logo PKS Ogan Ilir" class="h-16 w-auto mx-auto object-contain transform group-hover:scale-105 transition" onerror="this.src='/uploads/2025/09/logo-thumbnail.webp'">
+                <div class="w-24 h-24 mx-auto p-2 bg-orange-50/50 rounded-2xl border border-orange-100 flex items-center justify-center shadow-inner group-hover:scale-105 transition duration-300">
+                    <img src="/uploads/2025/09/Logo-PKS-e1758079670733.webp" alt="Logo PKS Ogan Ilir" class="max-h-full max-w-full object-contain" onerror="this.src='/uploads/2025/09/logo-thumbnail.webp'">
+                </div>
             </a>
             <h1 class="text-2xl font-extrabold text-gray-900 mt-4 tracking-tight">Panel Administrator</h1>
             <p class="text-xs text-gray-500 mt-1">DPD PKS Kabupaten Ogan Ilir</p>
@@ -40,23 +42,23 @@
             <div>
                 <label for="email" class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">Email Administrator</label>
                 <div class="relative">
-                    <input type="email" name="email" id="email" required value="{{ old('email') }}" placeholder="admin@pksoganilir.com" class="w-full bg-gray-50 text-xs text-gray-800 rounded-xl pl-10 pr-4 py-3 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#f37023]">
-                    <i class="fa-solid fa-envelope absolute left-3.5 top-3.5 text-gray-400 text-xs"></i>
+                    <input type="email" name="email" id="email" required value="{{ old('email') }}" placeholder="admin@pksoganilir.com" class="w-full bg-gray-50 text-xs text-gray-800 rounded-xl pl-10 pr-4 py-3.5 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#f37023] transition">
+                    <i class="fa-solid fa-envelope absolute left-3.5 top-4 text-gray-400 text-xs"></i>
                 </div>
             </div>
 
             <div>
                 <label for="password" class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">Password</label>
                 <div class="relative">
-                    <input type="password" name="password" id="password" required placeholder="••••••••" class="w-full bg-gray-50 text-xs text-gray-800 rounded-xl pl-10 pr-4 py-3 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#f37023]">
-                    <i class="fa-solid fa-lock absolute left-3.5 top-3.5 text-gray-400 text-xs"></i>
+                    <input type="password" name="password" id="password" required placeholder="••••••••" class="w-full bg-gray-50 text-xs text-gray-800 rounded-xl pl-10 pr-4 py-3.5 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#f37023] transition">
+                    <i class="fa-solid fa-lock absolute left-3.5 top-4 text-gray-400 text-xs"></i>
                 </div>
             </div>
 
             <div class="flex items-center justify-between text-xs py-1">
                 <label class="flex items-center text-gray-600 cursor-pointer">
                     <input type="checkbox" name="remember" class="rounded border-gray-300 text-[#f37023] focus:ring-[#f37023] mr-2">
-                    <span>Ingat saya</span>
+                    <span>Ingat saya di perangkat ini</span>
                 </label>
             </div>
 
@@ -67,8 +69,8 @@
         </form>
 
         <div class="mt-8 pt-6 border-t border-gray-100 text-center text-xs text-gray-400">
-            <a href="{{ route('home') }}" class="hover:text-[#f37023] transition flex items-center justify-center">
-                <i class="fa-solid fa-arrow-left mr-1.5"></i>
+            <a href="{{ route('home') }}" class="hover:text-[#f37023] transition inline-flex items-center space-x-1.5">
+                <i class="fa-solid fa-arrow-left"></i>
                 <span>Kembali ke Website Utama</span>
             </a>
         </div>

@@ -6,32 +6,38 @@ use App\Models\AnggotaDewan;
 use App\Models\Bidang;
 use App\Models\Dpc;
 use App\Models\Post;
+use App\Models\Testimonial;
 use Illuminate\Http\Request;
 
 class PageController extends Controller
 {
     public function sambutan()
     {
-        $page = Post::pages()->where('slug', 'sambutan-ketua-dpd')->firstOrFail();
+        $page = Post::pages()->where('slug', 'sambutan-ketua-dpd')->first();
         return view('frontend.pages.sambutan', compact('page'));
     }
 
     public function tentangKami()
     {
-        $page = Post::pages()->where('slug', 'tentang-kami')->firstOrFail();
-        return view('frontend.pages.tentang-kami', compact('page'));
+        $page = Post::pages()->where('slug', 'tentang-kami')->first();
+        $testimonials = Testimonial::all();
+        return view('frontend.pages.tentang-kami', compact('page', 'testimonials'));
     }
 
     public function visiMisi()
     {
-        $page = Post::pages()->where('slug', 'visi-dan-misi')->firstOrFail();
-        return view('frontend.pages.visi-misi', compact('page'));
+        $page = Post::pages()->where('slug', 'visi-dan-misi')->first();
+        $latestPosts = Post::articles()->published()->latest('post_date')->take(5)->get();
+        $latestAgendas = Post::agendas()->published()->latest('post_date')->take(5)->get();
+        return view('frontend.pages.visi-misi', compact('page', 'latestPosts', 'latestAgendas'));
     }
 
     public function sejarah()
     {
-        $page = Post::pages()->where('slug', 'sejarah')->firstOrFail();
-        return view('frontend.pages.sejarah', compact('page'));
+        $page = Post::pages()->where('slug', 'sejarah')->first();
+        $latestPosts = Post::articles()->published()->latest('post_date')->take(5)->get();
+        $latestAgendas = Post::agendas()->published()->latest('post_date')->take(5)->get();
+        return view('frontend.pages.sejarah', compact('page', 'latestPosts', 'latestAgendas'));
     }
 
     public function struktur()
@@ -46,7 +52,7 @@ class PageController extends Controller
 
     public function privacyPolicy()
     {
-        $page = Post::pages()->where('slug', 'privacy-policy')->firstOrFail();
+        $page = Post::pages()->where('slug', 'privacy-policy')->first();
         return view('frontend.pages.privacy-policy', compact('page'));
     }
 

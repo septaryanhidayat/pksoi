@@ -1,58 +1,80 @@
 @extends('layouts.frontend')
 
 @section('title', 'Galeri Video - DPD PKS Ogan Ilir')
-@section('meta_description', 'Dokumentasi video kegiatan dan podcast DPD PKS Ogan Ilir.')
+@section('meta_description', 'Kumpulan video dokumentasi kegiatan resmi, podcast, dan aksi advokasi DPD PKS Ogan Ilir.')
 
 @section('content')
+{{-- HERO HEADER --}}
 <div class="bg-gradient-to-r from-gray-900 to-gray-800 text-white py-12">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <nav class="text-xs text-gray-400 mb-3 flex items-center space-x-2">
             <a href="{{ route('home') }}" class="hover:text-white transition">Beranda</a>
             <span>/</span>
-            <span>Informasi</span>
-            <span>/</span>
-            <span class="text-[#fdb913]">Galeri Video</span>
+            <span class="text-[#fdb913]">Video</span>
         </nav>
-        <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight">Galeri Video PKS TV</h1>
-        <p class="text-sm text-gray-300 mt-2 font-light">Dokumentasi video kegiatan resmi, podcast, dan aksi advokasi rakyat.</p>
+        <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight">Galeri Video PKS Ogan Ilir</h1>
+        <p class="text-sm text-gray-300 mt-2 font-light">
+            Dokumentasi video liputan kegiatan, podcast dakwah, pesan pimpinan, dan aksi advokasi rakyat.
+        </p>
     </div>
 </div>
 
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 space-y-12">
+    
+    <div class="text-center max-w-2xl mx-auto">
+        <span class="text-xs font-bold text-[#f37023] uppercase tracking-wider block">PUBLIKASI MULTIMEDIA</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-gray-900 tracking-tight mt-1">
+            Video Kegiatan PKS Ogan Ilir
+        </h2>
+        <div class="w-16 h-1 bg-[#f37023] mx-auto rounded-full mt-3"></div>
+    </div>
+
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        @forelse($videos as $vid)
-            <div class="bg-white rounded-3xl overflow-hidden shadow-md border border-gray-100 flex flex-col group">
-                <div class="relative pb-[56.25%] h-0 bg-black overflow-hidden">
-                    @if($vid->youtube_id)
-                        <iframe class="absolute top-0 left-0 w-full h-full" 
-                                src="https://www.youtube.com/embed/{{ $vid->youtube_id }}" 
-                                title="{{ $vid->title }}" 
-                                frameborder="0" 
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                allowfullscreen></iframe>
-                    @else
-                        <div class="absolute inset-0 flex items-center justify-center text-white">
-                            <i class="fa-brands fa-youtube text-5xl text-red-500"></i>
-                        </div>
-                    @endif
+        @forelse($videos as $idx => $vid)
+            <div class="bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-xl border border-gray-100 flex flex-col justify-between group reveal-fade-up delay-{{ $idx % 3 }}">
+                <div>
+                    <div class="relative pb-[56.25%] h-0 bg-black overflow-hidden">
+                        @if($vid->youtube_id)
+                            <iframe class="absolute top-0 left-0 w-full h-full" 
+                                    src="https://www.youtube.com/embed/{{ $vid->youtube_id }}" 
+                                    title="{{ $vid->title }}" 
+                                    frameborder="0" 
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                    allowfullscreen></iframe>
+                        @else
+                            <div class="absolute inset-0 flex items-center justify-center text-white">
+                                <i class="fa-brands fa-youtube text-5xl text-red-500"></i>
+                            </div>
+                        @endif
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-extrabold text-sm sm:text-base text-gray-900 group-hover:text-[#f37023] transition line-clamp-2 leading-snug">
+                            {{ $vid->title }}
+                        </h3>
+                        @if($vid->description)
+                            <p class="text-xs text-gray-500 line-clamp-3 mt-2 font-light leading-relaxed">
+                                {!! strip_tags($vid->description) !!}
+                            </p>
+                        @endif
+                    </div>
                 </div>
-                <div class="p-6 flex-grow flex flex-col justify-between">
-                    <h2 class="font-extrabold text-sm sm:text-base text-gray-900 line-clamp-2 leading-snug">
-                        {{ $vid->title }}
-                    </h2>
-                    @if($vid->description)
-                        <p class="text-xs text-gray-500 line-clamp-2 mt-2 font-light">
-                            {!! strip_tags($vid->description) !!}
-                        </p>
-                    @endif
+
+                <div class="p-6 pt-0 border-t border-gray-100 flex items-center justify-between text-xs text-gray-400 mt-2">
+                    <span class="inline-flex items-center text-red-600 font-bold">
+                        <i class="fa-brands fa-youtube mr-1.5 text-sm"></i> YouTube
+                    </span>
+                    <span>DPD PKS Ogan Ilir</span>
                 </div>
             </div>
         @empty
-            <div class="col-span-3 text-center py-16 text-gray-400">Belum ada video.</div>
+            <div class="col-span-full text-center py-16 text-gray-400 bg-white rounded-3xl border border-gray-100">
+                <i class="fa-solid fa-video text-4xl text-gray-300 mb-3 block"></i>
+                <span>Belum ada video dokumentasi yang tersedia.</span>
+            </div>
         @endforelse
     </div>
 
-    <div class="pt-8">
+    <div class="pt-6">
         {{ $videos->links() }}
     </div>
 </div>

@@ -29,7 +29,7 @@
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
         
         {{-- MAIN ARTICLE (2/3) --}}
-        <article class="lg:col-span-2 bg-white p-6 sm:p-10 rounded-3xl shadow-sm border border-gray-100">
+        <article class="lg:col-span-2 bg-white p-6 sm:p-10 rounded-3xl shadow-xl border border-gray-100 reveal-fade-up">
             
             {{-- Category Pills --}}
             @if($post->categories->isNotEmpty())

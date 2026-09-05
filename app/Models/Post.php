@@ -57,6 +57,16 @@ class Post extends Model
         return $query->where('type', 'post');
     }
 
+    public function scopeArticles($query)
+    {
+        return $query->where('type', 'post');
+    }
+
+    public function scopeAgendas($query)
+    {
+        return $query->where('type', 'agenda');
+    }
+
     public function scopePages($query)
     {
         return $query->where('type', 'page');
