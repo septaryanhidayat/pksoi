@@ -34,7 +34,7 @@
                                 <span class="text-[10px] text-slate-400 font-mono">/{{ $b->slug }}</span>
                             </div>
                         </div>
-                        <p class="text-xs text-slate-600 line-clamp-3 leading-relaxed">{{ $b->description ?: 'Belum ada deskripsi untuk bidang ini.' }}</p>
+                        <p class="text-xs text-slate-600 line-clamp-3 leading-relaxed">{{ strip_tags($b->description) ?: 'Belum ada deskripsi untuk bidang ini.' }}</p>
                     </div>
 
                     <div class="pt-3 border-t border-slate-200 flex items-center justify-between text-xs">

@@ -625,26 +625,34 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             @foreach($videos as $index => $v)
             <div class="bg-black rounded-2xl overflow-hidden shadow-lg border border-gray-800 flex flex-col justify-between group reveal-fade-up delay-{{ ($index % 3) + 1 }}">
-                <div class="relative aspect-video bg-black">
-                    @if($v->youtube_id)
-                    <iframe class="w-full h-full" src="https://www.youtube.com/embed/{{ $v->youtube_id }}" title="{{ $v->title }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    @else
-                    <a href="{{ $v->youtube_url }}" target="_blank" class="block w-full h-full relative flex items-center justify-center">
-                        <img src="https://img.youtube.com/vi/{{ $v->youtube_id }}/hqdefault.jpg" alt="{{ $v->title }}" class="w-full h-full object-cover">
-                        <div class="absolute inset-0 bg-black/40 flex items-center justify-center group-hover:bg-black/20 transition">
-                            <i class="fa-brands fa-youtube text-red-600 text-5xl"></i>
+                <div class="relative aspect-video bg-gray-950 overflow-hidden cursor-pointer group/vid" onclick="playHomeVideo(this, '{{ $v->youtube_id }}')">
+                    <img src="{{ $v->thumbnail_url }}" 
+                         alt="{{ $v->title }}" 
+                         class="w-full h-full object-cover transition-transform duration-500 group-hover/vid:scale-105"
+                         loading="lazy"
+                         onerror="this.src='https://img.youtube.com/vi/{{ $v->youtube_id }}/hqdefault.jpg'">
+                    <div class="absolute inset-0 bg-black/30 group-hover/vid:bg-black/10 transition flex items-center justify-center">
+                        <div class="w-14 h-14 rounded-full bg-red-600/90 text-white flex items-center justify-center shadow-xl group-hover/vid:scale-110 group-hover/vid:bg-red-600 transition-all">
+                            <i class="fa-solid fa-play text-xl ml-1"></i>
                         </div>
-                    </a>
-                    @endif
+                    </div>
                 </div>
                 <div class="bg-white py-3.5 px-4 rounded-b-2xl text-center">
-                    <h3 class="font-bold text-xs sm:text-sm text-gray-900 truncate group-hover:text-[#FE6000] transition">
+                    <h3 class="font-bold text-xs sm:text-sm text-gray-900 truncate group-hover:text-[#FE6000] transition" title="{{ $v->title }}">
                         {{ $v->title }}
                     </h3>
                 </div>
             </div>
             @endforeach
         </div>
+
+        <script>
+        function playHomeVideo(el, id) {
+            if (!id) return;
+            el.onclick = null;
+            el.innerHTML = '<iframe class="w-full h-full absolute inset-0" src="https://www.youtube.com/embed/' + encodeURIComponent(id) + '?autoplay=1&rel=0" title="YouTube video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+        }
+        </script>
 
         <div class="text-center mt-10 reveal-fade-up">
             <a href="{{ route('video.index') }}" class="inline-flex items-center bg-[#FE6000] hover:bg-[#d85200] text-white font-bold text-xs sm:text-sm px-7 py-2.5 rounded-full shadow-lg transition">
