@@ -33,40 +33,40 @@
         @forelse($videos as $idx => $vid)
             <div class="bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-xl border border-gray-100 flex flex-col justify-between group reveal-fade-up delay-{{ $idx % 3 }}">
                 <div>
-                    <div class="relative pb-[56.25%] h-0 bg-black overflow-hidden cursor-pointer group/vid" onclick="playPageVideo(this, '{{ $vid->youtube_id }}')">
+                    <button type="button" class="w-full relative pb-[56.25%] h-0 bg-black overflow-hidden cursor-pointer group/vid block focus:outline-none" onclick="playPageVideo(this, '{{ $vid->youtube_id }}', '{{ addslashes($vid->title) }}')" aria-label="Putar video: {{ $vid->title }}">
                         <img src="{{ $vid->thumbnail_url }}" 
-                             alt="{{ $vid->title }}" 
+                             alt="Thumbnail video: {{ $vid->title }}" 
                              class="absolute top-0 left-0 w-full h-full object-cover transition-transform duration-500 group-hover/vid:scale-105"
                              loading="lazy"
                              onerror="this.src='https://img.youtube.com/vi/{{ $vid->youtube_id }}/hqdefault.jpg'">
-                        <div class="absolute inset-0 bg-black/30 group-hover/vid:bg-black/10 transition flex items-center justify-center">
+                        <div class="absolute inset-0 bg-black/30 group-hover/vid:bg-black/10 transition flex items-center justify-center" aria-hidden="true">
                             <div class="w-14 h-14 rounded-full bg-red-600/90 text-white flex items-center justify-center shadow-xl group-hover/vid:scale-110 group-hover/vid:bg-red-600 transition-all">
                                 <i class="fa-solid fa-play text-xl ml-1"></i>
                             </div>
                         </div>
-                    </div>
+                    </button>
                     <div class="p-6">
                         <h3 class="font-extrabold text-sm sm:text-base text-gray-900 group-hover:text-[#f37023] transition line-clamp-2 leading-snug">
                             {{ $vid->title }}
                         </h3>
                         @if($vid->description)
-                            <p class="text-xs text-gray-500 line-clamp-3 mt-2 font-light leading-relaxed">
+                            <p class="text-xs text-gray-600 line-clamp-3 mt-2 font-light leading-relaxed">
                                 {!! strip_tags($vid->description) !!}
                             </p>
                         @endif
                     </div>
                 </div>
 
-                <div class="p-6 pt-0 border-t border-gray-100 flex items-center justify-between text-xs text-gray-400 mt-2">
+                <div class="p-6 pt-0 border-t border-gray-100 flex items-center justify-between text-xs text-gray-600 mt-2">
                     <span class="inline-flex items-center text-red-600 font-bold">
-                        <i class="fa-brands fa-youtube mr-1.5 text-sm"></i> YouTube
+                        <i class="fa-brands fa-youtube mr-1.5 text-sm" aria-hidden="true"></i> YouTube
                     </span>
                     <span>DPD PKS Ogan Ilir</span>
                 </div>
             </div>
         @empty
-            <div class="col-span-full text-center py-16 text-gray-400 bg-white rounded-3xl border border-gray-100">
-                <i class="fa-solid fa-video text-4xl text-gray-300 mb-3 block"></i>
+            <div class="col-span-full text-center py-16 text-gray-500 bg-white rounded-3xl border border-gray-100">
+                <i class="fa-solid fa-video text-4xl text-gray-300 mb-3 block" aria-hidden="true"></i>
                 <span>Belum ada video dokumentasi yang tersedia.</span>
             </div>
         @endforelse
@@ -78,10 +78,10 @@
 </div>
 
 <script>
-function playPageVideo(el, id) {
+function playPageVideo(el, id, title) {
     if (!id) return;
     el.onclick = null;
-    el.innerHTML = '<iframe class="absolute top-0 left-0 w-full h-full" src="https://www.youtube.com/embed/' + encodeURIComponent(id) + '?autoplay=1&rel=0" title="YouTube video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+    el.innerHTML = '<iframe class="absolute top-0 left-0 w-full h-full" src="https://www.youtube.com/embed/' + encodeURIComponent(id) + '?autoplay=1&rel=0" title="' + (title || 'YouTube video') + '" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
 }
 </script>
 @endsection

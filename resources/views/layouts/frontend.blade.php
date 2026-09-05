@@ -63,8 +63,8 @@
                     <i class="fa-solid fa-circle-check text-green-500 text-lg mr-3"></i>
                     <p class="text-sm font-medium text-green-800">{{ session('success') }}</p>
                 </div>
-                <button type="button" onclick="this.parentElement.remove()" class="text-green-600 hover:text-green-800 text-sm">
-                    <i class="fa-solid fa-xmark"></i>
+                <button type="button" onclick="this.parentElement.remove()" class="text-green-600 hover:text-green-800 text-sm min-w-[36px] min-h-[36px] flex items-center justify-center" aria-label="Tutup notifikasi">
+                    <i class="fa-solid fa-xmark" aria-hidden="true"></i>
                 </button>
             </div>
         </div>
@@ -74,11 +74,11 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4 w-full">
             <div class="bg-red-50 border-l-4 border-red-500 p-4 rounded-r-lg shadow-sm flex items-center justify-between">
                 <div class="flex items-center">
-                    <i class="fa-solid fa-triangle-exclamation text-red-500 text-lg mr-3"></i>
+                    <i class="fa-solid fa-triangle-exclamation text-red-500 text-lg mr-3" aria-hidden="true"></i>
                     <p class="text-sm font-medium text-red-800">{{ session('error') }}</p>
                 </div>
-                <button type="button" onclick="this.parentElement.remove()" class="text-red-600 hover:text-red-800 text-sm">
-                    <i class="fa-solid fa-xmark"></i>
+                <button type="button" onclick="this.parentElement.remove()" class="text-red-600 hover:text-red-800 text-sm min-w-[36px] min-h-[36px] flex items-center justify-center" aria-label="Tutup notifikasi error">
+                    <i class="fa-solid fa-xmark" aria-hidden="true"></i>
                 </button>
             </div>
         </div>
@@ -108,8 +108,8 @@
     <script src="https://cdn.gtranslate.net/widgets/latest/float.js" defer></script>
 
     {{-- FLOATING BACK TO TOP BUTTON (Kanan Bawah - Melayang Biru Persis Web Lama) --}}
-    <button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="fixed bottom-5 right-5 z-50 bg-[#0284c7] hover:bg-[#0369a1] text-white w-10 h-10 sm:w-11 sm:h-11 rounded-full shadow-2xl flex items-center justify-center transition-all opacity-0 pointer-events-none duration-300 cursor-pointer" aria-label="Back to Top">
-        <i class="fa-solid fa-chevron-up text-sm"></i>
+    <button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="fixed bottom-5 right-5 z-50 bg-[#0284c7] hover:bg-[#0369a1] text-white w-12 h-12 rounded-full shadow-2xl flex items-center justify-center transition-all opacity-0 pointer-events-none duration-300 cursor-pointer" aria-label="Kembali ke atas halaman">
+        <i class="fa-solid fa-chevron-up text-sm" aria-hidden="true"></i>
     </button>
 
     {{-- GLOBAL SCRIPTS --}}
