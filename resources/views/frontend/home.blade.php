@@ -97,34 +97,34 @@
             }
         @endphp
 
-        {{-- DESKTOP VIEW: 8 Kolom Kartu Berbingkai dengan Ikon Asli Besar --}}
+        {{-- DESKTOP VIEW: 8 Kolom Kartu Berbingkai (Persis Web Lama) --}}
         <div class="hidden md:grid md:grid-cols-8 gap-3 text-center" style="grid-template-columns: repeat(8, minmax(0, 1fr));">
             @foreach($quickMenus as $qm)
-            <a href="{{ $qm->url }}" class="group block p-3 rounded-2xl border border-gray-300 hover:border-[#ff5001] hover:shadow-lg transition bg-white transform hover:-translate-y-1" aria-label="Menu {{ $qm->name }}">
-                <div class="h-16 flex items-center justify-center mb-1.5">
+            <a href="{{ $qm->url }}" class="group flex flex-col items-center justify-center py-3 px-1.5 rounded-2xl border border-gray-800 hover:border-[#ff5001] hover:shadow-lg transition bg-white transform hover:-translate-y-1" aria-label="Menu {{ $qm->name }}">
+                <div class="h-10 md:h-11 w-full flex items-center justify-center mb-1.5">
                     @if($qm->is_image)
-                        <img src="{{ $qm->icon }}" alt="Ikon {{ $qm->name }}" class="max-h-full max-w-full object-contain group-hover:scale-108 transition duration-300" onerror="this.src='/uploads/2025/09/logo-thumbnail.webp'">
+                        <img src="{{ $qm->icon }}" alt="Ikon {{ $qm->name }}" class="h-9 md:h-10 w-auto max-w-full object-contain group-hover:scale-105 transition duration-300" onerror="this.src='/uploads/2025/09/logo-thumbnail.webp'">
                     @else
-                        <i class="{{ $qm->icon }} text-3xl text-[#ff5001]" aria-hidden="true"></i>
+                        <i class="{{ $qm->icon }} text-2xl md:text-3xl text-[#ff5001]" aria-hidden="true"></i>
                     @endif
                 </div>
-                <span class="text-xs font-bold text-[#ff5001] block truncate">{{ $qm->name }}</span>
+                <span class="text-xs sm:text-[13px] font-bold text-[#ff5001] block whitespace-nowrap tracking-tight leading-tight">{{ $qm->name }}</span>
             </a>
             @endforeach
         </div>
 
-        {{-- MOBILE VIEW: 4 Kolom x 2 Baris Kartu Berbingkai --}}
-        <div class="grid md:hidden grid-cols-4 gap-2.5 text-center" style="grid-template-columns: repeat(4, minmax(0, 1fr));">
+        {{-- MOBILE VIEW: 4 Kolom x 2 Baris Kartu Berbingkai (Persis Web Lama) --}}
+        <div class="grid md:hidden grid-cols-4 gap-2 sm:gap-2.5 text-center" style="grid-template-columns: repeat(4, minmax(0, 1fr));">
             @foreach($quickMenus as $qm)
-            <a href="{{ $qm->url }}" class="p-2.5 rounded-2xl border border-gray-300 hover:border-[#ff5001] hover:shadow-md transition bg-white" aria-label="Menu {{ $qm->name }}">
-                <div class="h-12 flex items-center justify-center mb-1">
+            <a href="{{ $qm->url }}" class="group flex flex-col items-center justify-center py-2.5 px-0.5 sm:px-1 rounded-2xl border border-gray-800 hover:border-[#ff5001] hover:shadow-md transition bg-white" aria-label="Menu {{ $qm->name }}">
+                <div class="h-8 sm:h-9 w-full flex items-center justify-center mb-1">
                     @if($qm->is_image)
-                        <img src="{{ $qm->icon }}" alt="Ikon {{ $qm->name }}" class="max-h-full max-w-full object-contain" onerror="this.src='/uploads/2025/09/logo-thumbnail.webp'">
+                        <img src="{{ $qm->icon }}" alt="Ikon {{ $qm->name }}" class="h-7 sm:h-8 w-auto max-w-full object-contain" onerror="this.src='/uploads/2025/09/logo-thumbnail.webp'">
                     @else
-                        <i class="{{ $qm->icon }} text-2xl text-[#ff5001]" aria-hidden="true"></i>
+                        <i class="{{ $qm->icon }} text-xl sm:text-2xl text-[#ff5001]" aria-hidden="true"></i>
                     @endif
                 </div>
-                <span class="text-[11px] font-bold text-[#ff5001] block truncate">{{ $qm->name }}</span>
+                <span class="text-[10px] sm:text-[11px] font-bold text-[#ff5001] block whitespace-nowrap tracking-tight leading-tight">{{ $qm->name }}</span>
             </a>
             @endforeach
         </div>
