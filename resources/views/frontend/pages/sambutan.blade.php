@@ -42,28 +42,32 @@
 
         {{-- KONTEN PIDATO RESMI --}}
         <div class="prose-content text-gray-700 text-sm sm:text-base leading-relaxed space-y-5">
-            <p class="font-semibold text-gray-900 text-base sm:text-lg">Assalamu'alaikum Warahmatullahi Wabarakatuh,</p>
+            @if(!empty($page->content) && strlen(trim(strip_tags($page->content))) > 30)
+                {!! $page->content !!}
+            @else
+                <p class="font-semibold text-gray-900 text-base sm:text-lg">Assalamu'alaikum Warahmatullahi Wabarakatuh,</p>
 
-            <p>Alhamdulillah, kami bersyukur kepada Allah SWT atas segala rahmat dan karunia-Nya, sehingga kami dapat hadirkan platform ini sebagai jembatan komunikasi antara Partai Keadilan Sejahtera dengan masyarakat Kabupaten Ogan Ilir yang kami cintai.</p>
+                <p>Alhamdulillah, kami bersyukur kepada Allah SWT atas segala rahmat dan karunia-Nya, sehingga kami dapat hadirkan platform ini sebagai jembatan komunikasi antara Partai Keadilan Sejahtera dengan masyarakat Kabupaten Ogan Ilir yang kami cintai.</p>
 
-            <p>Sebagai Ketua DPD PKS Kabupaten Ogan Ilir, saya, <strong>H. Husnul Anam, S.HI</strong>, menyampaikan salam hangat dan apresiasi kepada seluruh warga Ogan Ilir yang telah mendukung perjuangan kami. Partai Keadilan Sejahtera hadir untuk mewujudkan cita-cita bangsa yang adil, makmur, dan berkeadilan, sesuai dengan nilai-nilai Islam yang <em>rahmatan lil 'alamin</em>. Kami berkomitmen untuk memperjuangkan aspirasi rakyat, memajukan pembangunan daerah, serta menjaga keharmonisan sosial di tengah keberagaman masyarakat kita.</p>
+                <p>Sebagai Ketua DPD PKS Kabupaten Ogan Ilir, saya, <strong>H. Husnul Anam, S.HI</strong>, menyampaikan salam hangat dan apresiasi kepada seluruh warga Ogan Ilir yang telah mendukung perjuangan kami. Partai Keadilan Sejahtera hadir untuk mewujudkan cita-cita bangsa yang adil, makmur, dan berkeadilan, sesuai dengan nilai-nilai Islam yang <em>rahmatan lil 'alamin</em>. Kami berkomitmen untuk memperjuangkan aspirasi rakyat, memajukan pembangunan daerah, serta menjaga keharmonisan sosial di tengah keberagaman masyarakat kita.</p>
 
-            <p>Melalui website ini, kami ingin berbagi informasi terkini tentang program kerja, kegiatan partai, dan kontribusi PKS dalam pembangunan Kabupaten Ogan Ilir. Kami mengundang seluruh masyarakat untuk berpartisipasi aktif, memberikan masukan, dan bersama-sama membangun Ogan Ilir yang lebih baik.</p>
+                <p>Melalui website ini, kami ingin berbagi informasi terkini tentang program kerja, kegiatan partai, dan kontribusi PKS dalam pembangunan Kabupaten Ogan Ilir. Kami mengundang seluruh masyarakat untuk berpartisipasi aktif, memberikan masukan, dan bersama-sama membangun Ogan Ilir yang lebih baik.</p>
 
-            <p>Semoga situs ini menjadi sarana yang bermanfaat bagi kita semua. Mari kita wujudkan visi Indonesia yang sejahtera dan bermartabat.</p>
+                <p>Semoga situs ini menjadi sarana yang bermanfaat bagi kita semua. Mari kita wujudkan visi Indonesia yang sejahtera dan bermartabat.</p>
 
-            <p class="font-semibold text-gray-900 pt-2">Wassalamu'alaikum Warahmatullahi Wabarakatuh.</p>
+                <p class="font-semibold text-gray-900 pt-2">Wassalamu'alaikum Warahmatullahi Wabarakatuh.</p>
 
-            <div class="pt-6 border-t border-gray-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                <div>
-                    <h3 class="font-bold text-gray-900 text-base">H. HUSNUL ANAM, S.HI</h3>
-                    <p class="text-xs text-gray-500">Ketua DPD Partai Keadilan Sejahtera Kabupaten Ogan Ilir</p>
+                <div class="pt-6 border-t border-gray-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                    <div>
+                        <h3 class="font-bold text-gray-900 text-base">H. HUSNUL ANAM, S.HI</h3>
+                        <p class="text-xs text-gray-500">Ketua DPD Partai Keadilan Sejahtera Kabupaten Ogan Ilir</p>
+                    </div>
+                    <div class="inline-flex items-center space-x-2 bg-gray-50 px-4 py-2 rounded-xl text-xs text-gray-600 border border-gray-200">
+                        <i class="fa-solid fa-certificate text-[#f37023]"></i>
+                        <span>Amanah Musda VI DPD PKS Ogan Ilir</span>
+                    </div>
                 </div>
-                <div class="inline-flex items-center space-x-2 bg-gray-50 px-4 py-2 rounded-xl text-xs text-gray-600 border border-gray-200">
-                    <i class="fa-solid fa-certificate text-[#f37023]"></i>
-                    <span>Amanah Musda VI DPD PKS Ogan Ilir</span>
-                </div>
-            </div>
+            @endif
         </div>
 
         {{-- CTA GABUNG --}}

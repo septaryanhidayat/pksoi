@@ -44,8 +44,8 @@
             </div>
             <div>
                 <span class="text-xs font-bold text-gray-400 uppercase tracking-wider block">Phone Number :</span>
-                <a href="tel:082382336505" class="text-base font-extrabold text-gray-900 hover:text-[#f37023] transition mt-1 block">
-                    082382336505
+                <a href="tel:{{ $siteSettings['contact_phone'] ?? '082382336505' }}" class="text-base font-extrabold text-gray-900 hover:text-[#f37023] transition mt-1 block">
+                    {{ $siteSettings['contact_phone'] ?? '082382336505' }}
                 </a>
                 <p class="text-xs text-gray-500 mt-1">Layanan sambungan telepon sekretariat DPD PKS Ogan Ilir.</p>
             </div>
@@ -58,22 +58,29 @@
             </div>
             <div>
                 <span class="text-xs font-bold text-gray-400 uppercase tracking-wider block">Email :</span>
-                <a href="mailto:pksoganilir@gmail.com" class="text-sm font-extrabold text-gray-900 hover:text-[#f37023] transition mt-1 block break-all">
-                    pksoganilir@gmail.com
+                <a href="mailto:{{ $siteSettings['contact_email'] ?? 'pksoganilir@gmail.com' }}" class="text-sm font-extrabold text-gray-900 hover:text-[#f37023] transition mt-1 block break-all">
+                    {{ $siteSettings['contact_email'] ?? 'pksoganilir@gmail.com' }}
                 </a>
                 <p class="text-xs text-gray-500 mt-1">Surat-menyurat dan permohonan informasi resmi.</p>
             </div>
         </div>
 
         {{-- Box 3: WhatsApp --}}
+        @php
+            $rawPhone = $siteSettings['contact_phone'] ?? '082382336505';
+            $cleanWa = preg_replace('/[^0-9]/', '', $rawPhone);
+            if (str_starts_with($cleanWa, '0')) {
+                $cleanWa = '62' . substr($cleanWa, 1);
+            }
+        @endphp
         <div class="bg-white p-6 sm:p-8 rounded-3xl shadow-md border border-gray-100 hover:shadow-xl transition transform hover:-translate-y-1 space-y-4 reveal-fade-up delay-2">
             <div class="w-14 h-14 rounded-2xl bg-green-100 text-green-600 flex items-center justify-center text-2xl shadow-inner">
                 <i class="fa-brands fa-whatsapp"></i>
             </div>
             <div>
                 <span class="text-xs font-bold text-gray-400 uppercase tracking-wider block">WhatsApp :</span>
-                <a href="https://wa.me/6282382336505" target="_blank" class="text-base font-extrabold text-gray-900 hover:text-green-600 transition mt-1 block">
-                    082382336505
+                <a href="https://wa.me/{{ $cleanWa }}" target="_blank" class="text-base font-extrabold text-gray-900 hover:text-green-600 transition mt-1 block">
+                    {{ $rawPhone }}
                 </a>
                 <p class="text-xs text-gray-500 mt-1">Konsultasi cepat, pengaduan warga, dan pendaftaran.</p>
             </div>
@@ -87,7 +94,7 @@
             <div>
                 <span class="text-xs font-bold text-gray-400 uppercase tracking-wider block">Location Address :</span>
                 <p class="text-xs font-bold text-gray-900 mt-1 leading-relaxed">
-                    Jl. Komperta Taman Indralaya Blok C No. 05 Kel. Indralaya Indah Kec. Indralaya Kab. Ogan Ilir, Sumatera Selatan
+                    {{ $siteSettings['contact_address'] ?? 'Jl. Komperta Taman Indralaya Blok C No. 05 Kel. Indralaya Indah Kec. Indralaya Kab. Ogan Ilir, Sumatera Selatan' }}
                 </p>
             </div>
         </div>

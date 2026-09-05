@@ -33,8 +33,9 @@ class IncrementVisitorCounter
             @file_put_contents($counterFile, (string) $hits);
         }
 
-        // Format angka dengan titik pemisah ribuan (misal: 53.513)
+        // Format angka dengan titik pemisah ribuan (misal: 53.513) dan angka mentah
         View::share('visitorHits', number_format($hits, 0, ',', '.'));
+        View::share('rawVisitorHits', $hits);
 
         return $next($request);
     }

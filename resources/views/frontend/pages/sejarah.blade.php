@@ -43,29 +43,33 @@
 
                 {{-- 6 PARAGRAF SEJARAH LENGKAP --}}
                 <div class="prose-content text-gray-700 text-sm sm:text-base leading-relaxed space-y-5">
-                    <p>
-                        Partai Keadilan Sejahtera (PKS) hadir di Kabupaten Ogan Ilir sejak awal berdirinya daerah ini sebagai kabupaten pemekaran dari Ogan Komering Ilir pada tahun 2003. Kehadiran PKS di Ogan Ilir dimulai dengan semangat dakwah dan pelayanan masyarakat, sekaligus sebagai bagian dari perjuangan politik kebangsaan yang diusung PKS di tingkat nasional.
-                    </p>
+                    @if(!empty($page->content) && strlen(trim(strip_tags($page->content))) > 50)
+                        {!! $page->content !!}
+                    @else
+                        <p>
+                            Partai Keadilan Sejahtera (PKS) hadir di Kabupaten Ogan Ilir sejak awal berdirinya daerah ini sebagai kabupaten pemekaran dari Ogan Komering Ilir pada tahun 2003. Kehadiran PKS di Ogan Ilir dimulai dengan semangat dakwah dan pelayanan masyarakat, sekaligus sebagai bagian dari perjuangan politik kebangsaan yang diusung PKS di tingkat nasional.
+                        </p>
 
-                    <p>
-                        Pada masa awal, struktur partai masih sederhana, dengan jumlah kader dan simpatisan yang terbatas. Namun, semangat kaderisasi, kerja keras, dan kedekatan PKS dengan masyarakat membuat partai ini cepat berkembang. Melalui kegiatan sosial, pendidikan politik, dan pelayanan langsung ke masyarakat, PKS semakin dikenal luas oleh warga Ogan Ilir.
-                    </p>
+                        <p>
+                            Pada masa awal, struktur partai masih sederhana, dengan jumlah kader dan simpatisan yang terbatas. Namun, semangat kaderisasi, kerja keras, dan kedekatan PKS dengan masyarakat membuat partai ini cepat berkembang. Melalui kegiatan sosial, pendidikan politik, dan pelayanan langsung ke masyarakat, PKS semakin dikenal luas oleh warga Ogan Ilir.
+                        </p>
 
-                    <p>
-                        Seiring berjalannya waktu, PKS Ogan Ilir berhasil menempatkan wakilnya di DPRD Kabupaten Ogan Ilir. Capaian ini menjadi bukti nyata kepercayaan masyarakat kepada PKS. Dari periode ke periode, PKS terus memperkuat basis dukungan, baik di perkotaan maupun di pedesaan, dengan menghadirkan kader yang amanah, dekat dengan rakyat, dan siap memperjuangkan aspirasi masyarakat.
-                    </p>
+                        <p>
+                            Seiring berjalannya waktu, PKS Ogan Ilir berhasil menempatkan wakilnya di DPRD Kabupaten Ogan Ilir. Capaian ini menjadi bukti nyata kepercayaan masyarakat kepada PKS. Dari periode ke periode, PKS terus memperkuat basis dukungan, baik di perkotaan maupun di pedesaan, dengan menghadirkan kader yang amanah, dekat dengan rakyat, dan siap memperjuangkan aspirasi masyarakat.
+                        </p>
 
-                    <p>
-                        Momentum penting dalam perjalanan PKS Ogan Ilir adalah terselenggaranya Musyawarah Daerah (Musda) secara rutin, yang menjadi ajang konsolidasi dan regenerasi kepemimpinan. Setiap Musda menghasilkan kepengurusan baru yang membawa semangat segar untuk melanjutkan perjuangan. Musda VI pada tahun 2025 menjadi salah satu tonggak penting dengan lahirnya kepemimpinan baru yang menargetkan penguatan struktur partai sekaligus pencapaian politik yang lebih besar di Pemilu 2030.
-                    </p>
+                        <p>
+                            Momentum penting dalam perjalanan PKS Ogan Ilir adalah terselenggaranya Musyawarah Daerah (Musda) secara rutin, yang menjadi ajang konsolidasi dan regenerasi kepemimpinan. Setiap Musda menghasilkan kepengurusan baru yang membawa semangat segar untuk melanjutkan perjuangan. Musda VI pada tahun 2025 menjadi salah satu tonggak penting dengan lahirnya kepemimpinan baru yang menargetkan penguatan struktur partai sekaligus pencapaian politik yang lebih besar di Pemilu 2030.
+                        </p>
 
-                    <p>
-                        Kini, DPD PKS Ogan Ilir telah menjadi salah satu kekuatan politik yang diperhitungkan di tingkat daerah. Dengan jaringan kader yang solid, struktur yang kuat hingga ke tingkat ranting, serta program pelayanan masyarakat yang konsisten, PKS Ogan Ilir terus berkomitmen menghadirkan politik yang bersih, peduli, dan melayani.
-                    </p>
+                        <p>
+                            Kini, DPD PKS Ogan Ilir telah menjadi salah satu kekuatan politik yang diperhitungkan di tingkat daerah. Dengan jaringan kader yang solid, struktur yang kuat hingga ke tingkat ranting, serta program pelayanan masyarakat yang konsisten, PKS Ogan Ilir terus berkomitmen menghadirkan politik yang bersih, peduli, dan melayani.
+                        </p>
 
-                    <p class="font-medium text-gray-900 bg-orange-50/70 p-5 rounded-2xl border-l-4 border-[#f37023]">
-                        Perjalanan panjang ini membuktikan bahwa PKS Ogan Ilir bukan hanya sekadar partai politik, melainkan juga rumah perjuangan bersama bagi masyarakat yang mendambakan keadilan, kesejahteraan, dan kepemimpinan yang amanah. Dengan semangat <em>Ogan Ilir Caram Seguguk</em>, PKS siap melangkah ke depan, memperkuat kontribusinya, dan terus berkhidmat untuk rakyat.
-                    </p>
+                        <p class="font-medium text-gray-900 bg-orange-50/70 p-5 rounded-2xl border-l-4 border-[#f37023]">
+                            Perjalanan panjang ini membuktikan bahwa PKS Ogan Ilir bukan hanya sekadar partai politik, melainkan juga rumah perjuangan bersama bagi masyarakat yang mendambakan keadilan, kesejahteraan, dan kepemimpinan yang amanah. Dengan semangat <em>Ogan Ilir Caram Seguguk</em>, PKS siap melangkah ke depan, memperkuat kontribusinya, dan terus berkhidmat untuk rakyat.
+                        </p>
+                    @endif
                 </div>
             </article>
         </div>

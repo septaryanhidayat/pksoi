@@ -145,3 +145,50 @@ test('download pages render successfully', function () {
     $this->get('/logo')->assertStatus(200);
     $this->get('/donasi')->assertStatus(200);
 });
+
+test('footer has visitor counter with data-target and responsive mobile center alignment', function () {
+    $response = $this->get('/');
+    $response->assertStatus(200);
+    $response->assertSee('id="footer-visitor-counter"', false);
+    $response->assertSee('data-target=', false);
+    $response->assertSee('text-center md:text-left', false);
+});
+
+test('site settings update dynamically reflects across header, footer, and contact page', function () {
+    \App\Models\Setting::updateOrCreate(['key' => 'contact_phone'], ['value' => '08999888777', 'group' => 'general']);
+    \App\Models\Setting::updateOrCreate(['key' => 'contact_email'], ['value' => 'sekretariat@pks-oi.id', 'group' => 'general']);
+    \App\Models\Setting::updateOrCreate(['key' => 'contact_address'], ['value' => 'Gedung Dakwah DPD PKS Ogan Ilir Baru', 'group' => 'general']);
+
+    // Re-share to simulate fresh request
+    $settings = \App\Models\Setting::all()->pluck('value', 'key')->toArray();
+    \Illuminate\Support\Facades\View::share('siteSettings', $settings);
+
+    $home = $this->get('/');
+    $home->assertSee('08999888777');
+    $home->assertSee('sekretariat@pks-oi.id');
+    $home->assertSee('Gedung Dakwah DPD PKS Ogan Ilir Baru');
+
+    $contact = $this->get('/hubungi');
+    $contact->assertSee('08999888777');
+    $contact->assertSee('sekretariat@pks-oi.id');
+    $contact->assertSee('Gedung Dakwah DPD PKS Ogan Ilir Baru');
+});
+
+test('sambutan page renders dynamic content from database', function () {
+    $page = Post::where('slug', 'sambutan-ketua-dpd')->first();
+    if (!$page) {
+        $page = Post::create([
+            'title' => 'Sambutan Ketua DPD PKS Ogan Ilir',
+            'slug' => 'sambutan-ketua-dpd',
+            'content' => '<p>Uji coba pidato resmi dinamis ketua DPD.</p>',
+            'status' => 'publish',
+            'type' => 'page',
+        ]);
+    } else {
+        $page->update(['content' => '<p>Uji coba pidato resmi dinamis ketua DPD.</p>']);
+    }
+
+    $response = $this->get('/sambutan-ketua-dpd');
+    $response->assertStatus(200);
+    $response->assertSee('Uji coba pidato resmi dinamis ketua DPD.', false);
+});

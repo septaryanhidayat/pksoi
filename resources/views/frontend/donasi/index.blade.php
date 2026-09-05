@@ -70,10 +70,17 @@
                     Setelah melakukan transfer, silakan kirimkan konfirmasi dan bukti transfer ke nomor WhatsApp resmi DPD PKS Ogan Ilir agar dapat dicatat secara akuntabel.
                 </p>
             </div>
+            @php
+                $rawPhone = $siteSettings['contact_phone'] ?? '082382336505';
+                $cleanWa = preg_replace('/[^0-9]/', '', $rawPhone);
+                if (str_starts_with($cleanWa, '0')) {
+                    $cleanWa = '62' . substr($cleanWa, 1);
+                }
+            @endphp
             <div class="pt-4 border-t border-gray-100">
-                <a href="https://wa.me/6282382336505?text=Assalamu%27alaikum%20Bendahara%20DPD%20PKS%20Ogan%20Ilir,%20saya%20sudah%20transfer%20donasi%20perjuangan" target="_blank" class="w-full bg-green-500 hover:bg-green-600 text-white py-3 rounded-xl text-xs font-bold shadow transition flex items-center justify-center space-x-2">
+                <a href="https://wa.me/{{ $cleanWa }}?text=Assalamu%27alaikum%20Bendahara%20DPD%20PKS%20Ogan%20Ilir,%20saya%20sudah%20transfer%20donasi%20perjuangan" target="_blank" class="w-full bg-green-500 hover:bg-green-600 text-white py-3 rounded-xl text-xs font-bold shadow transition flex items-center justify-center space-x-2">
                     <i class="fa-brands fa-whatsapp text-sm"></i>
-                    <span>Konfirmasi via WhatsApp (082382336505)</span>
+                    <span>Konfirmasi via WhatsApp ({{ $rawPhone }})</span>
                 </a>
             </div>
         </div>
