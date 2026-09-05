@@ -19,4 +19,13 @@ class Pengumuman extends Model
         'status',
         'featured_image',
     ];
+
+    public function getFeaturedImageUrlAttribute(): string
+    {
+        if (!empty($this->featured_image)) {
+            $path = parse_url($this->featured_image, PHP_URL_PATH);
+            return '/' . ltrim($path, '/');
+        }
+        return '/uploads/2024/01/cd1787310f135df61a8832283565af3b.webp';
+    }
 }

@@ -19,4 +19,13 @@ class AnggotaDewan extends Model
         'photo',
         'order',
     ];
+
+    public function getPhotoUrlAttribute(): string
+    {
+        if (!empty($this->photo)) {
+            $path = parse_url($this->photo, PHP_URL_PATH);
+            return '/' . ltrim($path, '/');
+        }
+        return '/uploads/2023/11/Asmawi.webp';
+    }
 }

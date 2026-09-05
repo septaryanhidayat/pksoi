@@ -71,7 +71,7 @@
 </section>
 
 {{-- FLOATING MENU UTAMA (Desktop 8 Kolom vs Mobile 4 Kolom x 2 Baris) --}}
-<div class="max-w-6xl mx-auto px-4 sm:px-6 relative z-30 -mt-10 sm:-mt-14">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 relative z-30 -mt-10 sm:-mt-14 reveal-fade-up">
     <div class="bg-white rounded-2xl shadow-xl border border-gray-100 p-5 sm:p-6">
         <div class="flex items-center justify-between pb-4 mb-4 border-b border-gray-100">
             <h2 class="text-base sm:text-lg font-extrabold text-[#353434] flex items-center">
@@ -193,25 +193,25 @@
 {{-- ========================================================
      SECTION #1: SAMBUTAN KETUA DPD
      ======================================================== --}}
-<section class="py-12 sm:py-16 bg-white">
+<section class="py-12 sm:py-16 bg-white overflow-hidden">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             
             {{-- Foto Ketua DPD --}}
-            <div class="lg:col-span-5 text-center">
+            <div class="lg:col-span-5 text-center reveal-fade-up delay-1">
                 <div class="relative inline-block">
                     <div class="rounded-3xl overflow-hidden shadow-xl border-4 border-orange-100 max-w-[320px] sm:max-w-[360px] mx-auto bg-gradient-to-b from-orange-50 to-orange-100">
-                        <img src="/uploads/2025/09/DSC06059-removebg-preview.webp" alt="Ketua DPD PKS Ogan Ilir" class="w-full h-auto object-cover transform hover:scale-105 transition duration-300" onerror="this.src='/uploads/2024/01/cd1787310f135df61a8832283565af3b.webp'">
+                        <img src="/uploads/2025/09/DPD-Profile-2.webp" alt="H. Husnul Anam, S.HI" class="w-full h-auto object-cover transform hover:scale-105 transition duration-300" onerror="this.src='/uploads/2024/01/cd1787310f135df61a8832283565af3b.webp'">
                     </div>
                     <div class="mt-4">
-                        <h3 class="font-extrabold text-gray-900 text-lg sm:text-xl">H. Husnul Anam, S.H.I.</h3>
+                        <h3 class="font-extrabold text-gray-900 text-lg sm:text-xl">H. Husnul Anam, S.HI</h3>
                         <p class="text-xs sm:text-sm font-semibold text-[#FE6000]">Ketua DPD PKS Kabupaten Ogan Ilir</p>
                     </div>
                 </div>
             </div>
 
             {{-- Isi Sambutan --}}
-            <div class="lg:col-span-7 space-y-4">
+            <div class="lg:col-span-7 space-y-4 reveal-fade-up delay-2">
                 <div class="text-[#FE6000] text-4xl opacity-75">
                     <i class="fa-solid fa-quote-left"></i>
                 </div>
@@ -248,9 +248,9 @@
 {{-- ========================================================
      SECTION #2: ARTIKEL & BERITA (Headline Utama + 3 Samping)
      ======================================================== --}}
-<section class="py-12 bg-gray-50 border-t border-gray-100">
+<section class="py-12 bg-gray-50 border-t border-gray-100 overflow-hidden">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
-        <div class="mb-6 flex items-center justify-between">
+        <div class="mb-6 flex items-center justify-between reveal-fade-up">
             <div>
                 <h2 class="text-xl sm:text-2xl font-extrabold text-[#353434] flex items-center">
                     <span class="w-2.5 h-2.5 rounded-full bg-[#FE6000] mr-2"></span>
@@ -267,7 +267,7 @@
             
             {{-- Big Headline Card (60% Desktop) --}}
             @if($featuredPost)
-            <div class="lg:col-span-7">
+            <div class="lg:col-span-7 reveal-fade-up delay-1">
                 <article class="bg-white rounded-2xl shadow-md overflow-hidden border border-gray-100 h-full flex flex-col group">
                     <div class="relative h-60 sm:h-80 overflow-hidden bg-gray-100">
                         <img src="{{ $featuredPost->featured_image_url }}" alt="{{ $featuredPost->title }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
@@ -303,7 +303,7 @@
             @endif
 
             {{-- 3 Articles Side Stack (40% Desktop) --}}
-            <div class="lg:col-span-5 flex flex-col justify-between space-y-4">
+            <div class="lg:col-span-5 flex flex-col justify-between space-y-4 reveal-fade-up delay-2">
                 <div class="space-y-3">
                     @foreach($sidePosts as $post)
                     <article class="bg-white p-3.5 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition flex items-center space-x-3.5 group">
@@ -341,9 +341,9 @@
 {{-- ========================================================
      SECTION #3: BERITA FRAKSI PKS (Desktop 4 Col vs Mobile 1 Col)
      ======================================================== --}}
-<section class="py-12 bg-white">
+<section class="py-12 bg-white overflow-hidden">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
-        <div class="text-center max-w-2xl mx-auto mb-8">
+        <div class="text-center max-w-2xl mx-auto mb-8 reveal-fade-up">
             <h2 class="text-2xl sm:text-3xl font-extrabold text-[#353434] tracking-tight">
                 Berita Fraksi PKS
             </h2>
@@ -355,8 +355,8 @@
 
         {{-- Responsive Grid: Desktop 4 columns, Mobile 1 column --}}
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            @foreach($fraksiPosts as $post)
-            <article class="bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition overflow-hidden flex flex-col group">
+            @foreach($fraksiPosts as $index => $post)
+            <article class="bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition overflow-hidden flex flex-col group reveal-fade-up delay-{{ $index + 1 }}">
                 <div class="h-44 overflow-hidden bg-gray-100 relative">
                     <img src="{{ $post->featured_image_url }}" alt="{{ $post->title }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
                     <span class="absolute top-2.5 left-2.5 bg-[#FE6000] text-white text-[10px] font-bold px-2.5 py-0.5 rounded-full shadow">
@@ -385,7 +385,7 @@
             @endforeach
         </div>
 
-        <div class="text-center mt-8">
+        <div class="text-center mt-8 reveal-fade-up">
             <a href="{{ route('artikel.index') }}?kategori=fraksi" class="inline-flex items-center bg-[#FE6000] hover:bg-[#d85200] text-white font-bold text-xs sm:text-sm px-7 py-2.5 rounded-full shadow transition">
                 Lebih Banyak <i class="fa-solid fa-chevron-down ml-2 text-xs"></i>
             </a>
@@ -397,12 +397,12 @@
 {{-- ========================================================
      SECTION #4: NASIONAL & DAERAH (Desktop 2-Col Side-by-Side vs Mobile Sequential)
      ======================================================== --}}
-<section class="py-12 bg-gray-50 border-y border-gray-100">
+<section class="py-12 bg-gray-50 border-y border-gray-100 overflow-hidden">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
             
             {{-- KOLOM 1: NASIONAL --}}
-            <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-sm border border-gray-100 flex flex-col justify-between">
+            <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-sm border border-gray-100 flex flex-col justify-between reveal-fade-up delay-1">
                 <div>
                     <div class="flex items-center justify-between pb-3 mb-4 border-b border-gray-100">
                         <h3 class="text-lg font-extrabold text-[#353434] flex items-center">
@@ -441,7 +441,7 @@
             </div>
 
             {{-- KOLOM 2: DAERAH --}}
-            <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-sm border border-gray-100 flex flex-col justify-between">
+            <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-sm border border-gray-100 flex flex-col justify-between reveal-fade-up delay-2">
                 <div>
                     <div class="flex items-center justify-between pb-3 mb-4 border-b border-gray-100">
                         <h3 class="text-lg font-extrabold text-[#353434] flex items-center">
@@ -487,9 +487,9 @@
 {{-- ========================================================
      SECTION #5: KABAR SENAYAN (DPR RI Fraksi PKS)
      ======================================================== --}}
-<section class="py-12 bg-white">
+<section class="py-12 bg-white overflow-hidden">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
-        <div class="text-center max-w-2xl mx-auto mb-8">
+        <div class="text-center max-w-2xl mx-auto mb-8 reveal-fade-up">
             <h2 class="text-2xl sm:text-3xl font-extrabold text-[#353434] tracking-tight">
                 Kabar Senayan
             </h2>
@@ -501,8 +501,8 @@
 
         {{-- Desktop 4 col, Mobile 1 col --}}
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            @foreach($senayanPosts as $post)
-            <article class="bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition overflow-hidden flex flex-col group">
+            @foreach($senayanPosts as $index => $post)
+            <article class="bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition overflow-hidden flex flex-col group reveal-fade-up delay-{{ $index + 1 }}">
                 <div class="h-44 overflow-hidden bg-gray-100 relative">
                     <img src="{{ $post->featured_image_url }}" alt="{{ $post->title }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
                     <span class="absolute top-2.5 left-2.5 bg-gray-900 text-white text-[10px] font-bold px-2.5 py-0.5 rounded-full shadow">
@@ -531,7 +531,7 @@
             @endforeach
         </div>
 
-        <div class="text-center mt-8">
+        <div class="text-center mt-8 reveal-fade-up">
             <a href="{{ route('artikel.index') }}?kategori=senayan" class="inline-flex items-center bg-[#FE6000] hover:bg-[#d85200] text-white font-bold text-xs sm:text-sm px-7 py-2.5 rounded-full shadow transition">
                 Lebih Banyak <i class="fa-solid fa-chevron-down ml-2 text-xs"></i>
             </a>
@@ -545,9 +545,9 @@
      DESKTOP: 4 Kolom 1 Baris (Section #8)
      MOBILE: 2 Kolom x 2 Baris / 2x2 Grid (Section #7)
      ======================================================== --}}
-<section class="py-12 bg-gray-50 border-t border-gray-100">
+<section class="py-12 bg-gray-50 border-t border-gray-100 overflow-hidden">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
-        <div class="text-center max-w-2xl mx-auto mb-8">
+        <div class="text-center max-w-2xl mx-auto mb-8 reveal-fade-up">
             <h2 class="text-2xl sm:text-3xl font-extrabold text-[#353434] tracking-tight">
                 Anggota DPRD Fraksi PKS
             </h2>
@@ -559,8 +559,8 @@
 
         {{-- DESKTOP VIEW (Section #8: 4 Kolom 1 Baris) --}}
         <div class="hidden md:grid md:grid-cols-4 gap-6">
-            @foreach($dewan as $d)
-            <div class="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 text-center group hover:shadow-lg transition transform hover:-translate-y-1">
+            @foreach($dewan as $index => $d)
+            <div class="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 text-center group hover:shadow-lg transition transform hover:-translate-y-1 reveal-fade-up delay-{{ $index + 1 }}">
                 <div class="h-64 rounded-xl overflow-hidden mb-3 bg-gray-100">
                     <img src="{{ $d->photo_url }}" alt="{{ $d->name }}" class="w-full h-full object-cover object-top group-hover:scale-105 transition duration-300" onerror="this.src='/uploads/2024/01/cd1787310f135df61a8832283565af3b.webp'">
                 </div>
@@ -576,8 +576,8 @@
 
         {{-- MOBILE VIEW (Section #7: 2 Kolom x 2 Baris / 2x2 Grid) --}}
         <div class="grid md:hidden grid-cols-2 gap-3.5">
-            @foreach($dewan as $d)
-            <div class="bg-white rounded-xl p-2.5 shadow-sm border border-gray-100 text-center">
+            @foreach($dewan as $index => $d)
+            <div class="bg-white rounded-xl p-2.5 shadow-sm border border-gray-100 text-center reveal-fade-up delay-{{ $index + 1 }}">
                 <div class="h-44 rounded-lg overflow-hidden mb-2 bg-gray-100">
                     <img src="{{ $d->photo_url }}" alt="{{ $d->name }}" class="w-full h-full object-cover object-top" onerror="this.src='/uploads/2024/01/cd1787310f135df61a8832283565af3b.webp'">
                 </div>
@@ -591,7 +591,7 @@
             @endforeach
         </div>
 
-        <div class="text-center mt-8">
+        <div class="text-center mt-8 reveal-fade-up">
             <a href="{{ route('dewan.index') }}" class="inline-flex items-center bg-[#FE6000] hover:bg-[#d85200] text-white font-bold text-xs sm:text-sm px-6 py-2.5 rounded-full shadow transition">
                 Lihat Semua Anggota Dewan <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
             </a>
@@ -603,9 +603,9 @@
 {{-- ========================================================
      SECTION #10: VIDEO KEGIATAN (Desktop 3 Col vs Mobile 1 Col)
      ======================================================== --}}
-<section class="py-12 bg-gray-900 text-white">
+<section class="py-12 bg-gray-900 text-white overflow-hidden">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
-        <div class="text-center max-w-2xl mx-auto mb-8">
+        <div class="text-center max-w-2xl mx-auto mb-8 reveal-fade-up">
             <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight">
                 Video
             </h2>
@@ -616,8 +616,8 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            @foreach($videos as $v)
-            <div class="bg-gray-800 rounded-xl overflow-hidden border border-gray-700 shadow-md group">
+            @foreach($videos as $index => $v)
+            <div class="bg-gray-800 rounded-xl overflow-hidden border border-gray-700 shadow-md group reveal-fade-up delay-{{ $index + 1 }}">
                 <div class="relative aspect-video bg-black">
                     @if($v->youtube_id)
                     <iframe class="w-full h-full" src="https://www.youtube.com/embed/{{ $v->youtube_id }}" title="{{ $v->title }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -639,7 +639,7 @@
             @endforeach
         </div>
 
-        <div class="text-center mt-8">
+        <div class="text-center mt-8 reveal-fade-up">
             <a href="{{ route('video.index') }}" class="inline-flex items-center bg-[#FE6000] hover:bg-[#d85200] text-white font-bold text-xs sm:text-sm px-6 py-2.5 rounded-full shadow transition">
                 Video Lainnya <i class="fa-solid fa-play ml-2 text-[10px]"></i>
             </a>
@@ -651,12 +651,12 @@
 {{-- ========================================================
      SECTION #12: PENGUMUMAN & AGENDA (Desktop 2-Col vs Mobile Sequential)
      ======================================================== --}}
-<section class="py-12 bg-white">
+<section class="py-12 bg-white overflow-hidden">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
             
             {{-- PENGUMUMAN --}}
-            <div class="bg-gray-50 p-5 sm:p-6 rounded-2xl border border-gray-100 flex flex-col justify-between">
+            <div class="bg-gray-50 p-5 sm:p-6 rounded-2xl border border-gray-100 flex flex-col justify-between reveal-fade-up delay-1">
                 <div>
                     <div class="flex items-center justify-between pb-3 mb-4 border-b border-gray-200">
                         <h3 class="text-lg font-extrabold text-[#353434] flex items-center">
@@ -693,7 +693,7 @@
             </div>
 
             {{-- AGENDA --}}
-            <div class="bg-gray-50 p-5 sm:p-6 rounded-2xl border border-gray-100 flex flex-col justify-between">
+            <div class="bg-gray-50 p-5 sm:p-6 rounded-2xl border border-gray-100 flex flex-col justify-between reveal-fade-up delay-2">
                 <div>
                     <div class="flex items-center justify-between pb-3 mb-4 border-b border-gray-200">
                         <h3 class="text-lg font-extrabold text-[#353434] flex items-center">
@@ -749,9 +749,9 @@
 {{-- ========================================================
      SECTION #13: GALERI FOTO KEGIATAN (Desktop 4 Col vs Mobile 2 Col)
      ======================================================== --}}
-<section class="py-12 bg-gray-950 text-white">
+<section class="py-12 bg-gray-950 text-white overflow-hidden">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
-        <div class="text-center max-w-2xl mx-auto mb-8">
+        <div class="text-center max-w-2xl mx-auto mb-8 reveal-fade-up">
             <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight">
                 Galeri
             </h2>
@@ -763,8 +763,8 @@
 
         {{-- Grid: Desktop 4 columns, Mobile 2 columns --}}
         <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
-            @foreach($galleryPhotos as $photo)
-            <div class="group relative rounded-xl overflow-hidden shadow-md aspect-square bg-gray-800">
+            @foreach($galleryPhotos as $index => $photo)
+            <div class="group relative rounded-xl overflow-hidden shadow-md aspect-square bg-gray-800 reveal-fade-up delay-{{ ($index % 4) + 1 }}">
                 <img src="{{ $photo['url'] }}" alt="{{ $photo['title'] }}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-3">
                     <span class="text-xs text-white font-medium line-clamp-2">
@@ -775,7 +775,7 @@
             @endforeach
         </div>
 
-        <div class="text-center mt-8">
+        <div class="text-center mt-8 reveal-fade-up">
             <a href="{{ route('galeri.index') }}" class="inline-flex items-center bg-[#FE6000] hover:bg-[#d85200] text-white font-bold text-xs sm:text-sm px-6 py-2.5 rounded-full shadow transition">
                 Selengkapnya <i class="fa-solid fa-images ml-2 text-xs"></i>
             </a>
@@ -787,7 +787,7 @@
 {{-- ========================================================
      SECTION #14: CALL TO ACTION BANNER (Gabung PKS)
      ======================================================== --}}
-<section class="relative bg-gradient-to-r from-orange-600 to-[#FE6000] text-white py-12 px-4 sm:px-6 overflow-hidden">
+<section class="relative bg-gradient-to-r from-orange-600 to-[#FE6000] text-white py-12 px-4 sm:px-6 overflow-hidden reveal-fade-up">
     <div class="absolute inset-0 opacity-10">
         <img src="/uploads/2024/01/cd1787310f135df61a8832283565af3b.webp" alt="Background" class="w-full h-full object-cover">
     </div>
@@ -810,9 +810,9 @@
 {{-- ========================================================
      SECTION #15: DOWNLOAD E-BOOK (Desktop 4 Col vs Mobile 2 Col)
      ======================================================== --}}
-<section class="py-14 bg-gray-950 text-white">
+<section class="py-14 bg-gray-950 text-white overflow-hidden">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
-        <div class="text-center max-w-2xl mx-auto mb-10">
+        <div class="text-center max-w-2xl mx-auto mb-10 reveal-fade-up">
             <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#FE6000]">
                 Download E-Book
             </h2>
@@ -824,8 +824,8 @@
 
         {{-- Desktop 4 col, Mobile 2 col --}}
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
-            @foreach($ebooks as $eb)
-            <div class="bg-gray-900 rounded-2xl p-3 sm:p-4 border border-gray-800 flex flex-col justify-between group hover:border-[#FE6000] transition">
+            @foreach($ebooks as $index => $eb)
+            <div class="bg-gray-900 rounded-2xl p-3 sm:p-4 border border-gray-800 flex flex-col justify-between group hover:border-[#FE6000] transition reveal-fade-up delay-{{ $index + 1 }}">
                 <div class="aspect-[3/4] rounded-xl overflow-hidden mb-3 bg-gray-800 shadow-lg">
                     <img src="{{ $eb['cover'] }}" alt="{{ $eb['title'] }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
                 </div>
@@ -844,7 +844,7 @@
             @endforeach
         </div>
 
-        <div class="text-center mt-8">
+        <div class="text-center mt-8 reveal-fade-up">
             <a href="{{ route('download.ebook') }}" class="inline-flex items-center bg-[#FE6000] hover:bg-[#d85200] text-white font-bold text-xs sm:text-sm px-6 py-2.5 rounded-full shadow transition">
                 Download Selengkapnya <i class="fa-solid fa-book-open ml-2 text-xs"></i>
             </a>
@@ -856,9 +856,9 @@
 {{-- ========================================================
      SECTION #16: TESTIMONIAL
      ======================================================== --}}
-<section class="py-12 bg-white">
+<section class="py-12 bg-white overflow-hidden">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
-        <div class="text-center max-w-2xl mx-auto mb-8">
+        <div class="text-center max-w-2xl mx-auto mb-8 reveal-fade-up">
             <h2 class="text-2xl sm:text-3xl font-extrabold text-[#353434] tracking-tight">
                 Testimonial
             </h2>
@@ -869,8 +869,8 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            @foreach($testimonials as $t)
-            <div class="bg-gray-50 p-5 rounded-2xl border border-gray-100 shadow-sm flex flex-col justify-between">
+            @foreach($testimonials as $index => $t)
+            <div class="bg-gray-50 p-5 rounded-2xl border border-gray-100 shadow-sm flex flex-col justify-between reveal-fade-up delay-{{ $index + 1 }}">
                 <div class="space-y-3">
                     <div class="text-[#FE6000] text-xl">
                         <i class="fa-solid fa-quote-left"></i>
@@ -881,11 +881,7 @@
                 </div>
                 <div class="pt-4 mt-4 border-t border-gray-200/60 flex items-center space-x-3">
                     <div class="w-10 h-10 rounded-full overflow-hidden bg-orange-100 flex items-center justify-center text-[#FE6000] font-bold text-xs flex-shrink-0">
-                        @if($t->photo)
-                        <img src="{{ $t->photo }}" alt="{{ $t->name }}" class="w-full h-full object-cover">
-                        @else
-                        {{ substr($t->name, 0, 1) }}
-                        @endif
+                        <img src="{{ $t->photo_url }}" alt="{{ $t->name }}" class="w-full h-full object-cover" onerror="this.src='/uploads/2023/08/user-2.webp'">
                     </div>
                     <div class="min-w-0">
                         <h4 class="font-bold text-xs text-gray-900 truncate">{{ $t->name }}</h4>
@@ -896,7 +892,7 @@
             @endforeach
         </div>
 
-        <div class="text-center mt-8">
+        <div class="text-center mt-8 reveal-fade-up">
             <a href="{{ route('testimonial.index') }}" class="inline-flex items-center bg-[#FE6000] hover:bg-[#d85200] text-white font-bold text-xs sm:text-sm px-6 py-2.5 rounded-full shadow transition">
                 Lihat Semua Testimoni <i class="fa-solid fa-comments ml-2 text-xs"></i>
             </a>
@@ -908,11 +904,11 @@
 {{-- ========================================================
      SECTION #17: BOTTOM QUICK ACTION CARDS
      ======================================================== --}}
-<section class="py-8 bg-gray-50 border-t border-gray-200">
+<section class="py-8 bg-gray-50 border-t border-gray-200 overflow-hidden">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
             
-            <a href="https://daftar.pks.id" target="_blank" class="bg-white p-4 rounded-xl border-t-4 border-[#FE6000] shadow-sm hover:shadow-md transition flex items-center space-x-3.5 group">
+            <a href="https://daftar.pks.id" target="_blank" class="bg-white p-4 rounded-xl border-t-4 border-[#FE6000] shadow-sm hover:shadow-md transition flex items-center space-x-3.5 group reveal-fade-up delay-1">
                 <div class="w-12 h-12 rounded-full bg-orange-50 text-[#FE6000] flex items-center justify-center text-xl flex-shrink-0 group-hover:bg-[#FE6000] group-hover:text-white transition">
                     <i class="fa-solid fa-id-card"></i>
                 </div>
@@ -922,7 +918,7 @@
                 </div>
             </a>
 
-            <a href="https://wa.me/6282280041658" target="_blank" class="bg-white p-4 rounded-xl border-t-4 border-green-500 shadow-sm hover:shadow-md transition flex items-center space-x-3.5 group">
+            <a href="https://wa.me/6282280041658" target="_blank" class="bg-white p-4 rounded-xl border-t-4 border-green-500 shadow-sm hover:shadow-md transition flex items-center space-x-3.5 group reveal-fade-up delay-2">
                 <div class="w-12 h-12 rounded-full bg-green-50 text-green-600 flex items-center justify-center text-xl flex-shrink-0 group-hover:bg-green-500 group-hover:text-white transition">
                     <i class="fa-brands fa-whatsapp"></i>
                 </div>
@@ -932,7 +928,7 @@
                 </div>
             </a>
 
-            <a href="{{ route('donasi') }}" class="bg-white p-4 rounded-xl border-t-4 border-yellow-500 shadow-sm hover:shadow-md transition flex items-center space-x-3.5 group">
+            <a href="{{ route('donasi') }}" class="bg-white p-4 rounded-xl border-t-4 border-yellow-500 shadow-sm hover:shadow-md transition flex items-center space-x-3.5 group reveal-fade-up delay-3">
                 <div class="w-12 h-12 rounded-full bg-yellow-50 text-yellow-600 flex items-center justify-center text-xl flex-shrink-0 group-hover:bg-yellow-500 group-hover:text-white transition">
                     <i class="fa-solid fa-hand-holding-heart"></i>
                 </div>
@@ -950,7 +946,7 @@
 {{-- ========================================================
      SECTION #18: ORANGE SUBSCRIPTION BAR & FOOTER WITH VISITOR COUNTER
      ======================================================== --}}
-<section class="bg-[#FE6000] text-white py-6">
+<section class="bg-[#FE6000] text-white py-6 reveal-fade-up">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row items-center justify-between gap-4">
         <div>
             <h3 class="text-lg font-black tracking-tight">Dapatkan Berita & Info PKS Terkini</h3>
@@ -969,7 +965,7 @@
 </section>
 
 {{-- VISITOR COUNTER WIDGET (Di Atas Footer / Bagian Bawah) --}}
-<section class="bg-[#111827] text-white py-4 border-t border-gray-800">
+<section class="bg-[#111827] text-white py-4 border-t border-gray-800 reveal-fade-up">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
         <div class="flex items-center space-x-3">
             <i class="fa-solid fa-chart-line text-[#FE6000] text-xl"></i>

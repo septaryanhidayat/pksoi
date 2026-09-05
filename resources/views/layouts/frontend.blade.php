@@ -101,6 +101,35 @@
                 backToTopBtn.classList.add('opacity-0', 'pointer-events-none');
             }
         });
+
+        // Fast Snappy Scroll-Triggered Fade-Up Observer
+        document.addEventListener('DOMContentLoaded', () => {
+            const reveals = document.querySelectorAll('.reveal-fade-up');
+            if ('IntersectionObserver' in window) {
+                const observer = new IntersectionObserver((entries, obs) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('is-revealed');
+                            obs.unobserve(entry.target);
+                        }
+                    });
+                }, {
+                    threshold: 0.05,
+                    rootMargin: '0px 0px -25px 0px'
+                });
+
+                reveals.forEach(el => {
+                    const rect = el.getBoundingClientRect();
+                    if (rect.top < window.innerHeight && rect.bottom >= 0) {
+                        el.classList.add('is-revealed');
+                    } else {
+                        observer.observe(el);
+                    }
+                });
+            } else {
+                reveals.forEach(el => el.classList.add('is-revealed'));
+            }
+        });
     </script>
 
     @stack('scripts')

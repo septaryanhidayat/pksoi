@@ -6,11 +6,7 @@
             {{-- Col 1: Brand & Bio --}}
             <div class="space-y-4">
                 <div class="flex items-center space-x-3">
-                    <img src="/uploads/2023/08/logo-pks-ogan-ilir.webp" alt="Logo PKS Ogan Ilir" class="h-12 w-auto" onerror="this.src='/uploads/2025/09/logo-thumbnail.webp'">
-                    <div>
-                        <span class="block text-white font-extrabold text-lg tracking-tight">DPD PKS OGAN ILIR</span>
-                        <span class="block text-xs text-[#fdb913] font-medium">Berkhidmat untuk Rakyat</span>
-                    </div>
+                    <img src="/uploads/2025/09/Logo-Web-DPD3.webp" alt="Logo PKS Ogan Ilir" class="h-12 w-auto" onerror="this.src='/uploads/2025/09/logo-thumbnail.webp'">
                 </div>
                 <p class="text-sm text-gray-400 leading-relaxed">
                     Dewan Pengurus Daerah Partai Keadilan Sejahtera (PKS) Kabupaten Ogan Ilir berkomitmen melayani masyarakat, mengawal aspirasi umat, dan mewujudkan Ogan Ilir yang religius, maju, dan sejahtera.

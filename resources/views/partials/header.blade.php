@@ -37,16 +37,8 @@
             
             {{-- LOGO --}}
             <a href="{{ route('home') }}" class="flex items-center space-x-3 group">
-                <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center">
-                    <img src="/uploads/2023/08/logo-pks-ogan-ilir.webp" alt="Logo PKS Ogan Ilir" class="max-h-12 w-auto object-contain transform group-hover:scale-105 transition" onerror="this.src='/uploads/2025/09/logo-thumbnail.webp'">
-                </div>
-                <div class="flex flex-col">
-                    <span class="font-extrabold text-lg sm:text-xl text-gray-900 tracking-tight leading-tight group-hover:text-[#f37023] transition">
-                        DPD PKS <span class="text-[#f37023]">OGAN ILIR</span>
-                    </span>
-                    <span class="text-[11px] sm:text-xs text-gray-500 font-medium tracking-wide">
-                        Berkhidmat untuk Rakyat
-                    </span>
+                <div class="h-12 flex-shrink-0 flex items-center justify-center">
+                    <img src="/uploads/2025/09/Logo-Web-DPD3.webp" alt="Logo PKS Ogan Ilir" class="max-h-12 w-auto object-contain transform group-hover:scale-105 transition" onerror="this.src='/uploads/2025/09/logo-thumbnail.webp'">
                 </div>
             </a>
 
