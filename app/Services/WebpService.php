@@ -52,6 +52,11 @@ class WebpService
             ];
         }
 
+        // Palette images (e.g. indexed PNG/GIF) must be converted to truecolor for WebP
+        if (function_exists('imagepalettetotruecolor') && !imageistruecolor($image)) {
+            imagepalettetotruecolor($image);
+        }
+
         // Calculate resize if wider than maxWidth
         $targetWidth = $originalWidth;
         $targetHeight = $originalHeight;
