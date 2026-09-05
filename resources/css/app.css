@@ -6,9 +6,9 @@
 
 @theme {
     --font-sans: 'Poppins', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    --color-pks-orange: #f37023;
-    --color-pks-orange-dark: #d85c14;
-    --color-pks-orange-light: #ff8a43;
+    --color-pks-orange: #ff5001;
+    --color-pks-orange-dark: #e04500;
+    --color-pks-orange-light: #ff7833;
     --color-pks-yellow: #fdb913;
     --color-pks-yellow-light: #ffcf4d;
     --color-pks-dark: #18181b;
@@ -30,11 +30,11 @@ body {
     background: #f1f1f1;
 }
 ::-webkit-scrollbar-thumb {
-    background: #f37023;
+    background: #ff5001;
     border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-    background: #d85c14;
+    background: #e04500;
 }
 
 /* Typography styles for article content */
@@ -67,12 +67,12 @@ body {
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 .prose-content a {
-    color: #f37023;
+    color: #ff5001;
     text-decoration: underline;
     text-underline-offset: 3px;
 }
 .prose-content a:hover {
-    color: #d85c14;
+    color: #e04500;
 }
 .prose-content ul {
     list-style-type: disc;
@@ -85,7 +85,7 @@ body {
     margin-bottom: 1.25rem;
 }
 .prose-content blockquote {
-    border-left: 4px solid #f37023;
+    border-left: 4px solid #ff5001;
     padding-left: 1rem;
     font-style: italic;
     color: #4b5563;

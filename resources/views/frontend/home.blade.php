@@ -100,15 +100,15 @@
         {{-- DESKTOP VIEW: 8 Kolom Kartu Berbingkai dengan Ikon Asli Besar --}}
         <div class="hidden md:grid md:grid-cols-8 gap-3 text-center" style="grid-template-columns: repeat(8, minmax(0, 1fr));">
             @foreach($quickMenus as $qm)
-            <a href="{{ $qm->url }}" class="group block p-3 rounded-2xl border border-gray-300 hover:border-[#c2410c] hover:shadow-lg transition bg-white transform hover:-translate-y-1" aria-label="Menu {{ $qm->name }}">
+            <a href="{{ $qm->url }}" class="group block p-3 rounded-2xl border border-gray-300 hover:border-[#ff5001] hover:shadow-lg transition bg-white transform hover:-translate-y-1" aria-label="Menu {{ $qm->name }}">
                 <div class="h-16 flex items-center justify-center mb-1.5">
                     @if($qm->is_image)
                         <img src="{{ $qm->icon }}" alt="Ikon {{ $qm->name }}" class="max-h-full max-w-full object-contain group-hover:scale-108 transition duration-300" onerror="this.src='/uploads/2025/09/logo-thumbnail.webp'">
                     @else
-                        <i class="{{ $qm->icon }} text-3xl text-[#c2410c]" aria-hidden="true"></i>
+                        <i class="{{ $qm->icon }} text-3xl text-[#ff5001]" aria-hidden="true"></i>
                     @endif
                 </div>
-                <span class="text-xs font-bold text-[#c2410c] block truncate">{{ $qm->name }}</span>
+                <span class="text-xs font-bold text-[#ff5001] block truncate">{{ $qm->name }}</span>
             </a>
             @endforeach
         </div>
@@ -116,15 +116,15 @@
         {{-- MOBILE VIEW: 4 Kolom x 2 Baris Kartu Berbingkai --}}
         <div class="grid md:hidden grid-cols-4 gap-2.5 text-center" style="grid-template-columns: repeat(4, minmax(0, 1fr));">
             @foreach($quickMenus as $qm)
-            <a href="{{ $qm->url }}" class="p-2.5 rounded-2xl border border-gray-300 hover:border-[#c2410c] hover:shadow-md transition bg-white" aria-label="Menu {{ $qm->name }}">
+            <a href="{{ $qm->url }}" class="p-2.5 rounded-2xl border border-gray-300 hover:border-[#ff5001] hover:shadow-md transition bg-white" aria-label="Menu {{ $qm->name }}">
                 <div class="h-12 flex items-center justify-center mb-1">
                     @if($qm->is_image)
                         <img src="{{ $qm->icon }}" alt="Ikon {{ $qm->name }}" class="max-h-full max-w-full object-contain" onerror="this.src='/uploads/2025/09/logo-thumbnail.webp'">
                     @else
-                        <i class="{{ $qm->icon }} text-2xl text-[#c2410c]" aria-hidden="true"></i>
+                        <i class="{{ $qm->icon }} text-2xl text-[#ff5001]" aria-hidden="true"></i>
                     @endif
                 </div>
-                <span class="text-[11px] font-bold text-[#c2410c] block truncate">{{ $qm->name }}</span>
+                <span class="text-[11px] font-bold text-[#ff5001] block truncate">{{ $qm->name }}</span>
             </a>
             @endforeach
         </div>
@@ -178,7 +178,7 @@
                         <img src="/uploads/2023/08/Icon-Vote.webp" alt="Mars dan Hymne PKS" class="w-full h-full object-contain">
                     </div>
                     <div>
-                        <h4 class="text-base sm:text-lg font-black text-[#c2410c] tracking-wide uppercase">MARS</h4>
+                        <h4 class="text-base sm:text-lg font-black text-[#ff5001] tracking-wide uppercase">MARS</h4>
                         <p class="text-[11px] text-gray-700 font-medium leading-snug mt-1.5">
                             Download Mars & Hymne Partai Keadilan Sejahtera
                         </p>
@@ -191,7 +191,7 @@
                         <img src="/uploads/2023/08/Icon-Adm.webp" alt="E-Book PKS" class="w-full h-full object-contain">
                     </div>
                     <div>
-                        <h4 class="text-base sm:text-lg font-black text-[#c2410c] tracking-wide uppercase">E-BOOK</h4>
+                        <h4 class="text-base sm:text-lg font-black text-[#ff5001] tracking-wide uppercase">E-BOOK</h4>
                         <p class="text-[11px] text-gray-700 font-medium leading-snug mt-1.5">
                             Download E-Book Materi Dakwah Gratis
                         </p>
@@ -204,7 +204,7 @@
                         <img src="/uploads/2023/08/Icon-UMKM.webp" alt="Logo Resmi PKS" class="w-full h-full object-contain">
                     </div>
                     <div>
-                        <h4 class="text-base sm:text-lg font-black text-[#c2410c] tracking-wide uppercase">LOGO</h4>
+                        <h4 class="text-base sm:text-lg font-black text-[#ff5001] tracking-wide uppercase">LOGO</h4>
                         <p class="text-[11px] text-gray-700 font-medium leading-snug mt-1.5">
                             Download Logo Resmi Partai Keadilan Sejahtera
                         </p>
@@ -279,12 +279,12 @@
         <div class="mb-6 flex flex-col sm:flex-row items-center justify-between text-center sm:text-left gap-3 reveal-fade-up">
             <div>
                 <h2 class="text-xl sm:text-2xl font-extrabold text-[#353434] flex items-center justify-center sm:justify-start">
-                    <span class="w-2.5 h-2.5 rounded-full bg-[#c2410c] mr-2" aria-hidden="true"></span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-[#ff5001] mr-2" aria-hidden="true"></span>
                     Artikel & Berita
                 </h2>
-                <div class="w-12 h-0.5 bg-[#c2410c] mt-1 mx-auto sm:mx-0"></div>
+                <div class="w-12 h-0.5 bg-[#ff5001] mt-1 mx-auto sm:mx-0"></div>
             </div>
-            <a href="{{ route('artikel.index') }}" aria-label="Lihat Semua Artikel dan Berita" class="text-xs sm:text-sm font-semibold text-[#c2410c] hover:underline flex items-center">
+            <a href="{{ route('artikel.index') }}" aria-label="Lihat Semua Artikel dan Berita" class="text-xs sm:text-sm font-semibold text-[#ff5001] hover:underline flex items-center">
                 Lihat Semua <i class="fa-solid fa-arrow-right ml-1.5 text-xs" aria-hidden="true"></i>
             </a>
         </div>
@@ -298,7 +298,7 @@
                     <div class="relative h-60 sm:h-80 overflow-hidden bg-gray-100">
                         <img src="{{ $featuredPost->featured_image_url }}" alt="{{ $featuredPost->title }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                         @if($featuredPost->categories->isNotEmpty())
-                        <span class="absolute top-3 left-3 bg-[#c2410c] text-white text-[11px] font-bold px-3 py-1 rounded-full shadow">
+                        <span class="absolute top-3 left-3 bg-[#ff5001] text-white text-[11px] font-bold px-3 py-1 rounded-full shadow">
                             {{ $featuredPost->categories->first()->name }}
                         </span>
                         @endif
@@ -306,10 +306,10 @@
                     <div class="p-5 sm:p-6 flex-1 flex flex-col justify-between">
                         <div class="space-y-2">
                             <div class="text-xs text-gray-600 flex items-center space-x-3">
-                                <span><i class="fa-regular fa-calendar-check mr-1 text-[#c2410c]" aria-hidden="true"></i> {{ $featuredPost->published_at ? $featuredPost->published_at->translatedFormat('d F Y') : '-' }}</span>
-                                <span><i class="fa-regular fa-eye mr-1 text-[#c2410c]" aria-hidden="true"></i> {{ $featuredPost->views_count }} views</span>
+                                <span><i class="fa-regular fa-calendar-check mr-1 text-[#ff5001]" aria-hidden="true"></i> {{ $featuredPost->published_at ? $featuredPost->published_at->translatedFormat('d F Y') : '-' }}</span>
+                                <span><i class="fa-regular fa-eye mr-1 text-[#ff5001]" aria-hidden="true"></i> {{ $featuredPost->views_count }} views</span>
                             </div>
-                            <h3 class="text-lg sm:text-xl font-bold text-gray-900 group-hover:text-[#c2410c] transition line-clamp-2">
+                            <h3 class="text-lg sm:text-xl font-bold text-gray-900 group-hover:text-[#ff5001] transition line-clamp-2">
                                 <a href="{{ route('artikel.show', $featuredPost->slug) }}">
                                     {{ $featuredPost->title }}
                                 </a>
@@ -319,7 +319,7 @@
                             </p>
                         </div>
                         <div class="pt-4 mt-4 border-t border-gray-100 flex justify-end">
-                            <a href="{{ route('artikel.show', $featuredPost->slug) }}" aria-label="Baca selengkapnya tentang {{ $featuredPost->title }}" class="text-xs font-bold text-[#c2410c] hover:text-[#9a3412] flex items-center">
+                            <a href="{{ route('artikel.show', $featuredPost->slug) }}" aria-label="Baca selengkapnya tentang {{ $featuredPost->title }}" class="text-xs font-bold text-[#ff5001] hover:text-[#e04500] flex items-center">
                                 Selengkapnya <i class="fa-solid fa-angle-right ml-1" aria-hidden="true"></i>
                             </a>
                         </div>
@@ -339,12 +339,12 @@
                         <div class="flex-1 min-w-0">
                             <div class="text-[11px] text-gray-600 mb-1 flex items-center space-x-2">
                                 @if($post->categories->isNotEmpty())
-                                <span class="text-[#c2410c] font-semibold">{{ $post->categories->first()->name }}</span>
+                                <span class="text-[#ff5001] font-semibold">{{ $post->categories->first()->name }}</span>
                                 <span aria-hidden="true">•</span>
                                 @endif
                                 <span>{{ $post->published_at ? $post->published_at->translatedFormat('d M Y') : '' }}</span>
                             </div>
-                            <h3 class="text-xs sm:text-sm font-bold text-gray-900 group-hover:text-[#c2410c] transition line-clamp-2 leading-snug">
+                            <h3 class="text-xs sm:text-sm font-bold text-gray-900 group-hover:text-[#ff5001] transition line-clamp-2 leading-snug">
                                 <a href="{{ route('artikel.show', $post->slug) }}">
                                     {{ $post->title }}
                                 </a>
@@ -354,7 +354,7 @@
                     @endforeach
                 </div>
 
-                <a href="{{ route('artikel.index') }}" aria-label="Lihat Semua Berita dan Artikel" class="w-full text-center bg-[#c2410c] hover:bg-[#9a3412] text-white text-xs font-bold py-3 rounded-xl transition shadow-sm block mt-2" style="background-color: #c2410c !important; color: #ffffff !important;">
+                <a href="{{ route('artikel.index') }}" aria-label="Lihat Semua Berita dan Artikel" class="w-full text-center bg-[#ff5001] hover:bg-[#e04500] text-white text-xs font-bold py-3 rounded-xl transition shadow-sm block mt-2" style="background-color: #ff5001 !important; color: #ffffff !important;">
                     Lihat Semua Berita <i class="fa-solid fa-arrow-right ml-1" aria-hidden="true"></i>
                 </a>
             </div>
@@ -370,7 +370,7 @@
 <section class="py-12 bg-white overflow-hidden">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
         <div class="text-center max-w-2xl mx-auto mb-8 reveal-fade-up">
-            <h2 class="text-2xl sm:text-3xl font-extrabold text-[#c2410c] tracking-tight">
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-[#ff5001] tracking-tight">
                 Berita Fraksi PKS
             </h2>
             <p class="text-xs sm:text-sm text-gray-700 mt-1 font-medium">
@@ -389,12 +389,12 @@
                     </a>
                 </div>
                 <div class="pt-3 flex-1 flex flex-col justify-between">
-                    <h3 class="font-extrabold text-xs sm:text-sm text-gray-900 group-hover:text-[#c2410c] transition line-clamp-2 leading-snug">
+                    <h3 class="font-extrabold text-xs sm:text-sm text-gray-900 group-hover:text-[#ff5001] transition line-clamp-2 leading-snug">
                         <a href="{{ route('artikel.show', $post->slug) }}">
                             {{ $post->title }}
                         </a>
                     </h3>
-                    <div class="text-[11px] sm:text-xs text-[#c2410c] mt-1.5 font-medium">
+                    <div class="text-[11px] sm:text-xs text-[#ff5001] mt-1.5 font-medium">
                         {{ $post->published_at ? $post->published_at->translatedFormat('j F Y') : '' }}
                     </div>
                 </div>
@@ -403,7 +403,7 @@
         </div>
 
         <div class="text-center mt-8 reveal-fade-up">
-            <a href="{{ route('artikel.index') }}?kategori=fraksi" aria-label="Lihat Lebih Banyak Berita Fraksi PKS" class="inline-flex items-center bg-[#c2410c] hover:bg-[#9a3412] text-white font-bold text-xs sm:text-sm px-7 py-2.5 rounded-full shadow transition">
+            <a href="{{ route('artikel.index') }}?kategori=fraksi" aria-label="Lihat Lebih Banyak Berita Fraksi PKS" class="inline-flex items-center bg-[#ff5001] hover:bg-[#e04500] text-white font-bold text-xs sm:text-sm px-7 py-2.5 rounded-full shadow transition">
                 Lebih Banyak <i class="fa-solid fa-chevron-down ml-2 text-xs" aria-hidden="true"></i>
             </a>
         </div>
@@ -423,7 +423,7 @@
                 <div>
                     <div class="flex items-center justify-between pb-3 mb-4 border-b border-gray-100">
                         <h2 class="text-lg font-extrabold text-[#353434] flex items-center">
-                            <span class="w-2.5 h-2.5 rounded-full bg-[#c2410c] mr-2" aria-hidden="true"></span>
+                            <span class="w-2.5 h-2.5 rounded-full bg-[#ff5001] mr-2" aria-hidden="true"></span>
                             Nasional
                         </h2>
                         <span class="text-xs text-gray-600 font-medium">Kabar Nusantara</span>
@@ -439,7 +439,7 @@
                                 <div class="text-[11px] text-gray-600 mb-1">
                                     {{ $post->published_at ? $post->published_at->translatedFormat('d F Y') : '' }}
                                 </div>
-                                <h3 class="text-xs sm:text-sm font-bold text-gray-900 group-hover:text-[#c2410c] transition line-clamp-2 leading-snug">
+                                <h3 class="text-xs sm:text-sm font-bold text-gray-900 group-hover:text-[#ff5001] transition line-clamp-2 leading-snug">
                                     <a href="{{ route('artikel.show', $post->slug) }}">
                                         {{ $post->title }}
                                     </a>
@@ -451,7 +451,7 @@
                 </div>
 
                 <div class="pt-5 mt-4">
-                    <a href="{{ route('artikel.index') }}?kategori=nasional" aria-label="Lihat Semua Berita Nasional" class="block w-full text-center bg-[#c2410c] hover:bg-[#9a3412] text-white font-bold text-xs py-2.5 rounded-xl shadow-sm transition" style="background-color: #c2410c !important; color: #ffffff !important;">
+                    <a href="{{ route('artikel.index') }}?kategori=nasional" aria-label="Lihat Semua Berita Nasional" class="block w-full text-center bg-[#ff5001] hover:bg-[#e04500] text-white font-bold text-xs py-2.5 rounded-xl shadow-sm transition" style="background-color: #ff5001 !important; color: #ffffff !important;">
                         Lihat Semua Berita Nasional <i class="fa-solid fa-arrow-right ml-1" aria-hidden="true"></i>
                     </a>
                 </div>
@@ -462,7 +462,7 @@
                 <div>
                     <div class="flex items-center justify-between pb-3 mb-4 border-b border-gray-100">
                         <h2 class="text-lg font-extrabold text-[#353434] flex items-center">
-                            <span class="w-2.5 h-2.5 rounded-full bg-[#c2410c] mr-2" aria-hidden="true" style="background-color: #c2410c !important;"></span>
+                            <span class="w-2.5 h-2.5 rounded-full bg-[#ff5001] mr-2" aria-hidden="true" style="background-color: #ff5001 !important;"></span>
                             Daerah
                         </h2>
                         <span class="text-xs text-gray-600 font-medium">Kabar Ogan Ilir</span>
@@ -478,7 +478,7 @@
                                 <div class="text-[11px] text-gray-600 mb-1">
                                     {{ $post->published_at ? $post->published_at->translatedFormat('d F Y') : '' }}
                                 </div>
-                                <h3 class="text-xs sm:text-sm font-bold text-gray-900 group-hover:text-[#c2410c] transition line-clamp-2 leading-snug">
+                                <h3 class="text-xs sm:text-sm font-bold text-gray-900 group-hover:text-[#ff5001] transition line-clamp-2 leading-snug">
                                     <a href="{{ route('artikel.show', $post->slug) }}">
                                         {{ $post->title }}
                                     </a>
@@ -490,7 +490,7 @@
                 </div>
 
                 <div class="pt-5 mt-4">
-                    <a href="{{ route('artikel.index') }}?kategori=ogan-ilir" aria-label="Lihat Semua Berita Daerah Ogan Ilir" class="block w-full text-center bg-[#c2410c] hover:bg-[#9a3412] text-white font-bold text-xs py-2.5 rounded-xl shadow-sm transition" style="background-color: #c2410c !important; color: #ffffff !important;">
+                    <a href="{{ route('artikel.index') }}?kategori=ogan-ilir" aria-label="Lihat Semua Berita Daerah Ogan Ilir" class="block w-full text-center bg-[#ff5001] hover:bg-[#e04500] text-white font-bold text-xs py-2.5 rounded-xl shadow-sm transition" style="background-color: #ff5001 !important; color: #ffffff !important;">
                         Lihat Semua Berita Daerah <i class="fa-solid fa-arrow-right ml-1" aria-hidden="true"></i>
                     </a>
                 </div>
@@ -507,7 +507,7 @@
 <section class="py-12 bg-white overflow-hidden">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
         <div class="text-center max-w-2xl mx-auto mb-8 reveal-fade-up">
-            <h2 class="text-2xl sm:text-3xl font-extrabold text-[#c2410c] tracking-tight">
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-[#ff5001] tracking-tight">
                 Kabar Senayan
             </h2>
             <p class="text-xs sm:text-sm text-gray-700 mt-1 font-medium">
@@ -526,12 +526,12 @@
                     </a>
                 </div>
                 <div class="pt-3 flex-1 flex flex-col justify-between">
-                    <h3 class="font-extrabold text-xs sm:text-sm text-gray-900 group-hover:text-[#c2410c] transition line-clamp-2 leading-snug">
+                    <h3 class="font-extrabold text-xs sm:text-sm text-gray-900 group-hover:text-[#ff5001] transition line-clamp-2 leading-snug">
                         <a href="{{ route('artikel.show', $post->slug) }}">
                             {{ $post->title }}
                         </a>
                     </h3>
-                    <div class="text-[11px] sm:text-xs text-[#c2410c] mt-1.5 font-medium">
+                    <div class="text-[11px] sm:text-xs text-[#ff5001] mt-1.5 font-medium">
                         {{ $post->published_at ? $post->published_at->translatedFormat('j F Y') : '' }}
                     </div>
                 </div>
@@ -540,7 +540,7 @@
         </div>
 
         <div class="text-center mt-8 reveal-fade-up">
-            <a href="{{ route('artikel.index') }}?kategori=senayan" aria-label="Lihat Lebih Banyak Berita Senayan" class="inline-flex items-center bg-[#c2410c] hover:bg-[#9a3412] text-white font-bold text-xs sm:text-sm px-7 py-2.5 rounded-full shadow transition" style="background-color: #c2410c !important; color: #ffffff !important;">
+            <a href="{{ route('artikel.index') }}?kategori=senayan" aria-label="Lihat Lebih Banyak Berita Senayan" class="inline-flex items-center bg-[#ff5001] hover:bg-[#e04500] text-white font-bold text-xs sm:text-sm px-7 py-2.5 rounded-full shadow transition" style="background-color: #ff5001 !important; color: #ffffff !important;">
                 Lebih Banyak <i class="fa-solid fa-chevron-down ml-2 text-xs" aria-hidden="true"></i>
             </a>
         </div>
@@ -562,7 +562,7 @@
             <p class="text-xs sm:text-sm text-gray-600 mt-1">
                 Kabar dan Aktivitas terbaru Anggota Legislatif PKS Ogan Ilir
             </p>
-            <div class="w-16 h-1 bg-[#c2410c] mx-auto mt-2 rounded-full" style="background-color: #c2410c !important;"></div>
+            <div class="w-16 h-1 bg-[#ff5001] mx-auto mt-2 rounded-full" style="background-color: #ff5001 !important;"></div>
         </div>
 
         {{-- DESKTOP VIEW (Section #8: 4 Kolom 1 Baris) --}}
@@ -572,7 +572,7 @@
                 <div class="h-64 rounded-xl overflow-hidden mb-3 bg-gray-100">
                     <img src="{{ $d->photo_url }}" alt="Foto {{ $d->name }} - {{ $d->position }}" class="w-full h-full object-cover object-top group-hover:scale-105 transition duration-300" onerror="this.src='/uploads/2024/01/cd1787310f135df61a8832283565af3b.webp'">
                 </div>
-                <h3 class="font-extrabold text-sm text-gray-900 group-hover:text-[#c2410c] transition">
+                <h3 class="font-extrabold text-sm text-gray-900 group-hover:text-[#ff5001] transition">
                     {{ $d->name }}
                 </h3>
                 <p class="text-xs text-gray-600 mt-0.5 font-medium">
@@ -600,7 +600,7 @@
         </div>
 
         <div class="text-center mt-8 reveal-fade-up">
-            <a href="{{ route('dewan.index') }}" aria-label="Lihat Semua Anggota Dewan Fraksi PKS" class="inline-flex items-center bg-[#c2410c] hover:bg-[#9a3412] text-white font-bold text-xs sm:text-sm px-6 py-2.5 rounded-full shadow transition" style="background-color: #c2410c !important; color: #ffffff !important;">
+            <a href="{{ route('dewan.index') }}" aria-label="Lihat Semua Anggota Dewan Fraksi PKS" class="inline-flex items-center bg-[#ff5001] hover:bg-[#e04500] text-white font-bold text-xs sm:text-sm px-6 py-2.5 rounded-full shadow transition" style="background-color: #ff5001 !important; color: #ffffff !important;">
                 Lihat Semua Anggota Dewan <i class="fa-solid fa-arrow-right ml-2 text-xs" aria-hidden="true"></i>
             </a>
         </div>
@@ -640,7 +640,7 @@
                     </div>
                 </button>
                 <div class="bg-white py-3.5 px-4 rounded-b-2xl text-center">
-                    <h3 class="font-bold text-xs sm:text-sm text-gray-900 truncate group-hover:text-[#c2410c] transition" title="{{ $v->title }}">
+                    <h3 class="font-bold text-xs sm:text-sm text-gray-900 truncate group-hover:text-[#ff5001] transition" title="{{ $v->title }}">
                         {{ $v->title }}
                     </h3>
                 </div>
@@ -657,7 +657,7 @@
         </script>
 
         <div class="text-center mt-10 reveal-fade-up">
-            <a href="{{ route('video.index') }}" aria-label="Lihat Video DPD PKS Lainnya" class="inline-flex items-center bg-[#c2410c] hover:bg-[#9a3412] text-white font-bold text-xs sm:text-sm px-7 py-2.5 rounded-full shadow-lg transition" style="background-color: #c2410c !important; color: #ffffff !important;">
+            <a href="{{ route('video.index') }}" aria-label="Lihat Video DPD PKS Lainnya" class="inline-flex items-center bg-[#ff5001] hover:bg-[#e04500] text-white font-bold text-xs sm:text-sm px-7 py-2.5 rounded-full shadow-lg transition" style="background-color: #ff5001 !important; color: #ffffff !important;">
                 Video Lainnya <i class="fa-solid fa-play ml-2 text-[10px]" aria-hidden="true"></i>
             </a>
         </div>
@@ -677,10 +677,10 @@
                 <div>
                     <div class="flex items-center justify-between pb-3 mb-4 border-b border-gray-200">
                         <h2 class="text-lg font-extrabold text-[#353434] flex items-center">
-                            <i class="fa-solid fa-bullhorn text-[#c2410c] mr-2" aria-hidden="true"></i>
+                            <i class="fa-solid fa-bullhorn text-[#ff5001] mr-2" aria-hidden="true"></i>
                             Pengumuman
                         </h2>
-                        <a href="{{ route('pengumuman.index') }}" aria-label="Lihat Semua Pengumuman" class="text-xs font-semibold text-[#c2410c] hover:underline">
+                        <a href="{{ route('pengumuman.index') }}" aria-label="Lihat Semua Pengumuman" class="text-xs font-semibold text-[#ff5001] hover:underline">
                             Lihat Semua
                         </a>
                     </div>
@@ -689,10 +689,10 @@
                         @foreach($announcements as $ann)
                         <article class="bg-white p-3.5 rounded-xl border border-gray-100 shadow-sm hover:border-orange-200 transition">
                             <div class="text-[11px] text-gray-600 mb-1 flex items-center">
-                                <i class="fa-regular fa-clock mr-1 text-[#c2410c]" aria-hidden="true"></i>
+                                <i class="fa-regular fa-clock mr-1 text-[#ff5001]" aria-hidden="true"></i>
                                 {{ $ann->created_at ? $ann->created_at->translatedFormat('d F Y') : '' }}
                             </div>
-                            <h3 class="font-bold text-xs sm:text-sm text-gray-900 hover:text-[#c2410c] transition">
+                            <h3 class="font-bold text-xs sm:text-sm text-gray-900 hover:text-[#ff5001] transition">
                                 <a href="{{ route('pengumuman.show', $ann->slug) }}">
                                     {{ $ann->title }}
                                 </a>
@@ -703,7 +703,7 @@
                 </div>
 
                 <div class="pt-4 mt-4">
-                    <a href="{{ route('pengumuman.index') }}" aria-label="Lihat Semua Pengumuman DPD PKS" class="block w-full text-center bg-[#c2410c] hover:bg-[#9a3412] text-white font-bold text-xs py-2.5 rounded-xl shadow-sm transition" style="background-color: #c2410c !important; color: #ffffff !important;">
+                    <a href="{{ route('pengumuman.index') }}" aria-label="Lihat Semua Pengumuman DPD PKS" class="block w-full text-center bg-[#ff5001] hover:bg-[#e04500] text-white font-bold text-xs py-2.5 rounded-xl shadow-sm transition" style="background-color: #ff5001 !important; color: #ffffff !important;">
                         Lihat Semua Pengumuman
                     </a>
                 </div>
@@ -714,10 +714,10 @@
                 <div>
                     <div class="flex items-center justify-between pb-3 mb-4 border-b border-gray-200">
                         <h2 class="text-lg font-extrabold text-[#353434] flex items-center">
-                            <i class="fa-solid fa-calendar-days text-[#c2410c] mr-2" aria-hidden="true"></i>
+                            <i class="fa-solid fa-calendar-days text-[#ff5001] mr-2" aria-hidden="true"></i>
                             Agenda
                         </h2>
-                        <a href="{{ route('agenda.index') }}" aria-label="Lihat Semua Agenda Kegiatan" class="text-xs font-semibold text-[#c2410c] hover:underline">
+                        <a href="{{ route('agenda.index') }}" aria-label="Lihat Semua Agenda Kegiatan" class="text-xs font-semibold text-[#ff5001] hover:underline">
                             Lihat Semua
                         </a>
                     </div>
@@ -726,7 +726,7 @@
                         @foreach($agendas as $agenda)
                         <article class="bg-white p-3.5 rounded-xl border border-gray-100 shadow-sm hover:border-orange-200 transition flex items-center space-x-3.5">
                             {{-- Tanggal Oranye Besar di Kiri --}}
-                            <div class="w-14 h-14 rounded-xl bg-[#c2410c] text-white flex flex-col items-center justify-center flex-shrink-0 shadow" style="background-color: #c2410c !important; color: #ffffff !important;">
+                            <div class="w-14 h-14 rounded-xl bg-[#ff5001] text-white flex flex-col items-center justify-center flex-shrink-0 shadow" style="background-color: #ff5001 !important; color: #ffffff !important;">
                                 <span class="text-base font-extrabold leading-none" style="color: #ffffff !important;">
                                     {{ $agenda->event_date ? $agenda->event_date->format('d') : date('d') }}
                                 </span>
@@ -735,7 +735,7 @@
                                 </span>
                             </div>
                             <div class="flex-1 min-w-0">
-                                <h3 class="font-bold text-xs sm:text-sm text-gray-900 hover:text-[#c2410c] transition line-clamp-1">
+                                <h3 class="font-bold text-xs sm:text-sm text-gray-900 hover:text-[#ff5001] transition line-clamp-1">
                                     <a href="{{ route('agenda.show', $agenda->slug) }}">
                                         {{ $agenda->title }}
                                     </a>
@@ -752,7 +752,7 @@
                 </div>
 
                 <div class="pt-4 mt-4">
-                    <a href="{{ route('agenda.index') }}" aria-label="Lihat Semua Agenda Kegiatan DPD PKS" class="block w-full text-center bg-[#c2410c] hover:bg-[#9a3412] text-white font-bold text-xs py-2.5 rounded-xl shadow-sm transition" style="background-color: #c2410c !important; color: #ffffff !important;">
+                    <a href="{{ route('agenda.index') }}" aria-label="Lihat Semua Agenda Kegiatan DPD PKS" class="block w-full text-center bg-[#ff5001] hover:bg-[#e04500] text-white font-bold text-xs py-2.5 rounded-xl shadow-sm transition" style="background-color: #ff5001 !important; color: #ffffff !important;">
                         Lihat Semua Agenda
                     </a>
                 </div>
@@ -929,7 +929,7 @@
 {{-- ========================================================
      SECTION #14: CALL TO ACTION BANNER (Gabung PKS)
      ======================================================== --}}
-<section class="relative bg-gradient-to-r from-orange-700 to-[#c2410c] text-white py-12 px-4 sm:px-6 overflow-hidden reveal-fade-up" style="background: linear-gradient(135deg, #c2410c 0%, #9a3412 100%) !important; color: #ffffff !important;">
+<section class="relative bg-gradient-to-r from-[#ff5001] to-[#ff6a00] text-white py-12 px-4 sm:px-6 overflow-hidden reveal-fade-up" style="background: linear-gradient(135deg, #ff5001 0%, #ff6a00 100%) !important; color: #ffffff !important;">
     <div class="absolute inset-0 opacity-10">
         <img src="/uploads/2024/01/cd1787310f135df61a8832283565af3b.webp" alt="" aria-hidden="true" class="w-full h-full object-cover">
     </div>
@@ -942,8 +942,8 @@
                 Pelayanan, Pemberdayaan, dan Pembelaan untuk Rakyat. Bersama kita wujudkan Ogan Ilir yang religius, maju, dan sejahtera.
             </p>
         </div>
-        <a href="https://daftar.pks.id" target="_blank" aria-label="Daftar Sekarang Menjadi Anggota PKS" class="bg-white text-[#c2410c] hover:bg-orange-50 font-extrabold text-xs sm:text-sm px-7 py-3 rounded-full shadow-lg hover:shadow-xl transition flex-shrink-0 min-h-[44px] flex items-center" style="background-color: #ffffff !important; color: #c2410c !important;">
-            Daftar Sekarang <i class="fa-solid fa-user-plus ml-1.5" aria-hidden="true" style="color: #c2410c !important;"></i>
+        <a href="https://daftar.pks.id" target="_blank" aria-label="Daftar Sekarang Menjadi Anggota PKS" class="bg-white text-[#ff5001] hover:bg-orange-50 font-extrabold text-xs sm:text-sm px-7 py-3 rounded-full shadow-lg hover:shadow-xl transition flex-shrink-0 min-h-[44px] flex items-center" style="background-color: #ffffff !important; color: #ff5001 !important;">
+            Daftar Sekarang <i class="fa-solid fa-user-plus ml-1.5" aria-hidden="true" style="color: #ff5001 !important;"></i>
         </a>
     </div>
 </section>
@@ -1061,14 +1061,14 @@
             <p class="text-xs sm:text-sm text-gray-600 mt-1">
                 Komentar Masyarakat tentang DPD PKS Ogan Ilir
             </p>
-            <div class="w-16 h-1 bg-[#c2410c] mx-auto mt-2 rounded-full"></div>
+            <div class="w-16 h-1 bg-[#ff5001] mx-auto mt-2 rounded-full"></div>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             @foreach($testimonials as $index => $t)
             <div class="bg-gray-50 p-5 rounded-2xl border border-gray-100 shadow-sm flex flex-col justify-between reveal-fade-up delay-{{ $index + 1 }}">
                 <div class="space-y-3">
-                    <div class="text-[#c2410c] text-xl" aria-hidden="true">
+                    <div class="text-[#ff5001] text-xl" aria-hidden="true">
                         <i class="fa-solid fa-quote-left"></i>
                     </div>
                     <p class="text-xs sm:text-sm text-gray-700 leading-relaxed italic line-clamp-4">
@@ -1076,7 +1076,7 @@
                     </p>
                 </div>
                 <div class="pt-4 mt-4 border-t border-gray-200/60 flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left space-y-2 sm:space-y-0 sm:space-x-3">
-                    <div class="w-10 h-10 rounded-full overflow-hidden bg-orange-100 flex items-center justify-center text-[#c2410c] font-bold text-xs flex-shrink-0 mx-auto sm:mx-0">
+                    <div class="w-10 h-10 rounded-full overflow-hidden bg-orange-100 flex items-center justify-center text-[#ff5001] font-bold text-xs flex-shrink-0 mx-auto sm:mx-0">
                         <img src="{{ $t->photo_url }}" alt="Foto profil {{ $t->name }}" class="w-full h-full object-cover" onerror="this.src='/uploads/2023/08/user-2.webp'">
                     </div>
                     <div class="min-w-0">
@@ -1089,7 +1089,7 @@
         </div>
 
         <div class="text-center mt-8 reveal-fade-up">
-            <a href="{{ route('testimonial.index') }}" aria-label="Lihat Semua Testimonial Masyarakat" class="inline-flex items-center bg-[#c2410c] hover:bg-[#9a3412] text-white font-bold text-xs sm:text-sm px-6 py-2.5 rounded-full shadow transition" style="background-color: #c2410c !important; color: #ffffff !important;">
+            <a href="{{ route('testimonial.index') }}" aria-label="Lihat Semua Testimonial Masyarakat" class="inline-flex items-center bg-[#ff5001] hover:bg-[#e04500] text-white font-bold text-xs sm:text-sm px-6 py-2.5 rounded-full shadow transition" style="background-color: #ff5001 !important; color: #ffffff !important;">
                 Lihat Semua Testimoni <i class="fa-solid fa-comments ml-2 text-xs" aria-hidden="true"></i>
             </a>
         </div>
@@ -1105,12 +1105,12 @@
         <h2 class="sr-only">Aksi dan Layanan Cepat</h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
             
-            <a href="https://daftar.pks.id" target="_blank" class="bg-white p-4 rounded-xl border-t-4 border-[#c2410c] shadow-sm hover:shadow-md transition flex items-center space-x-3.5 group reveal-fade-up delay-1" aria-label="Daftar PKS Online Resmi">
-                <div class="w-12 h-12 rounded-full bg-orange-50 text-[#c2410c] flex items-center justify-center text-xl flex-shrink-0 group-hover:bg-[#c2410c] group-hover:text-white transition" aria-hidden="true">
+            <a href="https://daftar.pks.id" target="_blank" class="bg-white p-4 rounded-xl border-t-4 border-[#ff5001] shadow-sm hover:shadow-md transition flex items-center space-x-3.5 group reveal-fade-up delay-1" aria-label="Daftar PKS Online Resmi">
+                <div class="w-12 h-12 rounded-full bg-orange-50 text-[#ff5001] flex items-center justify-center text-xl flex-shrink-0 group-hover:bg-[#ff5001] group-hover:text-white transition" aria-hidden="true">
                     <i class="fa-solid fa-id-card"></i>
                 </div>
                 <div>
-                    <h3 class="font-bold text-sm text-gray-900 group-hover:text-[#c2410c] transition">Daftar PKS Online</h3>
+                    <h3 class="font-bold text-sm text-gray-900 group-hover:text-[#ff5001] transition">Daftar PKS Online</h3>
                     <p class="text-xs text-gray-600">Bergabung menjadi anggota resmi</p>
                 </div>
             </a>
