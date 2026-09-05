@@ -50,6 +50,12 @@ class PageController extends Controller
         return view('frontend.pages.privacy-policy', compact('page'));
     }
 
+    public function dpc()
+    {
+        $dpcs = Dpc::orderBy('order', 'asc')->get();
+        return view('frontend.dpc.index', compact('dpcs'));
+    }
+
     public function show(string $slug)
     {
         $page = Post::pages()->where('slug', $slug)->firstOrFail();

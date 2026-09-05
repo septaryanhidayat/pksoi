@@ -8,10 +8,18 @@ use App\Models\Download;
 use App\Models\Pengumuman;
 use App\Models\Post;
 
-test('home page renders successfully', function () {
+test('home page renders all authentic sections successfully', function () {
     $response = $this->get('/');
     $response->assertStatus(200);
-    $response->assertSee('DPD PKS Ogan Ilir');
+    $response->assertSee('Menu Utama');
+    $response->assertSee('Sambutan Ketua DPD');
+    $response->assertSee('Berita Fraksi PKS');
+    $response->assertSee('Kabar Senayan');
+    $response->assertSee('Anggota DPRD Fraksi PKS');
+    $response->assertSee('Download E-Book');
+    $response->assertSee('Daftar PKS Online');
+    $response->assertSee('Statistik Pengunjung Website');
+    $response->assertSee('Total Hits:');
 });
 
 test('articles page renders successfully', function () {

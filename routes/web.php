@@ -80,9 +80,13 @@ Route::get('/hymne-mars-pks', [DownloadController::class, 'hymneMars'])->name('d
 Route::get('/logo', [DownloadController::class, 'logo'])->name('download.logo');
 Route::get('/unduh/{id}', [DownloadController::class, 'downloadFile'])->name('download.file');
 
+// DPC PKS se-Ogan Ilir
+Route::get('/dpc', [PageController::class, 'dpc'])->name('dpc.index');
+
 // Hubungi & Donasi
 Route::get('/hubungi', [ContactController::class, 'hubungi'])->name('hubungi');
 Route::post('/hubungi', [ContactController::class, 'submitFeedback'])->name('feedback.store');
+Route::post('/hubungi-store', [ContactController::class, 'submitFeedback'])->name('hubungi.store');
 Route::get('/donasi', [ContactController::class, 'donasi'])->name('donasi');
 
 // Legacy URL Fallback for WordPress images: /wp-content/uploads/{path}
