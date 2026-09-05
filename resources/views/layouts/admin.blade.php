@@ -30,7 +30,32 @@
             font-family: 'Poppins', sans-serif;
             font-size: 0.875rem;
             background-color: #ffffff;
-            min-height: 220px;
+            min-height: 200px;
+            max-height: 480px;
+            overflow-y: auto;
+        }
+        .ql-editor {
+            min-height: 200px;
+            max-height: 480px;
+            overflow-y: auto;
+            line-height: 1.65 !important;
+            padding: 16px 20px !important;
+        }
+        .ql-editor p {
+            margin-bottom: 0.75rem !important;
+        }
+        .ql-editor h1, .ql-editor h2, .ql-editor h3, .ql-editor h4 {
+            margin-top: 1.25rem !important;
+            margin-bottom: 0.5rem !important;
+            font-weight: 700 !important;
+            color: #0f172a !important;
+        }
+        .ql-editor ul, .ql-editor ol {
+            padding-left: 1.25rem !important;
+            margin-bottom: 0.75rem !important;
+        }
+        .ql-editor li {
+            margin-bottom: 0.25rem !important;
         }
     </style>
 </head>
@@ -261,6 +286,17 @@
     {{-- Quill.js Automatic Initializer Script for Elements with [data-quill] --}}
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            function cleanHtmlForQuill(html) {
+                if (!html) return '';
+                // 1. Remove WordPress Gutenberg block comments
+                let cleaned = html.replace(/<!--\s*\/?wp:[^>]*-->/gi, '');
+                // 2. Collapse newlines between HTML tags to prevent white-space: pre-wrap expansion
+                cleaned = cleaned.replace(/>\s*\n+\s*</g, '><');
+                // 3. Normalize multiple empty paragraphs
+                cleaned = cleaned.replace(/(<p>\s*(<br\s*\/?>|&nbsp;)?\s*<\/p>\s*){2,}/gi, '<p><br></p>');
+                return cleaned.trim();
+            }
+
             // Automatic Rich Text Editor Initializer
             document.querySelectorAll('[data-quill]').forEach(function(editorEl) {
                 const targetInputId = editorEl.getAttribute('data-quill');
@@ -283,9 +319,9 @@
                         }
                     });
 
-                    // Set initial content
+                    // Set initial content (cleaned)
                     if (targetInput.value) {
-                        quill.root.innerHTML = targetInput.value;
+                        quill.root.innerHTML = cleanHtmlForQuill(targetInput.value);
                     }
 
                     // Sync on change

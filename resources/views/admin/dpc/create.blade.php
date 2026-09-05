@@ -29,8 +29,11 @@
             </div>
 
             <div>
-                <label for="address" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Alamat Sekretariat / Kontak</label>
-                <textarea name="address" id="address" rows="3" placeholder="Alamat lengkap sekretariat DPC di kecamatan..." class="w-full bg-slate-50 text-xs text-slate-800 rounded-xl p-3 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#ff5001]">{{ old('address') }}</textarea>
+                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+                    Alamat Sekretariat & Keterangan DPC (Toolbox: Bold, Italic, Rata Penuh/Kiri/Kanan, List, Link)
+                </label>
+                <input type="hidden" name="address" id="dpc_address" value="{{ old('address') }}">
+                <div id="dpc_editor" data-quill="dpc_address" class="bg-white"></div>
             </div>
 
             <div>

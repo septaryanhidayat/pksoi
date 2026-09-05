@@ -64,14 +64,15 @@ class InformationController extends Controller
     public function galeri()
     {
         $page = Post::pages()->where('slug', 'galeri')->first();
-        // Get all posts with featured images for the gallery
-        $galleryImages = Post::posts()
-            ->published()
+        
+        // Ambil semua foto galeri yang diunggah dan foto berita
+        $galleryImages = Post::whereIn('type', ['gallery', 'attachment', 'post'])
+            ->where('status', 'publish')
             ->whereNotNull('featured_image')
             ->where('featured_image', '!=', '')
-            ->latest('published_at')
-            ->take(24)
-            ->get(['title', 'featured_image', 'slug', 'published_at']);
+            ->orderByRaw("CASE WHEN type = 'gallery' THEN 0 WHEN type = 'attachment' THEN 1 ELSE 2 END")
+            ->latest('created_at')
+            ->paginate(24);
 
         return view('frontend.galeri.index', compact('page', 'galleryImages'));
     }

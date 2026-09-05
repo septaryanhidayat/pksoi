@@ -125,8 +125,18 @@ class HomeController extends Controller
         $announcements = Pengumuman::where('status', 'publish')->latest()->take(4)->get();
         $agendas = Agenda::where('status', 'publish')->orderBy('event_date', 'desc')->take(4)->get();
 
-        // 11. Galeri Foto Kegiatan (Section 13 - 2 Baris Slider Otomatis)
-        $galleryRow1 = [
+        // 11. Galeri Foto Kegiatan (Section 13 - Diambil dari Database + Fallback)
+        $dbGallery = Post::whereIn('type', ['gallery', 'attachment'])
+            ->where('status', 'publish')
+            ->whereNotNull('featured_image')
+            ->where('featured_image', '!=', '')
+            ->latest('created_at')
+            ->take(16)
+            ->get()
+            ->map(fn($p) => ['url' => $p->featured_image, 'title' => $p->title])
+            ->toArray();
+
+        $fallbackRow1 = [
             ['url' => '/uploads/2025/09/307495481_398980005757910_2475236702264106801_n-1.webp', 'title' => 'Rapat Kerja Pengurus DPD PKS Ogan Ilir'],
             ['url' => '/uploads/2025/09/58.webp', 'title' => 'Munas & Musda DPD PKS Ogan Ilir'],
             ['url' => '/uploads/2025/09/40.webp', 'title' => 'Konsolidasi Struktur DPC se-Kabupaten Ogan Ilir'],
@@ -135,7 +145,7 @@ class HomeController extends Controller
             ['url' => '/uploads/2025/09/5-scaled.webp', 'title' => 'Kegiatan Kepemudaan PKS Muda'],
         ];
 
-        $galleryRow2 = [
+        $fallbackRow2 = [
             ['url' => '/uploads/2025/09/48.webp', 'title' => 'Bakti Sosial dan Layanan Kesehatan Gratis PKS'],
             ['url' => '/uploads/2025/09/19.webp', 'title' => 'Pemberdayaan UMKM dan Pelatihan Kewirausahaan'],
             ['url' => '/uploads/2025/09/22.webp', 'title' => 'Peringatan Hari Besar Nasional & Keagamaan'],
@@ -143,6 +153,19 @@ class HomeController extends Controller
             ['url' => '/uploads/2025/10/Bogor.webp', 'title' => 'Kunjungan Kerja dan Studi Banding'],
             ['url' => '/uploads/2025/09/65-scaled.webp', 'title' => 'Aspirasi dan Pengabdian untuk Rakyat Ogan Ilir'],
         ];
+
+        // Merge DB gallery photos at the beginning
+        if (!empty($dbGallery)) {
+            $half = (int)ceil(count($dbGallery) / 2);
+            $dbRow1 = array_slice($dbGallery, 0, $half);
+            $dbRow2 = array_slice($dbGallery, $half);
+
+            $galleryRow1 = array_merge($dbRow1, $fallbackRow1);
+            $galleryRow2 = array_merge($dbRow2, $fallbackRow2);
+        } else {
+            $galleryRow1 = $fallbackRow1;
+            $galleryRow2 = $fallbackRow2;
+        }
 
         $galleryPhotos = array_merge($galleryRow1, $galleryRow2);
 

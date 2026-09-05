@@ -124,3 +124,60 @@ test('admin can update seo and opengraph settings', function () {
         'value' => 'Official DPD PKS Ogan Ilir',
     ]);
 });
+
+test('gallery displays uploaded photos on galeri page and home page', function () {
+    $photo = Post::create([
+        'title' => 'Dokumentasi Baksos Ogan Ilir Terkini',
+        'slug' => 'dokumentasi-baksos-ogan-ilir-terkini',
+        'type' => 'gallery',
+        'status' => 'publish',
+        'featured_image' => '/uploads/galeri/test_baksos.webp',
+        'content' => 'Bakti sosial donor darah dan sembako.',
+        'published_at' => now(),
+    ]);
+
+    // Check on /galeri page
+    $this->get('/galeri')
+        ->assertStatus(200)
+        ->assertSee('Dokumentasi Baksos Ogan Ilir Terkini')
+        ->assertSee('/uploads/galeri/test_baksos.webp');
+
+    // Check on homepage
+    $this->get('/')
+        ->assertStatus(200)
+        ->assertSee('test_baksos.webp');
+});
+
+test('admin can manage bidang with rich content', function () {
+    $admin = User::create([
+        'name' => 'Admin Bidang',
+        'email' => 'bidang@pksoganilir.id',
+        'password' => Hash::make('Secret12345!'),
+        'role' => 'admin',
+    ]);
+
+    $bidang = \App\Models\Bidang::create([
+        'name' => 'Bidang Kaderisasi Anggota Partai',
+        'slug' => 'bidang-kaderisasi',
+        'description' => '<p>Deskripsi program kerja pembinaan anggota.</p>',
+        'order' => 1,
+    ]);
+
+    $this->actingAs($admin);
+
+    $this->get('/admin/bidang')->assertStatus(200)->assertSee('Bidang Kaderisasi Anggota Partai');
+    $this->get("/admin/bidang/{$bidang->id}/edit")->assertStatus(200)->assertSee('bidang_desc');
+
+    $response = $this->put("/admin/bidang/{$bidang->id}", [
+        'name' => 'Bidang Kaderisasi Anggota Partai Updated',
+        'description' => '<p><strong>Program Kerja Unggulan:</strong> Pelatihan rutin setiap bulan.</p>',
+        'order' => 1,
+    ]);
+
+    $response->assertRedirect('/admin/bidang');
+    $this->assertDatabaseHas('bidangs', [
+        'id' => $bidang->id,
+        'name' => 'Bidang Kaderisasi Anggota Partai Updated',
+    ]);
+});
+

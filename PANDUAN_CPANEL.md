@@ -4,19 +4,60 @@ Panduan lengkap langkah demi langkah untuk mengunggah dan mengaktifkan website L
 
 ---
 
-## 📋 1. Persyaratan Server / Hosting cPanel
+## 📋 1. Persyaratan Server / Hosting cPanel & Solusi PHP 8.1 Terkunci
 
-Pastikan pengaturan pada cPanel Anda memenuhi kriteria berikut:
-- **PHP Version**: **PHP 8.4** (Buka cPanel > **Select PHP Version** atau **MultiPHP Manager**).
-- **Ekstensi PHP Wajib**:
-  - `pdo_mysql`
-  - `gd` (Pastikan dukungan WebP aktif untuk konversi gambar otomatis)
-  - `mbstring`
-  - `fileinfo`
-  - `intl`
-  - `xml`
-  - `curl`
-  - `zip`
+Website DPD PKS Ogan Ilir dibangun menggunakan Laravel modern yang membutuhkan PHP 8.2+ (direkomendasikan **PHP 8.4**).
+
+### ⚠️ Masalah Umum: "Select PHP Version" / "MultiPHP Manager" di cPanel Dikunci Hosting ke PHP 8.1
+Jika menu **MultiPHP Manager** atau **Select PHP Version** di cPanel Anda terkunci di PHP 8.1 dan tidak bisa diubah dari tampilan cPanel, **JANGAN KHAWATIR**, kami sudah menyiapkan 2 solusi langsung:
+
+#### A. Solusi Web (Otomatis via `.htaccess`)
+Web server (Apache / LiteSpeed) di cPanel dapat dipaksa menggunakan PHP 8.4 secara lokal untuk folder website Anda melalui file `.htaccess`. Baris berikut **sudah otomatis terpasang** di file `.htaccess` dan `public/.htaccess`:
+```apache
+<IfModule mime_module>
+  AddHandler application/x-httpd-ea-php84 .php .php8 .phtml
+</IfModule>
+```
+*Catatan:*
+- Jika hosting Anda memakai **EasyApache 4** (standar mayoritas hosting): handler di atas langsung mengaktifkan PHP 8.4.
+- Jika hosting memakai **CloudLinux**: ubah `ea-php84` menjadi `alt-php84`.
+- Jika server hosting hanya menyediakan maksimal PHP 8.3 atau 8.2, cukup ganti angkanya menjadi `ea-php83` atau `ea-php82`.
+
+#### B. Solusi Terminal cPanel (CLI / Artisan)
+Jika Anda membuka menu **Terminal** di cPanel dan mengetik `php -v`, sistem mungkin menampilkan PHP 8.1 bawaan server. Untuk menjalankan perintah Laravel dengan PHP 8.4 di cPanel Terminal:
+
+1. **Cek lokasi PHP 8.4 / 8.3 / 8.2 di server hosting Anda**:
+   ```bash
+   ls -d /opt/cpanel/ea-php*
+   # atau untuk CloudLinux:
+   ls -d /opt/alt/php*
+   ```
+2. **Jalankan perintah dengan path PHP 8.4 langsung**:
+   ```bash
+   # Contoh menjalankan artisan:
+   /usr/local/bin/ea-php84 artisan migrate
+   /usr/local/bin/ea-php84 artisan config:cache
+   
+   # Atau path lengkap EasyApache:
+   /opt/cpanel/ea-php84/root/usr/bin/php artisan migrate
+   
+   # Atau jika CloudLinux:
+   /opt/alt/php84/usr/bin/php artisan migrate
+   ```
+3. **Pintasan Praktis (Alias Permanen agar cukup ketik `php`)**:
+   Jalankan perintah ini sekali saja di cPanel Terminal:
+   ```bash
+   echo "alias php='/usr/local/bin/ea-php84'" >> ~/.bashrc
+   source ~/.bashrc
+   ```
+   Setelah itu, setiap kali Anda mengetik `php artisan`, otomatis menggunakan PHP 8.4!
+
+---
+
+### Ekstensi PHP Wajib di cPanel:
+- `pdo_mysql`
+- `gd` (Pastikan dukungan WebP aktif untuk konversi gambar otomatis)
+- `mbstring`, `fileinfo`, `intl`, `xml`, `curl`, `zip`
 
 ---
 

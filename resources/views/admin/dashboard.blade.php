@@ -57,73 +57,78 @@
     @endif
 
     {{-- 3. KPI ANALYTICS GRID --}}
+    {{-- 3. KPI ANALYTICS GRID (Warna-Warni Vibrant & Modern) --}}
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         
-        {{-- Card 1: Berita & Views --}}
-        <div class="bg-white p-5 rounded-2xl shadow-xs border border-slate-200/80 hover:shadow-md transition">
-            <div class="flex items-center justify-between mb-3">
-                <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Artikel Berita</span>
-                <div class="w-10 h-10 rounded-xl bg-orange-50 text-[#ff5001] flex items-center justify-center text-lg">
+        {{-- Card 1: Berita & Views (Oranye PKS Luminous) --}}
+        <div class="bg-gradient-to-br from-[#ff5001] via-[#f97316] to-[#ea580c] text-white rounded-3xl p-6 shadow-lg shadow-orange-500/20 border border-orange-300/30 relative overflow-hidden group hover:scale-[1.02] transition duration-300">
+            <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-white/10 rounded-full blur-xl pointer-events-none"></div>
+            <div class="flex items-center justify-between mb-4 relative z-10">
+                <span class="text-xs font-bold text-orange-100 uppercase tracking-wider">Artikel Berita</span>
+                <div class="w-11 h-11 rounded-2xl bg-white/20 backdrop-blur-md text-white flex items-center justify-center text-xl shadow-inner group-hover:rotate-6 transition duration-300">
                     <i class="fa-solid fa-newspaper"></i>
                 </div>
             </div>
-            <div class="text-2xl sm:text-3xl font-black text-slate-800 tracking-tight">
+            <div class="text-3xl sm:text-4xl font-black text-white tracking-tight relative z-10">
                 {{ number_format($stats['total_posts']) }}
             </div>
-            <div class="flex items-center space-x-1.5 text-xs text-slate-500 mt-2">
-                <i class="fa-solid fa-eye text-[#ff5001]"></i>
-                <span>{{ number_format($stats['total_views']) }} total dibaca</span>
+            <div class="flex items-center space-x-2 text-xs text-orange-100 font-semibold mt-3 relative z-10">
+                <i class="fa-solid fa-eye text-white"></i>
+                <span>{{ number_format($stats['total_views']) }} total pembaca</span>
             </div>
         </div>
 
-        {{-- Card 2: Pengunjung Web --}}
-        <div class="bg-white p-5 rounded-2xl shadow-xs border border-slate-200/80 hover:shadow-md transition">
-            <div class="flex items-center justify-between mb-3">
-                <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Statistik Pengunjung</span>
-                <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-lg">
+        {{-- Card 2: Pengunjung Web (Biru Safir / Cyan Luminous) --}}
+        <div class="bg-gradient-to-br from-[#0284c7] via-[#0ea5e9] to-[#06b6d4] text-white rounded-3xl p-6 shadow-lg shadow-sky-500/20 border border-sky-300/30 relative overflow-hidden group hover:scale-[1.02] transition duration-300">
+            <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-white/10 rounded-full blur-xl pointer-events-none"></div>
+            <div class="flex items-center justify-between mb-4 relative z-10">
+                <span class="text-xs font-bold text-sky-100 uppercase tracking-wider">Statistik Pengunjung</span>
+                <div class="w-11 h-11 rounded-2xl bg-white/20 backdrop-blur-md text-white flex items-center justify-center text-xl shadow-inner group-hover:rotate-6 transition duration-300">
                     <i class="fa-solid fa-chart-line"></i>
                 </div>
             </div>
-            <div class="text-2xl sm:text-3xl font-black text-slate-800 tracking-tight">
+            <div class="text-3xl sm:text-4xl font-black text-white tracking-tight relative z-10">
                 {{ number_format($stats['visitor_hits'] ?? 53534) }}
             </div>
-            <div class="flex items-center space-x-1.5 text-xs text-emerald-600 font-semibold mt-2">
-                <i class="fa-solid fa-arrow-trend-up"></i>
+            <div class="flex items-center space-x-2 text-xs text-sky-100 font-semibold mt-3 relative z-10">
+                <i class="fa-solid fa-arrow-trend-up text-white"></i>
                 <span>Hit counter aktif real-time</span>
             </div>
         </div>
 
-        {{-- Card 3: Struktur & Dewan --}}
-        <div class="bg-white p-5 rounded-2xl shadow-xs border border-slate-200/80 hover:shadow-md transition">
-            <div class="flex items-center justify-between mb-3">
-                <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Fraksi & Struktur</span>
-                <div class="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center text-lg">
+        {{-- Card 3: Struktur & Dewan (Ungu Royal / Indigo Luminous) --}}
+        <div class="bg-gradient-to-br from-[#6366f1] via-[#7c3aed] to-[#8b5cf6] text-white rounded-3xl p-6 shadow-lg shadow-purple-500/20 border border-purple-300/30 relative overflow-hidden group hover:scale-[1.02] transition duration-300">
+            <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-white/10 rounded-full blur-xl pointer-events-none"></div>
+            <div class="flex items-center justify-between mb-4 relative z-10">
+                <span class="text-xs font-bold text-purple-100 uppercase tracking-wider">Fraksi & Struktur</span>
+                <div class="w-11 h-11 rounded-2xl bg-white/20 backdrop-blur-md text-white flex items-center justify-center text-xl shadow-inner group-hover:rotate-6 transition duration-300">
                     <i class="fa-solid fa-landmark"></i>
                 </div>
             </div>
-            <div class="text-2xl sm:text-3xl font-black text-slate-800 tracking-tight">
-                {{ $stats['total_dewan'] }} <span class="text-sm font-normal text-slate-400">DPRD</span>
+            <div class="text-3xl sm:text-4xl font-black text-white tracking-tight relative z-10">
+                {{ $stats['total_dewan'] }} <span class="text-base font-medium text-purple-200">DPRD</span>
             </div>
-            <div class="flex items-center space-x-2 text-xs text-slate-500 mt-2">
+            <div class="flex items-center space-x-2 text-xs text-purple-100 font-semibold mt-3 relative z-10">
                 <span>{{ $stats['total_bidang'] }} Bidang</span>
                 <span>•</span>
-                <span>{{ $stats['total_dpc'] }} DPC</span>
+                <span>{{ $stats['total_dpc'] }} DPC Kecamatan</span>
             </div>
         </div>
 
-        {{-- Card 4: Keamanan & Log --}}
-        <div class="bg-white p-5 rounded-2xl shadow-xs border border-slate-200/80 hover:shadow-md transition">
-            <div class="flex items-center justify-between mb-3">
-                <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Keamanan Siber</span>
-                <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-lg">
+        {{-- Card 4: Keamanan & Log (Hijau Zamrud / Emerald Luminous) --}}
+        <div class="bg-gradient-to-br from-[#059669] via-[#10b981] to-[#14b8a6] text-white rounded-3xl p-6 shadow-lg shadow-emerald-500/20 border border-emerald-300/30 relative overflow-hidden group hover:scale-[1.02] transition duration-300">
+            <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-white/10 rounded-full blur-xl pointer-events-none"></div>
+            <div class="flex items-center justify-between mb-4 relative z-10">
+                <span class="text-xs font-bold text-emerald-100 uppercase tracking-wider">Keamanan Siber</span>
+                <div class="w-11 h-11 rounded-2xl bg-white/20 backdrop-blur-md text-white flex items-center justify-center text-xl shadow-inner group-hover:rotate-6 transition duration-300">
                     <i class="fa-solid fa-shield-halved"></i>
                 </div>
             </div>
-            <div class="text-2xl sm:text-3xl font-black text-slate-800 tracking-tight">
-                {{ $stats['security_threats'] ?? 0 }} <span class="text-xs font-medium text-slate-500">ancaman</span>
+            <div class="text-3xl sm:text-4xl font-black text-white tracking-tight relative z-10">
+                {{ $stats['security_threats'] ?? 0 }} <span class="text-base font-medium text-emerald-200">ancaman</span>
             </div>
-            <div class="flex items-center space-x-1.5 text-xs text-emerald-600 font-semibold mt-2">
-                <i class="fa-solid fa-lock"></i>
+            <div class="flex items-center space-x-2 text-xs text-emerald-100 font-semibold mt-3 relative z-10">
+                <i class="fa-solid fa-lock text-white"></i>
                 <span>Firewall & WAF aktif</span>
             </div>
         </div>

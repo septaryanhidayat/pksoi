@@ -49,6 +49,11 @@
         @endforelse
     </div>
 
+    {{-- PAGINATION --}}
+    <div class="mt-8 flex justify-center">
+        {{ $galleryImages->links() }}
+    </div>
+
     {{-- LIGHTBOX MODAL --}}
     <div x-show="lightboxOpen" 
          x-transition:enter="transition ease-out duration-300"

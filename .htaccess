@@ -1,3 +1,15 @@
+# ----------------------------------------------------------------------
+# CPANEL PHP VERSION OVERRIDE (Bypass MultiPHP Manager Lock)
+# ----------------------------------------------------------------------
+<IfModule mime_module>
+  AddHandler application/x-httpd-ea-php84 .php .php8 .phtml
+  # Alternatif CloudLinux alt-php:
+  # AddHandler application/x-httpd-alt-php84 .php .php8 .phtml
+  # Alternatif jika server baru menyediakan PHP 8.3 / 8.2:
+  # AddHandler application/x-httpd-ea-php83 .php .php8 .phtml
+  # AddHandler application/x-httpd-ea-php82 .php .php8 .phtml
+</IfModule>
+
 # Disable directory indexing
 Options -Indexes
 

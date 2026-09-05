@@ -49,8 +49,11 @@
             </div>
 
             <div>
-                <label for="profile_summary" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Profil Singkat / Riwayat</label>
-                <textarea name="profile_summary" id="profile_summary" rows="3" class="w-full bg-slate-50 text-xs text-slate-800 rounded-xl p-3 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#ff5001]">{{ old('profile_summary', $dewan->profile_summary) }}</textarea>
+                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+                    Profil Singkat & Biografi (Toolbox: Bold, Italic, Rata Penuh/Kiri/Kanan, List, Link)
+                </label>
+                <input type="hidden" name="profile_summary" id="dewan_profile" value="{{ old('profile_summary', $dewan->profile_summary) }}">
+                <div id="dewan_editor" data-quill="dewan_profile" class="bg-white"></div>
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">

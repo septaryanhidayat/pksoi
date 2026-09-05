@@ -24,8 +24,11 @@
             </div>
 
             <div>
-                <label for="description" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Deskripsi & Program Kerja</label>
-                <textarea name="description" id="description" rows="4" placeholder="Deskripsi tugas pokok, fungsi, dan program unggulan bidang..." class="w-full bg-slate-50 text-xs text-slate-800 rounded-xl p-3 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#ff5001]">{{ old('description') }}</textarea>
+                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+                    Deskripsi & Program Kerja (Toolbox: Bold, Italic, Rata Penuh/Kiri/Kanan, List, Link)
+                </label>
+                <input type="hidden" name="description" id="bidang_desc" value="{{ old('description') }}">
+                <div id="bidang_editor" data-quill="bidang_desc" class="bg-white"></div>
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">

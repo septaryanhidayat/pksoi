@@ -7,11 +7,19 @@ use App\Models\ActivityLog;
 use App\Models\Post;
 use App\Models\Video;
 use Illuminate\Http\Request;
+use App\Services\WebpService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class AdminMediaController extends Controller
 {
+    protected WebpService $webpService;
+
+    public function __construct(WebpService $webpService)
+    {
+        $this->webpService = $webpService;
+    }
+
     public function index()
     {
         $photos = Post::where('type', 'attachment')->orWhere('type', 'gallery')->latest()->paginate(16, ['*'], 'photos_page');
@@ -27,15 +35,21 @@ class AdminMediaController extends Controller
         ]);
 
         $file = $request->file('image');
-        $filename = time() . '_' . Str::slug($request->input('title')) . '.webp';
-        $file->move(public_path('uploads/galeri'), $filename);
+        $converted = $this->webpService->processUploadedFile($file, 'galeri', 85, 1920);
+        $photoUrl = $converted['success'] ? $converted['url'] : null;
+
+        if (!$photoUrl) {
+            $filename = time() . '_' . Str::slug($request->input('title')) . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('uploads/galeri'), $filename);
+            $photoUrl = '/uploads/galeri/' . $filename;
+        }
 
         $photo = Post::create([
             'title' => $request->input('title'),
             'slug' => Str::slug($request->input('title')) . '-' . time(),
             'type' => 'gallery',
             'status' => 'publish',
-            'featured_image' => '/uploads/galeri/' . $filename,
+            'featured_image' => $photoUrl,
             'content' => $request->input('description') ?? '',
             'author_id' => Auth::id(),
             'published_at' => now(),
