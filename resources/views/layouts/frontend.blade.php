@@ -5,22 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     
-    <title>@yield('title', 'DPD PKS Ogan Ilir - Berkhidmat untuk Rakyat')</title>
+    <title>@yield('title', ($siteSettings['site_name'] ?? 'DPD PKS Ogan Ilir') . ' - ' . ($siteSettings['site_tagline'] ?? 'Berkhidmat untuk Rakyat'))</title>
     <meta name="description" content="@yield('meta_description', $siteSettings['site_description'] ?? 'Official Website Dewan Pengurus Daerah Partai Keadilan Sejahtera (PKS) Kabupaten Ogan Ilir.')">
-    <meta name="keywords" content="@yield('meta_keywords', 'pks, dpd pks ogan ilir, pks ogan ilir, partai keadilan sejahtera, indralaya, berita ogan ilir')">
+    <meta name="keywords" content="@yield('meta_keywords', $siteSettings['meta_keywords'] ?? 'pks, dpd pks ogan ilir, pks ogan ilir, partai keadilan sejahtera, indralaya, berita ogan ilir')">
+    <meta name="author" content="DPD PKS Ogan Ilir">
+    <meta name="robots" content="index, follow">
+    @if(!empty($siteSettings['google_site_verification']))
+    <meta name="google-site-verification" content="{{ $siteSettings['google_site_verification'] }}">
+    @endif
 
     {{-- Open Graph / Facebook / WhatsApp --}}
-    <meta property="og:type" content="website">
+    <meta property="og:locale" content="id_ID">
+    <meta property="og:type" content="@yield('og_type', 'website')">
+    <meta property="og:site_name" content="{{ $siteSettings['site_name'] ?? 'DPD PKS Ogan Ilir' }}">
     <meta property="og:url" content="{{ url()->current() }}">
-    <meta property="og:title" content="@yield('title', 'DPD PKS Ogan Ilir - Berkhidmat untuk Rakyat')">
-    <meta property="og:description" content="@yield('meta_description', $siteSettings['site_description'] ?? 'Official Website Dewan Pengurus Daerah Partai Keadilan Sejahtera (PKS) Kabupaten Ogan Ilir.')">
-    <meta property="og:image" content="@yield('og_image', asset('/uploads/2025/09/logo-thumbnail.webp'))">
+    <meta property="og:title" content="@yield('og_title', View::yieldContent('title', $siteSettings['og_title'] ?? 'DPD PKS Ogan Ilir'))">
+    <meta property="og:description" content="@yield('og_description', View::yieldContent('meta_description', $siteSettings['og_description'] ?? $siteSettings['site_description'] ?? 'Official Website Dewan Pengurus Daerah Partai Keadilan Sejahtera (PKS) Kabupaten Ogan Ilir.'))">
+    <meta property="og:image" content="@yield('og_image', asset($siteSettings['og_image'] ?? '/uploads/2025/09/Logo-PKS-Resmi.png'))">
+    <meta property="og:image:secure_url" content="@yield('og_image', asset($siteSettings['og_image'] ?? '/uploads/2025/09/Logo-PKS-Resmi.png'))">
+
+    {{-- Twitter Cards --}}
+    <meta name="twitter:card" content="{{ $siteSettings['twitter_card'] ?? 'summary_large_image' }}">
+    <meta name="twitter:site" content="@DPD_PKS_OI">
+    <meta name="twitter:title" content="@yield('og_title', View::yieldContent('title', $siteSettings['og_title'] ?? 'DPD PKS Ogan Ilir'))">
+    <meta name="twitter:description" content="@yield('og_description', View::yieldContent('meta_description', $siteSettings['og_description'] ?? $siteSettings['site_description'] ?? 'Official Website DPD PKS Ogan Ilir'))">
+    <meta name="twitter:image" content="@yield('og_image', asset($siteSettings['og_image'] ?? '/uploads/2025/09/Logo-PKS-Resmi.png'))">
 
     {{-- Canonical URL --}}
     <link rel="canonical" href="{{ url()->current() }}">
 
     {{-- Favicon --}}
-    <link rel="icon" type="image/webp" href="/uploads/2025/09/cropped-logo-thumbnail.webp">
+    <link rel="icon" type="image/png" href="{{ asset($siteSettings['og_image'] ?? '/uploads/2025/09/Logo-PKS-Resmi.png') }}">
 
     {{-- Google Fonts Poppins --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">

@@ -60,10 +60,13 @@
             </div>
         </div>
 
-        {{-- Konten Artikel --}}
+        {{-- Konten Artikel dengan Toolbox WYSIWYG Editor --}}
         <div>
-            <label for="content" class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">Isi Konten Artikel *</label>
-            <textarea name="content" id="content" rows="12" required placeholder="Tuliskan isi artikel lengkap di sini (mendukung tag HTML seperti <p>, <strong>, <h2>, <img>)..." class="w-full bg-gray-50 text-xs text-gray-800 rounded-xl p-4 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#f37023] font-mono leading-relaxed">{{ old('content') }}</textarea>
+            <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">
+                Isi Konten Artikel (Toolbox Lengkap: Bold, Italic, Rata Kiri/Tengah/Kanan/Penuh, Heading, List) *
+            </label>
+            <input type="hidden" name="content" id="post_content_input" value="{{ old('content') }}">
+            <div id="post_editor" data-quill="post_content_input" class="bg-white"></div>
             @error('content') <p class="text-red-500 text-[11px] mt-1">{{ $message }}</p> @enderror
         </div>
 

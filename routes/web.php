@@ -1,9 +1,19 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminAgendaController;
+use App\Http\Controllers\Admin\AdminBackupController;
+use App\Http\Controllers\Admin\AdminBidangController;
 use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\AdminDewanController;
+use App\Http\Controllers\Admin\AdminDownloadController;
+use App\Http\Controllers\Admin\AdminDpcController;
 use App\Http\Controllers\Admin\AdminFeedbackController;
+use App\Http\Controllers\Admin\AdminMediaController;
+use App\Http\Controllers\Admin\AdminPageController;
 use App\Http\Controllers\Admin\AdminPostController;
+use App\Http\Controllers\Admin\AdminSecurityController;
 use App\Http\Controllers\Admin\AdminSettingController;
+use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BidangController;
@@ -27,12 +37,54 @@ Route::prefix('admin')->middleware('auth')->name('admin.')->group(function () {
     // Posts Management
     Route::resource('posts', AdminPostController::class);
 
+    // Static Pages Management (Profil, Visi Misi, Sejarah, Sambutan, Struktur, Privacy Policy)
+    Route::get('/pages', [AdminPageController::class, 'index'])->name('pages.index');
+    Route::get('/pages/{page}/edit', [AdminPageController::class, 'edit'])->name('pages.edit');
+    Route::put('/pages/{page}', [AdminPageController::class, 'update'])->name('pages.update');
+
+    // Anggota Dewan (Fraksi PKS)
+    Route::resource('dewan', AdminDewanController::class);
+
+    // Bidang DPD
+    Route::resource('bidang', AdminBidangController::class);
+
+    // DPC Kecamatan
+    Route::resource('dpc', AdminDpcController::class);
+
+    // Galeri Foto & Video YouTube
+    Route::get('/media', [AdminMediaController::class, 'index'])->name('media.index');
+    Route::post('/media/photo', [AdminMediaController::class, 'storePhoto'])->name('media.photo.store');
+    Route::delete('/media/photo/{photo}', [AdminMediaController::class, 'destroyPhoto'])->name('media.photo.destroy');
+    Route::post('/media/video', [AdminMediaController::class, 'storeVideo'])->name('media.video.store');
+    Route::delete('/media/video/{video}', [AdminMediaController::class, 'destroyVideo'])->name('media.video.destroy');
+
+    // Agenda & Pengumuman
+    Route::get('/agenda', [AdminAgendaController::class, 'index'])->name('agenda.index');
+    Route::post('/agenda', [AdminAgendaController::class, 'storeAgenda'])->name('agenda.store');
+    Route::delete('/agenda/{agenda}', [AdminAgendaController::class, 'destroyAgenda'])->name('agenda.destroy');
+    Route::post('/pengumuman', [AdminAgendaController::class, 'storePengumuman'])->name('pengumuman.store');
+    Route::delete('/pengumuman/{pengumuman}', [AdminAgendaController::class, 'destroyPengumuman'])->name('pengumuman.destroy');
+
+    // Download Center Management
+    Route::resource('downloads', AdminDownloadController::class);
+
+    // Users & Multi-Role Management
+    Route::resource('users', AdminUserController::class);
+
     // Feedbacks / Aspirasi Inbox
     Route::get('/feedbacks', [AdminFeedbackController::class, 'index'])->name('feedbacks.index');
     Route::post('/feedbacks/{feedback}/read', [AdminFeedbackController::class, 'markAsRead'])->name('feedbacks.read');
     Route::delete('/feedbacks/{feedback}', [AdminFeedbackController::class, 'destroy'])->name('feedbacks.destroy');
 
-    // Website Settings
+    // Security & Activity Logs
+    Route::get('/security', [AdminSecurityController::class, 'index'])->name('security.index');
+    Route::post('/security/clear', [AdminSecurityController::class, 'clear'])->name('security.clear');
+
+    // Database Backup & Download
+    Route::get('/backup', [AdminBackupController::class, 'index'])->name('backup.index');
+    Route::get('/backup/download', [AdminBackupController::class, 'download'])->name('backup.download');
+
+    // Website & SEO Settings
     Route::get('/settings', [AdminSettingController::class, 'index'])->name('settings.index');
     Route::post('/settings', [AdminSettingController::class, 'update'])->name('settings.update');
 });

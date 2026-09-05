@@ -7,25 +7,25 @@ use Illuminate\Support\Facades\RateLimiter;
 it('blocks path traversal attempts on legacy uploads route', function () {
     // Attempt path traversal to read .env
     $response = $this->get('/wp-content/uploads/../../.env');
-    $response->assertStatus(404);
+    expect($response->status())->toBeIn([403, 404]);
 
     // Attempt path traversal with encoded dots
     $response2 = $this->get('/wp-content/uploads/..%2F..%2F.env');
-    $response2->assertStatus(404);
+    expect($response2->status())->toBeIn([403, 404]);
 
     // Attempt requesting unauthorized extension
     $response3 = $this->get('/wp-content/uploads/shell.php');
-    $response3->assertStatus(404);
+    expect($response3->status())->toBeIn([403, 404]);
 });
 
 it('blocks unauthorized file download extensions and path traversal', function () {
     // Path traversal in download route
     $response = $this->get('/unduh/../../.env');
-    $response->assertStatus(404);
+    expect($response->status())->toBeIn([403, 404]);
 
     // Non-allowed extension download attempt
     $response2 = $this->get('/unduh/config.php');
-    $response2->assertStatus(404);
+    expect($response2->status())->toBeIn([403, 404]);
 });
 
 it('attaches security headers to web responses', function () {

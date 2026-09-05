@@ -2,7 +2,7 @@
 -- Database Clean Production Dump: DPD PKS OGAN ILIR
 -- Generated for cPanel / phpMyAdmin Import
 -- Target: MySQL 8.x / MariaDB 10.x / cPanel
--- Date: 2026-09-05 12:27:24
+-- Date: 2026-09-05 12:48:27
 -- ========================================================
 
 SET NAMES utf8mb4;
@@ -22,13 +22,15 @@ CREATE TABLE `users` (
   `remember_token` varchar(255) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
+  `role` varchar(255) NOT NULL,
+  `avatar` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Dumping data for table `users`
-INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Admin DPD', 'berfikirmerdeka@gmail.com', NULL, '$2y$12$b7bV..XizvsFSlxvYoOgeuem348xh8pksyYoZXs/RjAwXcpV1Z./S', NULL, '2026-09-05 09:49:41', '2026-09-05 09:49:50'),
-(2, 'admin', 'desain.praktisi@gmail.com', NULL, '$2y$12$2n/LNWHdiV/N0TaUsAZSi.FD4e.1pFLytTRcbPy/EYiS9IYF.UEYW', NULL, '2026-09-05 09:49:41', '2026-09-05 09:49:50');
+INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `role`, `avatar`) VALUES
+(1, 'Admin DPD', 'berfikirmerdeka@gmail.com', NULL, '$2y$12$b7bV..XizvsFSlxvYoOgeuem348xh8pksyYoZXs/RjAwXcpV1Z./S', 'zK9zUgVklsvlZ4cs4rba4X8o8Nu37u8ZTomg2luDjTHHN1SFIgFcnF1zRd2j', '2026-09-05 09:49:41', '2026-09-05 09:49:50', 'admin', NULL),
+(2, 'admin', 'desain.praktisi@gmail.com', NULL, '$2y$12$2n/LNWHdiV/N0TaUsAZSi.FD4e.1pFLytTRcbPy/EYiS9IYF.UEYW', NULL, '2026-09-05 09:49:41', '2026-09-05 09:49:50', 'admin', NULL);
 
 -- --------------------------------------------------------
 -- Table structure for `password_reset_tokens`
@@ -56,7 +58,6 @@ CREATE TABLE `sessions` (
 
 -- Dumping data for table `sessions`
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('IgXfz0kZOXDfHr1ruYTIuxb8YcbdpdTocdJlU0kq', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', 'eyJfdG9rZW4iOiJZZ252UEZyT3VBa2cycEk4NENVRk9lMFA2bW5WVE9MYmVBak9VeU5aIiwiX3ByZXZpb3VzIjp7InVybCI6Imh0dHA6XC9cL3Brcy1vaS50ZXN0XC9sb2dpbiIsInJvdXRlIjoibG9naW4ifSwiX2ZsYXNoIjp7Im9sZCI6W10sIm5ldyI6W119fQ==', 1788611077),
 ('SlxcpK4pb4PFpKJWcplQGN5yC5xc43Ay3rZgqAVv', NULL, '127.0.0.1', 'Symfony', 'eyJfdG9rZW4iOiJoTDB3SERPNk54dEpGdDlPOXVadkRIZk9CYThpczlpR0hISnNSZERyIiwiX3ByZXZpb3VzIjp7InVybCI6Imh0dHA6XC9cL2xvY2FsaG9zdCIsInJvdXRlIjoiaG9tZSJ9LCJfZmxhc2giOnsib2xkIjpbXSwibmV3IjpbXX19', 1788604887),
 ('HIxYZr9OQUMPdCLJjA6AqkvulTKXyGEN5ReT8ASx', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', 'eyJfdG9rZW4iOiJFZ2JpSUxXbU5QZFpURE1tbU4wbmltYXlwbnc0UWxJVElqNVdtVmFQIiwiX3ByZXZpb3VzIjp7InVybCI6Imh0dHA6XC9cL3Brcy1vaS50ZXN0XC9hcnRpa2VsXC9zYW1idXQtbWlsYWQta2UtMjQtcGtzLW9nYW4taWxpci1nZWxhci1iZXJiYWdhaS1rZWdpYXRhbi1kYW4tbHVuY3Vya2FuLXByb2dyYW0tMS11cGEtMS1wcm9kdWsiLCJyb3V0ZSI6ImFydGlrZWwuc2hvdyJ9LCJfZmxhc2giOnsib2xkIjpbXSwibmV3IjpbXX19', 1788606479),
 ('kG6nym1tAcnfBODdAPXaapsUQE0CCskrzawBVhhY', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', 'eyJfdG9rZW4iOiJoRFFOdHVXY2hTTmFOVkU5Y1QzbXIxVGFNeGo3eHpNTjRhMFFIRDV6IiwiX3ByZXZpb3VzIjp7InVybCI6Imh0dHA6XC9cL3Brcy1vaS50ZXN0XC9hcnRpa2VsIiwicm91dGUiOiJhcnRpa2VsLmluZGV4In0sIl9mbGFzaCI6eyJvbGQiOltdLCJuZXciOltdfX0=', 1788606479),
@@ -76,7 +77,12 @@ INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, 
 ('QsBCG8ilOlxabxGyfFU1podCvL9eTNv774Bh3hRK', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', 'eyJfdG9rZW4iOiJ2QXJkazB0M0tpdDhBUFM3RGdKNUZLckRuZnR4eU5SSFVwR3YyU1VLIiwiX3ByZXZpb3VzIjp7InVybCI6Imh0dHA6XC9cL3Brcy1vaS50ZXN0XC9zdHJ1a3R1ci1rZXBlbmd1cnVzYW4iLCJyb3V0ZSI6InBhZ2Uuc3RydWt0dXIifSwiX2ZsYXNoIjp7Im9sZCI6W10sIm5ldyI6W119fQ==', 1788609688),
 ('0g8JHp9qFPzfig2iOnukT3Z9hNk2bMJbltTdgOWT', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', 'eyJfdG9rZW4iOiJkaU5zVnQ2aEFWRHNHVGZ2VW8xazhUWDkyS1haWllpckFKVm82eUtTIiwiX3ByZXZpb3VzIjp7InVybCI6Imh0dHA6XC9cL3Brcy1vaS50ZXN0XC9hbmdnb3RhLWRld2FuIiwicm91dGUiOiJkZXdhbi5pbmRleCJ9LCJfZmxhc2giOnsib2xkIjpbXSwibmV3IjpbXX19', 1788609688),
 ('OBnMG6IMsDKrETA6OhvFT3hEeaX0xHZQFucZ5Pt6', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', 'eyJfdG9rZW4iOiI1bEUzUW1NUGJqSFZEdGJHS0Z3aW9WRUlTQ2JCNUZ1S1pTVFJkazFaIiwiX3ByZXZpb3VzIjp7InVybCI6Imh0dHA6XC9cL3Brcy1vaS50ZXN0XC9wcml2YWN5LXBvbGljeSIsInJvdXRlIjoicGFnZS5wcml2YWN5LXBvbGljeSJ9LCJfZmxhc2giOnsib2xkIjpbXSwibmV3IjpbXX19', 1788610536),
-('wZuOaCkdWdB1cyCqubfQtDS3MLN2oNPznGq6CDgu', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', 'eyJfdG9rZW4iOiJRck5tNDIyTGJHTnlYRTYwYklCV29JcWdjS2E2bGZHOVQyZ2x4TlFzIiwiX3ByZXZpb3VzIjp7InVybCI6Imh0dHA6XC9cL3Brcy1vaS50ZXN0Iiwicm91dGUiOiJob21lIn0sIl9mbGFzaCI6eyJvbGQiOltdLCJuZXciOltdfX0=', 1788610537);
+('wZuOaCkdWdB1cyCqubfQtDS3MLN2oNPznGq6CDgu', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', 'eyJfdG9rZW4iOiJRck5tNDIyTGJHTnlYRTYwYklCV29JcWdjS2E2bGZHOVQyZ2x4TlFzIiwiX3ByZXZpb3VzIjp7InVybCI6Imh0dHA6XC9cL3Brcy1vaS50ZXN0Iiwicm91dGUiOiJob21lIn0sIl9mbGFzaCI6eyJvbGQiOltdLCJuZXciOltdfX0=', 1788610537),
+('e2BHgUfIV5EAHfgSy4rZIgK8NleXtXUyb6fjFtIU', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', 'eyJfdG9rZW4iOiJBQVFkQ3dHRVVDSkgwZlA1OEZ5bWtLbTIyNExleVlXUk9jRUdkdTdDIiwiX3ByZXZpb3VzIjp7InVybCI6Imh0dHA6XC9cL3Brcy1vaS50ZXN0Iiwicm91dGUiOiJob21lIn0sIl9mbGFzaCI6eyJvbGQiOltdLCJuZXciOltdfSwibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiOjF9', 1788611634),
+('ILfRXePB1LXobpPkXNuZ6xyBOR6N64gn65T2k3KJ', NULL, '127.0.0.1', 'Symfony', 'eyJfdG9rZW4iOiJpT25ZbnhLazh4c0lQTHB3S1g1OWZablhGb0J2TUFIaVBwTGZZVGRDIiwiX3ByZXZpb3VzIjp7InVybCI6Imh0dHA6XC9cL2xvY2FsaG9zdCIsInJvdXRlIjoiaG9tZSJ9LCJfZmxhc2giOnsib2xkIjpbXSwibmV3IjpbXX19', 1788611555),
+('JVat2lT3SlQMkC0KsYqokThedMftICRmOVPXOUMw', NULL, '127.0.0.1', 'Symfony', 'eyJfdG9rZW4iOiJOcGZ2YzVLZGF6YzRMSUc1OTRUTHV5QWRrV05OTDFtcnZXUVRMaFJHIiwiX3ByZXZpb3VzIjp7InVybCI6Imh0dHA6XC9cL2xvY2FsaG9zdCIsInJvdXRlIjoiaG9tZSJ9LCJfZmxhc2giOnsib2xkIjpbXSwibmV3IjpbXX19', 1788611560),
+('lc0fYX0Hrj2fWKcKyscEQPQPIBhR8ceBsxotu3q0', NULL, '127.0.0.1', 'Symfony', 'eyJfdG9rZW4iOiJNYnNWN3FDekMzRGIwTU5JQjZNZExWSGNaVmFqTlpyeXpsME1JeFpzIiwiX3ByZXZpb3VzIjp7InVybCI6Imh0dHA6XC9cL2xvY2FsaG9zdCIsInJvdXRlIjoiaG9tZSJ9LCJfZmxhc2giOnsib2xkIjpbXSwibmV3IjpbXX19', 1788611563),
+('2Tu8vf9rQZ489f2jqrFntrN1QeOkd8E4zdHn6on1', NULL, '127.0.0.1', 'Symfony', 'eyJfdG9rZW4iOiI4bmlaS0pPdG4ybVNTOHgyRkZJQW5WYTRkNmFEMTltbm9KRzhHMjJXIiwiX3ByZXZpb3VzIjp7InVybCI6Imh0dHA6XC9cL2xvY2FsaG9zdCIsInJvdXRlIjoiaG9tZSJ9LCJfZmxhc2giOnsib2xkIjpbXSwibmV3IjpbXX19', 1788611566);
 
 -- --------------------------------------------------------
 -- Table structure for `cache`
@@ -3457,41 +3463,6 @@ CREATE TABLE `feedbacks` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table `feedbacks`
-INSERT INTO `feedbacks` (`id`, `name`, `email`, `whatsapp`, `message`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'Hi http://pksoganilir.com/fekal0911 Administrator', 'pirduhina96@gmail.com', '', 'Hi http://pksoganilir.com/fekal0911 Administrator', 'read', '2026-09-05 09:50:10', '2026-09-05 09:50:10'),
-(2, 'Ian Lawton', 'mckeeknight85065@gmail.com', '', 'Hello,  Your website has some issues, take a look: https://www.seoptimer.com/pksoganilir.com  We can help fix these issues and improve your backlink profile.  Claim your first SEO Backlink service for free, so you can see results before committing.  Are you interested?  Best regards, Ian from Digital Marketing Team           Germany, NI, Suderburg, 29556, Lietzenburger Stra?E 86 To stop any further communication through your website form, Please reply with subject:  Unsubscribe !pksoganilir.com', 'read', '2026-09-05 09:50:10', '2026-09-05 09:50:10'),
-(3, 'Karine Bauman', 'mckeek.night85065+karine.bauman@gmail.com', '', 'Want to see a free demo of how we helped similar websites to pksoganilir.com get more traffic and buyers?', 'read', '2026-09-05 09:50:10', '2026-09-05 09:50:10'),
-(4, 'Vaughn Jevons', 'mckeek.night85065+vaughn.jevons@gmail.com', '', 'Want to see a free demo of how we helped similar websites to pksoganilir.com get more traffic and buyers?', 'read', '2026-09-05 09:50:10', '2026-09-05 09:50:10'),
-(5, 'Roscoe Rymill', 'turnerfishe.r348382+roscoe.rymill@gmail.com', '', 'Would you like us to make a free custom video for pksoganilir.com?', 'read', '2026-09-05 09:50:10', '2026-09-05 09:50:10'),
-(6, 'Dianna Brower', 'mckeeknigh.t85065+dianna.brower@gmail.com', '', 'Want to see a free demo of how we helped similar websites to pksoganilir.com get more traffic and buyers?', 'read', '2026-09-05 09:50:10', '2026-09-05 09:50:10'),
-(7, 'Elvera Nevarez', 'mckeeknight85065+elvera.nevarez@gmail.com', '', 'Want to see a free demo of how we helped similar websites to pksoganilir.com get more traffic and buyers?', 'read', '2026-09-05 09:50:10', '2026-09-05 09:50:10'),
-(8, 'Kristal Utter', 'm.ckeeknight85065+kristal.utter@gmail.com', '', 'How about a quick free backlink test for pksoganilir.com — just to see real results?', 'read', '2026-09-05 09:50:10', '2026-09-05 09:50:10'),
-(9, 'Jillian Despeissis', 'parkerharri.son31023+jillian.despeissis@gmail.com', '', 'Want real visitors checking pksoganilir.com? Start your Free Test.', 'read', '2026-09-05 09:50:10', '2026-09-05 09:50:10'),
-(10, 'Otis Uther', 'park.erharrison31023+otis.uther@gmail.com', '', 'Want more people exploring pksoganilir.com? Start your Free Test.', 'read', '2026-09-05 09:50:10', '2026-09-05 09:50:10'),
-(11, 'Ramon Rettig', 'mckeeknight8.5065+ramon.rettig@gmail.com', '', 'Ready to strengthen pksoganilir.com’s backlinks? Try our Free Backlink Package.', 'read', '2026-09-05 09:50:10', '2026-09-05 09:50:10'),
-(12, 'Riley Shenton', 'park.erharrison31023+riley.shenton@gmail.com', '', 'Want to see pksoganilir.com getting targeted visitors? Get your Free Demo.', 'read', '2026-09-05 09:50:10', '2026-09-05 09:50:10'),
-(13, 'Ophelia Obryan', 'parkerh.arrison31023+ophelia.obryan@gmail.com', '', 'Want more engagement for pksoganilir.com? Launch now: https://rb.gy/p82gvr', 'read', '2026-09-05 09:50:10', '2026-09-05 09:50:10'),
-(14, 'Art Playford', 'playford.art39@gmail.com', '', 'Would you like to see how this automated email setup works for profit? Visit https://rb.gy/uxe0l2', 'read', '2026-09-05 09:50:10', '2026-09-05 09:50:10'),
-(15, 'Louis Brault', 'louis.brault@gmail.com', '', 'Curious how real backlinks can help pksoganilir.com? Start exploring: https://rb.gy/19b0ah', 'read', '2026-09-05 09:50:10', '2026-09-05 09:50:10'),
-(16, 'Enrique McGarry', 'turnerfisher34.8382+enrique.mcgarry@gmail.com', '', 'We can make a video for pksoganilir.com to increase engagement — want to try?  Get details here:  https://rb.gy/r6koew           To unsubscribe, please reply with subject:  Unsubscribe !pksoganilir.com', 'read', '2026-09-05 09:50:10', '2026-09-05 09:50:10'),
-(17, 'Gilberto Garvan', 'turne.rfisher348382+gilberto.garvan@gmail.com', '', 'Ready to strengthen pksoganilir.com’s backlink profile? Get your Free Authority Backlinks.    Go to the https://rb.gy/xe16mq, fill in your site details, then apply the coupon FREE_SEO at checkout to get the product for $0.   Don’t forget to create a free account.           To unsubscribe, please reply with subject:  Unsubscribe !pksoganilir.com', 'read', '2026-09-05 09:50:10', '2026-09-05 09:50:10'),
-(18, 'Luke Dockery', 'turne.rfisher348382+luke.dockery@gmail.com', '', 'This message is addressed to the administrator of pksoganilir.com.  We are an agency providing powerful SEO and digital marketing solutions designed to increase your visibility, traffic, and conversions.   OUR SERVICES INCLUDE: - Social Media Management - Website Traffic - SEO Backlinks - Social Bookmarking Backlinks - Google Ranking - Google Maps Ranking - YouTube Ranking - Content Creation - Video Production - Get Real Clients - Full SEO Campaigns & Agency Services  Whether your goal is boosting YouTube, driving more website traffic, or strengthening your SEO, we can help you achieve results.  Visit our site here:  https://rb.gy/t7gc5i  Best regards, SEO Expert & Specialist         To unsubscribe, please reply with subject:  Unsubscribe !pksoganilir.com', 'read', '2026-09-05 09:50:10', '2026-09-05 09:50:10'),
-(19, 'Jerilyn Goebel', 'turnerfisher348.382+jerilyn.goebel@gmail.com', '', 'We can make a video for pksoganilir.com to expand audience interaction — want to try?  Page info here:  https://rb.gy/r6koew           To unsubscribe, please reply with subject:  Unsubscribe !pksoganilir.com', 'read', '2026-09-05 09:50:10', '2026-09-05 09:50:10'),
-(20, 'Eugene Selleck', 'selleck.eugene@googlemail.com', '', 'Think pksoganilir.com could benefit from more backlinks? Begin your journey: https://rb.gy/pcrbts', 'read', '2026-09-05 09:50:10', '2026-09-05 09:50:10'),
-(21, 'Reina Mcbee', 'turnerfisher.348382+reina.mcbee@gmail.com', '', 'Social media taking too much time for you?  We offer full Social Media Management, content creation, and engagement services to keep your brand visible across all platforms.  Info explained here:  https://rb.gy/8ddzt2           To unsubscribe, please reply with subject:  Unsubscribe !pksoganilir.com', 'read', '2026-09-05 09:50:10', '2026-09-05 09:50:10'),
-(22, 'Sharma', 'juhi.thenextlevelagency@gmail.com', '', 'Hello http://pksoganilir.com,  Your website looks impressive, but I noticed that it is not performing well in search engine rankings.  Our SEO team can help your business rank higher on Google and generate more leads organically.  If you would like to know more, please share your WhatsApp number so I can send our previous work, pricing details, and SEO plan.  Can I send?  Best regards, Juhi', 'read', '2026-09-05 09:50:10', '2026-09-05 09:50:10'),
-(23, 'Margherita Shenton', 'turnerfishe.r348382+margherita.shenton@gmail.com', '', 'Would you like to transform your website into a high-traffic hub?  http://utraker.com/JNbzf?jtt           To unsubscribe, please reply with subject:  Unsubscribe !pksoganilir.com', 'read', '2026-09-05 09:50:10', '2026-09-05 09:50:10'),
-(24, 'Vincent Foster', 'vincent@copyspire.com', '', 'Hello,  I am interested in publishing an article on your website.  Could you please let me know if you offer this option and what the terms are?  Thank you in advance for your response.  Kind regards, Vincent', 'read', '2026-09-05 09:50:10', '2026-09-05 09:50:10'),
-(25, 'Demetrius Chinnery', 'tu.rnerfisher348382+demetrius.chinnery@gmail.com', '', 'Hi, I checked out pksoganilir.com and found a few opportunities to bring in more customers. I\', 'read', '2026-09-05 09:50:10', '2026-09-05 09:50:10'),
-(26, 'xpwohxkuxf', 'gizsdqpi@immenseignite.info', 'ipiijgvqxn', 'ljsmxzxslrhzktmmifwoxojizrfomo', 'read', '2026-09-05 09:50:10', '2026-09-05 09:50:10'),
-(27, 'gmxdqmredi', 'ttyvtmyv@immenseignite.info', 'dkdlqwlxuo', 'mrloeuqkftytgdpysdpnutsgixiyfv', 'read', '2026-09-05 09:50:10', '2026-09-05 09:50:10'),
-(28, 'xefxnjfgly', 'svsedwhu@immenseignite.info', 'vjrqugjhim', 'iepzlwtersxznhmunogdvneitwyoud', 'read', '2026-09-05 09:50:10', '2026-09-05 09:50:10'),
-(29, 'jyqisuspyo', 'dozpezgo@immenseignite.info', 'qedleojfkw', 'rjkeddoteivinhrzfgnpuoedlkwyqz', 'read', '2026-09-05 09:50:10', '2026-09-05 09:50:10'),
-(30, 'Anaya Mishra', 'anaya.dgtlsolution@gmail.com', '', 'Hello there,   I hope you’re doing well.  I wanted to reach out and see if you are interested in improving your website’s http://pksoganilir.com visibility on Google and attracting more potential customers through SEO. We offer SEO solutions designed to help businesses increase organic traffic, improve keyword rankings, and generate quality inquiries.  If this sounds interesting, I’d be happy to share our complete SEO packages, activities, timeline, and pricing details for your review.  Looking forward to your response.  Regards, Anaya', 'read', '2026-09-05 09:50:10', '2026-09-05 09:50:10'),
-(31, 'Spencer Bard', 'bard.spencer@hotmail.com', '', 'Would it interest you to hide your real IP with our untraceable proxies?  https://fas.st/t/4Sd3661X?jxx', 'read', '2026-09-05 09:50:10', '2026-09-05 09:50:10'),
-(32, 'Alicia Joyce', 'joyce.alicia63@yahoo.com', '', 'Improve your website\', 'read', '2026-09-05 09:50:10', '2026-09-05 09:50:10');
-
 -- --------------------------------------------------------
 -- Table structure for `settings`
 -- --------------------------------------------------------
@@ -3522,7 +3493,49 @@ INSERT INTO `settings` (`id`, `key`, `value`, `group`, `created_at`, `updated_at
 (12, 'social_twitter', 'https://x.com/DPD_PKS_OI', 'general', '2026-09-05 09:50:11', '2026-09-05 12:27:18'),
 (13, 'banner_daftar_url', 'https://daftar.pks.id', 'general', '2026-09-05 09:50:11', '2026-09-05 09:50:11'),
 (14, 'banner_donasi_url', '/donasi', 'general', '2026-09-05 09:50:11', '2026-09-05 09:50:11'),
-(15, 'site_logo', '/uploads/2023/08/logo-pks-ogan-ilir.webp', 'general', '2026-09-05 09:50:11', '2026-09-05 09:50:11');
+(15, 'site_logo', '/uploads/2023/08/logo-pks-ogan-ilir.webp', 'general', '2026-09-05 09:50:11', '2026-09-05 09:50:11'),
+(16, 'og_title', 'DPD PKS Ogan Ilir - Berkhidmat untuk Rakyat', 'seo', '2026-09-05 12:47:39', '2026-09-05 12:47:39'),
+(17, 'og_description', 'Website Resmi Dewan Pengurus Daerah Partai Keadilan Sejahtera (PKS) Kabupaten Ogan Ilir. Menyajikan informasi, berita, kegiatan, dan aspirasi rakyat Ogan Ilir.', 'seo', '2026-09-05 12:47:39', '2026-09-05 12:47:39'),
+(18, 'og_image', '/uploads/2025/09/Logo-PKS-Resmi.png', 'seo', '2026-09-05 12:47:39', '2026-09-05 12:47:39'),
+(19, 'meta_keywords', 'pks, dpd pks ogan ilir, pks ogan ilir, partai keadilan sejahtera, indralaya, berita ogan ilir, sumatera selatan', 'seo', '2026-09-05 12:47:39', '2026-09-05 12:47:39'),
+(20, 'twitter_card', 'summary_large_image', 'seo', '2026-09-05 12:47:39', '2026-09-05 12:47:39'),
+(21, 'google_site_verification', '', 'seo', '2026-09-05 12:47:39', '2026-09-05 12:47:39');
+
+-- --------------------------------------------------------
+-- Table structure for `activity_logs`
+-- --------------------------------------------------------
+DROP TABLE IF EXISTS `activity_logs`;
+CREATE TABLE `activity_logs` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(20) unsigned DEFAULT 0,
+  `user_name` varchar(255) DEFAULT NULL,
+  `action` varchar(255) NOT NULL,
+  `description` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `ip_address` varchar(255) DEFAULT NULL,
+  `user_agent` varchar(255) DEFAULT NULL,
+  `status` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+-- Table structure for `pages`
+-- --------------------------------------------------------
+DROP TABLE IF EXISTS `pages`;
+CREATE TABLE `pages` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `excerpt` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `content` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `image` varchar(255) DEFAULT NULL,
+  `meta_title` varchar(255) DEFAULT NULL,
+  `meta_description` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 -- Table structure for `migrations`
@@ -3541,6 +3554,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (2, '0001_01_01_000001_create_cache_table', 1),
 (3, '0001_01_01_000002_create_jobs_table', 1),
 (4, '2026_09_05_000001_create_posts_and_taxonomies_tables', 2),
-(5, '2026_09_05_000002_create_cpt_tables', 2);
+(5, '2026_09_05_000002_create_cpt_tables', 2),
+(6, '2026_09_05_000003_add_role_and_avatar_to_users_table', 3),
+(7, '2026_09_05_000004_create_activity_logs_table', 3),
+(8, '2026_09_05_000005_create_pages_table', 3);
 
 SET FOREIGN_KEY_CHECKS = 1;

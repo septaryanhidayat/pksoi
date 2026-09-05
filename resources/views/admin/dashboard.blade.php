@@ -4,101 +4,258 @@
 @section('header_title', 'Dashboard Ringkasan Website')
 
 @section('content')
-<div class="space-y-6">
+<div class="space-y-8">
     
-    {{-- STATS CARDS --}}
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center space-x-4">
-            <div class="w-12 h-12 rounded-2xl bg-orange-100 text-[#f37023] flex items-center justify-center text-xl">
-                <i class="fa-solid fa-newspaper"></i>
+    {{-- 1. WELCOME HERO CARD --}}
+    <div class="bg-gradient-to-r from-[#0b1120] via-slate-900 to-[#1e293b] rounded-3xl p-6 sm:p-8 text-white shadow-xl relative overflow-hidden border border-slate-800">
+        <div class="absolute -right-10 -bottom-10 w-60 h-60 bg-[#ff5001]/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+            <div class="space-y-2">
+                <div class="inline-flex items-center space-x-2 bg-slate-800/80 border border-slate-700/80 px-3 py-1 rounded-full text-xs text-amber-400 font-semibold">
+                    <i class="fa-solid fa-circle-check text-emerald-400 text-[10px]"></i>
+                    <span>Sistem Aktif & Terlindungi</span>
+                </div>
+                <h2 class="text-2xl sm:text-3xl font-black text-white tracking-tight">
+                    Selamat Datang, {{ auth()->user()->name }}! 👋
+                </h2>
+                <p class="text-xs sm:text-sm text-slate-300 max-w-xl font-light leading-relaxed">
+                    Panel kendali resmi DPD Partai Keadilan Sejahtera Kabupaten Ogan Ilir. Anda dapat mengelola seluruh konten, memantau aktivitas sistem, mengedit halaman profil, serta mengamankan website secara terpusat.
+                </p>
             </div>
-            <div>
-                <span class="text-xs font-medium text-gray-400 block">Total Berita & Artikel</span>
-                <span class="text-2xl font-extrabold text-gray-900">{{ number_format($stats['total_posts']) }}</span>
-            </div>
-        </div>
 
-        <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center space-x-4">
-            <div class="w-12 h-12 rounded-2xl bg-blue-100 text-blue-600 flex items-center justify-center text-xl">
-                <i class="fa-solid fa-eye"></i>
-            </div>
-            <div>
-                <span class="text-xs font-medium text-gray-400 block">Total Pembaca (Views)</span>
-                <span class="text-2xl font-extrabold text-gray-900">{{ number_format($stats['total_views']) }}</span>
-            </div>
-        </div>
-
-        <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center space-x-4">
-            <div class="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-xl">
-                <i class="fa-solid fa-inbox"></i>
-            </div>
-            <div>
-                <span class="text-xs font-medium text-gray-400 block">Kotak Aspirasi Masuk</span>
-                <span class="text-2xl font-extrabold text-gray-900">{{ number_format($stats['total_feedbacks']) }}</span>
-            </div>
-        </div>
-
-        <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center space-x-4">
-            <div class="w-12 h-12 rounded-2xl bg-purple-100 text-purple-600 flex items-center justify-center text-xl">
-                <i class="fa-solid fa-download"></i>
-            </div>
-            <div>
-                <span class="text-xs font-medium text-gray-400 block">File Download</span>
-                <span class="text-2xl font-extrabold text-gray-900">{{ number_format($stats['total_downloads']) }}</span>
+            <div class="flex flex-wrap items-center gap-3">
+                <a href="{{ route('admin.posts.create') }}" class="inline-flex items-center space-x-2 bg-gradient-to-r from-[#ff5001] to-[#ff6a00] hover:from-[#e04500] hover:to-[#e05500] text-white text-xs font-bold px-5 py-3 rounded-xl shadow-lg transition transform hover:-translate-y-0.5">
+                    <i class="fa-solid fa-pen-nib"></i>
+                    <span>Tulis Berita Baru</span>
+                </a>
+                <a href="{{ route('admin.backup.download') }}" class="inline-flex items-center space-x-2 bg-slate-800 hover:bg-slate-700 text-white text-xs font-semibold px-4 py-3 rounded-xl border border-slate-700 transition">
+                    <i class="fa-solid fa-cloud-arrow-down text-amber-400"></i>
+                    <span>Unduh Backup SQL</span>
+                </a>
             </div>
         </div>
     </div>
 
-    {{-- RECENT POSTS & FEEDBACKS GRID --}}
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        
-        {{-- Recent Posts --}}
-        <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 space-y-4">
-            <div class="flex justify-between items-center pb-3 border-b border-gray-100">
-                <h2 class="font-bold text-sm text-gray-900">Artikel Terbaru</h2>
-                <a href="{{ route('admin.posts.index') }}" class="text-xs font-semibold text-[#f37023] hover:underline">Semua Artikel &rarr;</a>
+    {{-- 2. SECURITY ALERT BANNER --}}
+    @if(($stats['security_threats'] ?? 0) > 0)
+        <div class="bg-red-50 border-l-4 border-red-500 rounded-2xl p-4 sm:p-5 shadow-xs flex items-center justify-between">
+            <div class="flex items-center space-x-4">
+                <div class="w-10 h-10 rounded-xl bg-red-100 text-red-600 flex items-center justify-center text-lg flex-shrink-0">
+                    <i class="fa-solid fa-shield-virus"></i>
+                </div>
+                <div>
+                    <h4 class="text-sm font-bold text-red-900">Peringatan Keamanan Sistem</h4>
+                    <p class="text-xs text-red-700 mt-0.5">
+                        Terdeteksi <strong>{{ $stats['security_threats'] }}</strong> upaya pemindaian/injeksi berbahaya yang berhasil diblokir secara otomatis oleh firewall aplikasi.
+                    </p>
+                </div>
             </div>
+            <a href="{{ route('admin.security.index', ['status' => 'danger']) }}" class="text-xs font-bold text-red-700 hover:text-red-900 bg-red-100 hover:bg-red-200 px-3 py-1.5 rounded-lg transition">
+                Lihat Rincian &rarr;
+            </a>
+        </div>
+    @endif
 
-            <div class="divide-y divide-gray-50 text-xs">
-                @foreach($recentPosts as $p)
-                    <div class="py-3 flex items-center justify-between">
-                        <div class="flex items-center space-x-3 max-w-[75%]">
-                            <div class="w-8 h-8 rounded-lg bg-gray-100 overflow-hidden flex-shrink-0">
-                                @if($p->featured_image)
-                                    <img src="{{ $p->featured_image }}" alt="" class="w-full h-full object-cover">
-                                @else
-                                    <i class="fa-solid fa-image text-gray-300 p-2"></i>
-                                @endif
-                            </div>
-                            <span class="font-semibold text-gray-800 truncate">{{ $p->title }}</span>
-                        </div>
-                        <span class="text-[11px] text-gray-400">{{ $p->published_at ? $p->published_at->format('d/m/Y') : '-' }}</span>
-                    </div>
-                @endforeach
+    {{-- 3. KPI ANALYTICS GRID --}}
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        
+        {{-- Card 1: Berita & Views --}}
+        <div class="bg-white p-5 rounded-2xl shadow-xs border border-slate-200/80 hover:shadow-md transition">
+            <div class="flex items-center justify-between mb-3">
+                <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Artikel Berita</span>
+                <div class="w-10 h-10 rounded-xl bg-orange-50 text-[#ff5001] flex items-center justify-center text-lg">
+                    <i class="fa-solid fa-newspaper"></i>
+                </div>
+            </div>
+            <div class="text-2xl sm:text-3xl font-black text-slate-800 tracking-tight">
+                {{ number_format($stats['total_posts']) }}
+            </div>
+            <div class="flex items-center space-x-1.5 text-xs text-slate-500 mt-2">
+                <i class="fa-solid fa-eye text-[#ff5001]"></i>
+                <span>{{ number_format($stats['total_views']) }} total dibaca</span>
             </div>
         </div>
 
-        {{-- Recent Feedbacks --}}
-        <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 space-y-4">
-            <div class="flex justify-between items-center pb-3 border-b border-gray-100">
-                <h2 class="font-bold text-sm text-gray-900">Aspirasi / Masukan Terbaru</h2>
-                <a href="{{ route('admin.feedbacks.index') }}" class="text-xs font-semibold text-[#f37023] hover:underline">Lihat Semua &rarr;</a>
+        {{-- Card 2: Pengunjung Web --}}
+        <div class="bg-white p-5 rounded-2xl shadow-xs border border-slate-200/80 hover:shadow-md transition">
+            <div class="flex items-center justify-between mb-3">
+                <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Statistik Pengunjung</span>
+                <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-lg">
+                    <i class="fa-solid fa-chart-line"></i>
+                </div>
+            </div>
+            <div class="text-2xl sm:text-3xl font-black text-slate-800 tracking-tight">
+                {{ number_format($stats['visitor_hits'] ?? 53534) }}
+            </div>
+            <div class="flex items-center space-x-1.5 text-xs text-emerald-600 font-semibold mt-2">
+                <i class="fa-solid fa-arrow-trend-up"></i>
+                <span>Hit counter aktif real-time</span>
+            </div>
+        </div>
+
+        {{-- Card 3: Struktur & Dewan --}}
+        <div class="bg-white p-5 rounded-2xl shadow-xs border border-slate-200/80 hover:shadow-md transition">
+            <div class="flex items-center justify-between mb-3">
+                <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Fraksi & Struktur</span>
+                <div class="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center text-lg">
+                    <i class="fa-solid fa-landmark"></i>
+                </div>
+            </div>
+            <div class="text-2xl sm:text-3xl font-black text-slate-800 tracking-tight">
+                {{ $stats['total_dewan'] }} <span class="text-sm font-normal text-slate-400">DPRD</span>
+            </div>
+            <div class="flex items-center space-x-2 text-xs text-slate-500 mt-2">
+                <span>{{ $stats['total_bidang'] }} Bidang</span>
+                <span>•</span>
+                <span>{{ $stats['total_dpc'] }} DPC</span>
+            </div>
+        </div>
+
+        {{-- Card 4: Keamanan & Log --}}
+        <div class="bg-white p-5 rounded-2xl shadow-xs border border-slate-200/80 hover:shadow-md transition">
+            <div class="flex items-center justify-between mb-3">
+                <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Keamanan Siber</span>
+                <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-lg">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+            </div>
+            <div class="text-2xl sm:text-3xl font-black text-slate-800 tracking-tight">
+                {{ $stats['security_threats'] ?? 0 }} <span class="text-xs font-medium text-slate-500">ancaman</span>
+            </div>
+            <div class="flex items-center space-x-1.5 text-xs text-emerald-600 font-semibold mt-2">
+                <i class="fa-solid fa-lock"></i>
+                <span>Firewall & WAF aktif</span>
+            </div>
+        </div>
+
+    </div>
+
+    {{-- 4. QUICK ACTION MENU --}}
+    <div class="bg-white p-6 rounded-3xl shadow-xs border border-slate-200/80 space-y-4">
+        <h3 class="text-sm font-extrabold text-slate-800 uppercase tracking-wider flex items-center space-x-2">
+            <i class="fa-solid fa-bolt text-[#ff5001]"></i>
+            <span>Pusat Aksi Cepat</span>
+        </h3>
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 text-center">
+            
+            <a href="{{ route('admin.posts.create') }}" class="p-4 rounded-2xl bg-slate-50 hover:bg-orange-50 border border-slate-200/70 hover:border-orange-200 text-slate-700 hover:text-[#ff5001] transition group">
+                <i class="fa-solid fa-file-pen text-xl mb-2 text-[#ff5001] group-hover:scale-110 transition block"></i>
+                <span class="text-xs font-bold block">Tulis Berita</span>
+            </a>
+
+            <a href="{{ route('admin.pages.index') }}" class="p-4 rounded-2xl bg-slate-50 hover:bg-orange-50 border border-slate-200/70 hover:border-orange-200 text-slate-700 hover:text-[#ff5001] transition group">
+                <i class="fa-solid fa-file-signature text-xl mb-2 text-indigo-500 group-hover:scale-110 transition block"></i>
+                <span class="text-xs font-bold block">Edit Profil</span>
+            </a>
+
+            <a href="{{ route('admin.dewan.index') }}" class="p-4 rounded-2xl bg-slate-50 hover:bg-orange-50 border border-slate-200/70 hover:border-orange-200 text-slate-700 hover:text-[#ff5001] transition group">
+                <i class="fa-solid fa-user-tie text-xl mb-2 text-purple-500 group-hover:scale-110 transition block"></i>
+                <span class="text-xs font-bold block">Fraksi DPRD</span>
+            </a>
+
+            <a href="{{ route('admin.media.index') }}" class="p-4 rounded-2xl bg-slate-50 hover:bg-orange-50 border border-slate-200/70 hover:border-orange-200 text-slate-700 hover:text-[#ff5001] transition group">
+                <i class="fa-solid fa-photo-film text-xl mb-2 text-pink-500 group-hover:scale-110 transition block"></i>
+                <span class="text-xs font-bold block">Galeri Foto</span>
+            </a>
+
+            <a href="{{ route('admin.settings.index') }}" class="p-4 rounded-2xl bg-slate-50 hover:bg-orange-50 border border-slate-200/70 hover:border-orange-200 text-slate-700 hover:text-[#ff5001] transition group">
+                <i class="fa-solid fa-sliders text-xl mb-2 text-emerald-500 group-hover:scale-110 transition block"></i>
+                <span class="text-xs font-bold block">Setting & SEO</span>
+            </a>
+
+            <a href="{{ route('admin.backup.download') }}" class="p-4 rounded-2xl bg-slate-50 hover:bg-orange-50 border border-slate-200/70 hover:border-orange-200 text-slate-700 hover:text-[#ff5001] transition group">
+                <i class="fa-solid fa-download text-xl mb-2 text-amber-500 group-hover:scale-110 transition block"></i>
+                <span class="text-xs font-bold block">Backup Database</span>
+            </a>
+
+        </div>
+    </div>
+
+    {{-- 5. TWO COLUMN DATA GRID (Berita Terbaru & Log Aktivitas / Keamanan) --}}
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        
+        {{-- KOLOM KIRI: Berita Terbaru (7 Cols) --}}
+        <div class="lg:col-span-7 bg-white p-6 sm:p-7 rounded-3xl shadow-xs border border-slate-200/80 space-y-4">
+            <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+                <div class="flex items-center space-x-2">
+                    <i class="fa-solid fa-newspaper text-[#ff5001]"></i>
+                    <h3 class="font-extrabold text-sm text-slate-800">Artikel & Berita Terbaru</h3>
+                </div>
+                <a href="{{ route('admin.posts.index') }}" class="text-xs font-bold text-[#ff5001] hover:underline">
+                    Lihat Semua &rarr;
+                </a>
             </div>
 
-            <div class="divide-y divide-gray-50 text-xs">
-                @forelse($recentFeedbacks as $f)
-                    <div class="py-3 space-y-1">
-                        <div class="flex justify-between items-center">
-                            <span class="font-bold text-gray-900">{{ $f->name }}</span>
-                            <span class="text-[10px] text-gray-400">{{ $f->created_at->diffForHumans() }}</span>
+            <div class="divide-y divide-slate-100">
+                @forelse($recentPosts as $post)
+                    <div class="py-3.5 flex items-center justify-between gap-4">
+                        <div class="flex items-center space-x-3 min-w-0">
+                            <div class="w-12 h-12 rounded-xl bg-slate-100 overflow-hidden flex-shrink-0 border border-slate-200">
+                                <img src="{{ $post->featured_image ?? '/uploads/2025/09/logo-thumbnail.webp' }}" alt="{{ $post->title }}" class="w-full h-full object-cover">
+                            </div>
+                            <div class="min-w-0">
+                                <a href="{{ route('admin.posts.edit', $post) }}" class="font-bold text-xs sm:text-sm text-slate-800 hover:text-[#ff5001] truncate block">
+                                    {{ $post->title }}
+                                </a>
+                                <div class="flex items-center space-x-3 text-[11px] text-slate-400 mt-1">
+                                    <span><i class="fa-regular fa-calendar mr-1"></i>{{ $post->published_at ? $post->published_at->format('d M Y') : $post->created_at->format('d M Y') }}</span>
+                                    <span>•</span>
+                                    <span><i class="fa-regular fa-eye mr-1"></i>{{ $post->views_count }} views</span>
+                                </div>
+                            </div>
                         </div>
-                        <p class="text-gray-500 line-clamp-1 italic">"{{ $f->message }}"</p>
+                        <a href="{{ route('admin.posts.edit', $post) }}" class="p-2 text-slate-400 hover:text-[#ff5001] hover:bg-orange-50 rounded-lg transition" title="Edit Artikel">
+                            <i class="fa-solid fa-pen-to-square text-xs"></i>
+                        </a>
                     </div>
                 @empty
-                    <p class="text-gray-400 py-4 text-center">Belum ada aspirasi masuk.</p>
+                    <p class="py-8 text-center text-xs text-slate-400">Belum ada artikel yang dipublikasikan.</p>
                 @endforelse
             </div>
         </div>
+
+        {{-- KOLOM KANAN: Log Aktivitas & Keamanan (5 Cols) --}}
+        <div class="lg:col-span-5 bg-white p-6 sm:p-7 rounded-3xl shadow-xs border border-slate-200/80 space-y-4">
+            <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+                <div class="flex items-center space-x-2">
+                    <i class="fa-solid fa-shield-halved text-emerald-500"></i>
+                    <h3 class="font-extrabold text-sm text-slate-800">Log Aktivitas & Audit Keamanan</h3>
+                </div>
+                <a href="{{ route('admin.security.index') }}" class="text-xs font-bold text-[#ff5001] hover:underline">
+                    Semua Log &rarr;
+                </a>
+            </div>
+
+            <div class="space-y-3">
+                @forelse($recentLogs as $log)
+                    <div class="p-3 rounded-2xl border text-xs {{ $log->status === 'danger' ? 'bg-red-50/70 border-red-200 text-red-900' : ($log->status === 'warning' ? 'bg-amber-50/70 border-amber-200 text-amber-900' : 'bg-slate-50 border-slate-200/70 text-slate-800') }}">
+                        <div class="flex items-center justify-between mb-1">
+                            <span class="font-bold inline-flex items-center space-x-1.5">
+                                @if($log->status === 'danger')
+                                    <i class="fa-solid fa-triangle-exclamation text-red-600"></i>
+                                @elseif($log->status === 'warning')
+                                    <i class="fa-solid fa-shield-exclamation text-amber-600"></i>
+                                @else
+                                    <i class="fa-solid fa-circle-info text-blue-500"></i>
+                                @endif
+                                <span class="capitalize">{{ str_replace('_', ' ', $log->action) }}</span>
+                            </span>
+                            <span class="text-[10px] text-slate-400">{{ $log->created_at->diffForHumans() }}</span>
+                        </div>
+                        <p class="text-[11px] leading-relaxed line-clamp-2">{{ $log->description }}</p>
+                        <div class="flex items-center space-x-2 text-[10px] text-slate-400 mt-1.5 pt-1 border-t border-slate-200/40">
+                            <span>User: {{ $log->user_name }}</span>
+                            <span>•</span>
+                            <span>IP: {{ $log->ip_address }}</span>
+                        </div>
+                    </div>
+                @empty
+                    <p class="py-8 text-center text-xs text-slate-400">Belum ada catatan aktivitas.</p>
+                @endforelse
+            </div>
+        </div>
+
     </div>
+
 </div>
 @endsection

@@ -25,7 +25,7 @@
             </div>
 
             {{-- KOLOM 2: ALAMAT KANTOR & KONTAK --}}
-            <div class="lg:col-span-5 space-y-3">
+            <div class="lg:col-span-4 space-y-3">
                 <h4 class="font-semibold text-[#ff5001] text-base sm:text-lg tracking-wide">
                     Alamat
                 </h4>
@@ -85,12 +85,12 @@
                 </div>
             </div>
 
-            {{-- KOLOM 4: PENGUNJUNG (Angka Besar Putih Tegas) --}}
-            <div class="lg:col-span-2 space-y-2">
+            {{-- KOLOM 4: PENGUNJUNG (Angka Putih Tegas Pas di Garis Simetri) --}}
+            <div class="lg:col-span-3 space-y-2">
                 <h4 class="font-semibold text-[#ff5001] text-base sm:text-lg tracking-wide">
                     Pengunjung
                 </h4>
-                <div class="text-5xl sm:text-6xl lg:text-7xl font-bold text-white tracking-tight font-sans leading-none pt-1" style="font-family: Arial, sans-serif;">
+                <div class="text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-normal font-sans leading-tight pt-1" style="font-family: Arial, sans-serif;">
                     {{ $visitorHits ?? '53,511' }}
                 </div>
             </div>

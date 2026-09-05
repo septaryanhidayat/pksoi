@@ -38,10 +38,31 @@ class AuthController extends Controller
         if (Auth::attempt($credentials, $remember)) {
             RateLimiter::clear($throttleKey);
             $request->session()->regenerate();
+
+            \App\Models\ActivityLog::create([
+                'user_id' => Auth::id(),
+                'user_name' => Auth::user()->name,
+                'action' => 'login_success',
+                'description' => 'Login berhasil ke panel administrator',
+                'ip_address' => $request->ip(),
+                'user_agent' => $request->userAgent(),
+                'status' => 'info',
+            ]);
+
             return redirect()->intended(route('admin.dashboard'));
         }
 
         RateLimiter::hit($throttleKey, 60);
+
+        \App\Models\ActivityLog::create([
+            'user_id' => null,
+            'user_name' => 'Tamu / Percobaan',
+            'action' => 'login_failed',
+            'description' => 'Percobaan login gagal untuk email: ' . $request->input('email'),
+            'ip_address' => $request->ip(),
+            'user_agent' => $request->userAgent(),
+            'status' => 'warning',
+        ]);
 
         return back()->withErrors([
             'email' => 'Email atau password yang Anda masukkan tidak sesuai.',
@@ -50,6 +71,18 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
+        if ($user = Auth::user()) {
+            \App\Models\ActivityLog::create([
+                'user_id' => $user->id,
+                'user_name' => $user->name,
+                'action' => 'logout',
+                'description' => 'Keluar dari sesi administrator',
+                'ip_address' => $request->ip(),
+                'user_agent' => $request->userAgent(),
+                'status' => 'info',
+            ]);
+        }
+
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();

@@ -1,9 +1,12 @@
 @extends('layouts.frontend')
 
-@section('title', $post->meta_title ?: $post->title . ' - DPD PKS Ogan Ilir')
+@section('title', ($post->meta_title ?: $post->title) . ' - ' . ($siteSettings['site_name'] ?? 'DPD PKS Ogan Ilir'))
+@section('og_title', $post->meta_title ?: $post->title)
 @section('meta_description', $post->meta_description ?: Str::limit(strip_tags($post->content), 160))
+@section('og_description', $post->meta_description ?: Str::limit(strip_tags($post->content), 160))
 @section('meta_keywords', $post->meta_keywords)
-@section('og_image', $post->featured_image ? asset($post->featured_image) : asset('/uploads/2025/09/logo-thumbnail.webp'))
+@section('og_type', 'article')
+@section('og_image', $post->featured_image ? asset($post->featured_image) : asset($siteSettings['og_image'] ?? '/uploads/2025/09/Logo-PKS-Resmi.png'))
 
 @section('content')
 {{-- BREADCRUMB HEADER --}}

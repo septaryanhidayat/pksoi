@@ -15,6 +15,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->web(append: [
             \App\Http\Middleware\IncrementVisitorCounter::class,
             \App\Http\Middleware\SecurityHeaders::class,
+            \App\Http\Middleware\SecurityMonitorMiddleware::class,
         ]);
         $middleware->trustProxies(at: '*');
     })
