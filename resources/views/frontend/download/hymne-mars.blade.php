@@ -33,7 +33,7 @@
                     Ciptaan: <strong>Mohamad Sohibul Iman dan Dwiki Darmawan</strong>
                 </p>
             </div>
-            <a href="/uploads/2025/09/MARSPKSORCHESTRA.mp3" download class="inline-flex items-center bg-[#f37023] hover:bg-[#d85c14] text-white px-5 py-2.5 rounded-xl text-xs font-bold shadow-md hover:shadow-lg transition flex-shrink-0">
+            <a href="{{ route('download.file', 2, false) }}" class="inline-flex items-center bg-[#f37023] hover:bg-[#d85c14] text-white px-5 py-2.5 rounded-xl text-xs font-bold shadow-md hover:shadow-lg transition flex-shrink-0">
                 <i class="fa-solid fa-download mr-2"></i> Unduh Audio Mars
             </a>
         </div>
@@ -128,7 +128,7 @@
                     Ciptaan: <strong>Mohamad Sohibul Iman dan Dwiki Darmawan</strong>
                 </p>
             </div>
-            <a href="/uploads/2025/09/HYMNEPKSORCHESTRA.mp3" download class="inline-flex items-center bg-gray-900 hover:bg-black text-white px-5 py-2.5 rounded-xl text-xs font-bold shadow-md hover:shadow-lg transition flex-shrink-0">
+            <a href="{{ route('download.file', 3, false) }}" class="inline-flex items-center bg-gray-900 hover:bg-black text-white px-5 py-2.5 rounded-xl text-xs font-bold shadow-md hover:shadow-lg transition flex-shrink-0">
                 <i class="fa-solid fa-download mr-2"></i> Unduh Audio Hymne
             </a>
         </div>

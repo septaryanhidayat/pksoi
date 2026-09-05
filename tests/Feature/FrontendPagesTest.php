@@ -16,10 +16,11 @@ test('home page renders all authentic sections successfully', function () {
     $response->assertSee('Berita Fraksi PKS');
     $response->assertSee('Kabar Senayan');
     $response->assertSee('Anggota DPRD Fraksi PKS');
+    $response->assertSee('Video');
     $response->assertSee('Download E-Book');
     $response->assertSee('Daftar PKS Online');
-    $response->assertSee('Statistik Pengunjung Website');
-    $response->assertSee('Total Hits:');
+    $response->assertSee('Pengunjung');
+    $response->assertDontSee('Statistik Pengunjung Website');
 });
 
 test('articles page renders successfully', function () {

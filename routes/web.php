@@ -79,6 +79,8 @@ Route::get('/e-book', [DownloadController::class, 'ebook'])->name('download.eboo
 Route::get('/hymne-mars-pks', [DownloadController::class, 'hymneMars'])->name('download.hymne-mars');
 Route::get('/logo', [DownloadController::class, 'logo'])->name('download.logo');
 Route::get('/unduh/{id}', [DownloadController::class, 'downloadFile'])->name('download.file');
+Route::get('/download/file/{id}', [DownloadController::class, 'downloadFile'])->name('download.file.alt');
+Route::get('/download-file/{id}', [DownloadController::class, 'downloadFile']);
 
 // DPC PKS se-Ogan Ilir
 Route::get('/dpc', [PageController::class, 'dpc'])->name('dpc.index');

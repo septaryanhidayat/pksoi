@@ -40,7 +40,7 @@
                 'title' => "Ma'rifatullah",
                 'cover' => '/uploads/2025/09/Marifatullah.jpg.webp',
                 'description' => "Ebook Ma’rifatullah ini berisi 17 materi tarbiyah (pembinaan) yang membahas tentang pengenalan terhadap Allah SWT; mengapa penting bagi manusia untuk mengenal Rabb-nya, bagaimana mengenal-Nya melalui ayat-ayat kauniyah dan qauliyah, serta bagaimana dampak pengenalan tersebut terhadap ketakwaan dan ibadah seorang hamba.",
-                'pdf' => route('download.file', 4),
+                'pdf' => route('download.file', 4, false),
                 'badge' => 'Tarbiyah Islamiyah'
             ],
             [
@@ -48,7 +48,7 @@
                 'title' => "Ma'rifatul Qur'an",
                 'cover' => '/uploads/2025/09/Marifatul-Quran-320x448.jpg.webp',
                 'description' => "Ebook Ma’rifatul Qur’an ini memuat 5 materi tarbiyah (pembinaan) yang membahas secara ringkas pengenalan mendasar terhadap Al-Qur’an. Apa yang dimaksud dengan Al-Qur’an, urgensi berinteraksi dengannya, keutamaannya, serta bagaimana adab membaca, mentadabburi, dan mengamalkannya dalam kehidupan sehari-hari.",
-                'pdf' => route('download.file', 5),
+                'pdf' => route('download.file', 5, false),
                 'badge' => 'Ulumul Qur\'an'
             ],
             [
@@ -56,7 +56,7 @@
                 'title' => "Ghazwul Fikri",
                 'cover' => '/uploads/2025/09/Ghazwul-Fikri-320x448.jpg.webp',
                 'description' => "Ebook Ghazwul Fikri ini memuat 6 materi tarbiyah (pembinaan) yang membahas tentang bagaimana umat Islam di awal abad 19 mengalami invasi pemikiran yang sistematis; strategi penyusupan pemikiran, sarana-sarana yang digunakan, serta langkah strategis membentengi umat dari bahaya perang pemikiran.",
-                'pdf' => route('download.file', 6),
+                'pdf' => route('download.file', 6, false),
                 'badge' => 'Pemikiran Islam'
             ],
             [
@@ -64,7 +64,7 @@
                 'title' => "Kurikulum Pembinaan Da'i Muda",
                 'cover' => '/uploads/2025/09/Cover-Kurikulum-Pembinaan-Dai-Muda-320x455.jpg.webp',
                 'description' => "Ebook Kurikulum Pembinaan Da’i Muda ini berisi kumpulan materi dasar-dasar aqidah, fiqih, dan akhlak Islam yang disusun sebagai kurikulum dalam kegiatan pembinaan dakwah pemuda dan da'i muda.",
-                'pdf' => route('download.file', 7),
+                'pdf' => route('download.file', 7, false),
                 'badge' => 'Kurikulum Kader'
             ],
             [
@@ -72,7 +72,7 @@
                 'title' => "Al-Bidayah Wan Nihayah",
                 'cover' => '/uploads/2025/09/Screenshot-2025-09-18-171506.webp',
                 'description' => "Ebook Al-Bidayah Wan Nihayah Sesungguhnya kitab tarikh karya imam al-Hafizh Ibnu Katsir yang populer dengan julukan al-Bidayah wan Nihayah merupakan rujukan utama sejarah penciptaan langit bumi, kisah para Nabi, hingga akhir zaman.",
-                'pdf' => route('download.file', 8),
+                'pdf' => route('download.file', 8, false),
                 'badge' => 'Tarikh Islam'
             ],
             [
@@ -80,7 +80,7 @@
                 'title' => "Adab Olahraga di Tempat Umum",
                 'cover' => '/uploads/2025/10/ADAB-OLAHRAGA.webp',
                 'description' => "Ebook Adab Olahraga di Tempat Umum menjelaskan bahwa Islam tidak melarang perempuan dan laki-laki tampil berolahraga di tempat umum. Islam juga sangat peduli pada kesehatan jasmani, dengan tetap membimbing adab, pakaian, dan etika sesuai syariat.",
-                'pdf' => route('download.file', 9),
+                'pdf' => route('download.file', 9, false),
                 'badge' => 'Fiqih Praktis'
             ],
         ];
@@ -111,7 +111,7 @@
 
                 {{-- BUTTON DOWNLOAD --}}
                 <div class="p-6 pt-0 border-t border-gray-100 mt-2">
-                    <a href="{{ $eb['pdf'] }}" download target="_blank" class="w-full bg-[#f37023] hover:bg-[#d85c14] text-white py-3 rounded-xl text-xs font-bold shadow transition flex items-center justify-center space-x-2">
+                    <a href="{{ $eb['pdf'] }}" class="w-full bg-[#f37023] hover:bg-[#d85c14] text-white py-3 rounded-xl text-xs font-bold shadow transition flex items-center justify-center space-x-2">
                         <i class="fa-regular fa-circle-down text-base"></i>
                         <span>Download E-Book (PDF)</span>
                     </a>

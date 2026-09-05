@@ -35,30 +35,64 @@ class DownloadController extends Controller
         return view('frontend.download.logo', compact('page', 'logoDownloads'));
     }
 
-    public function downloadFile(int $id)
+    public function downloadFile($id)
     {
-        $download = Download::findOrFail($id);
+        $download = is_numeric($id)
+            ? Download::find($id)
+            : Download::where('file_path', 'like', '%' . $id . '%')->orWhere('title', 'like', '%' . $id . '%')->first();
+
+        if (! $download) {
+            $cleanParam = str_replace(['/', '\\'], DIRECTORY_SEPARATOR, trim((string) $id, '/\\'));
+            if (file_exists(public_path($cleanParam))) {
+                return response()->download(public_path($cleanParam));
+            }
+            if (file_exists(public_path('uploads' . DIRECTORY_SEPARATOR . $cleanParam))) {
+                return response()->download(public_path('uploads' . DIRECTORY_SEPARATOR . $cleanParam));
+            }
+            // Search in subdirectories of public/uploads
+            $found = glob(public_path('uploads' . DIRECTORY_SEPARATOR . '*' . DIRECTORY_SEPARATOR . '*' . DIRECTORY_SEPARATOR . basename($cleanParam)));
+            if (! empty($found) && file_exists($found[0])) {
+                return response()->download($found[0]);
+            }
+            abort(404, 'Berkas unduhan tidak ditemukan.');
+        }
+
         $download->increment('download_count');
 
         $relativePath = str_replace(['/', '\\'], DIRECTORY_SEPARATOR, trim($download->file_path, '/\\'));
         $fullPath = public_path($relativePath);
 
+        if (! file_exists($fullPath)) {
+            if (file_exists(public_path('uploads' . DIRECTORY_SEPARATOR . $relativePath))) {
+                $fullPath = public_path('uploads' . DIRECTORY_SEPARATOR . $relativePath);
+            } elseif (file_exists(storage_path('app/public/' . $relativePath))) {
+                $fullPath = storage_path('app/public/' . $relativePath);
+            }
+        }
+
         if (file_exists($fullPath)) {
-            $mimeType = match (strtolower(pathinfo($fullPath, PATHINFO_EXTENSION))) {
+            $ext = strtolower(pathinfo($fullPath, PATHINFO_EXTENSION));
+            $mimeType = match ($ext) {
                 'pdf' => 'application/pdf',
                 'mp3' => 'audio/mpeg',
                 'png' => 'image/png',
                 'jpg', 'jpeg' => 'image/jpeg',
                 'webp' => 'image/webp',
+                'zip' => 'application/zip',
+                'doc' => 'application/msword',
+                'docx' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
                 default => 'application/octet-stream',
             };
 
             return response()->download($fullPath, basename($fullPath), [
                 'Content-Type' => $mimeType,
-                'Content-Disposition' => 'attachment; filename="' . basename($fullPath) . '"',
             ]);
         }
 
-        return redirect($download->file_path);
+        if (filter_var($download->file_path, FILTER_VALIDATE_URL)) {
+            return redirect()->away($download->file_path);
+        }
+
+        return redirect()->route('download.index')->with('error', 'File dokumen asli tidak ditemukan di server.');
     }
 }

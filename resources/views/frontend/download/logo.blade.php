@@ -39,7 +39,7 @@
         </div>
 
         <div>
-            <a href="/uploads/2025/09/Logo-PKS-e1758079670733.webp" download class="inline-flex items-center bg-[#f37023] hover:bg-[#d85c14] text-white px-8 py-3.5 rounded-2xl text-xs font-bold shadow-lg hover:shadow-xl transition space-x-2">
+            <a href="{{ route('download.file', 1, false) }}" class="inline-flex items-center bg-[#f37023] hover:bg-[#d85c14] text-white px-8 py-3.5 rounded-2xl text-xs font-bold shadow-lg hover:shadow-xl transition space-x-2">
                 <i class="fa-solid fa-download text-sm"></i>
                 <span>Download Logo Resolusi Tinggi</span>
             </a>
@@ -150,7 +150,7 @@
                         <span class="text-[11px] text-gray-400">Ukuran ikon web & avatar</span>
                     </div>
                 </div>
-                <a href="/uploads/2025/09/logo-thumbnail.webp" download class="bg-gray-800 hover:bg-black text-white px-4 py-2 rounded-xl text-xs font-bold transition">
+                <a href="{{ route('download.file', 'logo-thumbnail.webp', false) }}" class="bg-gray-800 hover:bg-black text-white px-4 py-2 rounded-xl text-xs font-bold transition">
                     Unduh
                 </a>
             </div>
@@ -165,7 +165,7 @@
                         <span class="text-[11px] text-gray-400">Header & Banner DPD</span>
                     </div>
                 </div>
-                <a href="/uploads/2025/09/Logo-Web-DPD3.webp" download class="bg-[#f37023] hover:bg-[#d85c14] text-white px-4 py-2 rounded-xl text-xs font-bold transition">
+                <a href="{{ route('download.file', 'Logo-Web-DPD3.webp', false) }}" class="bg-[#f37023] hover:bg-[#d85c14] text-white px-4 py-2 rounded-xl text-xs font-bold transition">
                     Unduh
                 </a>
             </div>

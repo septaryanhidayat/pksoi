@@ -266,46 +266,37 @@
 
 
 {{-- ========================================================
-     SECTION #3: BERITA FRAKSI PKS (Desktop 4 Col vs Mobile 1 Col)
+     SECTION #3: BERITA FRAKSI PKS (Desktop 4 Col x 2 Row = 8 Posts)
      ======================================================== --}}
 <section class="py-12 bg-white overflow-hidden">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
         <div class="text-center max-w-2xl mx-auto mb-8 reveal-fade-up">
-            <h2 class="text-2xl sm:text-3xl font-extrabold text-[#353434] tracking-tight">
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-[#FE6000] tracking-tight">
                 Berita Fraksi PKS
             </h2>
-            <p class="text-xs sm:text-sm text-gray-500 mt-1">
+            <p class="text-xs sm:text-sm text-gray-700 mt-1 font-medium">
                 Kabar dan Aktivitas terbaru Anggota DPRD Kabupaten Ogan Ilir Fraksi PKS
             </p>
-            <div class="w-16 h-1 bg-[#FE6000] mx-auto mt-2 rounded-full"></div>
+            <div class="w-16 h-0.5 bg-black mx-auto mt-2.5 rounded-full"></div>
         </div>
 
-        {{-- Responsive Grid: Desktop 4 columns, Mobile 1 column --}}
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {{-- 2 Baris: Desktop 4 kolom, Mobile 1 kolom --}}
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             @foreach($fraksiPosts as $index => $post)
-            <article class="bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition overflow-hidden flex flex-col group reveal-fade-up delay-{{ $index + 1 }}">
-                <div class="h-44 overflow-hidden bg-gray-100 relative">
-                    <img src="{{ $post->featured_image_url }}" alt="{{ $post->title }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
-                    <span class="absolute top-2.5 left-2.5 bg-[#FE6000] text-white text-[10px] font-bold px-2.5 py-0.5 rounded-full shadow">
-                        Fraksi PKS
-                    </span>
+            <article class="flex flex-col group reveal-fade-up delay-{{ ($index % 4) + 1 }}">
+                <div class="aspect-[16/10] overflow-hidden rounded-2xl bg-gray-100 shadow-sm relative">
+                    <a href="{{ route('artikel.show', $post->slug) }}" class="block w-full h-full">
+                        <img src="{{ $post->featured_image_url }}" alt="{{ $post->title }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                    </a>
                 </div>
-                <div class="p-4 flex-1 flex flex-col justify-between">
-                    <div>
-                        <div class="text-[11px] text-gray-400 mb-1.5 flex items-center">
-                            <i class="fa-regular fa-calendar mr-1 text-[#FE6000]"></i>
-                            <span>{{ $post->published_at ? $post->published_at->translatedFormat('d M Y') : '' }}</span>
-                        </div>
-                        <h3 class="font-bold text-xs sm:text-sm text-gray-900 group-hover:text-[#FE6000] transition line-clamp-2 leading-snug">
-                            <a href="{{ route('artikel.show', $post->slug) }}">
-                                {{ $post->title }}
-                            </a>
-                        </h3>
-                    </div>
-                    <div class="pt-3 mt-3 border-t border-gray-100 flex justify-end">
-                        <a href="{{ route('artikel.show', $post->slug) }}" class="text-[11px] font-bold text-[#FE6000] hover:underline">
-                            Baca Berita <i class="fa-solid fa-angle-right ml-0.5"></i>
+                <div class="pt-3 flex-1 flex flex-col justify-between">
+                    <h3 class="font-extrabold text-xs sm:text-sm text-gray-900 group-hover:text-[#FE6000] transition line-clamp-2 leading-snug">
+                        <a href="{{ route('artikel.show', $post->slug) }}">
+                            {{ $post->title }}
                         </a>
+                    </h3>
+                    <div class="text-[11px] sm:text-xs text-[#FE6000] mt-1.5 font-medium">
+                        {{ $post->published_at ? $post->published_at->translatedFormat('j F Y') : '' }}
                     </div>
                 </div>
             </article>
@@ -412,46 +403,37 @@
 
 
 {{-- ========================================================
-     SECTION #5: KABAR SENAYAN (DPR RI Fraksi PKS)
+     SECTION #5: KABAR SENAYAN (DPR RI Fraksi PKS - 4 Col x 2 Row = 8 Posts)
      ======================================================== --}}
 <section class="py-12 bg-white overflow-hidden">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
         <div class="text-center max-w-2xl mx-auto mb-8 reveal-fade-up">
-            <h2 class="text-2xl sm:text-3xl font-extrabold text-[#353434] tracking-tight">
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-[#FE6000] tracking-tight">
                 Kabar Senayan
             </h2>
-            <p class="text-xs sm:text-sm text-gray-500 mt-1">
+            <p class="text-xs sm:text-sm text-gray-700 mt-1 font-medium">
                 Kabar dan Aktivitas terbaru Anggota DPR RI Fraksi PKS
             </p>
-            <div class="w-16 h-1 bg-[#FE6000] mx-auto mt-2 rounded-full"></div>
+            <div class="w-16 h-0.5 bg-black mx-auto mt-2.5 rounded-full"></div>
         </div>
 
-        {{-- Desktop 4 col, Mobile 1 col --}}
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {{-- 2 Baris: Desktop 4 col, Mobile 1 col --}}
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             @foreach($senayanPosts as $index => $post)
-            <article class="bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition overflow-hidden flex flex-col group reveal-fade-up delay-{{ $index + 1 }}">
-                <div class="h-44 overflow-hidden bg-gray-100 relative">
-                    <img src="{{ $post->featured_image_url }}" alt="{{ $post->title }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
-                    <span class="absolute top-2.5 left-2.5 bg-gray-900 text-white text-[10px] font-bold px-2.5 py-0.5 rounded-full shadow">
-                        Senayan
-                    </span>
+            <article class="flex flex-col group reveal-fade-up delay-{{ ($index % 4) + 1 }}">
+                <div class="aspect-[16/10] overflow-hidden rounded-2xl bg-gray-100 shadow-sm relative">
+                    <a href="{{ route('artikel.show', $post->slug) }}" class="block w-full h-full">
+                        <img src="{{ $post->featured_image_url }}" alt="{{ $post->title }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                    </a>
                 </div>
-                <div class="p-4 flex-1 flex flex-col justify-between">
-                    <div>
-                        <div class="text-[11px] text-gray-400 mb-1.5 flex items-center">
-                            <i class="fa-regular fa-calendar mr-1 text-[#FE6000]"></i>
-                            <span>{{ $post->published_at ? $post->published_at->translatedFormat('d M Y') : '' }}</span>
-                        </div>
-                        <h3 class="font-bold text-xs sm:text-sm text-gray-900 group-hover:text-[#FE6000] transition line-clamp-2 leading-snug">
-                            <a href="{{ route('artikel.show', $post->slug) }}">
-                                {{ $post->title }}
-                            </a>
-                        </h3>
-                    </div>
-                    <div class="pt-3 mt-3 border-t border-gray-100 flex justify-end">
-                        <a href="{{ route('artikel.show', $post->slug) }}" class="text-[11px] font-bold text-[#FE6000] hover:underline">
-                            Baca Berita <i class="fa-solid fa-angle-right ml-0.5"></i>
+                <div class="pt-3 flex-1 flex flex-col justify-between">
+                    <h3 class="font-extrabold text-xs sm:text-sm text-gray-900 group-hover:text-[#FE6000] transition line-clamp-2 leading-snug">
+                        <a href="{{ route('artikel.show', $post->slug) }}">
+                            {{ $post->title }}
                         </a>
+                    </h3>
+                    <div class="text-[11px] sm:text-xs text-[#FE6000] mt-1.5 font-medium">
+                        {{ $post->published_at ? $post->published_at->translatedFormat('j F Y') : '' }}
                     </div>
                 </div>
             </article>
@@ -528,23 +510,24 @@
 
 
 {{-- ========================================================
-     SECTION #10: VIDEO KEGIATAN (Desktop 3 Col vs Mobile 1 Col)
+     SECTION #10: VIDEO KEGIATAN (Desktop 3 Col x 2 Row = 6 Videos)
      ======================================================== --}}
-<section class="py-12 bg-gray-900 text-white overflow-hidden">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6">
-        <div class="text-center max-w-2xl mx-auto mb-8 reveal-fade-up">
-            <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight">
+<section class="py-14 bg-gray-900 text-white overflow-hidden relative">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
+        <div class="text-center max-w-2xl mx-auto mb-10 reveal-fade-up">
+            <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
                 Video
             </h2>
-            <p class="text-xs sm:text-sm text-gray-400 mt-1">
-                Kabar dan Aktivitas terbaru dalam bentuk video
+            <p class="text-xs sm:text-sm text-[#FE6000] mt-1 font-semibold">
+                Video DPD PKS Ogan Ilir
             </p>
-            <div class="w-16 h-1 bg-[#FE6000] mx-auto mt-2 rounded-full"></div>
+            <div class="w-16 h-0.5 bg-gray-400 mx-auto mt-2.5 rounded-full"></div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {{-- 2 Baris: 3 kolom x 2 baris = 6 Video --}}
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             @foreach($videos as $index => $v)
-            <div class="bg-gray-800 rounded-xl overflow-hidden border border-gray-700 shadow-md group reveal-fade-up delay-{{ $index + 1 }}">
+            <div class="bg-black rounded-2xl overflow-hidden shadow-lg border border-gray-800 flex flex-col justify-between group reveal-fade-up delay-{{ ($index % 3) + 1 }}">
                 <div class="relative aspect-video bg-black">
                     @if($v->youtube_id)
                     <iframe class="w-full h-full" src="https://www.youtube.com/embed/{{ $v->youtube_id }}" title="{{ $v->title }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -557,8 +540,8 @@
                     </a>
                     @endif
                 </div>
-                <div class="p-4">
-                    <h3 class="font-bold text-xs sm:text-sm text-gray-100 line-clamp-2 leading-snug group-hover:text-[#FE6000] transition">
+                <div class="bg-white py-3.5 px-4 rounded-b-2xl text-center">
+                    <h3 class="font-bold text-xs sm:text-sm text-gray-900 truncate group-hover:text-[#FE6000] transition">
                         {{ $v->title }}
                     </h3>
                 </div>
@@ -566,8 +549,8 @@
             @endforeach
         </div>
 
-        <div class="text-center mt-8 reveal-fade-up">
-            <a href="{{ route('video.index') }}" class="inline-flex items-center bg-[#FE6000] hover:bg-[#d85200] text-white font-bold text-xs sm:text-sm px-6 py-2.5 rounded-full shadow transition">
+        <div class="text-center mt-10 reveal-fade-up">
+            <a href="{{ route('video.index') }}" class="inline-flex items-center bg-[#FE6000] hover:bg-[#d85200] text-white font-bold text-xs sm:text-sm px-7 py-2.5 rounded-full shadow-lg transition">
                 Video Lainnya <i class="fa-solid fa-play ml-2 text-[10px]"></i>
             </a>
         </div>
@@ -764,7 +747,7 @@
                         {{ $eb['desc'] }}
                     </p>
                 </div>
-                <a href="{{ $eb['pdf'] }}" download class="block w-full text-center bg-[#FE6000] hover:bg-[#d85200] text-white text-[11px] sm:text-xs font-bold py-2 rounded-lg transition shadow">
+                <a href="{{ $eb['pdf'] }}" class="block w-full text-center bg-[#FE6000] hover:bg-[#d85200] text-white text-[11px] sm:text-xs font-bold py-2 rounded-lg transition shadow">
                     <i class="fa-solid fa-download mr-1"></i> Unduh E-Book (PDF)
                 </a>
             </div>
@@ -870,43 +853,4 @@
 </section>
 
 
-{{-- ========================================================
-     SECTION #18: ORANGE SUBSCRIPTION BAR & FOOTER WITH VISITOR COUNTER
-     ======================================================== --}}
-<section class="bg-[#FE6000] text-white py-6 reveal-fade-up">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row items-center justify-between gap-4">
-        <div>
-            <h3 class="text-lg font-black tracking-tight">Dapatkan Berita & Info PKS Terkini</h3>
-            <p class="text-xs text-orange-100">Langganan kabar perjuangan dan program pelayanan DPD PKS Ogan Ilir</p>
-        </div>
-        <form action="{{ route('hubungi.store') }}" method="POST" class="flex w-full md:w-auto max-w-md gap-2">
-            @csrf
-            <input type="text" name="whatsapp" placeholder="Nomor WhatsApp Anda..." required class="bg-white text-gray-800 text-xs px-4 py-2.5 rounded-full focus:outline-none flex-1">
-            <input type="hidden" name="name" value="Langganan WhatsApp">
-            <input type="hidden" name="message" value="Permohonan berlangganan info berita PKS Ogan Ilir">
-            <button type="submit" class="bg-gray-900 hover:bg-black text-white font-bold text-xs px-5 py-2.5 rounded-full transition shadow">
-                Daftar
-            </button>
-        </form>
-    </div>
-</section>
-
-{{-- VISITOR COUNTER WIDGET (Di Atas Footer / Bagian Bawah) --}}
-<section class="bg-[#111827] text-white py-4 border-t border-gray-800 reveal-fade-up">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
-        <div class="flex items-center space-x-3">
-            <i class="fa-solid fa-chart-line text-[#FE6000] text-xl"></i>
-            <div>
-                <span class="text-xs text-gray-400 block font-medium">Statistik Pengunjung Website</span>
-                <span class="text-[11px] text-gray-500">Live Visitor Counter DPD PKS Ogan Ilir</span>
-            </div>
-        </div>
-        <div class="bg-black/60 border border-gray-700 px-5 py-1.5 rounded-lg flex items-center space-x-3 shadow-inner">
-            <span class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Total Hits:</span>
-            <span class="text-lg sm:text-xl font-mono font-extrabold text-[#FE6000] tracking-widest">
-                {{ $visitorHits }}
-            </span>
-        </div>
-    </div>
-</section>
 @endsection

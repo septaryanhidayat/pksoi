@@ -45,3 +45,18 @@ test('download audio returns mp3 attachment', function () {
     $response->assertHeader('content-type', 'audio/mpeg');
     expect($response->headers->get('content-disposition'))->toContain('attachment');
 });
+
+test('download logo and filename fallbacks return attachment', function () {
+    $this->seed();
+    $logo = Download::where('title', 'like', '%Logo%')->first();
+    expect($logo)->not->toBeNull();
+
+    $response = $this->get(route('download.file', $logo->id));
+    $response->assertStatus(200);
+    $response->assertHeader('content-type', 'image/webp');
+    expect($response->headers->get('content-disposition'))->toContain('attachment');
+
+    $thumbResponse = $this->get(route('download.file', 'logo-thumbnail.webp'));
+    $thumbResponse->assertStatus(200);
+    expect($thumbResponse->headers->get('content-disposition'))->toContain('attachment');
+});

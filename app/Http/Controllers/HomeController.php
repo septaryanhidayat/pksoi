@@ -43,18 +43,18 @@ class HomeController extends Controller
         // 2. Sambutan Ketua DPD page
         $sambutan = Post::where('type', 'page')->where('slug', 'sambutan-ketua-dpd')->first();
 
-        // 3. Artikel & Berita Utama (Section 2)
+        // 3. Ambil semua post publik untuk fallback
         $allPosts = Post::posts()
             ->published()
-            ->with(['categories', 'author'])
+            ->with(['categories'])
             ->latest('published_at')
-            ->take(20)
+            ->take(30)
             ->get();
 
         $featuredPost = $allPosts->first();
         $sidePosts = $allPosts->slice(1, 3);
 
-        // 4. Berita Fraksi PKS (Section 3 - 4 posts)
+        // 4. Berita Fraksi PKS (Section 3 - 8 posts / 2 baris x 4 kolom)
         $fraksiPosts = Post::posts()
             ->published()
             ->with(['categories'])
@@ -63,11 +63,11 @@ class HomeController extends Controller
                   ->orWhereHas('tags', fn($t) => $t->whereIn('slug', ['fraksi', 'dprd-oi']));
             })
             ->latest('published_at')
-            ->take(4)
+            ->take(8)
             ->get();
 
-        if ($fraksiPosts->count() < 4) {
-            $fraksiPosts = $allPosts->slice(4, 4);
+        if ($fraksiPosts->count() < 8) {
+            $fraksiPosts = $allPosts->slice(4, 8);
         }
 
         // 5. Berita Nasional (Section 4 Kolom 1 - 6 posts)
@@ -96,7 +96,7 @@ class HomeController extends Controller
             $daerahPosts = $allPosts->slice(2, 6);
         }
 
-        // 7. Kabar Senayan (Section 5 - 4 posts)
+        // 7. Kabar Senayan (Section 5 - 8 posts / 2 baris x 4 kolom)
         $senayanPosts = Post::posts()
             ->published()
             ->with(['categories'])
@@ -105,18 +105,18 @@ class HomeController extends Controller
                   ->orWhereHas('tags', fn($t) => $t->whereIn('slug', ['senayan', 'dpr-ri']));
             })
             ->latest('published_at')
-            ->take(4)
+            ->take(8)
             ->get();
 
-        if ($senayanPosts->count() < 4) {
-            $senayanPosts = $allPosts->slice(8, 4);
+        if ($senayanPosts->count() < 8) {
+            $senayanPosts = $allPosts->slice(8, 8);
         }
 
         // 8. Anggota Dewan Fraksi PKS (Section 6-9 - 4 dewan)
         $dewan = AnggotaDewan::orderBy('order', 'asc')->take(4)->get();
 
-        // 9. Video Kegiatan (Section 10 - 3 videos)
-        $videos = Video::latest()->take(3)->get();
+        // 9. Video Kegiatan (Section 10 - 6 videos / 2 baris x 3 kolom)
+        $videos = Video::latest()->take(6)->get();
 
         // 10. Pengumuman & Agenda (Section 12 - 4 items each)
         $announcements = Pengumuman::where('status', 'publish')->latest()->take(4)->get();
@@ -156,7 +156,7 @@ class HomeController extends Controller
                     'id' => $dl->id,
                     'title' => $dl->title,
                     'cover' => $cover,
-                    'pdf' => route('download.file', $dl->id),
+                    'pdf' => route('download.file', $dl->id, false),
                     'direct_file' => $dl->file_path,
                     'desc' => 'Dapatkan dan pelajari materi tarbiyah dan keilmuan Islam resmi dari PKS Ogan Ilir.',
                 ];
@@ -167,7 +167,7 @@ class HomeController extends Controller
                     'id' => 4,
                     'title' => "Ma'rifatullah",
                     'cover' => '/uploads/2025/09/Marifatullah.jpg.webp',
-                    'pdf' => route('download.file', 4),
+                    'pdf' => route('download.file', 4, false),
                     'direct_file' => '/uploads/2025/09/Ebook-Marifatullah.pdf',
                     'desc' => 'Mengenal Allah SWT secara komprehensif sebagai landasan aqidah Islam yang lurus.',
                 ],
@@ -175,7 +175,7 @@ class HomeController extends Controller
                     'id' => 7,
                     'title' => 'Kurikulum Pembinaan Da\'i Muda',
                     'cover' => '/uploads/2025/09/Cover-Kurikulum-Pembinaan-Dai-Muda-320x455.jpg.webp',
-                    'pdf' => route('download.file', 7),
+                    'pdf' => route('download.file', 7, false),
                     'direct_file' => '/uploads/2025/09/Materi-Pembinaan-Dai-Muda-Tingkat-1.pdf',
                     'desc' => 'Panduan terstruktur kurikulum pembinaan generasi muda da\'i pembawa risalah kebaikan.',
                 ],
@@ -183,7 +183,7 @@ class HomeController extends Controller
                     'id' => 6,
                     'title' => 'Ghazwul Fikri',
                     'cover' => '/uploads/2025/09/Ghazwul-Fikri-320x448.jpg.webp',
-                    'pdf' => route('download.file', 6),
+                    'pdf' => route('download.file', 6, false),
                     'direct_file' => '/uploads/2025/09/ghazwul-fikri_mik.pdf',
                     'desc' => 'Menelaah perang pemikiran dan strategi membentengi generasi muslim dari pengaruh negatif.',
                 ],
@@ -191,7 +191,7 @@ class HomeController extends Controller
                     'id' => 5,
                     'title' => "Ma'rifatul Qur'an",
                     'cover' => '/uploads/2025/09/Marifatul-Quran-320x448.jpg.webp',
-                    'pdf' => route('download.file', 5),
+                    'pdf' => route('download.file', 5, false),
                     'direct_file' => '/uploads/2025/09/Marifatul-Quran_MIK.pdf',
                     'desc' => 'Memahami keagungan mukjizat Al-Qur\'an sebagai pedoman hidup dan sumber inspirasi perjuangan.',
                 ],
