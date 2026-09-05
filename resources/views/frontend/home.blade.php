@@ -4,7 +4,7 @@
 
 @section('content')
 {{-- ========================================================
-     SECTION #0: HERO SLIDER & FLOATING MENU UTAMA
+     SECTION #0: HERO SLIDER (Rata Tengah, Ukuran Sesuai Web Lama)
      ======================================================== --}}
 <section class="relative bg-gray-950 overflow-hidden" x-data="{
     activeSlide: 0,
@@ -16,7 +16,7 @@
     }
 }" x-init="autoSlide()">
     {{-- Banner Images & Content --}}
-    <div class="relative h-[420px] sm:h-[500px] lg:h-[580px] w-full overflow-hidden">
+    <div class="relative h-[380px] sm:h-[440px] lg:h-[490px] w-full overflow-hidden">
         <template x-for="(slide, index) in slides" :key="index">
             <div x-show="activeSlide === index" 
                  x-transition:enter="transition ease-out duration-700" 
@@ -28,25 +28,17 @@
                  class="absolute inset-0">
                 
                 <img :src="slide.image" :alt="slide.title" class="w-full h-full object-cover object-center brightness-60">
-                <div class="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-black/85 via-black/55 to-transparent"></div>
+                <div class="absolute inset-0 bg-black/55"></div>
 
-                <div class="absolute inset-0 flex items-center">
-                    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-                        <div class="max-w-2xl text-white space-y-3 sm:space-y-5 text-center md:text-left">
-                            <span class="inline-block bg-[#FE6000] text-white text-[11px] sm:text-xs uppercase font-bold tracking-wider px-3.5 py-1.5 rounded-full shadow-md">
-                                DPD PKS KABUPATEN OGAN ILIR
-                            </span>
-                            <h1 class="text-2xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight" x-text="slide.title"></h1>
-                            <p class="text-xs sm:text-base text-gray-200 font-light leading-relaxed max-w-xl mx-auto md:mx-0" x-text="slide.subtitle"></p>
-                            <div class="pt-2 flex flex-wrap justify-center md:justify-start gap-3">
-                                <a :href="slide.btn_link" class="inline-flex items-center bg-[#FE6000] hover:bg-[#d85200] text-white px-6 py-2.5 sm:py-3 rounded-full font-semibold text-xs sm:text-sm shadow-lg hover:shadow-xl transition">
-                                    <span x-text="slide.btn_text"></span>
-                                    <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
-                                </a>
-                                <a href="{{ route('artikel.index') }}" class="inline-flex items-center bg-white/20 hover:bg-white/30 backdrop-blur text-white border border-white/30 px-5 py-2.5 sm:py-3 rounded-full font-semibold text-xs sm:text-sm transition">
-                                    <i class="fa-solid fa-newspaper mr-2"></i> Berita Terkini
-                                </a>
-                            </div>
+                {{-- Konten Rata Tengah Persis Seperti Web Lama --}}
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center text-white space-y-3">
+                        <h1 class="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight drop-shadow-lg leading-tight" x-text="slide.title"></h1>
+                        <p class="text-sm sm:text-base md:text-lg text-gray-100 font-medium max-w-2xl mx-auto drop-shadow" x-text="slide.subtitle"></p>
+                        <div class="pt-3 flex justify-center">
+                            <a :href="slide.btn_link" class="inline-flex items-center justify-center bg-[#ff5001] hover:bg-[#e04500] text-white px-8 py-3 rounded-full font-extrabold text-xs sm:text-sm shadow-xl transition transform hover:scale-105">
+                                <span x-text="slide.btn_text"></span>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -54,188 +46,123 @@
         </template>
     </div>
 
-    {{-- Carousel Controls --}}
-    <button @click="activeSlide = (activeSlide - 1 + slides.length) % slides.length" class="hidden sm:flex absolute left-4 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-[#FE6000] text-white w-10 h-10 rounded-full items-center justify-center transition backdrop-blur z-20" aria-label="Previous Slide">
-        <i class="fa-solid fa-chevron-left"></i>
+    {{-- Carousel Controls (Panah Samping Kiri & Kanan) --}}
+    <button @click="activeSlide = (activeSlide - 1 + slides.length) % slides.length" class="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-[#ff5001] text-white w-9 h-9 sm:w-11 sm:h-11 rounded-full flex items-center justify-center transition backdrop-blur z-20 shadow-lg" aria-label="Previous Slide">
+        <i class="fa-solid fa-chevron-left text-xs sm:text-sm"></i>
     </button>
-    <button @click="activeSlide = (activeSlide + 1) % slides.length" class="hidden sm:flex absolute right-4 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-[#FE6000] text-white w-10 h-10 rounded-full items-center justify-center transition backdrop-blur z-20" aria-label="Next Slide">
-        <i class="fa-solid fa-chevron-right"></i>
+    <button @click="activeSlide = (activeSlide + 1) % slides.length" class="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-[#ff5001] text-white w-9 h-9 sm:w-11 sm:h-11 rounded-full flex items-center justify-center transition backdrop-blur z-20 shadow-lg" aria-label="Next Slide">
+        <i class="fa-solid fa-chevron-right text-xs sm:text-sm"></i>
     </button>
 
-    {{-- Dots --}}
-    <div class="absolute bottom-16 sm:bottom-20 left-1/2 -translate-x-1/2 flex space-x-2 z-20">
+    {{-- Dots Pagination di Tengah --}}
+    <div class="absolute bottom-12 sm:bottom-16 left-1/2 -translate-x-1/2 flex space-x-2 z-20">
         <template x-for="(slide, idx) in slides" :key="idx">
-            <button @click="activeSlide = idx" class="h-2 rounded-full transition-all duration-300" :class="activeSlide === idx ? 'w-8 bg-[#FE6000]' : 'w-2 bg-white/60 hover:bg-white'"></button>
+            <button @click="activeSlide = idx" class="h-2.5 rounded-full transition-all duration-300" :class="activeSlide === idx ? 'w-6 bg-[#ff5001]' : 'w-2.5 bg-white/70 hover:bg-white'"></button>
         </template>
     </div>
 </section>
 
-{{-- FLOATING MENU UTAMA (Desktop 8 Kolom vs Mobile 4 Kolom x 2 Baris) --}}
-<div class="max-w-6xl mx-auto px-4 sm:px-6 relative z-30 -mt-10 sm:-mt-14 reveal-fade-up">
-    <div class="bg-white rounded-2xl shadow-xl border border-gray-100 p-5 sm:p-6">
+{{-- ========================================================
+     SECTION: FLOATING QUICK ICONS / MENU UTAMA (Ikon Besar Kombinasi Hitam & Oranye Asli)
+     ======================================================== --}}
+<div class="max-w-6xl mx-auto px-4 sm:px-6 relative z-30 -mt-8 sm:-mt-10 reveal-fade-up">
+    <div class="bg-white rounded-3xl shadow-2xl border border-gray-100 p-5 sm:p-7">
         <div class="flex items-center justify-between pb-4 mb-4 border-b border-gray-100">
-            <h2 class="text-base sm:text-lg font-extrabold text-[#353434] flex items-center">
-                <span class="w-2.5 h-2.5 rounded-full bg-[#FE6000] mr-2.5 inline-block"></span>
+            <h2 class="text-base sm:text-lg font-black text-gray-900 tracking-tight">
                 Menu Utama
             </h2>
-            <a href="{{ route('download.index') }}" class="bg-[#FE6000] hover:bg-[#d85200] text-white text-xs font-semibold px-4 py-1.5 rounded-full transition shadow-sm flex items-center">
-                <i class="fa-solid fa-download mr-1.5 text-[11px]"></i> Download
+            <a href="{{ route('download.index') }}" class="bg-black hover:bg-gray-900 text-[#ff5001] text-xs font-black px-4 py-1.5 rounded-full transition shadow flex items-center space-x-1.5">
+                <span>Download</span>
+                <i class="fa-solid fa-download text-[11px]"></i>
             </a>
         </div>
 
-        {{-- DESKTOP: 8 Kolom Berjajar 1 Baris --}}
+        @php
+            $quickMenus = [
+                ['name' => 'Sambutan', 'icon' => '/uploads/2025/09/ICON-Sambupatan.webp', 'url' => route('page.sambutan')],
+                ['name' => 'Profil', 'icon' => '/uploads/2025/09/ICON-About.webp', 'url' => route('page.tentang-kami')],
+                ['name' => 'Fraksi', 'icon' => '/uploads/2025/09/ICON-Dewan.webp', 'url' => route('dewan.index')],
+                ['name' => 'Bidang', 'icon' => '/uploads/2025/09/ICON-Bidang.webp', 'url' => route('bidang.index')],
+                ['name' => 'Berita', 'icon' => '/uploads/2025/09/ICON-Berita.webp', 'url' => route('artikel.index')],
+                ['name' => 'Pengumuman', 'icon' => '/uploads/2025/09/ICON-Pengumuman.webp', 'url' => route('pengumuman.index')],
+                ['name' => 'Video', 'icon' => '/uploads/2025/09/ICON-Video.webp', 'url' => route('video.index')],
+                ['name' => 'Agenda', 'icon' => '/uploads/2025/09/ICON-Agenda.webp', 'url' => route('agenda.index')],
+            ];
+        @endphp
+
+        {{-- DESKTOP VIEW: 8 Kolom Kartu Berbingkai dengan Ikon Asli Besar --}}
         <div class="hidden md:grid md:grid-cols-8 gap-3 text-center">
-            <a href="{{ route('artikel.index') }}" class="group p-2 rounded-xl hover:bg-orange-50 transition">
-                <div class="w-12 h-12 mx-auto rounded-full bg-orange-100 text-[#FE6000] group-hover:bg-[#FE6000] group-hover:text-white flex items-center justify-center text-lg mb-2 transition shadow-sm">
-                    <i class="fa-solid fa-newspaper"></i>
+            @foreach($quickMenus as $qm)
+            <a href="{{ $qm['url'] }}" class="group block p-3 rounded-2xl border border-gray-300 hover:border-[#ff5001] hover:shadow-lg transition bg-white transform hover:-translate-y-1">
+                <div class="h-16 flex items-center justify-center mb-1.5">
+                    <img src="{{ $qm['icon'] }}" alt="{{ $qm['name'] }}" class="max-h-full max-w-full object-contain group-hover:scale-108 transition duration-300">
                 </div>
-                <span class="text-xs font-bold text-gray-800 group-hover:text-[#FE6000] block">Berita</span>
+                <span class="text-xs font-bold text-[#ff5001] block truncate">{{ $qm['name'] }}</span>
             </a>
-            <a href="{{ route('dewan.index') }}" class="group p-2 rounded-xl hover:bg-orange-50 transition">
-                <div class="w-12 h-12 mx-auto rounded-full bg-orange-100 text-[#FE6000] group-hover:bg-[#FE6000] group-hover:text-white flex items-center justify-center text-lg mb-2 transition shadow-sm">
-                    <i class="fa-solid fa-user-tie"></i>
-                </div>
-                <span class="text-xs font-bold text-gray-800 group-hover:text-[#FE6000] block">Fraksi PKS</span>
-            </a>
-            <a href="{{ route('page.tentang-kami') }}" class="group p-2 rounded-xl hover:bg-orange-50 transition">
-                <div class="w-12 h-12 mx-auto rounded-full bg-orange-100 text-[#FE6000] group-hover:bg-[#FE6000] group-hover:text-white flex items-center justify-center text-lg mb-2 transition shadow-sm">
-                    <i class="fa-solid fa-users"></i>
-                </div>
-                <span class="text-xs font-bold text-gray-800 group-hover:text-[#FE6000] block">Profil DPD</span>
-            </a>
-            <a href="{{ route('dpc.index') }}" class="group p-2 rounded-xl hover:bg-orange-50 transition">
-                <div class="w-12 h-12 mx-auto rounded-full bg-orange-100 text-[#FE6000] group-hover:bg-[#FE6000] group-hover:text-white flex items-center justify-center text-lg mb-2 transition shadow-sm">
-                    <i class="fa-solid fa-landmark"></i>
-                </div>
-                <span class="text-xs font-bold text-gray-800 group-hover:text-[#FE6000] block">DPC PKS</span>
-            </a>
-            <a href="{{ route('agenda.index') }}" class="group p-2 rounded-xl hover:bg-orange-50 transition">
-                <div class="w-12 h-12 mx-auto rounded-full bg-orange-100 text-[#FE6000] group-hover:bg-[#FE6000] group-hover:text-white flex items-center justify-center text-lg mb-2 transition shadow-sm">
-                    <i class="fa-solid fa-calendar-days"></i>
-                </div>
-                <span class="text-xs font-bold text-gray-800 group-hover:text-[#FE6000] block">Agenda</span>
-            </a>
-            <a href="{{ route('pengumuman.index') }}" class="group p-2 rounded-xl hover:bg-orange-50 transition">
-                <div class="w-12 h-12 mx-auto rounded-full bg-orange-100 text-[#FE6000] group-hover:bg-[#FE6000] group-hover:text-white flex items-center justify-center text-lg mb-2 transition shadow-sm">
-                    <i class="fa-solid fa-bullhorn"></i>
-                </div>
-                <span class="text-xs font-bold text-gray-800 group-hover:text-[#FE6000] block">Pengumuman</span>
-            </a>
-            <a href="{{ route('galeri.index') }}" class="group p-2 rounded-xl hover:bg-orange-50 transition">
-                <div class="w-12 h-12 mx-auto rounded-full bg-orange-100 text-[#FE6000] group-hover:bg-[#FE6000] group-hover:text-white flex items-center justify-center text-lg mb-2 transition shadow-sm">
-                    <i class="fa-solid fa-images"></i>
-                </div>
-                <span class="text-xs font-bold text-gray-800 group-hover:text-[#FE6000] block">Galeri</span>
-            </a>
-            <a href="{{ route('download.index') }}" class="group p-2 rounded-xl hover:bg-orange-50 transition">
-                <div class="w-12 h-12 mx-auto rounded-full bg-orange-100 text-[#FE6000] group-hover:bg-[#FE6000] group-hover:text-white flex items-center justify-center text-lg mb-2 transition shadow-sm">
-                    <i class="fa-solid fa-download"></i>
-                </div>
-                <span class="text-xs font-bold text-gray-800 group-hover:text-[#FE6000] block">Unduhan</span>
-            </a>
+            @endforeach
         </div>
 
-        {{-- MOBILE: 4 Kolom x 2 Baris Grid --}}
-        <div class="grid md:hidden grid-cols-4 gap-3 text-center">
-            <a href="{{ route('artikel.index') }}" class="p-2 rounded-xl hover:bg-orange-50 transition">
-                <div class="w-11 h-11 mx-auto rounded-full bg-orange-100 text-[#FE6000] flex items-center justify-center text-base mb-1 shadow-sm">
-                    <i class="fa-solid fa-newspaper"></i>
+        {{-- MOBILE VIEW: 4 Kolom x 2 Baris Kartu Berbingkai --}}
+        <div class="grid md:hidden grid-cols-4 gap-2.5 text-center">
+            @foreach($quickMenus as $qm)
+            <a href="{{ $qm['url'] }}" class="p-2.5 rounded-2xl border border-gray-300 hover:border-[#ff5001] hover:shadow-md transition bg-white">
+                <div class="h-12 flex items-center justify-center mb-1">
+                    <img src="{{ $qm['icon'] }}" alt="{{ $qm['name'] }}" class="max-h-full max-w-full object-contain">
                 </div>
-                <span class="text-[11px] font-bold text-gray-800 block">Berita</span>
+                <span class="text-[11px] font-bold text-[#ff5001] block truncate">{{ $qm['name'] }}</span>
             </a>
-            <a href="{{ route('dewan.index') }}" class="p-2 rounded-xl hover:bg-orange-50 transition">
-                <div class="w-11 h-11 mx-auto rounded-full bg-orange-100 text-[#FE6000] flex items-center justify-center text-base mb-1 shadow-sm">
-                    <i class="fa-solid fa-user-tie"></i>
-                </div>
-                <span class="text-[11px] font-bold text-gray-800 block">Fraksi PKS</span>
-            </a>
-            <a href="{{ route('page.tentang-kami') }}" class="p-2 rounded-xl hover:bg-orange-50 transition">
-                <div class="w-11 h-11 mx-auto rounded-full bg-orange-100 text-[#FE6000] flex items-center justify-center text-base mb-1 shadow-sm">
-                    <i class="fa-solid fa-users"></i>
-                </div>
-                <span class="text-[11px] font-bold text-gray-800 block">Profil DPD</span>
-            </a>
-            <a href="{{ route('dpc.index') }}" class="p-2 rounded-xl hover:bg-orange-50 transition">
-                <div class="w-11 h-11 mx-auto rounded-full bg-orange-100 text-[#FE6000] flex items-center justify-center text-base mb-1 shadow-sm">
-                    <i class="fa-solid fa-landmark"></i>
-                </div>
-                <span class="text-[11px] font-bold text-gray-800 block">DPC PKS</span>
-            </a>
-            <a href="{{ route('agenda.index') }}" class="p-2 rounded-xl hover:bg-orange-50 transition">
-                <div class="w-11 h-11 mx-auto rounded-full bg-orange-100 text-[#FE6000] flex items-center justify-center text-base mb-1 shadow-sm">
-                    <i class="fa-solid fa-calendar-days"></i>
-                </div>
-                <span class="text-[11px] font-bold text-gray-800 block">Agenda</span>
-            </a>
-            <a href="{{ route('pengumuman.index') }}" class="p-2 rounded-xl hover:bg-orange-50 transition">
-                <div class="w-11 h-11 mx-auto rounded-full bg-orange-100 text-[#FE6000] flex items-center justify-center text-base mb-1 shadow-sm">
-                    <i class="fa-solid fa-bullhorn"></i>
-                </div>
-                <span class="text-[11px] font-bold text-gray-800 block">Pengumuman</span>
-            </a>
-            <a href="{{ route('galeri.index') }}" class="p-2 rounded-xl hover:bg-orange-50 transition">
-                <div class="w-11 h-11 mx-auto rounded-full bg-orange-100 text-[#FE6000] flex items-center justify-center text-base mb-1 shadow-sm">
-                    <i class="fa-solid fa-images"></i>
-                </div>
-                <span class="text-[11px] font-bold text-gray-800 block">Galeri</span>
-            </a>
-            <a href="{{ route('download.index') }}" class="p-2 rounded-xl hover:bg-orange-50 transition">
-                <div class="w-11 h-11 mx-auto rounded-full bg-orange-100 text-[#FE6000] flex items-center justify-center text-base mb-1 shadow-sm">
-                    <i class="fa-solid fa-download"></i>
-                </div>
-                <span class="text-[11px] font-bold text-gray-800 block">Unduhan</span>
-            </a>
+            @endforeach
         </div>
     </div>
 </div>
 
-
 {{-- ========================================================
-     SECTION #1: SAMBUTAN KETUA DPD
+     SECTION #1: SAMBUTAN KETUA DPD (Foto Besar & Teks Rata Tengah Persis Web Lama)
      ======================================================== --}}
-<section class="py-12 sm:py-16 bg-white overflow-hidden">
+<section class="py-14 sm:py-20 bg-white overflow-hidden">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
             
-            {{-- Foto Ketua DPD --}}
-            <div class="lg:col-span-5 text-center reveal-fade-up delay-1">
-                <div class="relative inline-block">
-                    <div class="rounded-3xl overflow-hidden shadow-xl border-4 border-orange-100 max-w-[320px] sm:max-w-[360px] mx-auto bg-gradient-to-b from-orange-50 to-orange-100">
-                        <img src="/uploads/2025/09/DPD-Profile-2.webp" alt="H. Husnul Anam, S.HI" class="w-full h-auto object-cover transform hover:scale-105 transition duration-300" onerror="this.src='/uploads/2024/01/cd1787310f135df61a8832283565af3b.webp'">
+            {{-- Foto Ketua DPD (Besar Dominan di Kiri Sesuai Referensi Web Lama) --}}
+            <div class="lg:col-span-6 reveal-fade-up delay-1">
+                <div class="max-w-md sm:max-w-lg mx-auto">
+                    <div class="rounded-3xl overflow-hidden shadow-2xl border border-gray-100 bg-gradient-to-b from-orange-50 to-orange-100">
+                        <img src="/uploads/2025/09/DPD-Profile-2.webp" alt="H. Husnul Anam, S.HI" class="w-full h-auto object-cover transform hover:scale-102 transition duration-500" onerror="this.src='/uploads/2024/01/cd1787310f135df61a8832283565af3b.webp'">
                     </div>
-                    <div class="mt-4">
-                        <h3 class="font-extrabold text-gray-900 text-lg sm:text-xl">H. Husnul Anam, S.HI</h3>
-                        <p class="text-xs sm:text-sm font-semibold text-[#FE6000]">Ketua DPD PKS Kabupaten Ogan Ilir</p>
-                    </div>
+                    <h3 class="font-extrabold text-gray-900 text-lg sm:text-xl text-center mt-3.5 tracking-tight">
+                        H. Husnul Anam, S.HI
+                    </h3>
                 </div>
             </div>
 
-            {{-- Isi Sambutan (Mobile Center, Desktop Left) --}}
-            <div class="lg:col-span-7 space-y-4 reveal-fade-up delay-2 text-center lg:text-left">
-                <div class="text-[#FE6000] text-4xl opacity-75 flex justify-center lg:justify-start">
+            {{-- Isi Sambutan (Semuanya Rata Tengah Sesuai Referensi Web Lama) --}}
+            <div class="lg:col-span-6 space-y-4 reveal-fade-up delay-2 text-center">
+                {{-- Ikon Kutipan Ganda Abu-Abu di Tengah --}}
+                <div class="text-4xl sm:text-5xl text-gray-300 flex justify-center leading-none mb-1">
                     <i class="fa-solid fa-quote-left"></i>
                 </div>
-                <h2 class="text-2xl sm:text-3xl font-extrabold text-[#353434] tracking-tight">
+                
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-gray-900 tracking-tight text-center">
                     Sambutan Ketua DPD
                 </h2>
-                <div class="w-16 h-1 bg-[#FE6000] rounded-full mx-auto lg:mx-0"></div>
-                <div class="text-gray-600 text-sm sm:text-base leading-relaxed space-y-3">
-                    <p class="font-medium text-gray-800">
-                        "Bismillahirrohmanirrohim. Assalamu'alaikum Warahmatullahi Wabarakatuh."
-                    </p>
-                    <p>
-                        Puji syukur senantiasa kita panjatkan ke hadirat Allah SWT, atas limpahan rahmat dan karunia-Nya. Selamat datang di Website Resmi Dewan Pengurus Daerah Partai Keadilan Sejahtera (DPD PKS) Kabupaten Ogan Ilir.
-                    </p>
-                    <p>
-                        Website ini kami hadirkan sebagai sarana komunikasi, transparansi informasi, serta jembatan aspirasi antara PKS dan seluruh lapisan masyarakat Ogan Ilir. Kami terus berkomitmen melayani rakyat dengan sepenuh hati, menghadirkan keadilan, dan memperjuangkan kesejahteraan umat.
-                    </p>
-                </div>
-                <div class="pt-4 flex flex-wrap justify-center lg:justify-start gap-3">
-                    <a href="{{ route('page.sambutan') }}" class="bg-[#FE6000] hover:bg-[#d85200] text-white text-xs sm:text-sm font-semibold px-6 py-2.5 rounded-full shadow-md transition">
-                        Baca Sambutan Lengkap
+
+                {{-- Kalimat Sambutan Dipotong Pendek Seperti Web Lama --}}
+                <p class="text-xs sm:text-sm text-gray-600 leading-relaxed max-w-lg mx-auto font-normal text-center">
+                    Assalamu'alaikum Warahmatullahi Wabarakatuh. Alhamdulillah, kami bersyukur kepada Allah SWT atas segala rahmat dan karunia-Nya, sehingga kami dapat hadirkan platform ini sebagai jembatan komunikasi antara Partai Keadilan Sejahtera dengan masyarakat Kabupaten Ogan Ilir ya...
+                </p>
+
+                {{-- Garis Pemisah Hitam Tipis di Tengah --}}
+                <div class="w-24 h-[1.5px] bg-gray-700 mx-auto my-5"></div>
+
+                {{-- Tombol Berjejer di Tengah (Sambutan Oranye & Visi Misi Hitam) --}}
+                <div class="flex items-center justify-center space-x-3.5 pt-2">
+                    <a href="{{ route('page.sambutan') }}" class="bg-[#ff5001] hover:bg-[#d84400] text-white px-6 py-2.5 rounded-full font-bold text-xs sm:text-sm shadow-md hover:shadow-lg transition flex items-center space-x-2">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                        <span>Sambutan</span>
                     </a>
-                    <a href="{{ route('page.visi-misi') }}" class="bg-gray-800 hover:bg-black text-white text-xs sm:text-sm font-semibold px-6 py-2.5 rounded-full shadow-md transition">
-                        Visi & Misi
+                    <a href="{{ route('page.visi-misi') }}" class="bg-black hover:bg-gray-900 text-white px-6 py-2.5 rounded-full font-bold text-xs sm:text-sm shadow-md hover:shadow-lg transition flex items-center space-x-2">
+                        <span>Visi Misi</span>
+                        <i class="fa-regular fa-circle-dot"></i>
                     </a>
                 </div>
             </div>

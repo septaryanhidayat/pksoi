@@ -18,8 +18,8 @@ class HomeController extends Controller
         // 1. Hero slides data
         $heroSlides = [
             [
-                'title' => 'Selamat Datang di Website Resmi DPD PKS Kabupaten Ogan Ilir',
-                'subtitle' => 'Bersama Melayani Rakyat dan Membangun Kabupaten Ogan Ilir yang Adil, Sejahtera, dan Bermartabat.',
+                'title' => 'Selamat Datang di Website Resmi',
+                'subtitle' => 'DPD PKS Kabupaten Ogan Ilir',
                 'image' => '/uploads/2024/01/cd1787310f135df61a8832283565af3b.webp',
                 'btn_text' => 'Sambutan Pimpinan',
                 'btn_link' => '/sambutan-ketua-dpd',
@@ -32,10 +32,10 @@ class HomeController extends Controller
                 'btn_link' => '/tentang-kami',
             ],
             [
-                'title' => 'Ayo Bergabung Bersama Kami!',
-                'subtitle' => 'Jadilah Bagian dari Gerakan Kebaikan dan Perubahan Nyata untuk Bangsa Indonesia.',
+                'title' => 'Ayo Bergabung Bersama DPD PKS Ogan Ilir',
+                'subtitle' => 'Pelayanan, Pemberdayaan, dan Pembelaan untuk Rakyat.',
                 'image' => '/uploads/2025/09/WhatsApp-Image-2025-09-07-at-18.01.10-1.webp',
-                'btn_text' => 'Daftar PKS',
+                'btn_text' => 'Daftar Sekarang',
                 'btn_link' => 'https://daftar.pks.id',
             ],
         ];
