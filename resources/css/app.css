@@ -2,8 +2,95 @@
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
+@source '../views/**/*.blade.php';
 
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-sans: 'Poppins', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --color-pks-orange: #f37023;
+    --color-pks-orange-dark: #d85c14;
+    --color-pks-orange-light: #ff8a43;
+    --color-pks-yellow: #fdb913;
+    --color-pks-yellow-light: #ffcf4d;
+    --color-pks-dark: #18181b;
+    --color-pks-gray: #f8f9fa;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    color: #333333;
+    background-color: #ffffff;
+    overflow-x: hidden;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+    background: #f37023;
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #d85c14;
+}
+
+/* Typography styles for article content */
+.prose-content {
+    line-height: 1.8;
+    color: #374151;
+}
+.prose-content p {
+    margin-bottom: 1.25rem;
+}
+.prose-content h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #111827;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+.prose-content h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #111827;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+}
+.prose-content img {
+    border-radius: 0.5rem;
+    margin: 1.5rem auto;
+    max-width: 100%;
+    height: auto;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+.prose-content a {
+    color: #f37023;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+.prose-content a:hover {
+    color: #d85c14;
+}
+.prose-content ul {
+    list-style-type: disc;
+    margin-left: 1.5rem;
+    margin-bottom: 1.25rem;
+}
+.prose-content ol {
+    list-style-type: decimal;
+    margin-left: 1.5rem;
+    margin-bottom: 1.25rem;
+}
+.prose-content blockquote {
+    border-left: 4px solid #f37023;
+    padding-left: 1rem;
+    font-style: italic;
+    color: #4b5563;
+    margin: 1.5rem 0;
+    background-color: #fff7ed;
+    padding: 1rem;
+    border-radius: 0 0.375rem 0.375rem 0;
 }
