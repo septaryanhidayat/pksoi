@@ -16,6 +16,9 @@
     <meta property="og:description" content="@yield('meta_description', $siteSettings['site_description'] ?? 'Official Website Dewan Pengurus Daerah Partai Keadilan Sejahtera (PKS) Kabupaten Ogan Ilir.')">
     <meta property="og:image" content="@yield('og_image', asset('/uploads/2025/09/logo-thumbnail.webp'))">
 
+    {{-- Canonical URL --}}
+    <link rel="canonical" href="{{ url()->current() }}">
+
     {{-- Favicon --}}
     <link rel="icon" type="image/webp" href="/uploads/2025/09/cropped-logo-thumbnail.webp">
 

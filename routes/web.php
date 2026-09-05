@@ -94,17 +94,38 @@ Route::get('/donasi', [ContactController::class, 'donasi'])->name('donasi');
 
 // Legacy URL Fallback for WordPress images: /wp-content/uploads/{path}
 Route::get('/wp-content/uploads/{path}', function (string $path) {
-    // Check if webp version exists
+    // Prevent path traversal and null byte injections
+    if (str_contains($path, '..') || str_contains($path, "\0")) {
+        abort(404);
+    }
+
+    $allowedExtensions = ['webp', 'jpg', 'jpeg', 'png', 'gif', 'svg', 'ico', 'pdf', 'mp3'];
+    $requestedExt = strtolower(pathinfo($path, PATHINFO_EXTENSION));
+    if (!in_array($requestedExt, $allowedExtensions)) {
+        abort(404);
+    }
+
+    // 1. Check if webp version exists
     $baseName = pathinfo($path, PATHINFO_DIRNAME) . '/' . pathinfo($path, PATHINFO_FILENAME);
     $webpPath = public_path('uploads/' . trim($baseName, '/') . '.webp');
+    $realUploadsBase = realpath(public_path('uploads'));
+
     if (file_exists($webpPath)) {
-        return response()->file($webpPath);
+        $realWebp = realpath($webpPath);
+        if ($realWebp && $realUploadsBase && str_starts_with($realWebp, $realUploadsBase)) {
+            return response()->file($realWebp);
+        }
     }
-    // Check original
+
+    // 2. Check original file inside public/uploads
     $originalPath = public_path('uploads/' . $path);
     if (file_exists($originalPath)) {
-        return response()->file($originalPath);
+        $realOriginal = realpath($originalPath);
+        if ($realOriginal && $realUploadsBase && str_starts_with($realOriginal, $realUploadsBase)) {
+            return response()->file($realOriginal);
+        }
     }
+
     abort(404);
 })->where('path', '.*');
 

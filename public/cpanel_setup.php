@@ -6,16 +6,18 @@
  * Akses: https://domain-anda.com/cpanel_setup.php?token=PksOi2026Setup&action=status
  */
 
-$secretToken = 'PksOi2026Setup';
+require __DIR__ . '/../vendor/autoload.php';
+$app = require_once __DIR__ . '/../bootstrap/app.php';
 
-if (!isset($_GET['token']) || $_GET['token'] !== $secretToken) {
+$secretToken = env('CPANEL_SETUP_TOKEN', 'PksOi2026Setup');
+$isAllowedInProd = env('ENABLE_CPANEL_SETUP', true);
+
+if (!isset($_GET['token']) || empty($_GET['token']) || !hash_equals($secretToken, (string)$_GET['token'])) {
     http_response_code(403);
     echo '<h3 style="color:red;font-family:sans-serif;text-align:center;margin-top:50px;">403 Forbidden: Token Akses Tidak Valid!</h3>';
     exit;
 }
 
-require __DIR__ . '/../vendor/autoload.php';
-$app = require_once __DIR__ . '/../bootstrap/app.php';
 $kernel = $app->make(Illuminate\Contracts\Console\Kernel::class);
 
 $action = $_GET['action'] ?? 'status';

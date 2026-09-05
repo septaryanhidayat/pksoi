@@ -1,13 +1,22 @@
+# Disable directory indexing
+Options -Indexes
+
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
-    # Prevent access to hidden files and directories (like .env, .git)
+    # 1. Prevent access to hidden files and directories (like .env, .git)
     RewriteRule ^\.(.*)$ - [F,L]
-    RewriteRule ^artisan$ - [F,L]
-    RewriteRule ^composer\.(json|lock)$ - [F,L]
-    RewriteRule ^package\.(json|lock)$ - [F,L]
+    RewriteRule ^\.env.*$ - [F,L]
 
-    # Redirect to public folder
+    # 2. Block direct access to internal Laravel directories
+    RewriteRule ^(app|bootstrap|config|database|resources|routes|storage|tests|vendor|BACKUP|Desain)(\/.*)?$ - [F,L,NC]
+
+    # 3. Block sensitive files and scripts in root
+    RewriteRule ^(artisan|composer\.(json|lock)|package\.(json|lock)|phpunit\.xml|vite\.config\.js|boost\.json)$ - [F,L,NC]
+    RewriteRule \.(sql|sqlite|sqlite3|log|key|md|bak|swp|xml)$ - [F,L,NC]
+
+    # 4. Redirect all legitimate requests to public folder
     RewriteCond %{REQUEST_URI} !^/public/
     RewriteRule ^(.*)$ /public/$1 [L,QSA]
 </IfModule>
+

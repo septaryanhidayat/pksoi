@@ -83,7 +83,7 @@ Pastikan pengaturan pada cPanel Anda memenuhi kriteria berikut:
    APP_ENV=production
    APP_KEY=base64:tfdlAwa5qi0eMQooptnBfMClNPkQ20oCj3U2UWKUSPc=
    APP_DEBUG=false
-   APP_URL=https://nama-domain-anda.com
+   APP_URL=https://oganilir.pks.id
 
    DB_CONNECTION=mysql
    DB_HOST=127.0.0.1
@@ -91,18 +91,60 @@ Pastikan pengaturan pada cPanel Anda memenuhi kriteria berikut:
    DB_DATABASE=username_pksoi
    DB_USERNAME=username_pksuser
    DB_PASSWORD=password_database_anda
+
+   SESSION_SECURE_COOKIE=true
    ```
 3. Simpan perubahan file `.env`.
 
 ---
 
-## 🛠️ 5. Finalisasi & Optimasi Menggunakan cPanel Helper
+## 🌐 5. Konfigurasi Domain Pointing (pksoganilir.com ➡️ oganilir.pks.id)
+
+Website ini telah disiapkan untuk menggunakan domain resmi pusat **`oganilir.pks.id`** sebagai domain utama (*canonical domain*), dan tetap menampung domain lama **`pksoganilir.com`** agar pengunjung lama dan ranking SEO Google tidak hilang.
+
+### Langkah di cPanel:
+1. **Domain Utama**:
+   - Pastikan domain utama akun cPanel Anda adalah **`oganilir.pks.id`** dengan Document Root mengarah ke **`public_html`**.
+2. **Pointing / Park Domain Lama (`pksoganilir.com`)**:
+   - Buka cPanel > menu **Domains** (atau **Aliases / Parked Domains** pada tema Paper Lantern).
+   - Klik **Create A New Domain**.
+   - Masukkan domain: `pksoganilir.com`.
+   - **PENTING**: Centang opsi **Share document root** (arahkah Document Root ke `/home/username/public_html`).
+3. **Sertifikat SSL (HTTPS)**:
+   - Buka cPanel > menu **SSL/TLS Status**.
+   - Centang kedua domain (`oganilir.pks.id` dan `pksoganilir.com` beserta `www`).
+   - Klik tombol **Run AutoSSL** dan tunggu beberapa menit hingga ikon gembok hijau aktif pada kedua domain.
+4. **Otomatisasi Redirect di File `.htaccess`**:
+   - Sistem Laravel Anda telah dilengkapi script rewrite otomatis pada `public_html/.htaccess`:
+     Setiap ada orang yang mengetikkan `pksoganilir.com` atau `http://` (non-SSL), server cPanel secara otomatis melakukan **301 Permanent Redirect** ke **`https://oganilir.pks.id`**.
+   - Semua URL artikel lama akan terpetakan dengan sempurna dan tidak ada link yang error/hilang.
+
+---
+
+## 🛡️ 6. Checklist Keamanan Produksi (Anti-Hack & Hardening)
+
+Untuk memastikan website Anda aman dari serangan yang pernah menimpa web WordPress lama:
+
+1. ❌ **JANGAN UPLOAD folder `BACKUP WEb LAMA`**:
+   - Folder tersebut hanya arsip di komputer lokal Anda. Di WordPress lama pernah terjadi serangan bot injeksi komentar spam.
+   - Database produksi yang Anda import (`pks_oganilir_clean_production.sql`) sudah 100% bersih, dipurifikasi, dan bebas dari malware/script berbahaya.
+2. 🔒 **Proteksi Eksekusi Script di Folder Upload**:
+   - Folder `public_html/uploads/` sudah dilengkapi file `.htaccess` khusus yang mematikan mesin PHP (`php_flag engine off`). Meskipun ada pihak yang mencoba mengunggah script ke folder gambar, server cPanel akan otomatis memblokirnya (`403 Forbidden`).
+3. 🛡️ **Proteksi File Sensitif (.env, database, vendor)**:
+   - File konfigurasi `.env`, folder `vendor`, `storage`, dan database tersimpan di luar folder `public_html` (di dalam `laravel_pksoi`), sehingga mustahil diakses dari web browser publik.
+4. 🚦 **Anti-Brute Force & Anti-Spam**:
+   - Halaman login panel admin telah dibekali **Rate Limiter** otomatis (maksimal 5 kali percobaan gagal per IP, jika gagal berulang akan terkunci selama 60 detik).
+   - Formulir kirim aspirasi masyarakat telah dipasangi **Honeypot Bot Trap** dan pembatasan pengiriman pesan.
+
+---
+
+## 🛠️ 7. Finalisasi & Optimasi Menggunakan cPanel Helper
 
 Jika hosting Anda **tidak memiliki akses terminal SSH**, Anda dapat menggunakan helper berbasis web yang sudah kami sediakan:
 
 1. Buka browser dan akses URL berikut:
    ```
-   https://nama-domain-anda.com/cpanel_setup.php?token=PksOi2026Setup&action=status
+   https://oganilir.pks.id/cpanel_setup.php?token=PksOi2026Setup&action=status
    ```
 2. Klik tombol **Cek Status Sistem** untuk memastikan koneksi database berstatus `SUKSES` dan dukungan `GD WebP` aktif.
 3. Klik tombol **Buat Storage Link** untuk menghubungkan folder penyimpanan.
@@ -111,18 +153,18 @@ Jika hosting Anda **tidak memiliki akses terminal SSH**, Anda dapat menggunakan 
 
 ---
 
-## 🔐 6. Akses Panel Admin Website
+## 🔐 8. Akses Panel Admin Website
 
 Panel admin telah dilengkapi dengan sistem manajemen artikel, pesan masuk masyarakat, pengaturan web, serta **Auto-WebP Image Engine** (semua foto/banner yang Anda upload otomatis dikonversi ke format `.webp` super ringan dan berkualitas tinggi):
 
-- **URL Login**: `https://nama-domain-anda.com/login`
+- **URL Login**: `https://oganilir.pks.id/login`
 - **Email Administrator**: `berfikirmerdeka@gmail.com`
 - **Password**: `AdminPksOi2026!`
 - *(Akun alternatif kedua: `desain.praktisi@gmail.com` / `AdminPksOi2026!`)*
 
 ---
 
-## 🌐 7. Daftar Fitur & Halaman yang Siap Digunakan
+## 🌐 9. Daftar Fitur & Halaman yang Siap Digunakan
 
 | Modul | URL Halaman | Keterangan |
 |---|---|---|

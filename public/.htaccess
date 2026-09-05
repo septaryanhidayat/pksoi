@@ -5,21 +5,44 @@
 
     RewriteEngine On
 
-    # Handle Authorization Header
+    # 1. Block access to hidden files and dotfiles (.env, .git, etc.)
+    RewriteRule ^\.(.*)$ - [F,L]
+
+    # 2. Canonical Domain Redirect: pksoganilir.com / www -> oganilir.pks.id
+    RewriteCond %{HTTP_HOST} ^(www\.)?pksoganilir\.com$ [NC,OR]
+    RewriteCond %{HTTP_HOST} ^www\.oganilir\.pks\.id$ [NC]
+    RewriteRule ^(.*)$ https://oganilir.pks.id/$1 [L,R=301]
+
+    # 3. Enforce HTTPS
+    RewriteCond %{HTTPS} off
+    RewriteCond %{HTTP:X-Forwarded-Proto} !https
+    RewriteCond %{HTTP_HOST} !^(localhost|127\.0\.0\.1)(:\d+)?$ [NC]
+    RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+    # 4. Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 
-    # Handle X-XSRF-Token Header
+    # 5. Handle X-XSRF-Token Header
     RewriteCond %{HTTP:x-xsrf-token} .
     RewriteRule .* - [E=HTTP_X_XSRF_TOKEN:%{HTTP:X-XSRF-Token}]
 
-    # Redirect Trailing Slashes If Not A Folder...
+    # 6. Redirect Trailing Slashes If Not A Folder...
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_URI} (.+)/$
     RewriteRule ^ %1 [L,R=301]
 
-    # Send Requests To Front Controller...
+    # 7. Send Requests To Front Controller...
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
+</IfModule>
+
+# Security Headers (Defense in Depth)
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set X-XSS-Protection "1; mode=block"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always unset X-Powered-By
 </IfModule>

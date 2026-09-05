@@ -113,6 +113,11 @@
         <form action="{{ route('feedback.store') }}" method="POST" class="space-y-5">
             @csrf
 
+            {{-- Honeypot field for anti-spam bot --}}
+            <div class="hidden" style="display:none !important;" aria-hidden="true">
+                <input type="text" name="_hp_security_check" value="" tabindex="-1" autocomplete="off">
+            </div>
+
             <div>
                 <label for="nama" class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1.5">Nama Lengkap *</label>
                 <input type="text" name="nama" id="nama" required value="{{ old('nama') }}" placeholder="Tuliskan nama lengkap Anda..." class="w-full bg-gray-50 text-xs text-gray-800 rounded-xl px-4 py-3.5 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#f37023] transition">
