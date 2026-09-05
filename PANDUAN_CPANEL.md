@@ -105,6 +105,43 @@ Website ini telah dilengkapi file otomasi **`.cpanel.yml`** sehingga proses sink
 3. Di bagian **Deploy HEAD Commit**, klik tombol **Deploy HEAD Commit**.
    - *Sistem cPanel akan otomatis mengeksekusi instruksi di dalam `.cpanel.yml`: menyalin seluruh aset `public/` ke `public_html/`, memasang `.htaccess`, dan mengatur hak akses folder `storage`.*
 
+### ⚠️ PENTING: Langkah Wajib Setelah Clone Pertama Kali (Mencegah HTTP ERROR 500)
+
+Ketika Anda meng-clone repositori Git ke cPanel, Git **secara sengaja tidak menyertakan folder `vendor/` dan file `.env`** demi efisiensi dan keamanan. Jika Anda langsung membuka website sebelum melakukan langkah ini, browser akan menampilkan **HTTP ERROR 500**.
+
+Untuk mengatasinya (hanya butuh 1-2 menit):
+
+#### Cara 1: Menggunakan cPanel Terminal (Paling Cepat & Direkomendasikan)
+1. Buka menu **Terminal** di cPanel Anda.
+2. Masuk ke folder repositori yang baru Anda clone, contoh:
+   ```bash
+   cd ~/repositories/pksoi
+   # (atau sesuaikan dengan folder repositori Anda, misal: cd ~/laravel_pksoi)
+   ```
+3. Salin file konfigurasi `.env`:
+   ```bash
+   cp .env.cpanel.example .env
+   ```
+4. Jalankan perintah instalasi Composer:
+   ```bash
+   composer install --no-dev --optimize-autoloader
+   ```
+   *(Jika perintah `composer` tidak ditemukan, Anda dapat menggunakan PHP langsung: `/opt/cpanel/ea-php84/root/usr/bin/php /usr/local/bin/composer install --no-dev`)*
+
+#### Cara 2: Menggunakan cPanel Setup Helper (Tanpa Terminal)
+1. Buka browser Anda dan akses:
+   ```
+   https://pksoganilir.com/cpanel_setup.php?token=PksOi2026Setup&action=status
+   ```
+2. Klik tombol **📝 Buat File .env Otomatis** untuk membuat file `.env` lengkap dengan `APP_KEY`.
+3. Di komputer lokal Anda, kompres folder `vendor` menjadi `vendor.zip`.
+4. Buka **File Manager** cPanel, upload `vendor.zip` ke dalam folder repositori Anda (`/home/username/repositories/pksoi/`).
+5. Pada cPanel Setup Helper, klik tombol **📦 Ekstrak vendor.zip**.
+6. Klik **⚡ Sinkron & Deploy Lengkap**.
+7. *Selesai! Website langsung aktif 100%!*
+
+---
+
 ### Langkah Otomatisasi Webhook GitHub (Setiap kali push otomatis sync ke cPanel):
 1. Pada tab **Basic Information** di menu Git cPanel, salin URL pada kolom **Webhook URL**.
 2. Buka repositori Anda di GitHub: `https://github.com/septaryanhidayat/pksoi`.
