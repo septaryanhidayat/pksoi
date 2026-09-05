@@ -1,6 +1,11 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\AdminFeedbackController;
+use App\Http\Controllers\Admin\AdminPostController;
+use App\Http\Controllers\Admin\AdminSettingController;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BidangController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DewanController;
@@ -9,6 +14,28 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InformationController;
 use App\Http\Controllers\PageController;
 use Illuminate\Support\Facades\Route;
+
+// === AUTHENTICATION ROUTES ===
+Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+Route::post('/login', [AuthController::class, 'login'])->name('login.post');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+// === ADMIN CMS PANEL ROUTES (PROTECTED) ===
+Route::prefix('admin')->middleware('auth')->name('admin.')->group(function () {
+    Route::get('/', [AdminDashboardController::class, 'index'])->name('dashboard');
+
+    // Posts Management
+    Route::resource('posts', AdminPostController::class);
+
+    // Feedbacks / Aspirasi Inbox
+    Route::get('/feedbacks', [AdminFeedbackController::class, 'index'])->name('feedbacks.index');
+    Route::post('/feedbacks/{feedback}/read', [AdminFeedbackController::class, 'markAsRead'])->name('feedbacks.read');
+    Route::delete('/feedbacks/{feedback}', [AdminFeedbackController::class, 'destroy'])->name('feedbacks.destroy');
+
+    // Website Settings
+    Route::get('/settings', [AdminSettingController::class, 'index'])->name('settings.index');
+    Route::post('/settings', [AdminSettingController::class, 'update'])->name('settings.update');
+});
 
 // === FRONTEND PUBLIC ROUTES ===
 
