@@ -1,12 +1,10 @@
 # ----------------------------------------------------------------------
-# CPANEL PHP VERSION OVERRIDE (Aktifkan HANYA jika diperlukan oleh hosting)
+# CPANEL LITESPEED PHP 8.4 OVERRIDE (Bypass MultiPHP Manager Lock)
 # ----------------------------------------------------------------------
-# Jika server cPanel Anda mewajibkan handler tertentu, buka tanda pagar (#) berikut:
-# <IfModule mime_module>
-#   AddHandler application/x-httpd-ea-php84 .php .php8 .phtml
-#   AddHandler application/x-httpd-alt-php84 .php .php8 .phtml
-#   AddHandler application/x-httpd-ea-php83 .php .php8 .phtml
-# </IfModule>
+<IfModule mime_module>
+  AddHandler application/x-httpd-ea-php84___lsphp .php .php8 .phtml
+  AddHandler application/x-httpd-ea-php84 .php .php8 .phtml
+</IfModule>
 
 <IfModule mod_rewrite.c>
     <IfModule mod_negotiation.c>
