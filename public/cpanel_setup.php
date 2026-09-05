@@ -177,6 +177,18 @@ switch ($action) {
                 $results['optimize:clear'] = runArtisanCmd($kernel, 'optimize:clear');
             } elseif ($action === 'migrate') {
                 $results['migrate'] = runArtisanCmd($kernel, 'migrate', ['--force' => true]);
+            } elseif ($action === 'git_reset') {
+                $commands = [
+                    'cd ' . escapeshellarg($laravelRoot),
+                    'git config core.filemode false',
+                    'git reset --hard HEAD',
+                    'git clean -fd',
+                    'git status',
+                ];
+                $cmd = implode(' && ', $commands) . ' 2>&1';
+                $output = [];
+                @exec($cmd, $output, $returnCode);
+                $results['Git Reset & Clean'] = empty($output) ? 'Perintah dieksekusi (Silakan cek status di cPanel Git Version Control)' : implode("\n", $output);
             } elseif ($action === 'deploy_sync') {
                 // Ensure storage directories exist
                 $storageDirs = [
@@ -190,7 +202,6 @@ switch ($action) {
 
                 $currentDir = __DIR__;
                 $sourcePublic = $laravelRoot . '/public';
-                $publicHtml = dirname($currentDir) . '/public_html';
                 $synced = 0;
 
                 // 1. Copy from repository public/ to active web docroot ($currentDir)
@@ -202,24 +213,6 @@ switch ($action) {
                     foreach ($iterator as $item) {
                         $subPath = $iterator->getSubPathName();
                         $target = $currentDir . '/' . $subPath;
-                        if ($item->isDir()) {
-                            if (!is_dir($target)) @mkdir($target, 0755, true);
-                        } else {
-                            @copy($item->getPathname(), $target);
-                            $synced++;
-                        }
-                    }
-                }
-
-                // 2. Also mirror to public_html if exists and distinct
-                if (is_dir($publicHtml) && realpath($currentDir) !== realpath($publicHtml)) {
-                    $iterator = new RecursiveIteratorIterator(
-                        new RecursiveDirectoryIterator($currentDir, RecursiveDirectoryIterator::SKIP_DOTS),
-                        RecursiveIteratorIterator::SELF_FIRST
-                    );
-                    foreach ($iterator as $item) {
-                        $subPath = $iterator->getSubPathName();
-                        $target = $publicHtml . '/' . $subPath;
                         if ($item->isDir()) {
                             if (!is_dir($target)) @mkdir($target, 0755, true);
                         } else {
@@ -310,6 +303,7 @@ switch ($action) {
         <div class="section-title">1. Diagnostik &amp; Persiapan Awal</div>
         <div class="nav-links">
             <a href="?token=<?= $secretToken ?>&amp;action=status" class="blue">🔍 Cek Status Sistem</a>
+            <a href="?token=<?= $secretToken ?>&amp;action=git_reset" style="background:#dc2626;">🔄 Bersihkan Git &amp; Aktifkan Deploy</a>
             <?php if (!$hasEnv): ?>
                 <a href="?token=<?= $secretToken ?>&amp;action=create_env" class="green">📝 Buat File .env Otomatis</a>
             <?php endif; ?>

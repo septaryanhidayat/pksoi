@@ -153,9 +153,8 @@ class WebpService
                 $_SERVER['DOCUMENT_ROOT'] ?? null,
                 dirname(public_path()) . '/../pksoganilir.com',
                 dirname(public_path()) . '/../pksoganilir.com/public',
-                dirname(public_path()) . '/../public_html',
                 '/home/berandad/pksoganilir.com',
-                '/home/berandad/public_html',
+                '/home/berandad/pksoganilir.com/public',
             ]);
 
             foreach ($docRootCandidates as $docRoot) {

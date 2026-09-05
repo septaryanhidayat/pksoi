@@ -3,5 +3,4 @@ deployment:
   tasks:
     - export DEPLOYPATH=/home/berandad/pksoganilir.com/public/
     - /bin/cp -a public/. $DEPLOYPATH
-    - /bin/cp -a public/. /home/berandad/public_html/
 
