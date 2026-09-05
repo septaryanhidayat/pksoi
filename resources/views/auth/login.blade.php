@@ -17,8 +17,8 @@
         {{-- Brand Logo --}}
         <div class="text-center mb-8">
             <a href="{{ route('home') }}" class="inline-block group">
-                <div class="w-24 h-24 mx-auto p-2 bg-orange-50/50 rounded-2xl border border-orange-100 flex items-center justify-center shadow-inner group-hover:scale-105 transition duration-300">
-                    <img src="/uploads/2025/09/Logo-PKS-e1758079670733.webp" alt="Logo PKS Ogan Ilir" class="max-h-full max-w-full object-contain" onerror="this.src='/uploads/2025/09/logo-thumbnail.webp'">
+                <div class="w-24 h-24 mx-auto p-2 bg-white rounded-2xl border border-gray-100 flex items-center justify-center shadow-md group-hover:scale-105 transition duration-300">
+                    <img src="/uploads/2025/09/Logo-PKS-Resmi.png" alt="Logo PKS Ogan Ilir" class="max-h-full max-w-full object-contain">
                 </div>
             </a>
             <h1 class="text-2xl font-extrabold text-gray-900 mt-4 tracking-tight">Panel Administrator</h1>
@@ -40,15 +40,15 @@
             @csrf
 
             <div>
-                <label for="email" class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">Email Administrator</label>
+                <label for="email" class="block text-xs font-semibold text-gray-700 mb-1.5">Masukkan Email Anda</label>
                 <div class="relative">
-                    <input type="email" name="email" id="email" required value="{{ old('email') }}" placeholder="admin@pksoganilir.com" class="w-full bg-gray-50 text-xs text-gray-800 rounded-xl pl-10 pr-4 py-3.5 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#f37023] transition">
+                    <input type="email" name="email" id="email" required value="{{ old('email') }}" placeholder="Masukkan email anda..." class="w-full bg-gray-50 text-xs text-gray-800 rounded-xl pl-10 pr-4 py-3.5 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#f37023] transition">
                     <i class="fa-solid fa-envelope absolute left-3.5 top-4 text-gray-400 text-xs"></i>
                 </div>
             </div>
 
             <div>
-                <label for="password" class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">Password</label>
+                <label for="password" class="block text-xs font-semibold text-gray-700 mb-1.5">Password</label>
                 <div class="relative">
                     <input type="password" name="password" id="password" required placeholder="••••••••" class="w-full bg-gray-50 text-xs text-gray-800 rounded-xl pl-10 pr-4 py-3.5 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#f37023] transition">
                     <i class="fa-solid fa-lock absolute left-3.5 top-4 text-gray-400 text-xs"></i>

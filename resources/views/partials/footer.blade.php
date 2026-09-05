@@ -19,10 +19,10 @@
         {{-- 2. MAIN FOOTER CONTENT (Logo Besar di Kiri, Alamat, Sosial Media, Pengunjung) --}}
         <div class="flex flex-col lg:flex-row items-center lg:items-start justify-between gap-8 sm:gap-10 pb-12 border-b border-gray-800 text-center lg:text-left">
             
-            {{-- LOGO BESAR KOTAK PUTIH (Persis Gambar Logo Resmi PKS) --}}
+            {{-- LOGO RESMI PKS DENGAN BINGKAI PUTIH RAMPING --}}
             <div class="flex-shrink-0">
-                <div class="w-36 h-36 sm:w-44 sm:h-44 bg-white rounded-2xl p-4 shadow-xl flex items-center justify-center border border-gray-200">
-                    <img src="/uploads/2025/09/Logo-PKS-Resmi.png" alt="Logo Resmi Partai Keadilan Sejahtera" class="w-full h-full object-contain">
+                <div class="w-28 sm:w-32 bg-white rounded-2xl p-2.5 sm:p-3 shadow-xl flex items-center justify-center border border-gray-100">
+                    <img src="/uploads/2025/09/Logo-PKS-Resmi.png" alt="Logo Resmi Partai Keadilan Sejahtera" class="w-full h-auto object-contain">
                 </div>
             </div>
 
@@ -55,21 +55,21 @@
                     DPD PKS Ogan Ilir
                 </p>
                 
-                {{-- 5 Ikon Bulat Oranye --}}
+                {{-- 5 Ikon Bulat Oranye (Sesuai Akun Asli Web WordPress) --}}
                 <div class="flex items-center justify-center lg:justify-start space-x-2 pt-0.5">
-                    <a href="{{ $siteSettings['social_facebook'] ?? 'https://facebook.com/dpdpksoganilir' }}" target="_blank" class="w-7 h-7 rounded-full bg-[#ff5001] hover:bg-[#e04500] flex items-center justify-center text-white transition shadow text-xs" aria-label="Facebook">
+                    <a href="{{ $siteSettings['social_facebook'] ?? 'https://www.facebook.com/dpdpksoganilir' }}" target="_blank" class="w-7 h-7 rounded-full bg-[#ff5001] hover:bg-[#e04500] flex items-center justify-center text-white transition shadow text-xs" aria-label="Facebook">
                         <i class="fa-brands fa-facebook-f"></i>
                     </a>
-                    <a href="{{ $siteSettings['social_twitter'] ?? 'https://x.com/pksoganilir' }}" target="_blank" class="w-7 h-7 rounded-full bg-[#ff5001] hover:bg-[#e04500] flex items-center justify-center text-white transition shadow text-xs" aria-label="Twitter">
+                    <a href="{{ $siteSettings['social_twitter'] ?? 'https://x.com/DPD_PKS_OI' }}" target="_blank" class="w-7 h-7 rounded-full bg-[#ff5001] hover:bg-[#e04500] flex items-center justify-center text-white transition shadow text-xs" aria-label="Twitter">
                         <i class="fa-brands fa-x-twitter"></i>
                     </a>
-                    <a href="{{ $siteSettings['social_instagram'] ?? 'https://instagram.com/dpdpksoganilir' }}" target="_blank" class="w-7 h-7 rounded-full bg-[#ff5001] hover:bg-[#e04500] flex items-center justify-center text-white transition shadow text-xs" aria-label="Instagram">
+                    <a href="{{ $siteSettings['social_instagram'] ?? 'https://www.instagram.com/dpd_pks_oi/' }}" target="_blank" class="w-7 h-7 rounded-full bg-[#ff5001] hover:bg-[#e04500] flex items-center justify-center text-white transition shadow text-xs" aria-label="Instagram">
                         <i class="fa-brands fa-instagram"></i>
                     </a>
-                    <a href="{{ $siteSettings['social_youtube'] ?? 'https://youtube.com/@pkstvoganilir' }}" target="_blank" class="w-7 h-7 rounded-full bg-[#ff5001] hover:bg-[#e04500] flex items-center justify-center text-white transition shadow text-xs" aria-label="YouTube">
+                    <a href="{{ $siteSettings['social_youtube'] ?? 'https://www.youtube.com/@pksoganilir2307' }}" target="_blank" class="w-7 h-7 rounded-full bg-[#ff5001] hover:bg-[#e04500] flex items-center justify-center text-white transition shadow text-xs" aria-label="YouTube">
                         <i class="fa-brands fa-youtube"></i>
                     </a>
-                    <a href="{{ $siteSettings['social_tiktok'] ?? 'https://tiktok.com/@pksoganilir' }}" target="_blank" class="w-7 h-7 rounded-full bg-[#ff5001] hover:bg-[#e04500] flex items-center justify-center text-white transition shadow text-xs" aria-label="TikTok">
+                    <a href="{{ $siteSettings['social_tiktok'] ?? 'https://www.tiktok.com/@pksoganilir' }}" target="_blank" class="w-7 h-7 rounded-full bg-[#ff5001] hover:bg-[#e04500] flex items-center justify-center text-white transition shadow text-xs" aria-label="TikTok">
                         <i class="fa-brands fa-tiktok"></i>
                     </a>
                 </div>
