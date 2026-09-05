@@ -2,6 +2,7 @@
 deployment:
   tasks:
     - export DEPLOYPATH="$HOME/public_html"
+    - if [ -d "$HOME/pksoganilir.com/public" ]; then export DEPLOYPATH="$HOME/pksoganilir.com/public"; elif [ -d "$HOME/pksoganilir.com" ]; then export DEPLOYPATH="$HOME/pksoganilir.com"; fi
     - /bin/mkdir -p "$DEPLOYPATH"
     - /bin/cp -a public/. "$DEPLOYPATH/"
     - /bin/chmod -R 775 storage bootstrap/cache 2>/dev/null || true
