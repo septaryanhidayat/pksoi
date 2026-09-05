@@ -210,15 +210,15 @@
                 </div>
             </div>
 
-            {{-- Isi Sambutan --}}
-            <div class="lg:col-span-7 space-y-4 reveal-fade-up delay-2">
-                <div class="text-[#FE6000] text-4xl opacity-75">
+            {{-- Isi Sambutan (Mobile Center, Desktop Left) --}}
+            <div class="lg:col-span-7 space-y-4 reveal-fade-up delay-2 text-center lg:text-left">
+                <div class="text-[#FE6000] text-4xl opacity-75 flex justify-center lg:justify-start">
                     <i class="fa-solid fa-quote-left"></i>
                 </div>
                 <h2 class="text-2xl sm:text-3xl font-extrabold text-[#353434] tracking-tight">
                     Sambutan Ketua DPD
                 </h2>
-                <div class="w-16 h-1 bg-[#FE6000] rounded-full"></div>
+                <div class="w-16 h-1 bg-[#FE6000] rounded-full mx-auto lg:mx-0"></div>
                 <div class="text-gray-600 text-sm sm:text-base leading-relaxed space-y-3">
                     <p class="font-medium text-gray-800">
                         "Bismillahirrohmanirrohim. Assalamu'alaikum Warahmatullahi Wabarakatuh."
@@ -230,7 +230,7 @@
                         Website ini kami hadirkan sebagai sarana komunikasi, transparansi informasi, serta jembatan aspirasi antara PKS dan seluruh lapisan masyarakat Ogan Ilir. Kami terus berkomitmen melayani rakyat dengan sepenuh hati, menghadirkan keadilan, dan memperjuangkan kesejahteraan umat.
                     </p>
                 </div>
-                <div class="pt-4 flex flex-wrap gap-3">
+                <div class="pt-4 flex flex-wrap justify-center lg:justify-start gap-3">
                     <a href="{{ route('page.sambutan') }}" class="bg-[#FE6000] hover:bg-[#d85200] text-white text-xs sm:text-sm font-semibold px-6 py-2.5 rounded-full shadow-md transition">
                         Baca Sambutan Lengkap
                     </a>
@@ -250,13 +250,13 @@
      ======================================================== --}}
 <section class="py-12 bg-gray-50 border-t border-gray-100 overflow-hidden">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
-        <div class="mb-6 flex items-center justify-between reveal-fade-up">
+        <div class="mb-6 flex flex-col sm:flex-row items-center justify-between text-center sm:text-left gap-3 reveal-fade-up">
             <div>
-                <h2 class="text-xl sm:text-2xl font-extrabold text-[#353434] flex items-center">
+                <h2 class="text-xl sm:text-2xl font-extrabold text-[#353434] flex items-center justify-center sm:justify-start">
                     <span class="w-2.5 h-2.5 rounded-full bg-[#FE6000] mr-2"></span>
                     Artikel & Berita
                 </h2>
-                <div class="w-12 h-0.5 bg-[#FE6000] mt-1"></div>
+                <div class="w-12 h-0.5 bg-[#FE6000] mt-1 mx-auto sm:mx-0"></div>
             </div>
             <a href="{{ route('artikel.index') }}" class="text-xs sm:text-sm font-semibold text-[#FE6000] hover:underline flex items-center">
                 Lihat Semua <i class="fa-solid fa-arrow-right ml-1.5 text-xs"></i>
@@ -837,8 +837,8 @@
                         {{ $eb['desc'] }}
                     </p>
                 </div>
-                <a href="{{ $eb['pdf'] }}" target="_blank" class="block w-full text-center bg-[#FE6000] hover:bg-[#d85200] text-white text-[11px] sm:text-xs font-bold py-2 rounded-lg transition shadow">
-                    <i class="fa-solid fa-download mr-1"></i> Unduh E-Book
+                <a href="{{ $eb['pdf'] }}" download class="block w-full text-center bg-[#FE6000] hover:bg-[#d85200] text-white text-[11px] sm:text-xs font-bold py-2 rounded-lg transition shadow">
+                    <i class="fa-solid fa-download mr-1"></i> Unduh E-Book (PDF)
                 </a>
             </div>
             @endforeach

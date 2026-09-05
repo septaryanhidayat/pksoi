@@ -82,6 +82,7 @@ Route::get('/unduh/{id}', [DownloadController::class, 'downloadFile'])->name('do
 
 // DPC PKS se-Ogan Ilir
 Route::get('/dpc', [PageController::class, 'dpc'])->name('dpc.index');
+Route::get('/dpc-pks', [PageController::class, 'dpc']);
 
 // Hubungi & Donasi
 Route::get('/hubungi', [ContactController::class, 'hubungi'])->name('hubungi');

@@ -36,45 +36,51 @@
     @php
         $ebooks = [
             [
+                'id' => 4,
                 'title' => "Ma'rifatullah",
                 'cover' => '/uploads/2025/09/Marifatullah.jpg.webp',
                 'description' => "Ebook Ma’rifatullah ini berisi 17 materi tarbiyah (pembinaan) yang membahas tentang pengenalan terhadap Allah SWT; mengapa penting bagi manusia untuk mengenal Rabb-nya, bagaimana mengenal-Nya melalui ayat-ayat kauniyah dan qauliyah, serta bagaimana dampak pengenalan tersebut terhadap ketakwaan dan ibadah seorang hamba.",
-                'pdf' => '/uploads/2025/09/Ebook-Marifatullah.pdf',
+                'pdf' => route('download.file', 4),
                 'badge' => 'Tarbiyah Islamiyah'
             ],
             [
+                'id' => 5,
                 'title' => "Ma'rifatul Qur'an",
                 'cover' => '/uploads/2025/09/Marifatul-Quran-320x448.jpg.webp',
                 'description' => "Ebook Ma’rifatul Qur’an ini memuat 5 materi tarbiyah (pembinaan) yang membahas secara ringkas pengenalan mendasar terhadap Al-Qur’an. Apa yang dimaksud dengan Al-Qur’an, urgensi berinteraksi dengannya, keutamaannya, serta bagaimana adab membaca, mentadabburi, dan mengamalkannya dalam kehidupan sehari-hari.",
-                'pdf' => '/uploads/2025/09/Marifatul-Quran_MIK.pdf',
+                'pdf' => route('download.file', 5),
                 'badge' => 'Ulumul Qur\'an'
             ],
             [
+                'id' => 6,
                 'title' => "Ghazwul Fikri",
                 'cover' => '/uploads/2025/09/Ghazwul-Fikri-320x448.jpg.webp',
                 'description' => "Ebook Ghazwul Fikri ini memuat 6 materi tarbiyah (pembinaan) yang membahas tentang bagaimana umat Islam di awal abad 19 mengalami invasi pemikiran yang sistematis; strategi penyusupan pemikiran, sarana-sarana yang digunakan, serta langkah strategis membentengi umat dari bahaya perang pemikiran.",
-                'pdf' => '/uploads/2025/09/ghazwul-fikri_mik.pdf',
+                'pdf' => route('download.file', 6),
                 'badge' => 'Pemikiran Islam'
             ],
             [
+                'id' => 7,
                 'title' => "Kurikulum Pembinaan Da'i Muda",
                 'cover' => '/uploads/2025/09/Cover-Kurikulum-Pembinaan-Dai-Muda-320x455.jpg.webp',
                 'description' => "Ebook Kurikulum Pembinaan Da’i Muda ini berisi kumpulan materi dasar-dasar aqidah, fiqih, dan akhlak Islam yang disusun sebagai kurikulum dalam kegiatan pembinaan dakwah pemuda dan da'i muda.",
-                'pdf' => '/uploads/2025/09/Materi-Pembinaan-Dai-Muda-Tingkat-1.pdf',
+                'pdf' => route('download.file', 7),
                 'badge' => 'Kurikulum Kader'
             ],
             [
+                'id' => 8,
                 'title' => "Al-Bidayah Wan Nihayah",
                 'cover' => '/uploads/2025/09/Screenshot-2025-09-18-171506.webp',
                 'description' => "Ebook Al-Bidayah Wan Nihayah Sesungguhnya kitab tarikh karya imam al-Hafizh Ibnu Katsir yang populer dengan julukan al-Bidayah wan Nihayah merupakan rujukan utama sejarah penciptaan langit bumi, kisah para Nabi, hingga akhir zaman.",
-                'pdf' => '/uploads/2025/09/BidayahWanNihayah-IbnuKatsir.pdf',
+                'pdf' => route('download.file', 8),
                 'badge' => 'Tarikh Islam'
             ],
             [
+                'id' => 9,
                 'title' => "Adab Olahraga di Tempat Umum",
                 'cover' => '/uploads/2025/10/ADAB-OLAHRAGA.webp',
                 'description' => "Ebook Adab Olahraga di Tempat Umum menjelaskan bahwa Islam tidak melarang perempuan dan laki-laki tampil berolahraga di tempat umum. Islam juga sangat peduli pada kesehatan jasmani, dengan tetap membimbing adab, pakaian, dan etika sesuai syariat.",
-                'pdf' => '/uploads/2025/10/ADAB-OLAHRAGA-A6.pdf',
+                'pdf' => route('download.file', 9),
                 'badge' => 'Fiqih Praktis'
             ],
         ];

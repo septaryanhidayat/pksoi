@@ -135,32 +135,68 @@ class HomeController extends Controller
         ];
 
         // 12. E-Books (Section 15 - 4 E-books)
-        $ebooks = [
-            [
-                'title' => "Ma'rifatullah",
-                'cover' => '/uploads/2025/09/Marifatullah.jpg.webp',
-                'pdf' => '/uploads/2025/09/Ebook-Marifatullah.pdf',
-                'desc' => 'Mengenal Allah SWT secara komprehensif sebagai landasan aqidah Islam yang lurus.',
-            ],
-            [
-                'title' => 'Kurikulum Pembinaan Da\'i Muda',
-                'cover' => '/uploads/2025/09/Cover-Kurikulum-Pembinaan-Dai-Muda-320x455.jpg.webp',
-                'pdf' => '#',
-                'desc' => 'Panduan terstruktur kurikulum pembinaan generasi muda da\'i pembawa risalah kebaikan.',
-            ],
-            [
-                'title' => 'Ghazwul Fikri',
-                'cover' => '/uploads/2025/09/Ghazwul-Fikri-320x448.jpg.webp',
-                'pdf' => '#',
-                'desc' => 'Menelaah perang pemikiran dan strategi membentengi generasi muslim dari pengaruh negatif.',
-            ],
-            [
-                'title' => "Ma'rifatul Qur'an",
-                'cover' => '/uploads/2025/09/Marifatul-Quran-320x448.jpg.webp',
-                'pdf' => '/uploads/2025/09/Marifatul-Quran_MIK.pdf',
-                'desc' => 'Memahami keagungan mukjizat Al-Qur\'an sebagai pedoman hidup dan sumber inspirasi perjuangan.',
-            ],
-        ];
+        $ebookDownloads = \App\Models\Download::where('category_type', 'E-Book')->take(4)->get();
+        if ($ebookDownloads->count() >= 4) {
+            $ebookCovers = [
+                "Ma'rifatullah" => '/uploads/2025/09/Marifatullah.jpg.webp',
+                "Ma'rifatul Qur'an" => '/uploads/2025/09/Marifatul-Quran-320x448.jpg.webp',
+                "Ghazwul Fikri" => '/uploads/2025/09/Ghazwul-Fikri-320x448.jpg.webp',
+                "Kurikulum" => '/uploads/2025/09/Cover-Kurikulum-Pembinaan-Dai-Muda-320x455.jpg.webp',
+            ];
+
+            $ebooks = $ebookDownloads->map(function ($dl) use ($ebookCovers) {
+                $cover = '/uploads/2025/09/Marifatullah.jpg.webp';
+                foreach ($ebookCovers as $key => $img) {
+                    if (stripos($dl->title, $key) !== false) {
+                        $cover = $img;
+                        break;
+                    }
+                }
+                return [
+                    'id' => $dl->id,
+                    'title' => $dl->title,
+                    'cover' => $cover,
+                    'pdf' => route('download.file', $dl->id),
+                    'direct_file' => $dl->file_path,
+                    'desc' => 'Dapatkan dan pelajari materi tarbiyah dan keilmuan Islam resmi dari PKS Ogan Ilir.',
+                ];
+            })->toArray();
+        } else {
+            $ebooks = [
+                [
+                    'id' => 4,
+                    'title' => "Ma'rifatullah",
+                    'cover' => '/uploads/2025/09/Marifatullah.jpg.webp',
+                    'pdf' => route('download.file', 4),
+                    'direct_file' => '/uploads/2025/09/Ebook-Marifatullah.pdf',
+                    'desc' => 'Mengenal Allah SWT secara komprehensif sebagai landasan aqidah Islam yang lurus.',
+                ],
+                [
+                    'id' => 7,
+                    'title' => 'Kurikulum Pembinaan Da\'i Muda',
+                    'cover' => '/uploads/2025/09/Cover-Kurikulum-Pembinaan-Dai-Muda-320x455.jpg.webp',
+                    'pdf' => route('download.file', 7),
+                    'direct_file' => '/uploads/2025/09/Materi-Pembinaan-Dai-Muda-Tingkat-1.pdf',
+                    'desc' => 'Panduan terstruktur kurikulum pembinaan generasi muda da\'i pembawa risalah kebaikan.',
+                ],
+                [
+                    'id' => 6,
+                    'title' => 'Ghazwul Fikri',
+                    'cover' => '/uploads/2025/09/Ghazwul-Fikri-320x448.jpg.webp',
+                    'pdf' => route('download.file', 6),
+                    'direct_file' => '/uploads/2025/09/ghazwul-fikri_mik.pdf',
+                    'desc' => 'Menelaah perang pemikiran dan strategi membentengi generasi muslim dari pengaruh negatif.',
+                ],
+                [
+                    'id' => 5,
+                    'title' => "Ma'rifatul Qur'an",
+                    'cover' => '/uploads/2025/09/Marifatul-Quran-320x448.jpg.webp',
+                    'pdf' => route('download.file', 5),
+                    'direct_file' => '/uploads/2025/09/Marifatul-Quran_MIK.pdf',
+                    'desc' => 'Memahami keagungan mukjizat Al-Qur\'an sebagai pedoman hidup dan sumber inspirasi perjuangan.',
+                ],
+            ];
+        }
 
         // 13. Testimonials (Section 16 - 4 items)
         $testimonials = Testimonial::where('status', 'publish')->take(4)->get();

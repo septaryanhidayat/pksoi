@@ -40,11 +40,23 @@ class DownloadController extends Controller
         $download = Download::findOrFail($id);
         $download->increment('download_count');
 
-        $relativePath = trim($download->file_path, '/');
+        $relativePath = str_replace(['/', '\\'], DIRECTORY_SEPARATOR, trim($download->file_path, '/\\'));
         $fullPath = public_path($relativePath);
 
         if (file_exists($fullPath)) {
-            return response()->download($fullPath, basename($fullPath));
+            $mimeType = match (strtolower(pathinfo($fullPath, PATHINFO_EXTENSION))) {
+                'pdf' => 'application/pdf',
+                'mp3' => 'audio/mpeg',
+                'png' => 'image/png',
+                'jpg', 'jpeg' => 'image/jpeg',
+                'webp' => 'image/webp',
+                default => 'application/octet-stream',
+            };
+
+            return response()->download($fullPath, basename($fullPath), [
+                'Content-Type' => $mimeType,
+                'Content-Disposition' => 'attachment; filename="' . basename($fullPath) . '"',
+            ]);
         }
 
         return redirect($download->file_path);

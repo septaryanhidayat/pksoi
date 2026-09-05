@@ -90,6 +90,34 @@
             });
         }
 
+        // Smooth Grace-Period Hover & Click for Desktop Dropdowns
+        document.querySelectorAll('.group[id^="nav-dropdown-"]').forEach(drop => {
+            const btn = drop.querySelector('button');
+            const menu = drop.querySelector('.absolute');
+            let hideTimer = null;
+
+            if (btn && menu) {
+                const showMenu = () => {
+                    clearTimeout(hideTimer);
+                    menu.classList.remove('hidden');
+                };
+
+                const hideMenu = () => {
+                    hideTimer = setTimeout(() => {
+                        menu.classList.add('hidden');
+                    }, 220); // 220ms grace period so mouse movement never accidentally closes the menu
+                };
+
+                drop.addEventListener('mouseenter', showMenu);
+                drop.addEventListener('mouseleave', hideMenu);
+
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    menu.classList.toggle('hidden');
+                });
+            }
+        });
+
         // Back to Top button visibility
         const backToTopBtn = document.getElementById('back-to-top');
         window.addEventListener('scroll', () => {
