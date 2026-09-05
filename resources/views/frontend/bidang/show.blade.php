@@ -23,8 +23,12 @@
         {{-- Detail Bidang (2/3) --}}
         <div class="lg:col-span-2 bg-white p-6 sm:p-10 rounded-3xl shadow-sm border border-gray-100 space-y-6">
             <div class="flex items-center space-x-4 pb-6 border-b border-gray-100">
-                <div class="w-16 h-16 rounded-2xl bg-orange-100 text-[#f37023] flex items-center justify-center text-3xl flex-shrink-0">
-                    <i class="fa-solid fa-layer-group"></i>
+                <div class="w-16 h-16 rounded-2xl bg-orange-100 text-[#f37023] flex items-center justify-center text-3xl flex-shrink-0 overflow-hidden border border-orange-200">
+                    @if($bidang->is_image_icon)
+                        <img src="{{ $bidang->icon }}" alt="{{ $bidang->name }}" class="w-full h-full object-contain p-2" onerror="this.src='/uploads/2025/09/logo-thumbnail.webp'">
+                    @else
+                        <i class="{{ $bidang->icon ?: 'fa-solid fa-layer-group' }}"></i>
+                    @endif
                 </div>
                 <div>
                     <h2 class="text-2xl font-extrabold text-gray-900">{{ $bidang->name }}</h2>

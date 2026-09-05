@@ -2,7 +2,7 @@
 -- Database Clean Production Dump: DPD PKS OGAN ILIR
 -- Generated for cPanel / phpMyAdmin Import
 -- Target: MySQL 8.x / MariaDB 10.x / cPanel
--- Date: 2026-09-05 13:27:44
+-- Date: 2026-09-05 13:46:17
 -- ========================================================
 
 SET NAMES utf8mb4;
@@ -72,7 +72,7 @@ INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, 
 ('0g8JHp9qFPzfig2iOnukT3Z9hNk2bMJbltTdgOWT', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', 'eyJfdG9rZW4iOiJkaU5zVnQ2aEFWRHNHVGZ2VW8xazhUWDkyS1haWllpckFKVm82eUtTIiwiX3ByZXZpb3VzIjp7InVybCI6Imh0dHA6XC9cL3Brcy1vaS50ZXN0XC9hbmdnb3RhLWRld2FuIiwicm91dGUiOiJkZXdhbi5pbmRleCJ9LCJfZmxhc2giOnsib2xkIjpbXSwibmV3IjpbXX19', 1788609688),
 ('OBnMG6IMsDKrETA6OhvFT3hEeaX0xHZQFucZ5Pt6', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', 'eyJfdG9rZW4iOiI1bEUzUW1NUGJqSFZEdGJHS0Z3aW9WRUlTQ2JCNUZ1S1pTVFJkazFaIiwiX3ByZXZpb3VzIjp7InVybCI6Imh0dHA6XC9cL3Brcy1vaS50ZXN0XC9wcml2YWN5LXBvbGljeSIsInJvdXRlIjoicGFnZS5wcml2YWN5LXBvbGljeSJ9LCJfZmxhc2giOnsib2xkIjpbXSwibmV3IjpbXX19', 1788610536),
 ('wZuOaCkdWdB1cyCqubfQtDS3MLN2oNPznGq6CDgu', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', 'eyJfdG9rZW4iOiJRck5tNDIyTGJHTnlYRTYwYklCV29JcWdjS2E2bGZHOVQyZ2x4TlFzIiwiX3ByZXZpb3VzIjp7InVybCI6Imh0dHA6XC9cL3Brcy1vaS50ZXN0Iiwicm91dGUiOiJob21lIn0sIl9mbGFzaCI6eyJvbGQiOltdLCJuZXciOltdfX0=', 1788610537),
-('e2BHgUfIV5EAHfgSy4rZIgK8NleXtXUyb6fjFtIU', 1, '127.0.0.1', 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Mobile/15E148 Safari/604.1', 'eyJfdG9rZW4iOiJBQVFkQ3dHRVVDSkgwZlA1OEZ5bWtLbTIyNExleVlXUk9jRUdkdTdDIiwiX3ByZXZpb3VzIjp7InVybCI6Imh0dHA6XC9cL3Brcy1vaS50ZXN0Iiwicm91dGUiOiJob21lIn0sIl9mbGFzaCI6eyJvbGQiOltdLCJuZXciOltdfSwibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiOjF9', 1788614500),
+('e2BHgUfIV5EAHfgSy4rZIgK8NleXtXUyb6fjFtIU', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', 'eyJfdG9rZW4iOiJBQVFkQ3dHRVVDSkgwZlA1OEZ5bWtLbTIyNExleVlXUk9jRUdkdTdDIiwiX3ByZXZpb3VzIjp7InVybCI6Imh0dHA6XC9cL3Brcy1vaS50ZXN0Iiwicm91dGUiOiJob21lIn0sIl9mbGFzaCI6eyJvbGQiOltdLCJuZXciOltdfSwibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiOjF9', 1788615238),
 ('ILfRXePB1LXobpPkXNuZ6xyBOR6N64gn65T2k3KJ', NULL, '127.0.0.1', 'Symfony', 'eyJfdG9rZW4iOiJpT25ZbnhLazh4c0lQTHB3S1g1OWZablhGb0J2TUFIaVBwTGZZVGRDIiwiX3ByZXZpb3VzIjp7InVybCI6Imh0dHA6XC9cL2xvY2FsaG9zdCIsInJvdXRlIjoiaG9tZSJ9LCJfZmxhc2giOnsib2xkIjpbXSwibmV3IjpbXX19', 1788611555),
 ('JVat2lT3SlQMkC0KsYqokThedMftICRmOVPXOUMw', NULL, '127.0.0.1', 'Symfony', 'eyJfdG9rZW4iOiJOcGZ2YzVLZGF6YzRMSUc1OTRUTHV5QWRrV05OTDFtcnZXUVRMaFJHIiwiX3ByZXZpb3VzIjp7InVybCI6Imh0dHA6XC9cL2xvY2FsaG9zdCIsInJvdXRlIjoiaG9tZSJ9LCJfZmxhc2giOnsib2xkIjpbXSwibmV3IjpbXX19', 1788611560),
 ('lc0fYX0Hrj2fWKcKyscEQPQPIBhR8ceBsxotu3q0', NULL, '127.0.0.1', 'Symfony', 'eyJfdG9rZW4iOiJNYnNWN3FDekMzRGIwTU5JQjZNZExWSGNaVmFqTlpyeXpsME1JeFpzIiwiX3ByZXZpb3VzIjp7InVybCI6Imh0dHA6XC9cL2xvY2FsaG9zdCIsInJvdXRlIjoiaG9tZSJ9LCJfZmxhc2giOnsib2xkIjpbXSwibmV3IjpbXX19', 1788611563),
@@ -82,7 +82,9 @@ INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, 
 ('Lq7cPbnpqlIjgcYwZvPXuv9cjVApkDG8Dazo8znt', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', 'eyJfdG9rZW4iOiJWakVRVGsxaTJSSEVTREszQVJHYmphWWlyRU5uTVNXVHU0d0N2Q3lIIiwiX3ByZXZpb3VzIjp7InVybCI6Imh0dHA6XC9cL3Brcy1vaS50ZXN0XC9hcnRpa2VsP2thdGVnb3JpPWZyYWtzaSIsInJvdXRlIjoiYXJ0aWtlbC5pbmRleCJ9LCJfZmxhc2giOnsib2xkIjpbXSwibmV3IjpbXX19', 1788612838),
 ('pBeOecSyyLkqoCivuwl2MZnyCvu9ZGYpm8Cykkxq', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', 'eyJfdG9rZW4iOiJuYUhhUXpQcXFqQWtVbWRkd1pJS0ZYSTc5NXh1bmNwT1hDazlpZVprIiwiX3ByZXZpb3VzIjp7InVybCI6Imh0dHA6XC9cL3Brcy1vaS50ZXN0XC9hZ2VuZGEiLCJyb3V0ZSI6ImFnZW5kYS5pbmRleCJ9LCJfZmxhc2giOnsib2xkIjpbXSwibmV3IjpbXX19', 1788613080),
 ('DiFB0cXLxuE6F0FN2FV8RLEtapFIL53MCu4BcKp1', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', 'eyJfdG9rZW4iOiJ0b2VtOGdJTExsbGhYQVJlYnhxTkZFSTBtOHNkMkhYV1FKTk83QXVuIiwiX3ByZXZpb3VzIjp7InVybCI6Imh0dHA6XC9cL3Brcy1vaS50ZXN0XC92aWRlbyIsInJvdXRlIjoidmlkZW8uaW5kZXgifSwiX2ZsYXNoIjp7Im9sZCI6W10sIm5ldyI6W119fQ==', 1788613201),
-('KHRYOtk5dWmV9YKQksQZC0fI6YlJxcgVES2AYH16', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', 'eyJfdG9rZW4iOiI1dmtzWFczQWtZWWIzaHRqckdjMEdRNU1DU1RHZjBZMWw2T01YVUxlIiwiX3ByZXZpb3VzIjp7InVybCI6Imh0dHA6XC9cL3Brcy1vaS50ZXN0XC90ZXN0aW1vbmlhbCIsInJvdXRlIjoidGVzdGltb25pYWwuaW5kZXgifSwiX2ZsYXNoIjp7Im9sZCI6W10sIm5ldyI6W119fQ==', 1788613201);
+('KHRYOtk5dWmV9YKQksQZC0fI6YlJxcgVES2AYH16', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', 'eyJfdG9rZW4iOiI1dmtzWFczQWtZWWIzaHRqckdjMEdRNU1DU1RHZjBZMWw2T01YVUxlIiwiX3ByZXZpb3VzIjp7InVybCI6Imh0dHA6XC9cL3Brcy1vaS50ZXN0XC90ZXN0aW1vbmlhbCIsInJvdXRlIjoidGVzdGltb25pYWwuaW5kZXgifSwiX2ZsYXNoIjp7Im9sZCI6W10sIm5ldyI6W119fQ==', 1788613201),
+('JZmeNDIA7B7sLiDWqdqBDLnQkq7V0gxxVa5oXVBU', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', 'eyJfdG9rZW4iOiIwOElCNDRWUHhwanNKdEpZUTBpVzJNSm1WRDdOM3lIYmZkbHlyTkc2IiwiX3ByZXZpb3VzIjp7InVybCI6Imh0dHA6XC9cL3Brcy1vaS50ZXN0XC9sb2dvIiwicm91dGUiOiJkb3dubG9hZC5sb2dvIn0sIl9mbGFzaCI6eyJvbGQiOltdLCJuZXciOltdfX0=', 1788614957),
+('7tsajkZ3AEUZAu151FmhDA1vPhlhILV8kwpvXYYq', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', 'eyJfdG9rZW4iOiJucHU4UjNzNU84TG1tMjlKUWJjWHA4anIxR0FJdEkwclNsWmNJRVVNIiwiX3ByZXZpb3VzIjp7InVybCI6Imh0dHA6XC9cL3Brcy1vaS50ZXN0Iiwicm91dGUiOiJob21lIn0sIl9mbGFzaCI6eyJvbGQiOltdLCJuZXciOltdfX0=', 1788614957);
 
 -- --------------------------------------------------------
 -- Table structure for `cache`
@@ -1374,25 +1376,8 @@ Demi Indonesia Sejahtera!
     <li>Bidang Kesejahteraan Sosial (Kesos)</li>
     <li>Bidang Pemberdayaan Jaringan Ekonomi (BPJE)</li>
 </ol>', 'Susunan Dewan Pimpinan Tingkat Daerah (DPTD), Bidang Kerja DPD, dan DPC se-Kabupaten Ogan Ilir periode 2025-2030.', 'publish', 'page', '/uploads/2025/09/Struktur-Kepengurusan-scaled.webp', '0', 1, '2025-09-18 16:35:01', 'Struktur Kepengurusan - DPD PKS Ogan Ilir', 'Struktur Kepengurusan DPTD dan DPD Partai Keadilan Sejahtera Kabupaten Ogan Ilir periode 2025-2030.', NULL, '2026-09-05 09:50:10', '2026-09-05 13:25:14'),
-(99, 'Donasi Perjuangan PKS Ogan Ilir', 'donasi', '<h3>Mari Bergabung dalam Kebaikan</h3>
-<p>Partai Keadilan Sejahtera mengajak seluruh simpatisan, dermawan, dan masyarakat yang memiliki visi kebaikan untuk menyalurkan infak dan donasi terbaiknya guna menopang operasional program kemanusiaan, bakti sosial, tanggap bencana, dan pemberdayaan masyarakat di Kabupaten Ogan Ilir.</p>
-
-<h4>Alokasi Penyaluran Donasi:</h4>
-<ul>
-    <li>Bantuan paket pangan dan sembako untuk keluarga prasejahtera dan dhuafa.</li>
-    <li>Aksi cepat tanggap bencana (banjir, kebakaran, jembatan putus di wilayah Ogan Ilir).</li>
-    <li>Pemeriksaan kesehatan, pengobatan gratis, dan donor darah rutin.</li>
-    <li>Pembinaan karakter, pelatihan wirausaha pemuda, dan kegiatan dakwah anak-anak/remaja.</li>
-</ul>
-
-<h4>Rekening Resmi Donasi:</h4>
-<p>
-    <strong>Bank:</strong> Bank Sumsel Babel Syariah / BSI<br>
-    <strong>Atas Nama:</strong> DPD PKS Kabupaten Ogan Ilir<br>
-    <strong>Nomor Konfirmasi WhatsApp:</strong> 082382336505
-</p>
-
-<p><em>*Catatan: Setelah melakukan transfer donasi, mohon mengirimkan bukti transfer via WhatsApp ke nomor pengurus untuk pencatatan dan penerbitan tanda terima resmi.</em></p>', 'Salurkan infak dan donasi terbaik Anda untuk mendukung dakwah dan pelayanan rakyat DPD PKS Ogan Ilir.', 'publish', 'page', NULL, '0', 1, '2025-09-22 10:13:13', 'Donasi Perjuangan - DPD PKS Ogan Ilir', 'Salurkan infak dan donasi terbaik Anda untuk mendukung dakwah dan pelayanan rakyat DPD PKS Ogan Ilir.', NULL, '2026-09-05 09:50:10', '2026-09-05 13:25:14');
+(99, 'Donasi Perjuangan PKS Ogan Ilir', 'donasi', '<h3>Mari Bergabung dalam Kebaikan</h3><p>Partai Keadilan Sejahtera mengajak seluruh simpatisan, dermawan, dan masyarakat yang memiliki visi kebaikan untuk menyalurkan infak dan donasi terbaiknya guna menopang operasional program kemanusiaan, bakti sosial, tanggap bencana, dan pemberdayaan masyarakat di Kabupaten Ogan Ilir.</p><h4>Alokasi Penyaluran Donasi:</h4><p><br></p><h4>Rekening Resmi Donasi:</h4><p><strong>Bank :</strong> Bank Sumsel Babel Syariah / BSI</p><p><strong>Atas Nama :</strong> DPD PKS Kabupaten Ogan Ilir<strong>Nomor Konfirmasi WhatsApp:</strong> 082382336505
+</p><p><em>*Catatan: Setelah melakukan transfer donasi, mohon mengirimkan bukti transfer via WhatsApp ke nomor pengurus untuk pencatatan dan penerbitan tanda terima resmi.</em></p>', 'Salurkan infak dan donasi terbaik Anda untuk mendukung dakwah dan pelayanan rakyat DPD PKS Ogan Ilir.', 'publish', 'page', NULL, '0', 1, '2025-09-22 10:13:13', 'Donasi Perjuangan - DPD PKS Ogan Ilir', 'Salurkan infak dan donasi terbaik Anda untuk mendukung dakwah dan pelayanan rakyat DPD PKS Ogan Ilir.', NULL, '2026-09-05 09:50:10', '2026-09-05 13:33:03');
 
 -- --------------------------------------------------------
 -- Table structure for `post_category`
@@ -1974,22 +1959,22 @@ INSERT INTO `bidangs` (`id`, `name`, `slug`, `description`, `address`, `phone`, 
 <p data-start="573" data-end="941">Melalui Bidang Kaderisasi, PKS Ogan Ilir memastikan setiap anggota memperoleh pemahaman yang utuh tentang visi, misi, serta nilai-nilai dasar partai. Proses kaderisasi dilaksanakan secara sistematis, mulai dari perekrutan anggota baru, pelatihan dasar, hingga pembinaan lanjutan bagi kader yang akan menempati posisi strategis di struktur partai maupun ruang publik.</p>
 <p data-start="943" data-end="1227">Selain itu, Bidang Kaderisasi juga berfokus pada pembinaan karakter, kepemimpinan, dan keterampilan sosial-politik. Dengan demikian, kader PKS Ogan Ilir tidak hanya kuat secara ideologis, tetapi juga mampu berkontribusi nyata dalam kehidupan bermasyarakat, berbangsa, dan bernegara.</p>
 <p data-start="1229" data-end="1579">Sebagai bagian dari komitmen PKS untuk regenerasi kepemimpinan, Bidang Kaderisasi terus mendorong lahirnya kader-kader muda yang kreatif, profesional, dan memiliki integritas tinggi. Harapannya, proses kaderisasi ini akan melahirkan pemimpin masa depan yang siap membawa PKS Ogan Ilir semakin dekat dengan rakyat dan mampu menjawab tantangan zaman.</p>
-', 'Jl. Komperta Taman Indralaya Blok C No. 05 Kel. Indralaya Indah Kec. Indralaya Kab. OganIlir, Sumatera Selatan', '082280041658', 'pksoganilir@gmail.com', 'https://pksoganilir.com', NULL, '/uploads/2023/07/Icon-KD2.webp', '0', '2026-09-05 09:50:10', '2026-09-05 09:50:10'),
+', 'Jl. Komperta Taman Indralaya Blok C No. 05 Kel. Indralaya Indah Kec. Indralaya Kab. OganIlir, Sumatera Selatan', '082280041658', 'pksoganilir@gmail.com', 'https://pksoganilir.com', '/uploads/2023/08/Icon-KD2.webp', '/uploads/2023/07/Icon-KD2.webp', 1, '2026-09-05 09:50:10', '2026-09-05 13:44:01'),
 (2, 'Bidang Kepanduan dan Olahraga', 'bidang-kepanduan-dan-olahraga', '<p data-start="156" data-end="546">Bidang Kepanduan &amp; Olahraga DPD PKS Ogan Ilir adalah unit yang berperan membina semangat kebersamaan, kedisiplinan, dan kepemimpinan kader melalui aktivitas kepanduan serta kegiatan olahraga. Bidang ini menjadi wadah bagi kader dan simpatisan untuk menyalurkan energi positif, meningkatkan kesehatan jasmani, sekaligus mempererat ukhuwah dalam suasana yang sportif dan penuh kekeluargaan.</p>
 <p data-start="548" data-end="867">Dalam aspek kepanduan, bidang ini fokus pada pembinaan kader yang memiliki jiwa tangguh, disiplin, dan siap berkontribusi di masyarakat. Melalui kegiatan seperti pelatihan dasar kepemimpinan, baris-berbaris, hingga kegiatan alam terbuka, kader PKS ditempa agar memiliki mental baja, jiwa korsa, serta kepekaan sosial.</p>
 <p data-start="869" data-end="1216">Sementara di bidang olahraga, Bidang Kepanduan &amp; Olahraga menyelenggarakan berbagai kegiatan olahraga bersama seperti sepak bola, futsal, bulu tangkis, senam sehat, dan olahraga lainnya. Kegiatan ini tidak hanya bertujuan menjaga kesehatan kader, tetapi juga menjadi sarana membangun interaksi positif dengan masyarakat, khususnya generasi muda.</p>
 <p data-start="1218" data-end="1575">Bidang Kepanduan &amp; Olahraga juga mendukung pengembangan bakat dan potensi kader dalam dunia olahraga, sekaligus menjadikan aktivitas ini sebagai media dakwah yang menyenangkan dan bermanfaat. Dengan semangat “Sehat, Tangguh, dan Bersatu”, PKS Ogan Ilir melalui bidang ini ingin menghadirkan kader-kader yang bugar, solid, dan siap berjuang bersama rakyat.</p>
-', 'Jl. Komperta Taman Indralaya Blok C No. 05 Kel. Indralaya Indah Kec. Indralaya Kab. OganIlir, Sumatera Selatan', '082280041658', 'pksoganilir@gmail.com', 'https://pksoganilir.com', NULL, '/uploads/2023/08/Icon-OR.webp', '0', '2026-09-05 09:50:10', '2026-09-05 09:50:10'),
+', 'Jl. Komperta Taman Indralaya Blok C No. 05 Kel. Indralaya Indah Kec. Indralaya Kab. OganIlir, Sumatera Selatan', '082280041658', 'pksoganilir@gmail.com', 'https://pksoganilir.com', '/uploads/2023/08/Icon-Muda.webp', '/uploads/2023/08/Icon-OR.webp', 2, '2026-09-05 09:50:10', '2026-09-05 13:44:01'),
 (3, 'Bidang Keummatan dan Kerukunan Beragama', 'bidang-keummatan-dan-kerukunan-beragama', '<p data-start="194" data-end="554">Bidang Keummatan &amp; Kerukunan Beragama DPD PKS Ogan Ilir adalah bidang yang berfokus pada pembinaan kehidupan beragama yang harmonis, moderat, dan penuh toleransi di tengah masyarakat. Bidang ini hadir untuk memastikan bahwa PKS berperan aktif dalam memperkuat nilai-nilai spiritual, sekaligus membangun persaudaraan antarumat beragama di Kabupaten Ogan Ilir.</p>
 <p data-start="556" data-end="907">Tugas utama bidang ini adalah membina kader agar memiliki pemahaman keagamaan yang mendalam, santun, dan terbuka, serta mampu menjadi teladan dalam menjaga persatuan umat. Selain itu, bidang ini juga berfungsi sebagai fasilitator dialog antaragama, menjembatani komunikasi antara PKS dengan tokoh-tokoh agama, ormas keagamaan, serta masyarakat luas.</p>
 <p data-start="909" data-end="1295">Melalui berbagai kegiatan seperti kajian keagamaan, pembinaan rohani, peringatan hari-hari besar keagamaan, serta forum silaturahmi lintas agama, Bidang Keummatan &amp; Kerukunan Beragama berupaya menghadirkan suasana yang kondusif untuk kehidupan beragama yang damai. PKS Ogan Ilir percaya bahwa kerukunan umat beragama adalah pilar penting bagi stabilitas sosial dan pembangunan daerah.</p>
 <p data-start="1297" data-end="1706">Bidang ini juga mendorong kader dan masyarakat untuk aktif menjaga toleransi, saling menghormati perbedaan, dan memperkuat kerja sama lintas iman demi terciptanya masyarakat Ogan Ilir yang rukun, sejahtera, dan berkeadilan. Dengan semangat ukhuwah dan persaudaraan, PKS Ogan Ilir melalui Bidang Keummatan &amp; Kerukunan Beragama berkomitmen menjaga nilai-nilai keagamaan sekaligus memperkokoh persatuan bangsa.</p>
-', 'Jl. Komperta Taman Indralaya Blok C No. 05 Kel. Indralaya Indah Kec. Indralaya Kab. OganIlir, Sumatera Selatan', '082280041658', 'pksoganilir@gmail.com', 'https://pksoganilir.com', NULL, '/uploads/2023/08/Icon-Umat.webp', '0', '2026-09-05 09:50:10', '2026-09-05 09:50:10'),
+', 'Jl. Komperta Taman Indralaya Blok C No. 05 Kel. Indralaya Indah Kec. Indralaya Kab. OganIlir, Sumatera Selatan', '082280041658', 'pksoganilir@gmail.com', 'https://pksoganilir.com', '/uploads/2023/08/Icon-BPU.webp', '/uploads/2023/08/Icon-Umat.webp', 3, '2026-09-05 09:50:10', '2026-09-05 13:44:01'),
 (4, 'Bidang Administrasi & Kesekretariatan', 'bidang-administrasi-kesekretariatan', '<p data-start="242" data-end="535">Bidang Administrasi &amp; Kesekretariatan DPD PKS Ogan Ilir adalah bagian yang berperan sebagai pusat pengelolaan tata usaha, dokumentasi, serta komunikasi internal dan eksternal organisasi. Bidang ini memastikan seluruh aktivitas partai berjalan tertib, teratur, dan terdokumentasi dengan baik.</p>
 <p data-start="537" data-end="905">Tugas utama Bidang Administrasi &amp; Kesekretariatan meliputi pencatatan surat masuk dan keluar, penyusunan arsip partai, serta pengelolaan jadwal kegiatan kepengurusan. Selain itu, bidang ini juga berfungsi sebagai penghubung antara pengurus DPD dengan struktur partai di tingkat daerah, wilayah, hingga pusat, sehingga koordinasi organisasi dapat berlangsung efektif.</p>
 <p data-start="907" data-end="1287">Tidak hanya mengelola dokumen, Bidang Administrasi &amp; Kesekretariatan juga bertanggung jawab dalam menyiapkan laporan kegiatan, mendukung kelancaran rapat-rapat partai, serta memastikan semua data organisasi tersimpan dengan aman. Dengan sistem administrasi yang rapi dan profesional, PKS Ogan Ilir dapat memberikan pelayanan yang lebih baik, baik kepada kader maupun masyarakat.</p>
 <p data-start="1289" data-end="1542">Melalui peran ini, Bidang Administrasi &amp; Kesekretariatan menjadi fondasi penting yang menopang kinerja organisasi. Keteraturan dalam administrasi mencerminkan keseriusan PKS dalam mengelola amanah, sekaligus menjaga kepercayaan publik terhadap partai.</p>
-', 'Jl. Komperta Taman Indralaya Blok C No. 05 Kel. Indralaya Indah Kec. Indralaya Kab. OganIlir, Sumatera Selatan', '082280041658', 'pksoganilir@gmail.com', 'https://pksoganilir.com', NULL, '/uploads/2023/08/Icon-Adm.webp', '0', '2026-09-05 09:50:10', '2026-09-05 09:50:10'),
+', 'Jl. Komperta Taman Indralaya Blok C No. 05 Kel. Indralaya Indah Kec. Indralaya Kab. OganIlir, Sumatera Selatan', '082280041658', 'pksoganilir@gmail.com', 'https://pksoganilir.com', '/uploads/2023/08/Icon-BPD.webp', '/uploads/2023/08/Icon-Adm.webp', 4, '2026-09-05 09:50:10', '2026-09-05 13:44:01'),
 (5, 'Bidang Perempuan dan Keluarga', 'bidang-perempuan-dan-keluarga', '<div class="flex-1 overflow-hidden">
 <div class="react-scroll-to-bottom--css-vqmyr-79elbk h-full">
 <div class="react-scroll-to-bottom--css-vqmyr-1n7m0yu">
@@ -2019,37 +2004,37 @@ INSERT INTO `bidangs` (`id`, `name`, `slug`, `description`, `address`, `phone`, 
 </div>
 </div>
 </div>
-', 'Jl. Komperta Taman Indralaya Blok C No. 05 Kel. Indralaya Indah Kec. Indralaya Kab. OganIlir, Sumatera Selatan', '082280041658', 'pksoganilir@gmail.com', 'https://pksoganilir.com', NULL, '/uploads/2023/08/Icon-Family2.webp', '0', '2026-09-05 09:50:10', '2026-09-05 09:50:10'),
+', 'Jl. Komperta Taman Indralaya Blok C No. 05 Kel. Indralaya Indah Kec. Indralaya Kab. OganIlir, Sumatera Selatan', '082280041658', 'pksoganilir@gmail.com', 'https://pksoganilir.com', '/uploads/2023/08/Icon-BPKK.webp', '/uploads/2023/08/Icon-Family2.webp', 5, '2026-09-05 09:50:10', '2026-09-05 13:44:01'),
 (6, 'Bidang Saksi, Relawan, Pemenangan Pemilu & Pilkada', 'bidang-saksi-relawan-pemenangan-pemilu-dan-pilkada', '<p data-start="206" data-end="619">Bidang Saksi, Relawan, dan Pemenangan Pemilu &amp; Pilkada DPD PKS Ogan Ilir adalah bidang yang bertugas mengorganisir, melatih, dan menggerakkan kader, relawan, serta simpatisan dalam rangka memastikan keberhasilan PKS di setiap kontestasi politik, baik pemilihan legislatif maupun pemilihan kepala daerah. Bidang ini merupakan ujung tombak dalam menjaga suara rakyat dan mengawal kemenangan PKS di tingkat daerah.</p>
 <p data-start="621" data-end="901">Dalam aspek <strong data-start="633" data-end="649">saksi pemilu</strong>, bidang ini menyiapkan kader yang kompeten dan berintegritas untuk bertugas di setiap Tempat Pemungutan Suara (TPS). Para saksi dilatih agar memahami aturan pemilu, prosedur penghitungan suara, serta mampu menjaga keabsahan suara partai di lapangan.</p>
 <p data-start="903" data-end="1169">Di bidang <strong data-start="913" data-end="924">relawan</strong>, bidang ini berfungsi menggerakkan potensi masyarakat luas yang ingin berkontribusi dalam perjuangan PKS. Relawan menjadi kekuatan tambahan dalam sosialisasi program, kampanye, serta kegiatan pelayanan masyarakat yang memperkuat citra partai.</p>
 <p data-start="1171" data-end="1550">Sementara dalam <strong data-start="1187" data-end="1220">pemenangan pemilu dan pilkada</strong>, bidang ini menyusun strategi kampanye yang efektif, melakukan konsolidasi struktur partai hingga ke tingkat paling bawah, serta memaksimalkan peran kader dan simpatisan dalam memenangkan hati masyarakat. Setiap program dan langkah politik disusun dengan tetap menjunjung tinggi etika demokrasi serta aturan hukum yang berlaku.</p>
 <p data-start="1552" data-end="1894">Melalui Bidang Saksi, Relawan, dan Pemenangan Pemilu &amp; Pilkada, PKS Ogan Ilir berkomitmen menghadirkan proses demokrasi yang jujur, adil, dan bermartabat. Dengan semangat kebersamaan, bidang ini memastikan suara rakyat tetap terjaga dan kemenangan PKS dapat diraih demi terwujudnya masyarakat Ogan Ilir yang lebih sejahtera dan berkeadilan.</p>
-', 'Jl. Komperta Taman Indralaya Blok C No. 05 Kel. Indralaya Indah Kec. Indralaya Kab. OganIlir, Sumatera Selatan', '082280041658', 'pksoganilir@gmail.com', 'https://pksoganilir.com', NULL, '/uploads/2023/08/Icon-Vote.webp', '0', '2026-09-05 09:50:10', '2026-09-05 09:50:10'),
+', 'Jl. Komperta Taman Indralaya Blok C No. 05 Kel. Indralaya Indah Kec. Indralaya Kab. OganIlir, Sumatera Selatan', '082280041658', 'pksoganilir@gmail.com', 'https://pksoganilir.com', '/uploads/2025/09/ICON-Dewan.webp', '/uploads/2023/08/Icon-Vote.webp', 6, '2026-09-05 09:50:10', '2026-09-05 13:44:01'),
 (7, 'Bidang Koperasi, Desa, UMKM, dan Ekonomi Kreatif', 'bidang-koperasi-desa-umkm-dan-ekonomi-kreatif', '<p data-start="209" data-end="616">Bidang Koperasi, Desa, UMKM, dan Ekonomi Kreatif DPD PKS Ogan Ilir adalah bidang yang fokus pada pemberdayaan ekonomi masyarakat, khususnya di tingkat akar rumput. Bidang ini berperan sebagai penggerak lahirnya kemandirian ekonomi rakyat melalui penguatan kelembagaan koperasi, pembangunan desa, dukungan bagi pelaku UMKM, serta pengembangan sektor ekonomi kreatif yang berbasis inovasi dan potensi lokal.</p>
 <p data-start="618" data-end="932">Dalam lingkup <strong data-start="632" data-end="653">koperasi dan desa</strong>, bidang ini mendorong terbentuknya koperasi yang sehat, transparan, dan produktif sebagai sarana meningkatkan kesejahteraan warga. Bidang ini juga berkomitmen mendukung pembangunan desa agar lebih mandiri, sejahtera, dan mampu mengoptimalkan potensi sumber daya yang dimiliki.</p>
 <p data-start="934" data-end="1250">Bagi para pelaku <strong data-start="951" data-end="959">UMKM</strong>, bidang ini hadir untuk memberikan perhatian khusus berupa pendampingan usaha, pelatihan kewirausahaan, serta memfasilitasi akses permodalan dan pemasaran. PKS Ogan Ilir percaya bahwa UMKM adalah tulang punggung perekonomian daerah yang harus terus didorong agar tumbuh dan berdaya saing.</p>
 <p data-start="1252" data-end="1647">Sementara itu, sektor <strong data-start="1274" data-end="1293">ekonomi kreatif</strong> menjadi fokus penting dengan mendorong generasi muda serta masyarakat yang memiliki ide-ide inovatif untuk mengembangkan usaha berbasis kreativitas, teknologi, dan kearifan lokal. Dari kerajinan tangan, kuliner, seni budaya, hingga digital kreatif, bidang ini siap memfasilitasi ruang tumbuhnya potensi baru yang dapat menggerakkan ekonomi masyarakat.</p>
 <p data-start="1649" data-end="1980">Melalui Bidang Koperasi, Desa, UMKM, dan Ekonomi Kreatif, PKS Ogan Ilir berkomitmen menghadirkan politik yang solutif dengan menghadirkan program-program nyata di sektor ekonomi. Dengan prinsip gotong royong dan inovasi, bidang ini ingin memastikan bahwa setiap warga memiliki kesempatan untuk berkembang, mandiri, dan sejahtera.</p>
-', 'Jl. Komperta Taman Indralaya Blok C No. 05 Kel. Indralaya Indah Kec. Indralaya Kab. OganIlir, Sumatera Selatan', '082280041658', 'pksoganilir@gmail.com', 'https://pksoganilir.com', NULL, '/uploads/2023/08/Icon-UMKM.webp', '0', '2026-09-05 09:50:10', '2026-09-05 09:50:10'),
+', 'Jl. Komperta Taman Indralaya Blok C No. 05 Kel. Indralaya Indah Kec. Indralaya Kab. OganIlir, Sumatera Selatan', '082280041658', 'pksoganilir@gmail.com', 'https://pksoganilir.com', '/uploads/2023/08/Icon-Pekerja.webp', '/uploads/2023/08/Icon-UMKM.webp', 7, '2026-09-05 09:50:10', '2026-09-05 13:44:01'),
 (8, 'Bidang Pemuda, Pelajar dan Mahasiswa', 'bidang-pemuda-pelajar-dan-mahasiswa', '<p data-start="179" data-end="554">Bidang Pemuda, Pelajar, dan Mahasiswa DPD PKS Ogan Ilir adalah bidang yang berfokus pada pembinaan, pemberdayaan, serta pengembangan potensi generasi muda sebagai aset penting bangsa. Bidang ini menjadi ruang bagi anak muda Ogan Ilir untuk belajar kepemimpinan, meningkatkan kapasitas diri, serta menyalurkan energi positif melalui kegiatan yang bermanfaat bagi masyarakat.</p>
 <p data-start="556" data-end="828">Dalam lingkup <strong data-start="570" data-end="580">pemuda</strong>, bidang ini mendorong lahirnya kader-kader muda yang kreatif, tangguh, dan berdaya juang tinggi. Program yang dijalankan meliputi pembinaan karakter, pelatihan kepemimpinan, serta kegiatan sosial dan olahraga yang membangun semangat kebersamaan.</p>
 <p data-start="830" data-end="1132">Bagi kalangan <strong data-start="844" data-end="855">pelajar</strong>, bidang ini memberikan perhatian pada pembinaan akhlak, prestasi akademik, serta pengembangan bakat di bidang seni, olahraga, dan literasi. Melalui forum-forum pelajar, bidang ini berupaya membentuk generasi yang cerdas, berakhlak mulia, dan siap menghadapi tantangan zaman.</p>
 <p data-start="1134" data-end="1454">Sementara bagi <strong data-start="1149" data-end="1162">mahasiswa</strong>, bidang ini menghadirkan ruang dialog, kajian intelektual, serta pelatihan keterampilan yang relevan dengan dunia kampus dan masyarakat. Mahasiswa didorong untuk aktif dalam kegiatan kemahasiswaan, penelitian, serta pengabdian masyarakat agar mampu menjadi agen perubahan di lingkungannya.</p>
 <p data-start="1456" data-end="1791">Bidang Pemuda, Pelajar, dan Mahasiswa PKS Ogan Ilir percaya bahwa masa depan bangsa ditentukan oleh kualitas generasi mudanya. Karena itu, bidang ini terus berkomitmen mencetak generasi muda yang berintegritas, berdaya saing, dan memiliki kepedulian sosial yang tinggi, sehingga kelak mampu menjadi pemimpin yang amanah dan visioner.</p>
-', 'Jl. Komperta Taman Indralaya Blok C No. 05 Kel. Indralaya Indah Kec. Indralaya Kab. OganIlir, Sumatera Selatan', '082280041658', 'pksoganilir@gmail.com', 'https://pksoganilir.com', NULL, '/uploads/2023/08/Icon-Pemuda.webp', '0', '2026-09-05 09:50:10', '2026-09-05 09:50:10'),
+', 'Jl. Komperta Taman Indralaya Blok C No. 05 Kel. Indralaya Indah Kec. Indralaya Kab. OganIlir, Sumatera Selatan', '082280041658', 'pksoganilir@gmail.com', 'https://pksoganilir.com', '/uploads/2023/08/Icon-Muda.webp', '/uploads/2023/08/Icon-Pemuda.webp', 8, '2026-09-05 09:50:10', '2026-09-05 13:44:01'),
 (9, 'Bidang Ketenagakerjaan, Petani, Peternak, dan Nelayan', 'bidang-ketenagakerjaan-petani-peternak-dan-nelayan', '<p data-start="221" data-end="640">Bidang Ketenagakerjaan, Petani, Peternak, dan Nelayan DPD PKS Ogan Ilir adalah wadah yang secara khusus berfokus pada pembinaan, pemberdayaan, serta advokasi bagi masyarakat pekerja dan pelaku usaha di sektor pertanian, peternakan, dan perikanan. Bidang ini hadir untuk memastikan bahwa PKS selalu dekat dengan rakyat kecil, mendengar suara mereka, sekaligus memperjuangkan kebijakan yang berpihak pada kesejahteraan.</p>
 <p data-start="642" data-end="977">Di sektor <strong data-start="652" data-end="671">ketenagakerjaan</strong>, bidang ini berperan aktif memberikan perhatian pada nasib pekerja formal maupun informal. Melalui kegiatan diskusi, pendampingan, serta kerja sama dengan pemerintah daerah, PKS berupaya menghadirkan solusi bagi persoalan lapangan kerja, perlindungan buruh, hingga peningkatan keterampilan tenaga kerja.</p>
 <p data-start="979" data-end="1357">Bagi para <strong data-start="989" data-end="1012">petani dan peternak</strong>, bidang ini mendorong program-program yang mendukung ketersediaan pupuk, bibit, pakan ternak, serta akses pasar yang lebih baik. PKS Ogan Ilir meyakini bahwa kesejahteraan petani dan peternak adalah kunci bagi ketahanan pangan daerah maupun nasional. Oleh karena itu, pembinaan dan pemberdayaan petani menjadi prioritas yang terus dijalankan.</p>
 <p data-start="1359" data-end="1692">Sementara bagi <strong data-start="1374" data-end="1385">nelayan</strong>, bidang ini berkomitmen mendukung pengembangan perikanan darat dan tangkap yang menjadi mata pencaharian sebagian masyarakat di wilayah Ogan Ilir. Upaya peningkatan kesejahteraan nelayan dilakukan melalui advokasi kebijakan, pelatihan, serta dorongan terhadap akses modal dan teknologi yang lebih modern.</p>
 <p data-start="1694" data-end="1996">Melalui Bidang Ketenagakerjaan, Petani, Peternak, dan Nelayan, PKS Ogan Ilir ingin memastikan bahwa seluruh sektor produktif masyarakat mendapatkan perhatian, pembinaan, dan pendampingan yang berkesinambungan. Dengan demikian, kesejahteraan rakyat benar-benar dapat dirasakan secara nyata dan merata.</p>
-', 'Jl. Komperta Taman Indralaya Blok C No. 05 Kel. Indralaya Indah Kec. Indralaya Kab. OganIlir, Sumatera Selatan', '082280041658', 'pksoganilir@gmail.com', 'https://pksoganilir.com', NULL, '/uploads/2023/11/Icon-Pekerja.webp', '0', '2026-09-05 09:50:10', '2026-09-05 09:50:10'),
+', 'Jl. Komperta Taman Indralaya Blok C No. 05 Kel. Indralaya Indah Kec. Indralaya Kab. OganIlir, Sumatera Selatan', '082280041658', 'pksoganilir@gmail.com', 'https://pksoganilir.com', '/uploads/2023/08/Icon-Pekerja.webp', '/uploads/2023/11/Icon-Pekerja.webp', 9, '2026-09-05 09:50:10', '2026-09-05 13:44:01'),
 (10, 'Bidang Komunikasi dan Digital', 'bidang-komunikasi-dan-digital-2', '<p data-start="171" data-end="548">Bidang Komunikasi &amp; Digital DPD PKS Ogan Ilir adalah bidang yang berperan dalam mengelola strategi komunikasi publik, penyebaran informasi, serta pemanfaatan teknologi digital untuk mendukung aktivitas partai. Bidang ini menjadi garda terdepan dalam menjaga citra, menyampaikan pesan politik, serta menghadirkan informasi yang akurat, cepat, dan transparan kepada masyarakat.</p>
 <p data-start="550" data-end="845">Dalam aspek <strong data-start="562" data-end="583">komunikasi publik</strong>, bidang ini memastikan bahwa seluruh kegiatan, kebijakan, dan program PKS Ogan Ilir tersampaikan dengan baik melalui berbagai media. Bidang ini juga berfungsi sebagai penghubung antara partai dengan masyarakat, media massa, serta pemangku kepentingan lainnya.</p>
 <p data-start="847" data-end="1250">Sementara itu, dalam ranah <strong data-start="874" data-end="885">digital</strong>, Bidang Komunikasi &amp; Digital bertugas mengoptimalkan penggunaan website resmi, media sosial, serta platform digital lainnya untuk memperkuat interaksi dengan kader dan masyarakat. Melalui konten kreatif, kampanye digital, hingga edukasi media, bidang ini berkomitmen menghadirkan wajah PKS Ogan Ilir yang modern, responsif, dan relevan dengan perkembangan zaman.</p>
 <p data-start="1252" data-end="1545">Selain menyampaikan informasi, bidang ini juga berperan menjaga keamanan data digital organisasi serta meningkatkan literasi digital kader. Dengan demikian, PKS Ogan Ilir tidak hanya aktif di ruang fisik, tetapi juga hadir secara kuat di ruang digital untuk menjangkau masyarakat lebih luas.</p>
 <p data-start="1547" data-end="1774">Dengan semangat inovasi dan keterbukaan, Bidang Komunikasi &amp; Digital menjadi motor penggerak transformasi teknologi informasi di tubuh PKS Ogan Ilir, sehingga partai dapat semakin dekat, transparan, dan dipercaya oleh rakyat.</p>
-', 'Jl. Komperta Taman Indralaya Blok C No. 05 Kel. Indralaya Indah Kec. Indralaya Kab. OganIlir, Sumatera Selatan', '082280041658', 'pksoganilir@gmail.com', 'https://pksoganilir.com', NULL, '/uploads/2023/11/Icon-Digi.webp', '0', '2026-09-05 09:50:10', '2026-09-05 09:50:10');
+', 'Jl. Komperta Taman Indralaya Blok C No. 05 Kel. Indralaya Indah Kec. Indralaya Kab. OganIlir, Sumatera Selatan', '082280041658', 'pksoganilir@gmail.com', 'https://pksoganilir.com', '/uploads/2023/08/Icon-Humas.webp', '/uploads/2023/11/Icon-Digi.webp', 10, '2026-09-05 09:50:10', '2026-09-05 13:44:01');
 
 -- --------------------------------------------------------
 -- Table structure for `dpcs`
@@ -2169,6 +2154,33 @@ INSERT INTO `downloads` (`id`, `title`, `category_type`, `file_path`, `file_type
 (9, 'E-Book Adab Olahraga di Tempat Umum', 'E-Book', '/uploads/2025/10/ADAB-OLAHRAGA-A6.pdf', 'PDF', NULL, 198, '2026-09-05 11:01:49', '2026-09-05 11:24:48');
 
 -- --------------------------------------------------------
+-- Table structure for `quick_menus`
+-- --------------------------------------------------------
+DROP TABLE IF EXISTS `quick_menus`;
+CREATE TABLE `quick_menus` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `icon` varchar(255) NOT NULL,
+  `url` varchar(255) NOT NULL,
+  `order` bigint(20) unsigned NOT NULL DEFAULT 0,
+  `is_active` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Dumping data for table `quick_menus`
+INSERT INTO `quick_menus` (`id`, `name`, `icon`, `url`, `order`, `is_active`, `created_at`, `updated_at`) VALUES
+(1, 'Sambutan', '/uploads/2025/09/ICON-Sambupatan.webp', '/sambutan-ketua-dpd', 1, 1, '2026-09-05 13:43:47', '2026-09-05 13:43:47'),
+(2, 'Profil', '/uploads/2025/09/ICON-About.webp', '/tentang-kami', 2, 1, '2026-09-05 13:43:47', '2026-09-05 13:43:47'),
+(3, 'Fraksi', '/uploads/2025/09/ICON-Dewan.webp', '/anggota-dewan', 3, 1, '2026-09-05 13:43:47', '2026-09-05 13:43:47'),
+(4, 'Bidang', '/uploads/2025/09/ICON-Bidang.webp', '/bidang', 4, 1, '2026-09-05 13:43:47', '2026-09-05 13:43:47'),
+(5, 'Berita', '/uploads/2025/09/ICON-Berita.webp', '/artikel', 5, 1, '2026-09-05 13:43:47', '2026-09-05 13:43:47'),
+(6, 'Pengumuman', '/uploads/2025/09/ICON-Pengumuman.webp', '/pengumuman', 6, 1, '2026-09-05 13:43:47', '2026-09-05 13:43:47'),
+(7, 'Video', '/uploads/2025/09/ICON-Video.webp', '/video', 7, 1, '2026-09-05 13:43:47', '2026-09-05 13:43:47'),
+(8, 'Agenda', '/uploads/2025/09/ICON-Agenda.webp', '/agenda', 8, 1, '2026-09-05 13:43:47', '2026-09-05 13:43:47');
+
+-- --------------------------------------------------------
 -- Table structure for `feedbacks`
 -- --------------------------------------------------------
 DROP TABLE IF EXISTS `feedbacks`;
@@ -2220,7 +2232,18 @@ INSERT INTO `settings` (`id`, `key`, `value`, `group`, `created_at`, `updated_at
 (18, 'og_image', '/uploads/2025/09/Logo-PKS-Resmi.png', 'general', '2026-09-05 12:47:39', '2026-09-05 13:21:18'),
 (19, 'meta_keywords', 'pks, dpd pks ogan ilir, pks ogan ilir, partai keadilan sejahtera, indralaya, berita ogan ilir, sumatera selatan', 'general', '2026-09-05 12:47:39', '2026-09-05 13:21:18'),
 (20, 'twitter_card', 'summary_large_image', 'general', '2026-09-05 12:47:39', '2026-09-05 13:21:18'),
-(21, 'google_site_verification', '', 'general', '2026-09-05 12:47:39', '2026-09-05 13:21:18');
+(21, 'google_site_verification', '', 'general', '2026-09-05 12:47:39', '2026-09-05 13:21:18'),
+(22, 'donation_bank_1_name', 'Bank Sumsel Babel Syariah', 'general', '2026-09-05 13:44:11', '2026-09-05 13:44:11'),
+(23, 'donation_bank_1_code', 120, 'general', '2026-09-05 13:44:11', '2026-09-05 13:44:11'),
+(24, 'donation_bank_1_rekening', '', 'general', '2026-09-05 13:44:11', '2026-09-05 13:44:11'),
+(25, 'donation_bank_1_holder', 'DPD PKS KABUPATEN OGAN ILIR', 'general', '2026-09-05 13:44:11', '2026-09-05 13:44:11'),
+(26, 'donation_bank_2_name', 'Bank Syariah Indonesia (BSI)', 'general', '2026-09-05 13:44:11', '2026-09-05 13:44:11'),
+(27, 'donation_bank_2_code', 451, 'general', '2026-09-05 13:44:11', '2026-09-05 13:44:11'),
+(28, 'donation_bank_2_rekening', '', 'general', '2026-09-05 13:44:11', '2026-09-05 13:44:11'),
+(29, 'donation_bank_2_holder', 'DPD PKS KABUPATEN OGAN ILIR', 'general', '2026-09-05 13:44:11', '2026-09-05 13:44:11'),
+(30, 'donation_confirm_phone', '', 'general', '2026-09-05 13:44:11', '2026-09-05 13:44:11'),
+(31, 'donation_confirm_text', 'Assalamu''alaikum Bendahara DPD PKS Ogan Ilir, saya telah menyalurkan donasi perjuangan dakwah.', 'general', '2026-09-05 13:44:11', '2026-09-05 13:44:11'),
+(32, 'donation_intro_text', 'Salurkan infaq dan donasi perjuangan dakwah untuk kemaslahatan masyarakat Kabupaten Ogan Ilir melalui rekening resmi DPD PKS Ogan Ilir.', 'general', '2026-09-05 13:44:11', '2026-09-05 13:44:11');
 
 -- --------------------------------------------------------
 -- Table structure for `activity_logs`
@@ -2246,7 +2269,8 @@ INSERT INTO `activity_logs` (`id`, `user_id`, `user_name`, `action`, `descriptio
 (2, 1, 'Admin DPD', 'dewan_update', 'Memperbarui data Anggota Dewan: H. Asmawi', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', 'info', '2026-09-05 12:56:40', '2026-09-05 12:56:40'),
 (3, 1, 'Admin DPD', 'gallery_create', 'Menambahkan foto ke Galeri: test', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', 'info', '2026-09-05 12:57:20', '2026-09-05 12:57:20'),
 (4, 1, 'Admin DPD', 'gallery_delete', 'Menghapus foto dari Galeri: test', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', 'warning', '2026-09-05 13:13:32', '2026-09-05 13:13:32'),
-(5, 1, 'Admin DPD', 'settings_update', 'Memperbarui konfigurasi website dan pengaturan SEO & OpenGraph', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', 'info', '2026-09-05 13:21:18', '2026-09-05 13:21:18');
+(5, 1, 'Admin DPD', 'settings_update', 'Memperbarui konfigurasi website dan pengaturan SEO & OpenGraph', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', 'info', '2026-09-05 13:21:18', '2026-09-05 13:21:18'),
+(6, 1, 'Admin DPD', 'page_update', 'Memperbarui konten halaman profil: Donasi Perjuangan PKS Ogan Ilir', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', 'info', '2026-09-05 13:33:03', '2026-09-05 13:33:03');
 
 -- --------------------------------------------------------
 -- Table structure for `pages`
@@ -2286,6 +2310,7 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (5, '2026_09_05_000002_create_cpt_tables', 2),
 (6, '2026_09_05_000003_add_role_and_avatar_to_users_table', 3),
 (7, '2026_09_05_000004_create_activity_logs_table', 3),
-(8, '2026_09_05_000005_create_pages_table', 3);
+(8, '2026_09_05_000005_create_pages_table', 3),
+(9, '2026_09_05_000004_create_quick_menus_table', 4);
 
 SET FOREIGN_KEY_CHECKS = 1;

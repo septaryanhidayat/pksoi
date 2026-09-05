@@ -22,8 +22,12 @@
                 <div class="bg-slate-50 rounded-2xl p-5 border border-slate-200/80 flex flex-col justify-between space-y-4 hover:shadow-md transition">
                     <div class="space-y-3">
                         <div class="flex items-center space-x-3">
-                            <div class="w-10 h-10 rounded-xl bg-orange-100 text-[#ff5001] flex items-center justify-center text-base">
-                                <i class="{{ $b->icon ?? 'fa-solid fa-users' }}"></i>
+                            <div class="w-12 h-12 rounded-xl bg-orange-100 text-[#ff5001] flex items-center justify-center text-lg shrink-0 overflow-hidden border border-orange-200">
+                                @if($b->is_image_icon)
+                                    <img src="{{ $b->icon }}" alt="{{ $b->name }}" class="w-full h-full object-contain p-1.5" onerror="this.src='/uploads/2025/09/logo-thumbnail.webp'">
+                                @else
+                                    <i class="{{ $b->icon ?: 'fa-solid fa-users' }}"></i>
+                                @endif
                             </div>
                             <div class="min-w-0">
                                 <h3 class="font-extrabold text-sm text-slate-900 truncate">{{ $b->name }}</h3>

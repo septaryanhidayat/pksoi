@@ -25,6 +25,9 @@ class DatabaseSeeder extends Seeder
         $this->call([
             DpcSeeder::class,
             DownloadSeeder::class,
+            QuickMenuSeeder::class,
+            SyncBidangIconsSeeder::class,
+            SyncDonationSettingsSeeder::class,
         ]);
     }
 }

@@ -257,6 +257,102 @@
             </div>
         </div>
 
+        {{-- 5. PENGATURAN REKENING DONASI --}}
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+            <div class="px-6 py-4 bg-gray-50/80 border-b border-gray-100 flex items-center justify-between">
+                <div class="flex items-center space-x-2.5">
+                    <span class="w-7 h-7 rounded-lg bg-orange-100 text-[#f37023] flex items-center justify-center text-xs font-bold">5</span>
+                    <div>
+                        <h2 class="font-bold text-sm text-gray-900">Pengaturan Rekening Donasi & Infaq Perjuangan</h2>
+                        <p class="text-[11px] text-gray-500">Konfigurasi rekening Bank Sumsel Babel Syariah (Utama), BSI, dan nomor konfirmasi transfer</p>
+                    </div>
+                </div>
+                <span class="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-bold bg-amber-50 text-amber-700 border border-amber-200">
+                    <i class="fa-solid fa-hand-holding-dollar mr-1.5"></i> Donasi
+                </span>
+            </div>
+
+            <div class="p-6 space-y-6">
+                {{-- Bank 1: Utama (Bank Sumsel Babel Syariah) --}}
+                <div class="p-5 rounded-2xl bg-amber-50/50 border border-amber-200/80 space-y-4">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-xs font-black text-amber-900 uppercase tracking-wider flex items-center">
+                            <i class="fa-solid fa-star text-amber-500 mr-2"></i>
+                            Bank Utama (Bank Sumsel Babel Syariah)
+                        </h3>
+                        <span class="text-[10px] font-bold bg-amber-200/70 text-amber-800 px-2.5 py-0.5 rounded-full">Prioritas Utama</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+                        <div class="md:col-span-2">
+                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Nama Bank</label>
+                            <input type="text" name="donation_bank_1_name" value="{{ $settings['donation_bank_1_name'] ?? 'Bank Sumsel Babel Syariah' }}" class="w-full bg-white text-xs text-gray-800 rounded-xl px-4 py-2.5 border border-amber-200 focus:outline-none focus:ring-2 focus:ring-[#f37023] font-semibold">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Nomor Rekening</label>
+                            <input type="text" name="donation_bank_1_rekening" value="{{ $settings['donation_bank_1_rekening'] ?? '' }}" placeholder="(Kosongkan jika belum ada)" class="w-full bg-white text-xs text-gray-800 rounded-xl px-4 py-2.5 border border-amber-200 focus:outline-none focus:ring-2 focus:ring-[#f37023] font-mono">
+                            <p class="text-[10px] text-slate-400 mt-1">Jika dikosongkan, web menampilkan status "Dalam pembaruan".</p>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Kode Transfer</label>
+                            <input type="text" name="donation_bank_1_code" value="{{ $settings['donation_bank_1_code'] ?? '120' }}" class="w-full bg-white text-xs text-gray-800 rounded-xl px-4 py-2.5 border border-amber-200 focus:outline-none focus:ring-2 focus:ring-[#f37023] font-mono">
+                        </div>
+                        <div class="sm:col-span-2 md:col-span-4">
+                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Atas Nama Rekening (Holder)</label>
+                            <input type="text" name="donation_bank_1_holder" value="{{ $settings['donation_bank_1_holder'] ?? 'DPD PKS KABUPATEN OGAN ILIR' }}" class="w-full bg-white text-xs text-gray-800 rounded-xl px-4 py-2.5 border border-amber-200 focus:outline-none focus:ring-2 focus:ring-[#f37023] font-bold">
+                        </div>
+                    </div>
+                </div>
+
+                {{-- Bank 2: Pendukung (Bank Syariah Indonesia / BSI) --}}
+                <div class="p-5 rounded-2xl bg-teal-50/50 border border-teal-200/80 space-y-4">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-xs font-black text-teal-900 uppercase tracking-wider flex items-center">
+                            <i class="fa-solid fa-building-columns text-teal-600 mr-2"></i>
+                            Bank Pendukung (Bank Syariah Indonesia / BSI)
+                        </h3>
+                        <span class="text-[10px] font-bold bg-teal-200/70 text-teal-800 px-2.5 py-0.5 rounded-full">Bank Syariah</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+                        <div class="md:col-span-2">
+                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Nama Bank</label>
+                            <input type="text" name="donation_bank_2_name" value="{{ $settings['donation_bank_2_name'] ?? 'Bank Syariah Indonesia (BSI)' }}" class="w-full bg-white text-xs text-gray-800 rounded-xl px-4 py-2.5 border border-teal-200 focus:outline-none focus:ring-2 focus:ring-[#f37023] font-semibold">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Nomor Rekening</label>
+                            <input type="text" name="donation_bank_2_rekening" value="{{ $settings['donation_bank_2_rekening'] ?? '' }}" placeholder="(Kosongkan jika belum ada)" class="w-full bg-white text-xs text-gray-800 rounded-xl px-4 py-2.5 border border-teal-200 focus:outline-none focus:ring-2 focus:ring-[#f37023] font-mono">
+                            <p class="text-[10px] text-slate-400 mt-1">Dapat diedit kapan saja jika nomor rekening sudah aktif.</p>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Kode Transfer</label>
+                            <input type="text" name="donation_bank_2_code" value="{{ $settings['donation_bank_2_code'] ?? '451' }}" class="w-full bg-white text-xs text-gray-800 rounded-xl px-4 py-2.5 border border-teal-200 focus:outline-none focus:ring-2 focus:ring-[#f37023] font-mono">
+                        </div>
+                        <div class="sm:col-span-2 md:col-span-4">
+                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Atas Nama Rekening (Holder)</label>
+                            <input type="text" name="donation_bank_2_holder" value="{{ $settings['donation_bank_2_holder'] ?? 'DPD PKS KABUPATEN OGAN ILIR' }}" class="w-full bg-white text-xs text-gray-800 rounded-xl px-4 py-2.5 border border-teal-200 focus:outline-none focus:ring-2 focus:ring-[#f37023] font-bold">
+                        </div>
+                    </div>
+                </div>
+
+                {{-- Konfirmasi & Narasi Donasi --}}
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Nomor WhatsApp Konfirmasi Donasi</label>
+                        <input type="text" name="donation_confirm_phone" value="{{ $settings['donation_confirm_phone'] ?? '' }}" placeholder="Opsional (Otomatis pakai nomor kontak jika kosong)" class="w-full bg-gray-50 text-xs text-gray-800 rounded-xl px-4 py-3 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#f37023]">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Pesan Template WhatsApp Konfirmasi</label>
+                        <input type="text" name="donation_confirm_text" value="{{ $settings['donation_confirm_text'] ?? 'Assalamu\'alaikum Bendahara DPD PKS Ogan Ilir, saya telah menyalurkan donasi perjuangan dakwah.' }}" class="w-full bg-gray-50 text-xs text-gray-800 rounded-xl px-4 py-3 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#f37023]">
+                    </div>
+                    <div class="sm:col-span-2">
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Deskripsi / Ajakan Singkat Donasi</label>
+                        <textarea name="donation_intro_text" rows="2" class="w-full bg-gray-50 text-xs text-gray-800 rounded-xl p-3 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#f37023]">{{ $settings['donation_intro_text'] ?? 'Salurkan infaq dan donasi perjuangan dakwah untuk kemaslahatan masyarakat Kabupaten Ogan Ilir melalui rekening resmi DPD PKS Ogan Ilir.' }}</textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         {{-- SUBMIT BAR --}}
         <div class="sticky bottom-4 bg-white/95 backdrop-blur-md p-4 rounded-2xl shadow-xl border border-gray-200 flex items-center justify-between">
             <span class="text-xs text-gray-500">

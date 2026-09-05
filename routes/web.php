@@ -11,8 +11,10 @@ use App\Http\Controllers\Admin\AdminFeedbackController;
 use App\Http\Controllers\Admin\AdminMediaController;
 use App\Http\Controllers\Admin\AdminPageController;
 use App\Http\Controllers\Admin\AdminPostController;
+use App\Http\Controllers\Admin\AdminQuickMenuController;
 use App\Http\Controllers\Admin\AdminSecurityController;
 use App\Http\Controllers\Admin\AdminSettingController;
+use App\Http\Controllers\Admin\AdminTestimonialController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\AuthController;
@@ -67,6 +69,12 @@ Route::prefix('admin')->middleware('auth')->name('admin.')->group(function () {
 
     // Download Center Management
     Route::resource('downloads', AdminDownloadController::class);
+
+    // Quick Menus (Menu Utama Beranda)
+    Route::resource('quick-menus', AdminQuickMenuController::class);
+
+    // Testimonials Management
+    Route::resource('testimonials', AdminTestimonialController::class);
 
     // Users & Multi-Role Management
     Route::resource('users', AdminUserController::class);

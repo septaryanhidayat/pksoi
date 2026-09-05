@@ -57,6 +57,9 @@
                         break;
                     }
                 }
+                $hasCustomIcon = !empty($b->icon);
+                $isImage = $b->is_image_icon || (empty($b->icon) && !empty($matchedIcon));
+                $displayIcon = $hasCustomIcon ? $b->icon : $matchedIcon;
             @endphp
             <div class="bg-white rounded-3xl overflow-hidden shadow-md border border-gray-100 hover:shadow-2xl transition transform hover:-translate-y-1.5 flex flex-col justify-between group p-6 sm:p-8 reveal-fade-up delay-{{ $idx % 4 }}">
                 <div class="space-y-4">
@@ -65,7 +68,11 @@
                             Bidang DPD
                         </span>
                         <div class="w-14 h-14 rounded-2xl bg-orange-50/80 p-2.5 flex items-center justify-center flex-shrink-0 shadow-inner group-hover:scale-110 transition duration-300">
-                            <img src="{{ $matchedIcon }}" alt="{{ $b->name }}" class="w-full h-full object-contain" onerror="this.src='/uploads/2025/09/logo-thumbnail.webp'">
+                            @if($isImage)
+                                <img src="{{ $displayIcon }}" alt="{{ $b->name }}" class="w-full h-full object-contain" onerror="this.src='/uploads/2025/09/logo-thumbnail.webp'">
+                            @else
+                                <i class="{{ $displayIcon }} text-2xl text-[#f37023]"></i>
+                            @endif
                         </div>
                     </div>
 

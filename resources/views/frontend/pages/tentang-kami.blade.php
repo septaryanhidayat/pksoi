@@ -236,17 +236,17 @@
                             "{{ $testi->content }}"
                         </p>
                     </div>
-                    <div class="flex items-center space-x-3 pt-3 border-t border-gray-50">
-                        <div class="w-10 h-10 rounded-full bg-orange-100 text-[#f37023] font-bold flex items-center justify-center flex-shrink-0 overflow-hidden text-sm">
+                    <div class="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left space-y-2 sm:space-y-0 sm:space-x-3 pt-3 border-t border-gray-50">
+                        <div class="w-10 h-10 rounded-full bg-orange-100 text-[#f37023] font-bold flex items-center justify-center flex-shrink-0 overflow-hidden text-sm mx-auto sm:mx-0">
                             @if($testi->photo)
                                 <img src="{{ $testi->photo }}" alt="{{ $testi->name }}" class="w-full h-full object-cover" onerror="this.src='/uploads/2025/09/logo-thumbnail.webp'">
                             @else
                                 {{ substr($testi->name, 0, 1) }}
                             @endif
                         </div>
-                        <div>
-                            <span class="block font-bold text-xs text-gray-900">{{ $testi->name }}</span>
-                            <span class="block text-[11px] text-gray-400">{{ $testi->profession }}</span>
+                        <div class="min-w-0">
+                            <span class="block font-bold text-xs text-gray-900 text-center sm:text-left">{{ $testi->name }}</span>
+                            <span class="block text-[11px] text-gray-400 text-center sm:text-left">{{ $testi->profession }}</span>
                         </div>
                     </div>
                 </div>

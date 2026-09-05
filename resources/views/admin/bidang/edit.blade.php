@@ -12,7 +12,7 @@
         </a>
     </div>
 
-    <form action="{{ route('admin.bidang.update', $bidang) }}" method="POST" class="space-y-6">
+    <form action="{{ route('admin.bidang.update', $bidang) }}" method="POST" enctype="multipart/form-data" class="space-y-6">
         @csrf
         @method('PUT')
 
@@ -32,16 +32,52 @@
                 <div id="bidang_editor" data-quill="bidang_desc" class="bg-white"></div>
             </div>
 
+            {{-- Preview Icon Saat Ini --}}
+            <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 flex items-center space-x-4">
+                <div class="w-14 h-14 rounded-2xl bg-orange-100 text-[#ff5001] flex items-center justify-center text-xl shrink-0 overflow-hidden border border-orange-200">
+                    @if($bidang->is_image_icon)
+                        <img src="{{ $bidang->icon }}" alt="{{ $bidang->name }}" class="w-full h-full object-contain p-1.5" onerror="this.src='/uploads/2025/09/logo-thumbnail.webp'">
+                    @else
+                        <i class="{{ $bidang->icon ?: 'fa-solid fa-users' }}"></i>
+                    @endif
+                </div>
+                <div>
+                    <span class="text-xs font-bold text-slate-700 block">Icon Saat Ini</span>
+                    <span class="text-[11px] text-slate-400 font-mono">{{ $bidang->icon ?: '(Belum diatur)' }}</span>
+                </div>
+            </div>
+
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                    <label for="icon" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">FontAwesome Icon</label>
-                    <input type="text" name="icon" id="icon" value="{{ old('icon', $bidang->icon) }}" class="w-full bg-slate-50 text-xs text-slate-800 rounded-xl px-4 py-3 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#ff5001]">
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Ganti File Icon (WebP / PNG / SVG)</label>
+                    <input type="file" name="icon_file" accept="image/*" class="w-full text-xs text-slate-500 file:mr-3 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-orange-50 file:text-[#ff5001] hover:file:bg-orange-100 bg-slate-50 rounded-xl border border-slate-200">
                 </div>
 
                 <div>
-                    <label for="order" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Urutan Tampil</label>
-                    <input type="number" name="order" id="order" value="{{ old('order', $bidang->order) }}" class="w-full bg-slate-50 text-xs text-slate-800 rounded-xl px-4 py-3 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#ff5001]">
+                    <label for="icon" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Atau Path Gambar / Class FontAwesome</label>
+                    <input type="text" name="icon" id="icon" value="{{ old('icon', $bidang->icon) }}" class="w-full bg-slate-50 text-xs text-slate-800 rounded-xl px-4 py-3 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#ff5001] font-mono">
                 </div>
+            </div>
+
+            {{-- Preset Icon Cepat Bidang --}}
+            <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-2">
+                <span class="text-[11px] font-bold text-slate-600 block uppercase tracking-wider">Pilihan Icon Bidang Resmi:</span>
+                <div class="flex flex-wrap gap-2">
+                    <button type="button" onclick="document.getElementById('icon').value='/uploads/2023/08/Icon-KD2.webp'" class="text-[11px] bg-white hover:bg-orange-50 hover:text-[#ff5001] border border-slate-200 px-3 py-1.5 rounded-lg transition font-medium">Kaderisasi</button>
+                    <button type="button" onclick="document.getElementById('icon').value='/uploads/2023/08/Icon-BPKK.webp'" class="text-[11px] bg-white hover:bg-orange-50 hover:text-[#ff5001] border border-slate-200 px-3 py-1.5 rounded-lg transition font-medium">Perempuan (BPKK)</button>
+                    <button type="button" onclick="document.getElementById('icon').value='/uploads/2023/08/Icon-Muda.webp'" class="text-[11px] bg-white hover:bg-orange-50 hover:text-[#ff5001] border border-slate-200 px-3 py-1.5 rounded-lg transition font-medium">Kepemudaan (Muda)</button>
+                    <button type="button" onclick="document.getElementById('icon').value='/uploads/2023/08/Icon-BPU.webp'" class="text-[11px] bg-white hover:bg-orange-50 hover:text-[#ff5001] border border-slate-200 px-3 py-1.5 rounded-lg transition font-medium">Pelayanan Umat (BPU)</button>
+                    <button type="button" onclick="document.getElementById('icon').value='/uploads/2023/08/Icon-Humas.webp'" class="text-[11px] bg-white hover:bg-orange-50 hover:text-[#ff5001] border border-slate-200 px-3 py-1.5 rounded-lg transition font-medium">Humas & Digital</button>
+                    <button type="button" onclick="document.getElementById('icon').value='/uploads/2023/08/Icon-BPD.webp'" class="text-[11px] bg-white hover:bg-orange-50 hover:text-[#ff5001] border border-slate-200 px-3 py-1.5 rounded-lg transition font-medium">Administrasi / BPD</button>
+                    <button type="button" onclick="document.getElementById('icon').value='/uploads/2023/08/Icon-Pekerja.webp'" class="text-[11px] bg-white hover:bg-orange-50 hover:text-[#ff5001] border border-slate-200 px-3 py-1.5 rounded-lg transition font-medium">Pekerja & UMKM</button>
+                    <button type="button" onclick="document.getElementById('icon').value='fa-solid fa-users'" class="text-[11px] bg-white hover:bg-orange-50 hover:text-[#ff5001] border border-slate-200 px-3 py-1.5 rounded-lg transition font-medium"><i class="fa-solid fa-users mr-1"></i> FA Users</button>
+                    <button type="button" onclick="document.getElementById('icon').value='fa-solid fa-handshake'" class="text-[11px] bg-white hover:bg-orange-50 hover:text-[#ff5001] border border-slate-200 px-3 py-1.5 rounded-lg transition font-medium"><i class="fa-solid fa-handshake mr-1"></i> FA Handshake</button>
+                </div>
+            </div>
+
+            <div>
+                <label for="order" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Urutan Tampil (1, 2, 3...)</label>
+                <input type="number" name="order" id="order" value="{{ old('order', $bidang->order) }}" class="w-full bg-slate-50 text-xs text-slate-800 rounded-xl px-4 py-3 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#ff5001]">
             </div>
 
             <div class="pt-6 border-t border-slate-100 flex items-center justify-end space-x-3">

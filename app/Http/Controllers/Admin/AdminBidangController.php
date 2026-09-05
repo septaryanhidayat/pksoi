@@ -31,8 +31,17 @@ class AdminBidangController extends Controller
             'phone' => 'nullable|string',
             'email' => 'nullable|email',
             'icon' => 'nullable|string',
+            'icon_file' => 'nullable|image|mimes:jpeg,png,jpg,webp,svg|max:2048',
             'order' => 'nullable|integer',
         ]);
+
+        $iconPath = $validated['icon'] ?? 'fa-solid fa-users';
+        if ($request->hasFile('icon_file')) {
+            $file = $request->file('icon_file');
+            $filename = 'bidang_' . time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('uploads/bidang'), $filename);
+            $iconPath = '/uploads/bidang/' . $filename;
+        }
 
         $bidang = Bidang::create([
             'name' => $validated['name'],
@@ -41,7 +50,7 @@ class AdminBidangController extends Controller
             'address' => $validated['address'] ?? '',
             'phone' => $validated['phone'] ?? '',
             'email' => $validated['email'] ?? '',
-            'icon' => $validated['icon'] ?? 'fa-solid fa-users',
+            'icon' => $iconPath,
             'order' => $validated['order'] ?? 0,
         ]);
 
@@ -72,8 +81,19 @@ class AdminBidangController extends Controller
             'phone' => 'nullable|string',
             'email' => 'nullable|email',
             'icon' => 'nullable|string',
+            'icon_file' => 'nullable|image|mimes:jpeg,png,jpg,webp,svg|max:2048',
             'order' => 'nullable|integer',
         ]);
+
+        $iconPath = $bidang->icon;
+        if ($request->hasFile('icon_file')) {
+            $file = $request->file('icon_file');
+            $filename = 'bidang_' . time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('uploads/bidang'), $filename);
+            $iconPath = '/uploads/bidang/' . $filename;
+        } elseif ($request->filled('icon')) {
+            $iconPath = $validated['icon'];
+        }
 
         $bidang->update([
             'name' => $validated['name'],
@@ -81,7 +101,7 @@ class AdminBidangController extends Controller
             'address' => $validated['address'] ?? '',
             'phone' => $validated['phone'] ?? '',
             'email' => $validated['email'] ?? '',
-            'icon' => $validated['icon'] ?? 'fa-solid fa-users',
+            'icon' => $iconPath,
             'order' => $validated['order'] ?? 0,
         ]);
 

@@ -78,26 +78,35 @@
         </div>
 
         @php
-            $quickMenus = [
-                ['name' => 'Sambutan', 'icon' => '/uploads/2025/09/ICON-Sambupatan.webp', 'url' => route('page.sambutan')],
-                ['name' => 'Profil', 'icon' => '/uploads/2025/09/ICON-About.webp', 'url' => route('page.tentang-kami')],
-                ['name' => 'Fraksi', 'icon' => '/uploads/2025/09/ICON-Dewan.webp', 'url' => route('dewan.index')],
-                ['name' => 'Bidang', 'icon' => '/uploads/2025/09/ICON-Bidang.webp', 'url' => route('bidang.index')],
-                ['name' => 'Berita', 'icon' => '/uploads/2025/09/ICON-Berita.webp', 'url' => route('artikel.index')],
-                ['name' => 'Pengumuman', 'icon' => '/uploads/2025/09/ICON-Pengumuman.webp', 'url' => route('pengumuman.index')],
-                ['name' => 'Video', 'icon' => '/uploads/2025/09/ICON-Video.webp', 'url' => route('video.index')],
-                ['name' => 'Agenda', 'icon' => '/uploads/2025/09/ICON-Agenda.webp', 'url' => route('agenda.index')],
-            ];
+            $dbQuickMenus = \App\Models\QuickMenu::active()->orderBy('order', 'asc')->get();
+            if ($dbQuickMenus->isEmpty()) {
+                $quickMenus = collect([
+                    (object)['name' => 'Sambutan', 'icon' => '/uploads/2025/09/ICON-Sambupatan.webp', 'url' => route('page.sambutan'), 'is_image' => true],
+                    (object)['name' => 'Profil', 'icon' => '/uploads/2025/09/ICON-About.webp', 'url' => route('page.tentang-kami'), 'is_image' => true],
+                    (object)['name' => 'Fraksi', 'icon' => '/uploads/2025/09/ICON-Dewan.webp', 'url' => route('dewan.index'), 'is_image' => true],
+                    (object)['name' => 'Bidang', 'icon' => '/uploads/2025/09/ICON-Bidang.webp', 'url' => route('bidang.index'), 'is_image' => true],
+                    (object)['name' => 'Berita', 'icon' => '/uploads/2025/09/ICON-Berita.webp', 'url' => route('artikel.index'), 'is_image' => true],
+                    (object)['name' => 'Pengumuman', 'icon' => '/uploads/2025/09/ICON-Pengumuman.webp', 'url' => route('pengumuman.index'), 'is_image' => true],
+                    (object)['name' => 'Video', 'icon' => '/uploads/2025/09/ICON-Video.webp', 'url' => route('video.index'), 'is_image' => true],
+                    (object)['name' => 'Agenda', 'icon' => '/uploads/2025/09/ICON-Agenda.webp', 'url' => route('agenda.index'), 'is_image' => true],
+                ]);
+            } else {
+                $quickMenus = $dbQuickMenus;
+            }
         @endphp
 
-        {{-- DESKTOP VIEW: 8 Kolom Kartu Berbingkai dengan Ikon Asli Besar --}}
-        <div class="hidden md:grid md:grid-cols-8 gap-3 text-center">
+        {{-- DESKTOP VIEW: Kolom Kartu Berbingkai dengan Ikon Asli Besar --}}
+        <div class="hidden md:grid md:grid-cols-{{ min(8, max(4, $quickMenus->count())) }} gap-3 text-center">
             @foreach($quickMenus as $qm)
-            <a href="{{ $qm['url'] }}" class="group block p-3 rounded-2xl border border-gray-300 hover:border-[#ff5001] hover:shadow-lg transition bg-white transform hover:-translate-y-1">
+            <a href="{{ $qm->url }}" class="group block p-3 rounded-2xl border border-gray-300 hover:border-[#ff5001] hover:shadow-lg transition bg-white transform hover:-translate-y-1">
                 <div class="h-16 flex items-center justify-center mb-1.5">
-                    <img src="{{ $qm['icon'] }}" alt="{{ $qm['name'] }}" class="max-h-full max-w-full object-contain group-hover:scale-108 transition duration-300">
+                    @if($qm->is_image)
+                        <img src="{{ $qm->icon }}" alt="{{ $qm->name }}" class="max-h-full max-w-full object-contain group-hover:scale-108 transition duration-300" onerror="this.src='/uploads/2025/09/logo-thumbnail.webp'">
+                    @else
+                        <i class="{{ $qm->icon }} text-3xl text-[#ff5001]"></i>
+                    @endif
                 </div>
-                <span class="text-xs font-bold text-[#ff5001] block truncate">{{ $qm['name'] }}</span>
+                <span class="text-xs font-bold text-[#ff5001] block truncate">{{ $qm->name }}</span>
             </a>
             @endforeach
         </div>
@@ -105,11 +114,15 @@
         {{-- MOBILE VIEW: 4 Kolom x 2 Baris Kartu Berbingkai --}}
         <div class="grid md:hidden grid-cols-4 gap-2.5 text-center">
             @foreach($quickMenus as $qm)
-            <a href="{{ $qm['url'] }}" class="p-2.5 rounded-2xl border border-gray-300 hover:border-[#ff5001] hover:shadow-md transition bg-white">
+            <a href="{{ $qm->url }}" class="p-2.5 rounded-2xl border border-gray-300 hover:border-[#ff5001] hover:shadow-md transition bg-white">
                 <div class="h-12 flex items-center justify-center mb-1">
-                    <img src="{{ $qm['icon'] }}" alt="{{ $qm['name'] }}" class="max-h-full max-w-full object-contain">
+                    @if($qm->is_image)
+                        <img src="{{ $qm->icon }}" alt="{{ $qm->name }}" class="max-h-full max-w-full object-contain" onerror="this.src='/uploads/2025/09/logo-thumbnail.webp'">
+                    @else
+                        <i class="{{ $qm->icon }} text-2xl text-[#ff5001]"></i>
+                    @endif
                 </div>
-                <span class="text-[11px] font-bold text-[#ff5001] block truncate">{{ $qm['name'] }}</span>
+                <span class="text-[11px] font-bold text-[#ff5001] block truncate">{{ $qm->name }}</span>
             </a>
             @endforeach
         </div>
@@ -1053,13 +1066,13 @@
                         "{{ $t->content }}"
                     </p>
                 </div>
-                <div class="pt-4 mt-4 border-t border-gray-200/60 flex items-center space-x-3">
-                    <div class="w-10 h-10 rounded-full overflow-hidden bg-orange-100 flex items-center justify-center text-[#FE6000] font-bold text-xs flex-shrink-0">
+                <div class="pt-4 mt-4 border-t border-gray-200/60 flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left space-y-2 sm:space-y-0 sm:space-x-3">
+                    <div class="w-10 h-10 rounded-full overflow-hidden bg-orange-100 flex items-center justify-center text-[#FE6000] font-bold text-xs flex-shrink-0 mx-auto sm:mx-0">
                         <img src="{{ $t->photo_url }}" alt="{{ $t->name }}" class="w-full h-full object-cover" onerror="this.src='/uploads/2023/08/user-2.webp'">
                     </div>
                     <div class="min-w-0">
-                        <h4 class="font-bold text-xs text-gray-900 truncate">{{ $t->name }}</h4>
-                        <p class="text-[10px] text-gray-400 truncate">{{ $t->profession ?? 'Masyarakat Ogan Ilir' }}</p>
+                        <h4 class="font-bold text-xs text-gray-900 truncate text-center sm:text-left">{{ $t->name }}</h4>
+                        <p class="text-[10px] text-gray-400 truncate text-center sm:text-left">{{ $t->profession ?? 'Masyarakat Ogan Ilir' }}</p>
                     </div>
                 </div>
             </div>

@@ -99,6 +99,11 @@
                         <i class="fa-solid fa-file-lines text-sm w-4 text-center"></i>
                         <span>Halaman Profil Statis</span>
                     </a>
+
+                    <a href="{{ route('admin.quick-menus.index') }}" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl transition {{ request()->routeIs('admin.quick-menus*') ? 'bg-gradient-to-r from-[#ff5001] to-[#ff6a00] text-white font-bold shadow-md shadow-orange-500/20' : 'hover:bg-slate-800/70 text-slate-300 hover:text-white' }}">
+                        <i class="fa-solid fa-compass text-sm w-4 text-center"></i>
+                        <span>Menu Cepat Beranda</span>
+                    </a>
                 </div>
 
                 {{-- SECTION 2: STRUKTUR & FRAKSI --}}
@@ -145,6 +150,11 @@
                 <div class="space-y-1">
                     <span class="px-4 text-[10px] font-bold tracking-wider text-slate-400 uppercase">Interaksi</span>
                     
+                    <a href="{{ route('admin.testimonials.index') }}" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl transition {{ request()->routeIs('admin.testimonials*') ? 'bg-gradient-to-r from-[#ff5001] to-[#ff6a00] text-white font-bold shadow-md shadow-orange-500/20' : 'hover:bg-slate-800/70 text-slate-300 hover:text-white' }}">
+                        <i class="fa-solid fa-comments text-sm w-4 text-center"></i>
+                        <span>Testimonial Masyarakat</span>
+                    </a>
+
                     <a href="{{ route('admin.feedbacks.index') }}" class="flex items-center justify-between px-4 py-2.5 rounded-xl transition {{ request()->routeIs('admin.feedbacks*') ? 'bg-gradient-to-r from-[#ff5001] to-[#ff6a00] text-white font-bold shadow-md shadow-orange-500/20' : 'hover:bg-slate-800/70 text-slate-300 hover:text-white' }}">
                         <div class="flex items-center space-x-3">
                             <i class="fa-solid fa-inbox text-sm w-4 text-center"></i>

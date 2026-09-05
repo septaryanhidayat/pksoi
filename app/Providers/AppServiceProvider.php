@@ -27,12 +27,13 @@ class AppServiceProvider extends ServiceProvider
     {
         Paginator::useTailwind();
 
-        if (Schema::hasTable('settings')) {
-            $settings = Setting::all()->pluck('value', 'key')->toArray();
-            View::share('siteSettings', $settings);
-        } else {
-            View::share('siteSettings', []);
-        }
+        View::composer('*', function ($view) {
+            if (Schema::hasTable('settings')) {
+                $view->with('siteSettings', Setting::all()->pluck('value', 'key')->toArray());
+            } else {
+                $view->with('siteSettings', []);
+            }
+        });
 
         if (Schema::hasTable('categories')) {
             $headerCategories = Category::withCount('posts')
