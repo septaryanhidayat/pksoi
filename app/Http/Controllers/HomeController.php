@@ -54,23 +54,37 @@ class HomeController extends Controller
         $featuredPost = $allPosts->first();
         $sidePosts = $allPosts->slice(1, 4);
 
-        // 4. Berita Fraksi PKS (Section 3 - 8 posts / 2 baris x 4 kolom)
-        $fraksiPosts = Post::posts()
+        // 4. Kabar Senayan (Section 5 - Fraksi PKS DPR RI, 8 posts)
+        $senayanPosts = Post::posts()
             ->published()
             ->with(['categories'])
             ->where(function ($q) {
-                $q->whereHas('categories', fn($c) => $c->whereIn('slug', ['fraksi', 'dprd-oi', 'kedewanan']))
-                  ->orWhereHas('tags', fn($t) => $t->whereIn('slug', ['fraksi', 'dprd-oi']));
+                $q->whereHas('categories', fn($c) => $c->whereIn('slug', ['dpr-ri', 'senayan']))
+                  ->orWhereHas('tags', fn($t) => $t->whereIn('slug', ['dpr-ri', 'dpdr-ri', 'senayan', 'iqbal-romzi', 'iqbal-romzie']));
             })
             ->latest('published_at')
             ->take(8)
             ->get();
 
+        // 5. Berita Fraksi PKS DPRD Ogan Ilir (Section 3 - Eksklusif DPRD Ogan Ilir, 8 posts)
+        $fraksiPosts = Post::posts()
+            ->published()
+            ->with(['categories'])
+            ->where(function ($q) {
+                $q->whereHas('categories', fn($c) => $c->whereIn('slug', ['dprd-oi', 'fraksi', 'kedewanan']))
+                  ->orWhereHas('tags', fn($t) => $t->whereIn('slug', ['dprd-oi', 'fraksi', 'dewan']));
+            })
+            ->whereNotIn('id', $senayanPosts->pluck('id'))
+            ->latest('published_at')
+            ->take(8)
+            ->get();
+
         if ($fraksiPosts->count() < 8) {
-            $fraksiPosts = $allPosts->slice(5, 8);
+            $fallbackPosts = $allPosts->whereNotIn('id', $senayanPosts->pluck('id'));
+            $fraksiPosts = $fraksiPosts->merge($fallbackPosts)->take(8);
         }
 
-        // 5. Berita Nasional (Section 4 Kolom 1 - 6 posts)
+        // 6. Berita Nasional (Section 4 Kolom 1 - 6 posts)
         $nasionalPosts = Post::posts()
             ->published()
             ->with(['categories'])
@@ -83,7 +97,7 @@ class HomeController extends Controller
             $nasionalPosts = $allPosts->take(6);
         }
 
-        // 6. Berita Daerah (Section 4 Kolom 2 - 6 posts)
+        // 7. Berita Daerah (Section 4 Kolom 2 - 6 posts)
         $daerahPosts = Post::posts()
             ->published()
             ->with(['categories'])
@@ -96,22 +110,6 @@ class HomeController extends Controller
             $daerahPosts = $allPosts->slice(2, 6);
         }
 
-        // 7. Kabar Senayan (Section 5 - 8 posts / 2 baris x 4 kolom)
-        $senayanPosts = Post::posts()
-            ->published()
-            ->with(['categories'])
-            ->where(function ($q) {
-                $q->whereHas('categories', fn($c) => $c->whereIn('slug', ['senayan', 'dpr-ri']))
-                  ->orWhereHas('tags', fn($t) => $t->whereIn('slug', ['senayan', 'dpr-ri']));
-            })
-            ->latest('published_at')
-            ->take(8)
-            ->get();
-
-        if ($senayanPosts->count() < 8) {
-            $senayanPosts = $allPosts->slice(8, 8);
-        }
-
         // 8. Anggota Dewan Fraksi PKS (Section 6-9 - 4 dewan)
         $dewan = AnggotaDewan::orderBy('order', 'asc')->take(4)->get();
 
@@ -122,17 +120,26 @@ class HomeController extends Controller
         $announcements = Pengumuman::where('status', 'publish')->latest()->take(4)->get();
         $agendas = Agenda::where('status', 'publish')->orderBy('event_date', 'desc')->take(4)->get();
 
-        // 11. Galeri Foto Kegiatan (Section 13 - 8 curated photos)
-        $galleryPhotos = [
+        // 11. Galeri Foto Kegiatan (Section 13 - 2 Baris Slider Otomatis)
+        $galleryRow1 = [
             ['url' => '/uploads/2025/09/307495481_398980005757910_2475236702264106801_n-1.webp', 'title' => 'Rapat Kerja Pengurus DPD PKS Ogan Ilir'],
-            ['url' => '/uploads/2025/09/20220907_150002-1140x570-1.webp', 'title' => 'Pelayanan Advokasi dan Temu Konstituen Fraksi PKS'],
-            ['url' => '/uploads/2025/09/17.webp', 'title' => 'Silaturahmi Tokoh Masyarakat Kabupaten Ogan Ilir'],
-            ['url' => '/uploads/2025/09/48.webp', 'title' => 'Bakti Sosial dan Layanan Kesehatan Gratis PKS'],
+            ['url' => '/uploads/2025/09/58.webp', 'title' => 'Munas & Musda DPD PKS Ogan Ilir'],
             ['url' => '/uploads/2025/09/40.webp', 'title' => 'Konsolidasi Struktur DPC se-Kabupaten Ogan Ilir'],
-            ['url' => '/uploads/2025/09/5-scaled.webp', 'title' => 'Kegiatan Kepemudaan dan Olahraga Bersama PKS Muda'],
-            ['url' => '/uploads/2025/09/19.webp', 'title' => 'Pemberdayaan UMKM dan Pelatihan Kewirausahaan UPA'],
-            ['url' => '/uploads/2025/09/22.webp', 'title' => 'Peringatan Hari Besar Nasional & Keagamaan'],
+            ['url' => '/uploads/2025/09/17.webp', 'title' => 'Silaturahmi Tokoh Masyarakat Kabupaten Ogan Ilir'],
+            ['url' => '/uploads/2025/10/DPP.webp', 'title' => 'Koordinasi bersama DPP PKS'],
+            ['url' => '/uploads/2025/09/5-scaled.webp', 'title' => 'Kegiatan Kepemudaan PKS Muda'],
         ];
+
+        $galleryRow2 = [
+            ['url' => '/uploads/2025/09/48.webp', 'title' => 'Bakti Sosial dan Layanan Kesehatan Gratis PKS'],
+            ['url' => '/uploads/2025/09/19.webp', 'title' => 'Pemberdayaan UMKM dan Pelatihan Kewirausahaan'],
+            ['url' => '/uploads/2025/09/22.webp', 'title' => 'Peringatan Hari Besar Nasional & Keagamaan'],
+            ['url' => '/uploads/2025/09/20220907_150002-1140x570-1.webp', 'title' => 'Pelayanan Advokasi dan Temu Konstituen Fraksi PKS'],
+            ['url' => '/uploads/2025/10/Bogor.webp', 'title' => 'Kunjungan Kerja dan Studi Banding'],
+            ['url' => '/uploads/2025/09/65-scaled.webp', 'title' => 'Aspirasi dan Pengabdian untuk Rakyat Ogan Ilir'],
+        ];
+
+        $galleryPhotos = array_merge($galleryRow1, $galleryRow2);
 
         // 12. E-Books (Section 15 - Etalase Cover E-Book Slider)
         $ebookDownloads = \App\Models\Download::where('category_type', 'E-Book')->get();
@@ -217,6 +224,8 @@ class HomeController extends Controller
             'announcements',
             'agendas',
             'galleryPhotos',
+            'galleryRow1',
+            'galleryRow2',
             'ebooks',
             'testimonials',
             'visitorHits'

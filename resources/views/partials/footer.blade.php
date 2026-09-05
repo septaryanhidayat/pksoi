@@ -102,7 +102,7 @@
         {{-- 3. BOTTOM COPYRIGHT & LINKS --}}
         <div class="pt-6 flex flex-col sm:flex-row justify-between items-center text-xs text-gray-400 gap-4 text-center sm:text-left">
             <span>
-                Copyright @ 2025 <span class="text-white font-semibold">DPD PKS Ogan Ilir</span>. All Right Reserved. Terbit: 15/09/2025. Developed by <span class="text-sky-400 font-semibold">Beranda Teknologi Digital</span>
+                Copyright @ 2025 <span class="text-white font-semibold">DPD PKS Ogan Ilir</span>. All Right Reserved. Terbit: 15/09/2025. Developed by <a href="https://berandadigital.net" target="_blank" rel="noopener noreferrer" class="text-sky-400 hover:text-sky-300 font-semibold underline">Beranda Teknologi Digital</a>
             </span>
 
             {{-- Privacy Policy & Kontak --}}

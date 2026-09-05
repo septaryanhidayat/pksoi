@@ -75,3 +75,16 @@ test('halaman download ebook memuat tombol unduh file asli', function () {
     $response->assertSee("Ghazwul Fikri");
     $response->assertSee('Download E-Book (PDF)');
 });
+
+test('footer memuat link https://berandadigital.net dan galeri memuat 2 baris slider', function () {
+    $response = $this->get(route('home'));
+
+    $response->assertStatus(200);
+    $response->assertSee('https://berandadigital.net');
+    $response->assertSee('Beranda Teknologi Digital');
+    $response->assertSee('Galeri');
+    $response->assertSee('Dokumentasi Kegiatan DPD PKS Ogan Ilir');
+    $response->assertSee('Berita Fraksi PKS');
+    $response->assertSee('Kabar Senayan');
+});
+

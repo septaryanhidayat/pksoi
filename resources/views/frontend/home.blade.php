@@ -657,90 +657,165 @@
 
 
 {{-- ========================================================
-     SECTION #13: GALERI FOTO KEGIATAN (Desktop 4 Col vs Mobile 2 Col)
+     SECTION #13: GALERI FOTO KEGIATAN (2 Baris Slider Otomatis Sesuai Screenshot)
      ======================================================== --}}
-<section class="py-12 bg-gray-950 text-white overflow-hidden">
+<section class="py-14 bg-gray-100 overflow-hidden">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
-        <div class="text-center max-w-2xl mx-auto mb-8 reveal-fade-up">
-            <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight">
-                Galeri
-            </h2>
-            <p class="text-xs sm:text-sm text-gray-400 mt-1">
-                Kabar dan Aktivitas terbaru dalam dokumentasi visual
-            </p>
-            <div class="w-16 h-1 bg-[#FE6000] mx-auto mt-2 rounded-full"></div>
-        </div>
-
-        {{-- Auto-Slider Galeri Foto Kegiatan --}}
-        <div x-data="{
-            current: 0,
-            photos: {{ Js::from($galleryPhotos) }},
-            perView: 4,
-            timer: null,
-            updatePerView() {
-                if (window.innerWidth < 640) {
-                    this.perView = 2;
-                } else if (window.innerWidth < 1024) {
-                    this.perView = 3;
-                } else {
-                    this.perView = 4;
-                }
-            },
-            maxIndex() {
-                return Math.max(0, this.photos.length - this.perView);
-            },
-            next() {
-                if (this.current >= this.maxIndex()) {
-                    this.current = 0;
-                } else {
-                    this.current++;
-                }
-            },
-            prev() {
-                if (this.current <= 0) {
-                    this.current = this.maxIndex();
-                } else {
-                    this.current--;
-                }
-            },
-            start() {
-                this.timer = setInterval(() => this.next(), 3500);
-            },
-            stop() {
-                clearInterval(this.timer);
-            }
-        }" x-init="updatePerView(); window.addEventListener('resize', () => updatePerView()); start()" @mouseenter="stop()" @mouseleave="start()" class="relative px-2 sm:px-4">
+        
+        {{-- Card Hitam Pekat Rounded Persis Gambar Referensi --}}
+        <div class="bg-black text-white rounded-3xl p-6 sm:p-10 border border-neutral-800 shadow-2xl reveal-fade-up">
             
-            {{-- Carousel Track --}}
-            <div class="overflow-hidden py-2">
-                <div class="flex transition-transform duration-500 ease-out" :style="'transform: translateX(-' + (current * (100 / perView)) + '%)'">
-                    <template x-for="(photo, index) in photos" :key="index">
-                        <div class="flex-shrink-0 px-2 sm:px-2.5" :style="'width: ' + (100 / perView) + '%'">
-                            <a href="{{ route('galeri.index') }}" class="group block relative rounded-2xl overflow-hidden shadow-lg aspect-square bg-gray-900 border border-gray-800 transform hover:scale-103 transition duration-300">
-                                <img :src="photo.url" :alt="photo.title" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
-                                <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-3 sm:p-4">
-                                    <span class="text-xs text-white font-medium line-clamp-2" x-text="photo.title"></span>
-                                </div>
-                            </a>
-                        </div>
-                    </template>
-                </div>
+            {{-- Header Rata Tengah --}}
+            <div class="text-center max-w-2xl mx-auto mb-8">
+                <h2 class="text-2xl sm:text-3xl font-black tracking-tight text-white">
+                    Galeri
+                </h2>
+                <p class="text-xs sm:text-sm text-[#ff5001] font-semibold mt-1">
+                    Dokumentasi Kegiatan DPD PKS Ogan Ilir
+                </p>
+                <div class="w-16 h-0.5 bg-gray-400 mx-auto mt-2 rounded-full"></div>
             </div>
 
-            {{-- Controls Panah Kiri & Kanan --}}
-            <button @click="prev()" class="absolute left-0 top-1/2 -translate-y-1/2 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-black/75 hover:bg-[#FE6000] text-white flex items-center justify-center transition border border-gray-700 shadow-xl z-20" aria-label="Previous Photo">
-                <i class="fa-solid fa-chevron-left text-xs sm:text-sm"></i>
-            </button>
-            <button @click="next()" class="absolute right-0 top-1/2 -translate-y-1/2 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-black/75 hover:bg-[#FE6000] text-white flex items-center justify-center transition border border-gray-700 shadow-xl z-20" aria-label="Next Photo">
-                <i class="fa-solid fa-chevron-right text-xs sm:text-sm"></i>
-            </button>
+            {{-- BARIS 1: Slider Otomatis Foto Kegiatan (3 Kolom Desktop) --}}
+            <div x-data="{
+                current: 0,
+                photos: {{ Js::from($galleryRow1 ?? $galleryPhotos) }},
+                perView: 3,
+                timer: null,
+                updatePerView() {
+                    if (window.innerWidth < 640) {
+                        this.perView = 1;
+                    } else if (window.innerWidth < 1024) {
+                        this.perView = 2;
+                    } else {
+                        this.perView = 3;
+                    }
+                },
+                maxIndex() {
+                    return Math.max(0, this.photos.length - this.perView);
+                },
+                next() {
+                    if (this.current >= this.maxIndex()) {
+                        this.current = 0;
+                    } else {
+                        this.current++;
+                    }
+                },
+                prev() {
+                    if (this.current <= 0) {
+                        this.current = this.maxIndex();
+                    } else {
+                        this.current--;
+                    }
+                },
+                start() {
+                    this.timer = setInterval(() => this.next(), 3500);
+                },
+                stop() {
+                    clearInterval(this.timer);
+                }
+            }" x-init="updatePerView(); window.addEventListener('resize', () => updatePerView()); start()" @mouseenter="stop()" @mouseleave="start()" class="relative px-2 sm:px-4 mb-4">
+                
+                {{-- Track Baris 1 --}}
+                <div class="overflow-hidden py-2">
+                    <div class="flex transition-transform duration-500 ease-out" :style="'transform: translateX(-' + (current * (100 / perView)) + '%)'">
+                        <template x-for="(photo, index) in photos" :key="index">
+                            <div class="flex-shrink-0 px-2 sm:px-2.5" :style="'width: ' + (100 / perView) + '%'">
+                                <a href="{{ route('galeri.index') }}" class="group block relative rounded-2xl overflow-hidden shadow-xl aspect-[4/3.2] bg-neutral-900 border border-neutral-800 transform hover:scale-103 transition duration-300">
+                                    <img :src="photo.url" :alt="photo.title" class="w-full h-full object-cover group-hover:scale-108 transition duration-500">
+                                    <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-3 sm:p-4">
+                                        <span class="text-xs text-white font-medium line-clamp-2" x-text="photo.title"></span>
+                                    </div>
+                                </a>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+
+                {{-- Controls Panah Kiri & Kanan Baris 1 --}}
+                <button @click="prev()" class="absolute left-0 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-black/70 hover:bg-[#ff5001] text-white flex items-center justify-center transition border border-neutral-700 shadow-xl z-20" aria-label="Previous Photo Row 1">
+                    <i class="fa-solid fa-chevron-left text-xs sm:text-sm"></i>
+                </button>
+                <button @click="next()" class="absolute right-0 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-black/70 hover:bg-[#ff5001] text-white flex items-center justify-center transition border border-neutral-700 shadow-xl z-20" aria-label="Next Photo Row 1">
+                    <i class="fa-solid fa-chevron-right text-xs sm:text-sm"></i>
+                </button>
+            </div>
+
+            {{-- BARIS 2: Slider Otomatis Foto Kegiatan (4 Kolom Desktop) --}}
+            <div x-data="{
+                current: 0,
+                photos: {{ Js::from($galleryRow2 ?? $galleryPhotos) }},
+                perView: 4,
+                timer: null,
+                updatePerView() {
+                    if (window.innerWidth < 640) {
+                        this.perView = 2;
+                    } else if (window.innerWidth < 1024) {
+                        this.perView = 3;
+                    } else {
+                        this.perView = 4;
+                    }
+                },
+                maxIndex() {
+                    return Math.max(0, this.photos.length - this.perView);
+                },
+                next() {
+                    if (this.current >= this.maxIndex()) {
+                        this.current = 0;
+                    } else {
+                        this.current++;
+                    }
+                },
+                prev() {
+                    if (this.current <= 0) {
+                        this.current = this.maxIndex();
+                    } else {
+                        this.current--;
+                    }
+                },
+                start() {
+                    this.timer = setInterval(() => this.next(), 4200);
+                },
+                stop() {
+                    clearInterval(this.timer);
+                }
+            }" x-init="updatePerView(); window.addEventListener('resize', () => updatePerView()); start()" @mouseenter="stop()" @mouseleave="start()" class="relative px-2 sm:px-4">
+                
+                {{-- Track Baris 2 --}}
+                <div class="overflow-hidden py-2">
+                    <div class="flex transition-transform duration-500 ease-out" :style="'transform: translateX(-' + (current * (100 / perView)) + '%)'">
+                        <template x-for="(photo, index) in photos" :key="index">
+                            <div class="flex-shrink-0 px-2 sm:px-2.5" :style="'width: ' + (100 / perView) + '%'">
+                                <a href="{{ route('galeri.index') }}" class="group block relative rounded-2xl overflow-hidden shadow-lg aspect-square bg-neutral-900 border border-neutral-800 transform hover:scale-103 transition duration-300">
+                                    <img :src="photo.url" :alt="photo.title" class="w-full h-full object-cover group-hover:scale-108 transition duration-500">
+                                    <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-3">
+                                        <span class="text-xs text-white font-medium line-clamp-2" x-text="photo.title"></span>
+                                    </div>
+                                </a>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+
+                {{-- Controls Panah Kiri & Kanan Baris 2 --}}
+                <button @click="prev()" class="absolute left-0 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-black/70 hover:bg-[#ff5001] text-white flex items-center justify-center transition border border-neutral-700 shadow-xl z-20" aria-label="Previous Photo Row 2">
+                    <i class="fa-solid fa-chevron-left text-xs sm:text-sm"></i>
+                </button>
+                <button @click="next()" class="absolute right-0 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-black/70 hover:bg-[#ff5001] text-white flex items-center justify-center transition border border-neutral-700 shadow-xl z-20" aria-label="Next Photo Row 2">
+                    <i class="fa-solid fa-chevron-right text-xs sm:text-sm"></i>
+                </button>
+            </div>
+
+            {{-- Tombol Kapsul Oranye Selengkapnya Menuju /galeri --}}
+            <div class="pt-8 flex justify-center">
+                <a href="{{ route('galeri.index') }}" class="bg-[#ff5001] hover:bg-[#e04500] text-white font-extrabold text-xs sm:text-sm px-8 py-2.5 rounded-xl shadow-xl transition flex items-center space-x-2 transform hover:scale-105">
+                    <i class="fa-solid fa-images"></i>
+                    <span>Selengkapnya</span>
+                </a>
+            </div>
+
         </div>
 
-        <div class="text-center mt-8 reveal-fade-up">
-            <a href="{{ route('galeri.index') }}" class="inline-flex items-center bg-[#FE6000] hover:bg-[#d85200] text-white font-bold text-xs sm:text-sm px-6 py-2.5 rounded-full shadow transition">
-                Selengkapnya <i class="fa-solid fa-images ml-2 text-xs"></i>
-            </a>
-        </div>
     </div>
 </section>
 
