@@ -189,8 +189,29 @@ switch ($action) {
                 foreach ($storageDirs as $d) ensureDirWritable($d);
 
                 $currentDir = __DIR__;
+                $sourcePublic = $laravelRoot . '/public';
                 $publicHtml = dirname($currentDir) . '/public_html';
                 $synced = 0;
+
+                // 1. Copy from repository public/ to active web docroot ($currentDir)
+                if (is_dir($sourcePublic) && realpath($sourcePublic) !== realpath($currentDir)) {
+                    $iterator = new RecursiveIteratorIterator(
+                        new RecursiveDirectoryIterator($sourcePublic, RecursiveDirectoryIterator::SKIP_DOTS),
+                        RecursiveIteratorIterator::SELF_FIRST
+                    );
+                    foreach ($iterator as $item) {
+                        $subPath = $iterator->getSubPathName();
+                        $target = $currentDir . '/' . $subPath;
+                        if ($item->isDir()) {
+                            if (!is_dir($target)) @mkdir($target, 0755, true);
+                        } else {
+                            @copy($item->getPathname(), $target);
+                            $synced++;
+                        }
+                    }
+                }
+
+                // 2. Also mirror to public_html if exists and distinct
                 if (is_dir($publicHtml) && realpath($currentDir) !== realpath($publicHtml)) {
                     $iterator = new RecursiveIteratorIterator(
                         new RecursiveDirectoryIterator($currentDir, RecursiveDirectoryIterator::SKIP_DOTS),
@@ -206,10 +227,8 @@ switch ($action) {
                             $synced++;
                         }
                     }
-                    $results['Asset Sync'] = "Berhasil menyinkronkan {$synced} file aset dari public/ ke public_html/";
-                } else {
-                    $results['Asset Sync'] = "Aplikasi berjalan langsung pada web root ({$currentDir}).";
                 }
+                $results['Asset Sync'] = "Berhasil menyinkronkan {$synced} file aset dari repositori public/ ke web document root ({$currentDir})!";
                 $results['storage:link'] = runArtisanCmd($kernel, 'storage:link');
                 $results['cache:clear'] = runArtisanCmd($kernel, 'optimize:clear');
                 $results['config:cache'] = runArtisanCmd($kernel, 'config:cache');
