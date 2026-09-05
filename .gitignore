@@ -31,6 +31,8 @@ Thumbs.db
 
 # Dynamic User Uploads (Keeps git clean on production cPanel)
 /public/uploads/dewan/*
+/public/uploads/bidang/*
+/public/uploads/settings/*
 /public/uploads/galeri/*
 /public/uploads/posts/*
 /public/uploads/berita/*

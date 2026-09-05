@@ -1,28 +1,15 @@
-{{-- TOP MINI BAR (Hitam Pekat Sesuai Desain Lama) --}}
-<div class="bg-[#000000] text-white text-xs py-2 border-b border-gray-800">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center gap-2">
-        <div class="flex items-center space-x-4">
-            <a href="tel:{{ $siteSettings['contact_phone'] ?? '082382336505' }}" class="flex items-center hover:text-[#fdb913] transition py-1" aria-label="Hubungi Telepon {{ $siteSettings['contact_phone'] ?? '082382336505' }}">
-                <i class="fa-solid fa-phone mr-2 text-[#ff5001]" aria-hidden="true"></i>
-                <span class="font-medium">{{ $siteSettings['contact_phone'] ?? '082382336505' }}</span>
-            </a>
-            <span class="hidden sm:inline text-gray-400" aria-hidden="true">|</span>
-            <a href="mailto:{{ $siteSettings['contact_email'] ?? 'pksoganilir@gmail.com' }}" class="flex items-center hover:text-[#fdb913] transition py-1" aria-label="Kirim Email ke {{ $siteSettings['contact_email'] ?? 'pksoganilir@gmail.com' }}">
-                <i class="fa-solid fa-envelope mr-2 text-[#ff5001]" aria-hidden="true"></i>
-                <span class="font-medium">{{ $siteSettings['contact_email'] ?? 'pksoganilir@gmail.com' }}</span>
-            </a>
-        </div>
-        <div class="flex items-center space-x-3 sm:space-x-4 text-gray-300 text-[11px] sm:text-xs">
-            <a href="{{ route('dewan.index') }}" class="hover:text-white transition py-1 inline-block">Anggota DPRD Fraksi PKS</a>
-            <span class="text-gray-400" aria-hidden="true">|</span>
-            <a href="{{ route('bidang.index') }}" class="hover:text-white transition py-1 inline-block">Bidang</a>
-            <span class="text-gray-400" aria-hidden="true">|</span>
-            <a href="{{ route('hubungi') }}" class="hover:text-white transition py-1 inline-block">Hubungi</a>
-            <span class="text-gray-400" aria-hidden="true">|</span>
-            <a href="/login" class="inline-flex items-center text-white hover:text-[#fdb913] font-medium transition py-1">
-                <i class="fa-solid fa-lock mr-1 text-xs" aria-hidden="true"></i> Login
-            </a>
-        </div>
+{{-- TOP MINI BAR (Hitam Pekat Sesuai Desain Web Lama: Cukup HP & Email) --}}
+<div class="bg-[#000000] text-white text-xs py-2 border-b border-neutral-900" style="background-color: #000000;">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-center sm:justify-start items-center space-x-4 sm:space-x-6">
+        <a href="tel:{{ $siteSettings['contact_phone'] ?? '082382336505' }}" class="flex items-center text-white hover:text-[#fdb913] transition py-1 text-xs font-semibold" aria-label="Hubungi Telepon {{ $siteSettings['contact_phone'] ?? '082382336505' }}">
+            <i class="fa-solid fa-phone mr-2 text-[#ff5001]" aria-hidden="true" style="color: #ff5001;"></i>
+            <span>{{ $siteSettings['contact_phone'] ?? '082382336505' }}</span>
+        </a>
+        <span class="text-neutral-600" aria-hidden="true">|</span>
+        <a href="mailto:{{ $siteSettings['contact_email'] ?? 'pksoganilir@gmail.com' }}" class="flex items-center text-white hover:text-[#fdb913] transition py-1 text-xs font-semibold" aria-label="Kirim Email ke {{ $siteSettings['contact_email'] ?? 'pksoganilir@gmail.com' }}">
+            <i class="fa-solid fa-envelope mr-2 text-[#ff5001]" aria-hidden="true" style="color: #ff5001;"></i>
+            <span>{{ $siteSettings['contact_email'] ?? 'pksoganilir@gmail.com' }}</span>
+        </a>
     </div>
 </div>
 
@@ -150,9 +137,13 @@
                 <a href="{{ route('hubungi') }}" class="bg-black hover:bg-gray-900 text-white px-6 py-2 rounded-full text-xs font-extrabold shadow-md hover:shadow-lg transition flex items-center space-x-2 transform hover:scale-105">
                     <span>Kontak</span>
                 </a>
-                <a href="https://daftar.pks.id" target="_blank" class="bg-white hover:bg-orange-50 text-[#c2410c] px-5 py-2 rounded-full text-xs font-extrabold shadow-md transition flex items-center space-x-1.5" aria-label="Daftar Anggota PKS">
+                <a href="https://daftar.pks.id" target="_blank" class="bg-white hover:bg-orange-50 text-[#c2410c] px-5 py-2 rounded-full text-xs font-extrabold shadow-md transition flex items-center space-x-1.5" aria-label="Daftar Anggota PKS" style="color: #c2410c !important;">
                     <i class="fa-solid fa-user-plus text-xs" aria-hidden="true"></i>
                     <span>Daftar PKS</span>
+                </a>
+                <a href="/login" class="text-white hover:text-black/80 px-2.5 py-2 text-xs font-bold transition flex items-center space-x-1 rounded-lg hover:bg-black/10" aria-label="Login Admin">
+                    <i class="fa-solid fa-lock text-[11px]" aria-hidden="true"></i>
+                    <span>Login</span>
                 </a>
             </div>
 
@@ -221,8 +212,11 @@
         <a href="{{ route('donasi') }}" class="block px-3 py-2 rounded-lg font-extrabold text-[#ff5001] hover:bg-orange-50">Donasi PKS</a>
 
         <div class="pt-3 space-y-2">
-            <a href="https://daftar.pks.id" target="_blank" class="block w-full text-center bg-[#ff5001] hover:bg-[#d85200] text-white py-3 rounded-xl text-xs font-extrabold shadow-md">
-                <i class="fa-solid fa-user-plus mr-1.5"></i> Daftar Anggota PKS
+            <a href="https://daftar.pks.id" target="_blank" class="block w-full text-center bg-[#ff5001] hover:bg-[#d85200] text-white py-3 rounded-xl text-xs font-extrabold shadow-md transition" style="background-color: #ff5001; color: #ffffff;">
+                <i class="fa-solid fa-user-plus mr-1.5" aria-hidden="true"></i> Daftar Anggota PKS
+            </a>
+            <a href="/login" class="block w-full text-center bg-gray-900 hover:bg-black text-white py-2.5 rounded-xl text-xs font-bold transition shadow-sm" style="background-color: #111827; color: #ffffff;">
+                <i class="fa-solid fa-lock mr-1.5 text-orange-400" aria-hidden="true"></i> Login
             </a>
         </div>
     </div>

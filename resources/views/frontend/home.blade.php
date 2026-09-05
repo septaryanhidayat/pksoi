@@ -354,7 +354,7 @@
                     @endforeach
                 </div>
 
-                <a href="{{ route('artikel.index') }}" aria-label="Lihat Semua Berita dan Artikel" class="w-full text-center bg-[#c2410c] hover:bg-[#9a3412] text-white text-xs font-bold py-3 rounded-xl transition shadow-sm block mt-2">
+                <a href="{{ route('artikel.index') }}" aria-label="Lihat Semua Berita dan Artikel" class="w-full text-center bg-[#c2410c] hover:bg-[#9a3412] text-white text-xs font-bold py-3 rounded-xl transition shadow-sm block mt-2" style="background-color: #c2410c !important; color: #ffffff !important;">
                     Lihat Semua Berita <i class="fa-solid fa-arrow-right ml-1" aria-hidden="true"></i>
                 </a>
             </div>
@@ -451,7 +451,7 @@
                 </div>
 
                 <div class="pt-5 mt-4">
-                    <a href="{{ route('artikel.index') }}?kategori=nasional" aria-label="Lihat Semua Berita Nasional" class="block w-full text-center bg-[#c2410c] hover:bg-[#9a3412] text-white font-bold text-xs py-2.5 rounded-xl shadow-sm transition">
+                    <a href="{{ route('artikel.index') }}?kategori=nasional" aria-label="Lihat Semua Berita Nasional" class="block w-full text-center bg-[#c2410c] hover:bg-[#9a3412] text-white font-bold text-xs py-2.5 rounded-xl shadow-sm transition" style="background-color: #c2410c !important; color: #ffffff !important;">
                         Lihat Semua Berita Nasional <i class="fa-solid fa-arrow-right ml-1" aria-hidden="true"></i>
                     </a>
                 </div>
@@ -462,7 +462,7 @@
                 <div>
                     <div class="flex items-center justify-between pb-3 mb-4 border-b border-gray-100">
                         <h2 class="text-lg font-extrabold text-[#353434] flex items-center">
-                            <span class="w-2.5 h-2.5 rounded-full bg-[#c2410c] mr-2" aria-hidden="true"></span>
+                            <span class="w-2.5 h-2.5 rounded-full bg-[#c2410c] mr-2" aria-hidden="true" style="background-color: #c2410c !important;"></span>
                             Daerah
                         </h2>
                         <span class="text-xs text-gray-600 font-medium">Kabar Ogan Ilir</span>
@@ -490,7 +490,7 @@
                 </div>
 
                 <div class="pt-5 mt-4">
-                    <a href="{{ route('artikel.index') }}?kategori=ogan-ilir" aria-label="Lihat Semua Berita Daerah Ogan Ilir" class="block w-full text-center bg-[#c2410c] hover:bg-[#9a3412] text-white font-bold text-xs py-2.5 rounded-xl shadow-sm transition">
+                    <a href="{{ route('artikel.index') }}?kategori=ogan-ilir" aria-label="Lihat Semua Berita Daerah Ogan Ilir" class="block w-full text-center bg-[#c2410c] hover:bg-[#9a3412] text-white font-bold text-xs py-2.5 rounded-xl shadow-sm transition" style="background-color: #c2410c !important; color: #ffffff !important;">
                         Lihat Semua Berita Daerah <i class="fa-solid fa-arrow-right ml-1" aria-hidden="true"></i>
                     </a>
                 </div>
@@ -540,7 +540,7 @@
         </div>
 
         <div class="text-center mt-8 reveal-fade-up">
-            <a href="{{ route('artikel.index') }}?kategori=senayan" aria-label="Lihat Lebih Banyak Berita Senayan" class="inline-flex items-center bg-[#c2410c] hover:bg-[#9a3412] text-white font-bold text-xs sm:text-sm px-7 py-2.5 rounded-full shadow transition">
+            <a href="{{ route('artikel.index') }}?kategori=senayan" aria-label="Lihat Lebih Banyak Berita Senayan" class="inline-flex items-center bg-[#c2410c] hover:bg-[#9a3412] text-white font-bold text-xs sm:text-sm px-7 py-2.5 rounded-full shadow transition" style="background-color: #c2410c !important; color: #ffffff !important;">
                 Lebih Banyak <i class="fa-solid fa-chevron-down ml-2 text-xs" aria-hidden="true"></i>
             </a>
         </div>
@@ -562,7 +562,7 @@
             <p class="text-xs sm:text-sm text-gray-600 mt-1">
                 Kabar dan Aktivitas terbaru Anggota Legislatif PKS Ogan Ilir
             </p>
-            <div class="w-16 h-1 bg-[#c2410c] mx-auto mt-2 rounded-full"></div>
+            <div class="w-16 h-1 bg-[#c2410c] mx-auto mt-2 rounded-full" style="background-color: #c2410c !important;"></div>
         </div>
 
         {{-- DESKTOP VIEW (Section #8: 4 Kolom 1 Baris) --}}
@@ -600,7 +600,7 @@
         </div>
 
         <div class="text-center mt-8 reveal-fade-up">
-            <a href="{{ route('dewan.index') }}" aria-label="Lihat Semua Anggota Dewan Fraksi PKS" class="inline-flex items-center bg-[#c2410c] hover:bg-[#9a3412] text-white font-bold text-xs sm:text-sm px-6 py-2.5 rounded-full shadow transition">
+            <a href="{{ route('dewan.index') }}" aria-label="Lihat Semua Anggota Dewan Fraksi PKS" class="inline-flex items-center bg-[#c2410c] hover:bg-[#9a3412] text-white font-bold text-xs sm:text-sm px-6 py-2.5 rounded-full shadow transition" style="background-color: #c2410c !important; color: #ffffff !important;">
                 Lihat Semua Anggota Dewan <i class="fa-solid fa-arrow-right ml-2 text-xs" aria-hidden="true"></i>
             </a>
         </div>
@@ -657,7 +657,7 @@
         </script>
 
         <div class="text-center mt-10 reveal-fade-up">
-            <a href="{{ route('video.index') }}" aria-label="Lihat Video DPD PKS Lainnya" class="inline-flex items-center bg-[#c2410c] hover:bg-[#9a3412] text-white font-bold text-xs sm:text-sm px-7 py-2.5 rounded-full shadow-lg transition">
+            <a href="{{ route('video.index') }}" aria-label="Lihat Video DPD PKS Lainnya" class="inline-flex items-center bg-[#c2410c] hover:bg-[#9a3412] text-white font-bold text-xs sm:text-sm px-7 py-2.5 rounded-full shadow-lg transition" style="background-color: #c2410c !important; color: #ffffff !important;">
                 Video Lainnya <i class="fa-solid fa-play ml-2 text-[10px]" aria-hidden="true"></i>
             </a>
         </div>
@@ -703,7 +703,7 @@
                 </div>
 
                 <div class="pt-4 mt-4">
-                    <a href="{{ route('pengumuman.index') }}" aria-label="Lihat Semua Pengumuman DPD PKS" class="block w-full text-center bg-[#c2410c] hover:bg-[#9a3412] text-white font-bold text-xs py-2.5 rounded-xl shadow-sm transition">
+                    <a href="{{ route('pengumuman.index') }}" aria-label="Lihat Semua Pengumuman DPD PKS" class="block w-full text-center bg-[#c2410c] hover:bg-[#9a3412] text-white font-bold text-xs py-2.5 rounded-xl shadow-sm transition" style="background-color: #c2410c !important; color: #ffffff !important;">
                         Lihat Semua Pengumuman
                     </a>
                 </div>
@@ -726,11 +726,11 @@
                         @foreach($agendas as $agenda)
                         <article class="bg-white p-3.5 rounded-xl border border-gray-100 shadow-sm hover:border-orange-200 transition flex items-center space-x-3.5">
                             {{-- Tanggal Oranye Besar di Kiri --}}
-                            <div class="w-14 h-14 rounded-xl bg-[#c2410c] text-white flex flex-col items-center justify-center flex-shrink-0 shadow">
-                                <span class="text-base font-extrabold leading-none">
+                            <div class="w-14 h-14 rounded-xl bg-[#c2410c] text-white flex flex-col items-center justify-center flex-shrink-0 shadow" style="background-color: #c2410c !important; color: #ffffff !important;">
+                                <span class="text-base font-extrabold leading-none" style="color: #ffffff !important;">
                                     {{ $agenda->event_date ? $agenda->event_date->format('d') : date('d') }}
                                 </span>
-                                <span class="text-[10px] font-bold uppercase tracking-wider mt-0.5">
+                                <span class="text-[10px] font-bold uppercase tracking-wider mt-0.5" style="color: #ffffff !important;">
                                     {{ $agenda->event_date ? $agenda->event_date->translatedFormat('M') : date('M') }}
                                 </span>
                             </div>
@@ -752,7 +752,7 @@
                 </div>
 
                 <div class="pt-4 mt-4">
-                    <a href="{{ route('agenda.index') }}" aria-label="Lihat Semua Agenda Kegiatan DPD PKS" class="block w-full text-center bg-[#c2410c] hover:bg-[#9a3412] text-white font-bold text-xs py-2.5 rounded-xl shadow-sm transition">
+                    <a href="{{ route('agenda.index') }}" aria-label="Lihat Semua Agenda Kegiatan DPD PKS" class="block w-full text-center bg-[#c2410c] hover:bg-[#9a3412] text-white font-bold text-xs py-2.5 rounded-xl shadow-sm transition" style="background-color: #c2410c !important; color: #ffffff !important;">
                         Lihat Semua Agenda
                     </a>
                 </div>
@@ -929,21 +929,21 @@
 {{-- ========================================================
      SECTION #14: CALL TO ACTION BANNER (Gabung PKS)
      ======================================================== --}}
-<section class="relative bg-gradient-to-r from-orange-700 to-[#c2410c] text-white py-12 px-4 sm:px-6 overflow-hidden reveal-fade-up">
+<section class="relative bg-gradient-to-r from-orange-700 to-[#c2410c] text-white py-12 px-4 sm:px-6 overflow-hidden reveal-fade-up" style="background: linear-gradient(135deg, #c2410c 0%, #9a3412 100%) !important; color: #ffffff !important;">
     <div class="absolute inset-0 opacity-10">
         <img src="/uploads/2024/01/cd1787310f135df61a8832283565af3b.webp" alt="" aria-hidden="true" class="w-full h-full object-cover">
     </div>
     <div class="max-w-6xl mx-auto relative z-10 flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
         <div>
-            <h2 class="text-2xl sm:text-3xl font-black tracking-tight">
+            <h2 class="text-2xl sm:text-3xl font-black tracking-tight" style="color: #ffffff !important;">
                 Ayo Bergabung Bersama DPD PKS Ogan Ilir
             </h2>
-            <p class="text-xs sm:text-sm text-white mt-1 max-w-xl">
+            <p class="text-xs sm:text-sm text-white mt-1 max-w-xl" style="color: #ffffff !important;">
                 Pelayanan, Pemberdayaan, dan Pembelaan untuk Rakyat. Bersama kita wujudkan Ogan Ilir yang religius, maju, dan sejahtera.
             </p>
         </div>
-        <a href="https://daftar.pks.id" target="_blank" aria-label="Daftar Sekarang Menjadi Anggota PKS" class="bg-white text-[#c2410c] hover:bg-orange-50 font-extrabold text-xs sm:text-sm px-7 py-3 rounded-full shadow-lg hover:shadow-xl transition flex-shrink-0 min-h-[44px] flex items-center">
-            Daftar Sekarang <i class="fa-solid fa-user-plus ml-1.5" aria-hidden="true"></i>
+        <a href="https://daftar.pks.id" target="_blank" aria-label="Daftar Sekarang Menjadi Anggota PKS" class="bg-white text-[#c2410c] hover:bg-orange-50 font-extrabold text-xs sm:text-sm px-7 py-3 rounded-full shadow-lg hover:shadow-xl transition flex-shrink-0 min-h-[44px] flex items-center" style="background-color: #ffffff !important; color: #c2410c !important;">
+            Daftar Sekarang <i class="fa-solid fa-user-plus ml-1.5" aria-hidden="true" style="color: #c2410c !important;"></i>
         </a>
     </div>
 </section>
@@ -1089,7 +1089,7 @@
         </div>
 
         <div class="text-center mt-8 reveal-fade-up">
-            <a href="{{ route('testimonial.index') }}" aria-label="Lihat Semua Testimonial Masyarakat" class="inline-flex items-center bg-[#c2410c] hover:bg-[#9a3412] text-white font-bold text-xs sm:text-sm px-6 py-2.5 rounded-full shadow transition">
+            <a href="{{ route('testimonial.index') }}" aria-label="Lihat Semua Testimonial Masyarakat" class="inline-flex items-center bg-[#c2410c] hover:bg-[#9a3412] text-white font-bold text-xs sm:text-sm px-6 py-2.5 rounded-full shadow transition" style="background-color: #c2410c !important; color: #ffffff !important;">
                 Lihat Semua Testimoni <i class="fa-solid fa-comments ml-2 text-xs" aria-hidden="true"></i>
             </a>
         </div>
