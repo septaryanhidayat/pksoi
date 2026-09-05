@@ -147,26 +147,32 @@ Website ini telah dilengkapi file otomasi **`.cpanel.yml`** sehingga proses sink
 
 ---
 
-## 🌐 5. Konfigurasi Domain Pointing (pksoganilir.com ➡️ oganilir.pks.id)
+## 🌐 5. Konfigurasi Dual Domain (Akses Bersamaan: pksoganilir.com & oganilir.pks.id)
 
-Website ini telah disiapkan untuk menggunakan domain resmi pusat **`oganilir.pks.id`** sebagai domain utama (*canonical domain*), dan tetap menampung domain lama **`pksoganilir.com`** agar pengunjung lama dan ranking SEO Google tidak hilang.
+Website ini telah dikonfigurasi untuk **dapat diakses secara bersamaan menggunakan 2 link domain**:
+1. **`pksoganilir.com`** (Domain Utama / Publik Lama)
+2. **`oganilir.pks.id`** (Domain Resmi Partai PKS Pusat) — *juga mendukung alias `ogan.ilir.pks.id` jika diarahkan dari DNS*.
 
-### Langkah di cPanel:
-1. **Domain Utama**:
-   - Pastikan domain utama akun cPanel Anda adalah **`oganilir.pks.id`** dengan Document Root mengarah ke **`public_html`**.
-2. **Pointing / Park Domain Lama (`pksoganilir.com`)**:
-   - Buka cPanel > menu **Domains** (atau **Aliases / Parked Domains** pada tema Paper Lantern).
+Kedua domain ini **aktif berdampingan secara mandiri tanpa saling melempar/me-redirect (No Cross-Redirect)**, sehingga pengunjung yang membuka `pksoganilir.com` tetap berada di `pksoganilir.com`, dan pengunjung yang membuka `oganilir.pks.id` tetap berada di `oganilir.pks.id`.
+
+### Langkah Konfigurasi di cPanel:
+1. **Pilih Domain Utama Akun cPanel**:
+   - Anda bisa menggunakan **`pksoganilir.com`** atau **`oganilir.pks.id`** sebagai Domain Utama cPanel dengan Document Root mengarah ke **`public_html`**.
+2. **Tambahkan Domain Kedua sebagai Alias (Parked Domain)**:
+   - Buka cPanel > menu **Domains** (atau **Aliases / Parked Domains**).
    - Klik **Create A New Domain**.
-   - Masukkan domain: `pksoganilir.com`.
-   - **PENTING**: Centang opsi **Share document root** (arahkah Document Root ke `/home/username/public_html`).
-3. **Sertifikat SSL (HTTPS)**:
+   - Masukkan domain pasangannya (misal jika domain utama `pksoganilir.com`, masukkan `oganilir.pks.id` atau sebaliknya).
+   - **PENTING**: Centang opsi **Share document root** (arahkan Document Root ke `/home/username/public_html` yang sama).
+   - Pastikan opsi *Redirection* diisi: **Not Redirected** (jangan di-redirect agar kedua domain tetap tampil di address bar browser).
+3. **Sertifikat SSL Gratis (HTTPS) untuk Kedua Domain**:
    - Buka cPanel > menu **SSL/TLS Status**.
-   - Centang kedua domain (`oganilir.pks.id` dan `pksoganilir.com` beserta `www`).
-   - Klik tombol **Run AutoSSL** dan tunggu beberapa menit hingga ikon gembok hijau aktif pada kedua domain.
-4. **Otomatisasi Redirect di File `.htaccess`**:
-   - Sistem Laravel Anda telah dilengkapi script rewrite otomatis pada `public_html/.htaccess`:
-     Setiap ada orang yang mengetikkan `pksoganilir.com` atau `http://` (non-SSL), server cPanel secara otomatis melakukan **301 Permanent Redirect** ke **`https://oganilir.pks.id`**.
-   - Semua URL artikel lama akan terpetakan dengan sempurna dan tidak ada link yang error/hilang.
+   - Centang kedua domain (`pksoganilir.com` dan `oganilir.pks.id` beserta variasi `www`-nya).
+   - Klik tombol **Run AutoSSL** dan tunggu proses selesai hingga seluruh domain memiliki ikon gembok hijau aktif.
+4. **Fitur Otomatis yang Sudah Diterapkan di `.htaccess` & Laravel**:
+   - **Normalisasi www**: `www.pksoganilir.com` otomatis dirapikan ke `pksoganilir.com`, dan `www.oganilir.pks.id` otomatis dirapikan ke `oganilir.pks.id`.
+   - **HTTPS Enforced**: Pengunjung HTTP otomatis dinaikkan ke HTTPS tanpa merubah domain asal yang sedang diakses.
+   - **CORS Font & Asset Sharing**: Server telah dilengkapi header `Access-Control-Allow-Origin: *` untuk file font (`woff2`, `woff`, `ttf`), gambar, dan stylesheet agar tidak terjadi pemblokiran asset lintas domain oleh browser.
+   - **Dynamic URL Generation**: Laravel otomatis mendeteksi host yang sedang aktif dan menghasilkan link internal serta link asset sesuai domain yang dibuka oleh pengunjung.
 
 ---
 

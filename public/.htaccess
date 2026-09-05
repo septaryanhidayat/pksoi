@@ -22,12 +22,18 @@
     # 1. Block access to hidden files and dotfiles (.env, .git, etc.)
     RewriteRule ^\.(.*)$ - [F,L]
 
-    # 2. Canonical Domain Redirect: pksoganilir.com / www -> oganilir.pks.id
-    RewriteCond %{HTTP_HOST} ^(www\.)?pksoganilir\.com$ [NC,OR]
+    # 2. Dual Domain Support: pksoganilir.com & oganilir.pks.id (and ogan.ilir.pks.id)
+    # Redirect www to bare domain respectively without cross-domain redirecting
+    RewriteCond %{HTTP_HOST} ^www\.pksoganilir\.com$ [NC]
+    RewriteRule ^(.*)$ https://pksoganilir.com/$1 [L,R=301]
+
     RewriteCond %{HTTP_HOST} ^www\.oganilir\.pks\.id$ [NC]
     RewriteRule ^(.*)$ https://oganilir.pks.id/$1 [L,R=301]
 
-    # 3. Enforce HTTPS
+    RewriteCond %{HTTP_HOST} ^www\.ogan\.ilir\.pks\.id$ [NC]
+    RewriteRule ^(.*)$ https://ogan.ilir.pks.id/$1 [L,R=301]
+
+    # 3. Enforce HTTPS (preserves the current host: pksoganilir.com or oganilir.pks.id)
     RewriteCond %{HTTPS} off
     RewriteCond %{HTTP:X-Forwarded-Proto} !https
     RewriteCond %{HTTP_HOST} !^(localhost|127\.0\.0\.1)(:\d+)?$ [NC]
@@ -59,4 +65,35 @@
     Header always set X-XSS-Protection "1; mode=block"
     Header always set Referrer-Policy "strict-origin-when-cross-origin"
     Header always unset X-Powered-By
+
+    # CORS Headers: Izinkan resource fonts/gambar/css/js diakses lintas domain (pksoganilir.com & oganilir.pks.id)
+    <FilesMatch "\.(ttf|ttc|otf|eot|woff|woff2|font\.css|css|js|webp|png|jpg|jpeg|svg|ico)$">
+        Header set Access-Control-Allow-Origin "*"
+    </FilesMatch>
 </IfModule>
+
+# ----------------------------------------------------------------------
+# BROWSER CACHING (LiteSpeed / Apache Performance Optimization)
+# Diadopsi dari konfigurasi backup web lama
+# ----------------------------------------------------------------------
+<IfModule mod_expires.c>
+    ExpiresActive on
+    ExpiresByType application/pdf A31557600
+    ExpiresByType image/x-icon A31557600
+    ExpiresByType image/vnd.microsoft.icon A31557600
+    ExpiresByType image/svg+xml A31557600
+    ExpiresByType image/jpg A31557600
+    ExpiresByType image/jpeg A31557600
+    ExpiresByType image/png A31557600
+    ExpiresByType image/gif A31557600
+    ExpiresByType image/webp A31557600
+    ExpiresByType text/css A31557600
+    ExpiresByType text/javascript A31557600
+    ExpiresByType application/javascript A31557600
+    ExpiresByType application/x-javascript A31557600
+    ExpiresByType font/ttf A31557600
+    ExpiresByType font/otf A31557600
+    ExpiresByType font/woff A31557600
+    ExpiresByType font/woff2 A31557600
+</IfModule>
+

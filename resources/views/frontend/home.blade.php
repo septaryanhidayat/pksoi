@@ -95,8 +95,8 @@
             }
         @endphp
 
-        {{-- DESKTOP VIEW: Kolom Kartu Berbingkai dengan Ikon Asli Besar --}}
-        <div class="hidden md:grid md:grid-cols-{{ min(8, max(4, $quickMenus->count())) }} gap-3 text-center">
+        {{-- DESKTOP VIEW: 8 Kolom Kartu Berbingkai dengan Ikon Asli Besar --}}
+        <div class="hidden md:grid md:grid-cols-8 gap-3 text-center" style="grid-template-columns: repeat(8, minmax(0, 1fr));">
             @foreach($quickMenus as $qm)
             <a href="{{ $qm->url }}" class="group block p-3 rounded-2xl border border-gray-300 hover:border-[#ff5001] hover:shadow-lg transition bg-white transform hover:-translate-y-1">
                 <div class="h-16 flex items-center justify-center mb-1.5">
@@ -112,7 +112,7 @@
         </div>
 
         {{-- MOBILE VIEW: 4 Kolom x 2 Baris Kartu Berbingkai --}}
-        <div class="grid md:hidden grid-cols-4 gap-2.5 text-center">
+        <div class="grid md:hidden grid-cols-4 gap-2.5 text-center" style="grid-template-columns: repeat(4, minmax(0, 1fr));">
             @foreach($quickMenus as $qm)
             <a href="{{ $qm->url }}" class="p-2.5 rounded-2xl border border-gray-300 hover:border-[#ff5001] hover:shadow-md transition bg-white">
                 <div class="h-12 flex items-center justify-center mb-1">

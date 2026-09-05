@@ -27,6 +27,10 @@ class AppServiceProvider extends ServiceProvider
     {
         Paginator::useTailwind();
 
+        if (config('app.env') === 'production' || str_starts_with((string) config('app.url'), 'https://')) {
+            \Illuminate\Support\Facades\URL::forceScheme('https');
+        }
+
         View::composer('*', function ($view) {
             if (Schema::hasTable('settings')) {
                 $view->with('siteSettings', Setting::all()->pluck('value', 'key')->toArray());

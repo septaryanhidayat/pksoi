@@ -27,8 +27,34 @@ Options -Indexes
     RewriteRule ^(artisan|composer\.(json|lock)|package\.(json|lock)|phpunit\.xml|vite\.config\.js|boost\.json)$ - [F,L,NC]
     RewriteRule \.(sql|sqlite|sqlite3|log|key|md|bak|swp|xml)$ - [F,L,NC]
 
-    # 4. Redirect all legitimate requests to public folder
+    # 4. Dual Domain Support: Normalize www to bare domain per host
+    RewriteCond %{HTTP_HOST} ^www\.pksoganilir\.com$ [NC]
+    RewriteRule ^(.*)$ https://pksoganilir.com/$1 [L,R=301]
+
+    RewriteCond %{HTTP_HOST} ^www\.oganilir\.pks\.id$ [NC]
+    RewriteRule ^(.*)$ https://oganilir.pks.id/$1 [L,R=301]
+
+    RewriteCond %{HTTP_HOST} ^www\.ogan\.ilir\.pks\.id$ [NC]
+    RewriteRule ^(.*)$ https://ogan.ilir.pks.id/$1 [L,R=301]
+
+    # 5. Enforce HTTPS (preserves whichever domain the user requested)
+    RewriteCond %{HTTPS} off
+    RewriteCond %{HTTP:X-Forwarded-Proto} !https
+    RewriteCond %{HTTP_HOST} !^(localhost|127\.0\.0\.1)(:\d+)?$ [NC]
+    RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+    # 6. Redirect all legitimate requests to public folder
     RewriteCond %{REQUEST_URI} !^/public/
     RewriteRule ^(.*)$ /public/$1 [L,QSA]
 </IfModule>
+
+# ----------------------------------------------------------------------
+# CORS & STATIC ASSET HEADERS
+# ----------------------------------------------------------------------
+<IfModule mod_headers.c>
+    <FilesMatch "\.(ttf|ttc|otf|eot|woff|woff2|font\.css|css|js|webp|png|jpg|jpeg|svg|ico)$">
+        Header set Access-Control-Allow-Origin "*"
+    </FilesMatch>
+</IfModule>
+
 
