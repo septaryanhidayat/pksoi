@@ -1,7 +1,7 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/berandad/public_html/
-    - /bin/cp -a public/. /home/berandad/pksoganilir.com/
+    - export DEPLOYPATH=/home/berandad/pksoganilir.com/public/
     - /bin/cp -a public/. $DEPLOYPATH
-    - /bin/chmod -R 775 storage bootstrap/cache
+    - /bin/cp -a public/. /home/berandad/public_html/
+
