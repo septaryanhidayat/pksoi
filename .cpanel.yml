@@ -1,0 +1,24 @@
+---
+# ==============================================================================
+# cPanel Git Version Control Deployment Configuration (.cpanel.yml)
+# DPD PKS OGAN ILIR - REPOSITORI PRODUKSI
+# ==============================================================================
+# File ini otomatis dijalankan oleh fitur "Git™ Version Control" di cPanel
+# setiap kali tombol "Deploy HEAD Commit" diklik atau via GitHub Webhook.
+# ==============================================================================
+
+deployment:
+  tasks:
+    # 1. Menentukan direktori tujuan public_html
+    - export DEPLOYPATH=$(dirname "$(pwd)")/public_html
+    - if [ ! -d "$DEPLOYPATH" ]; then export DEPLOYPATH=/home/$USER/public_html; fi
+
+    # 2. Sinkronkan seluruh aset dan file dari folder public/ ke public_html/
+    - /bin/mkdir -p $DEPLOYPATH
+    - /bin/cp -R public/* $DEPLOYPATH/
+    - /bin/cp -f public/.htaccess $DEPLOYPATH/
+    - /bin/cp -f public/favicon.ico $DEPLOYPATH/ 2>/dev/null || true
+
+    # 3. Kunci izin akses folder storage dan cache (wajib writeable oleh web server)
+    - /bin/chmod -R 775 storage bootstrap/cache 2>/dev/null || true
+    - /bin/chmod -R 755 $DEPLOYPATH/uploads 2>/dev/null || true

@@ -65,16 +65,16 @@
 {{-- ========================================================
      SECTION: FLOATING QUICK ICONS / MENU UTAMA (Ikon Besar Kombinasi Hitam & Oranye Asli)
      ======================================================== --}}
-<div class="max-w-6xl mx-auto px-4 sm:px-6 relative z-30 -mt-8 sm:-mt-10 reveal-fade-up">
+<div x-data="{ showDownloadModal: false }" class="max-w-6xl mx-auto px-4 sm:px-6 relative z-30 -mt-8 sm:-mt-10 reveal-fade-up">
     <div class="bg-white rounded-3xl shadow-2xl border border-gray-100 p-5 sm:p-7">
         <div class="flex items-center justify-between pb-4 mb-4 border-b border-gray-100">
             <h2 class="text-base sm:text-lg font-black text-gray-900 tracking-tight">
                 Menu Utama
             </h2>
-            <a href="{{ route('download.index') }}" class="bg-black hover:bg-gray-900 text-[#ff5001] text-xs font-black px-4 py-1.5 rounded-full transition shadow flex items-center space-x-1.5">
+            <button @click="showDownloadModal = true" type="button" class="bg-black hover:bg-gray-900 text-[#ff5001] text-xs font-black px-4 py-1.5 rounded-full transition shadow flex items-center space-x-1.5 cursor-pointer transform hover:scale-105">
                 <span>Download</span>
                 <i class="fa-solid fa-download text-[11px]"></i>
-            </a>
+            </button>
         </div>
 
         @php
@@ -112,6 +112,90 @@
                 <span class="text-[11px] font-bold text-[#ff5001] block truncate">{{ $qm['name'] }}</span>
             </a>
             @endforeach
+        </div>
+    </div>
+
+    {{-- POPUP MODAL DOWNLOAD (PERSIS SCREENSHOT REFERENSI WEB LAMA) --}}
+    <div x-show="showDownloadModal" 
+         x-transition:enter="transition ease-out duration-300"
+         x-transition:enter-start="opacity-0"
+         x-transition:enter-end="opacity-100"
+         x-transition:leave="transition ease-in duration-200"
+         x-transition:leave-start="opacity-100"
+         x-transition:leave-end="opacity-0"
+         @keydown.escape.window="showDownloadModal = false"
+         class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-xs"
+         style="display: none;">
+         
+        {{-- Backdrop click to close --}}
+        <div class="fixed inset-0" @click="showDownloadModal = false"></div>
+
+        {{-- Modal Box Container --}}
+        <div x-show="showDownloadModal"
+             x-transition:enter="transition ease-out duration-300"
+             x-transition:enter-start="opacity-0 scale-95"
+             x-transition:enter-end="opacity-100 scale-100"
+             x-transition:leave="transition ease-in duration-200"
+             x-transition:leave-start="opacity-100 scale-100"
+             x-transition:leave-end="opacity-0 scale-95"
+             class="relative bg-white rounded-3xl shadow-2xl max-w-2xl w-full p-6 sm:p-8 border border-gray-100 z-10">
+
+            {{-- Tombol Close X Hitam di Pojok Kanan Atas (Persis Screenshot) --}}
+            <button @click="showDownloadModal = false" type="button" class="absolute top-4 right-4 sm:top-5 sm:right-5 w-8 h-8 rounded-lg bg-black text-white hover:bg-gray-800 transition flex items-center justify-center shadow-md cursor-pointer" aria-label="Tutup Popup">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+
+            {{-- Judul DOWNLOAD & Garis Bawah --}}
+            <div class="text-center mb-6 sm:mb-8">
+                <h3 class="text-2xl sm:text-3xl font-black text-[#1e1e1e] tracking-wider uppercase">
+                    DOWNLOAD
+                </h3>
+                <div class="w-24 sm:w-28 h-0.5 bg-black mx-auto mt-2"></div>
+            </div>
+
+            {{-- 3 Kartu Berbingkai Oranye (MARS, E-BOOK, LOGO) Sesuai Screenshot --}}
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5">
+                {{-- Kartu 1: MARS --}}
+                <a href="{{ route('download.hymne-mars') }}" class="group block bg-white rounded-3xl border-2 border-[#ff5001] p-5 text-center hover:shadow-xl hover:scale-103 transition duration-200 flex flex-col items-center justify-between">
+                    <div class="w-20 h-20 sm:w-24 sm:h-24 bg-[#1e1e1e] rounded-2xl flex items-center justify-center p-3 mb-4 shadow-md group-hover:scale-105 transition">
+                        <img src="/uploads/2023/08/Icon-Vote.webp" alt="Icon Mars & Hymne" class="w-full h-full object-contain">
+                    </div>
+                    <div>
+                        <h4 class="text-base sm:text-lg font-black text-[#ff5001] tracking-wide uppercase">MARS</h4>
+                        <p class="text-[11px] text-gray-700 font-medium leading-snug mt-1.5">
+                            Download Mars & Hymne Partai Keadilan Sejahtera
+                        </p>
+                    </div>
+                </a>
+
+                {{-- Kartu 2: E-BOOK --}}
+                <a href="{{ route('download.ebook') }}" class="group block bg-white rounded-3xl border-2 border-[#ff5001] p-5 text-center hover:shadow-xl hover:scale-103 transition duration-200 flex flex-col items-center justify-between">
+                    <div class="w-20 h-20 sm:w-24 sm:h-24 bg-[#1e1e1e] rounded-2xl flex items-center justify-center p-3 mb-4 shadow-md group-hover:scale-105 transition">
+                        <img src="/uploads/2023/08/Icon-Adm.webp" alt="Icon E-Book" class="w-full h-full object-contain">
+                    </div>
+                    <div>
+                        <h4 class="text-base sm:text-lg font-black text-[#ff5001] tracking-wide uppercase">E-BOOK</h4>
+                        <p class="text-[11px] text-gray-700 font-medium leading-snug mt-1.5">
+                            Download E-Book Materi Dakwah Gratis
+                        </p>
+                    </div>
+                </a>
+
+                {{-- Kartu 3: LOGO --}}
+                <a href="{{ route('download.logo') }}" class="group block bg-white rounded-3xl border-2 border-[#ff5001] p-5 text-center hover:shadow-xl hover:scale-103 transition duration-200 flex flex-col items-center justify-between">
+                    <div class="w-20 h-20 sm:w-24 sm:h-24 bg-[#1e1e1e] rounded-2xl flex items-center justify-center p-3 mb-4 shadow-md group-hover:scale-105 transition">
+                        <img src="/uploads/2023/08/Icon-UMKM.webp" alt="Icon Logo PKS" class="w-full h-full object-contain">
+                    </div>
+                    <div>
+                        <h4 class="text-base sm:text-lg font-black text-[#ff5001] tracking-wide uppercase">LOGO</h4>
+                        <p class="text-[11px] text-gray-700 font-medium leading-snug mt-1.5">
+                            Download Logo Resmi Partai Keadilan Sejahtera
+                        </p>
+                    </div>
+                </a>
+            </div>
         </div>
     </div>
 </div>

@@ -19,10 +19,10 @@
         {{-- 2. MAIN FOOTER CONTENT (Logo Besar di Kiri, Alamat, Sosial Media, Pengunjung) --}}
         <div class="flex flex-col lg:flex-row items-center lg:items-start justify-between gap-8 sm:gap-10 pb-12 border-b border-gray-800 text-center lg:text-left">
             
-            {{-- LOGO BESAR KOTAK PUTIH (Persis Screenshot Web Lama) --}}
+            {{-- LOGO BESAR KOTAK PUTIH (Persis Gambar Logo Resmi PKS) --}}
             <div class="flex-shrink-0">
                 <div class="w-36 h-36 sm:w-44 sm:h-44 bg-white rounded-2xl p-4 shadow-xl flex items-center justify-center border border-gray-200">
-                    <img src="/uploads/2025/09/Logo-PKS-e1758079670733.webp" alt="Logo DPD PKS Ogan Ilir" class="w-full h-full object-contain" onerror="this.src='/uploads/2025/09/logo-thumbnail.webp'">
+                    <img src="/uploads/2025/09/Logo-PKS-Resmi.png" alt="Logo Resmi Partai Keadilan Sejahtera" class="w-full h-full object-contain">
                 </div>
             </div>
 

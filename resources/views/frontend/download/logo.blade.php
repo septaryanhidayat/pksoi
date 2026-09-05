@@ -35,15 +35,15 @@
 
         {{-- DISPLAY EMBLEM LOGO --}}
         <div class="w-64 h-64 sm:w-80 sm:h-80 mx-auto rounded-3xl bg-gray-50/80 p-8 shadow-inner border border-gray-100 flex items-center justify-center relative group">
-            <img src="/uploads/2025/09/Logo-PKS-e1758079670733.webp" alt="Logo Resmi Partai Keadilan Sejahtera" class="max-h-full max-w-full object-contain group-hover:scale-105 transition duration-500" onerror="this.src='/uploads/2025/09/logo-thumbnail.webp'">
+            <img src="/uploads/2025/09/Logo-PKS-Resmi.png" alt="Logo Resmi Partai Keadilan Sejahtera" class="max-h-full max-w-full object-contain group-hover:scale-105 transition duration-500">
         </div>
 
         <div>
-            <a href="{{ route('download.file', 1, false) }}" class="inline-flex items-center bg-[#f37023] hover:bg-[#d85c14] text-white px-8 py-3.5 rounded-2xl text-xs font-bold shadow-lg hover:shadow-xl transition space-x-2">
+            <a href="{{ route('download.file', 1, false) }}" class="inline-flex items-center bg-[#ff5001] hover:bg-[#e04500] text-white px-8 py-3.5 rounded-2xl text-xs sm:text-sm font-bold shadow-lg hover:shadow-xl transition space-x-2 transform hover:scale-105">
                 <i class="fa-solid fa-download text-sm"></i>
-                <span>Download Logo Resolusi Tinggi</span>
+                <span>Download Logo Resmi (Format PNG)</span>
             </a>
-            <p class="text-[11px] text-gray-400 mt-2">Format WebP / PNG Resolusi Tinggi &bull; Latar Belakang Transparan</p>
+            <p class="text-[11px] text-gray-400 mt-2 font-medium">Format Asli PNG Resolusi Tinggi &bull; Latar Belakang Transparan &bull; Siap Desain / Cetak</p>
         </div>
     </article>
 
@@ -137,36 +137,61 @@
     </div>
 
     {{-- KARTU VARIAN UNDUHAN LAINNYA --}}
+    {{-- KARTU VARIAN UNDUHAN LAINNYA (FORMAT PNG) --}}
     <div class="bg-white rounded-3xl p-8 sm:p-10 shadow-xl border border-gray-100 reveal-fade-up space-y-6">
-        <h3 class="text-lg sm:text-xl font-extrabold text-gray-900">Varian Logo Lainnya</h3>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <div class="p-5 rounded-2xl bg-gray-50/80 border border-gray-200 flex items-center justify-between gap-4">
+        <div class="flex items-center justify-between flex-wrap gap-2">
+            <h3 class="text-lg sm:text-xl font-extrabold text-gray-900">Varian Logo Lainnya (Format PNG Asli)</h3>
+            <span class="text-xs bg-orange-100 text-[#ff5001] font-bold px-3 py-1 rounded-full">Background Transparan</span>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            {{-- Favicon & Icon --}}
+            <div class="p-5 rounded-2xl bg-gray-50/80 border border-gray-200 flex flex-col justify-between gap-4">
                 <div class="flex items-center space-x-3">
-                    <div class="w-12 h-12 rounded-xl bg-white p-2 border border-gray-200 flex items-center justify-center">
-                        <img src="/uploads/2025/09/logo-thumbnail.webp" alt="Logo Thumbnail" class="max-h-full max-w-full object-contain">
+                    <div class="w-14 h-14 rounded-xl bg-white p-2 border border-gray-200 flex items-center justify-center flex-shrink-0 shadow-sm">
+                        <img src="/uploads/2025/09/cropped-logo-thumbnail.png" alt="Favicon PNG" class="max-h-full max-w-full object-contain">
                     </div>
                     <div>
-                        <h4 class="font-bold text-xs sm:text-sm text-gray-900">Thumbnail & Favicon</h4>
-                        <span class="text-[11px] text-gray-400">Ukuran ikon web & avatar</span>
+                        <h4 class="font-bold text-xs sm:text-sm text-gray-900">Favicon & Icon</h4>
+                        <span class="text-[11px] text-gray-400">Format PNG Persegi</span>
                     </div>
                 </div>
-                <a href="{{ route('download.file', 'logo-thumbnail.webp', false) }}" class="bg-gray-800 hover:bg-black text-white px-4 py-2 rounded-xl text-xs font-bold transition">
-                    Unduh
+                <a href="{{ route('download.file', 'cropped-logo-thumbnail.png', false) }}" class="w-full text-center bg-gray-900 hover:bg-black text-white px-4 py-2.5 rounded-xl text-xs font-bold transition flex items-center justify-center space-x-1.5 shadow">
+                    <i class="fa-solid fa-download text-[11px]"></i>
+                    <span>Unduh PNG</span>
                 </a>
             </div>
 
-            <div class="p-5 rounded-2xl bg-gray-50/80 border border-gray-200 flex items-center justify-between gap-4">
+            {{-- Logo Header DPD --}}
+            <div class="p-5 rounded-2xl bg-gray-50/80 border border-gray-200 flex flex-col justify-between gap-4">
                 <div class="flex items-center space-x-3">
-                    <div class="w-12 h-12 rounded-xl bg-white p-2 border border-gray-200 flex items-center justify-center">
-                        <img src="/uploads/2025/09/Logo-Web-DPD3.webp" alt="Logo Web DPD" class="max-h-full max-w-full object-contain" onerror="this.src='/uploads/2025/09/logo-thumbnail.webp'">
+                    <div class="w-14 h-14 rounded-xl bg-white p-2 border border-gray-200 flex items-center justify-center flex-shrink-0 shadow-sm">
+                        <img src="/uploads/2025/09/Logo-Web-DPD3.png" alt="Logo Web DPD PNG" class="max-h-full max-w-full object-contain">
                     </div>
                     <div>
-                        <h4 class="font-bold text-xs sm:text-sm text-gray-900">Logo Header Website</h4>
-                        <span class="text-[11px] text-gray-400">Header & Banner DPD</span>
+                        <h4 class="font-bold text-xs sm:text-sm text-gray-900">Logo Header DPD</h4>
+                        <span class="text-[11px] text-gray-400">Horizontal Banner DPD</span>
                     </div>
                 </div>
-                <a href="{{ route('download.file', 'Logo-Web-DPD3.webp', false) }}" class="bg-[#f37023] hover:bg-[#d85c14] text-white px-4 py-2 rounded-xl text-xs font-bold transition">
-                    Unduh
+                <a href="{{ route('download.file', 'Logo-Web-DPD3.png', false) }}" class="w-full text-center bg-[#ff5001] hover:bg-[#e04500] text-white px-4 py-2.5 rounded-xl text-xs font-bold transition flex items-center justify-center space-x-1.5 shadow">
+                    <i class="fa-solid fa-download text-[11px]"></i>
+                    <span>Unduh PNG</span>
+                </a>
+            </div>
+
+            {{-- Logo Thumbnail --}}
+            <div class="p-5 rounded-2xl bg-gray-50/80 border border-gray-200 flex flex-col justify-between gap-4">
+                <div class="flex items-center space-x-3">
+                    <div class="w-14 h-14 rounded-xl bg-white p-2 border border-gray-200 flex items-center justify-center flex-shrink-0 shadow-sm">
+                        <img src="/uploads/2025/09/logo-thumbnail.png" alt="Logo Thumbnail PNG" class="max-h-full max-w-full object-contain">
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-xs sm:text-sm text-gray-900">Thumbnail & Avatar</h4>
+                        <span class="text-[11px] text-gray-400">Resolusi Tinggi PNG</span>
+                    </div>
+                </div>
+                <a href="{{ route('download.file', 'logo-thumbnail.png', false) }}" class="w-full text-center bg-gray-900 hover:bg-black text-white px-4 py-2.5 rounded-xl text-xs font-bold transition flex items-center justify-center space-x-1.5 shadow">
+                    <i class="fa-solid fa-download text-[11px]"></i>
+                    <span>Unduh PNG</span>
                 </a>
             </div>
         </div>

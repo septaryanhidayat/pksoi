@@ -12,7 +12,7 @@ class DownloadSeeder extends Seeder
         $downloads = [
             [
                 'title' => 'Logo Resmi PKS (Dewan Pengurus Daerah Ogan Ilir)',
-                'file_path' => '/uploads/2025/09/Logo-PKS-e1758079670733.webp',
+                'file_path' => '/uploads/2025/09/Logo-PKS.png',
                 'file_type' => 'PNG',
                 'category_type' => 'Aset Visual',
                 'download_count' => 142,

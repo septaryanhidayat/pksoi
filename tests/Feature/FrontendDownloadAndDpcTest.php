@@ -53,7 +53,7 @@ test('download logo and filename fallbacks return attachment', function () {
 
     $response = $this->get(route('download.file', $logo->id));
     $response->assertStatus(200);
-    $response->assertHeader('content-type', 'image/webp');
+    $response->assertHeader('content-type', 'image/png');
     expect($response->headers->get('content-disposition'))->toContain('attachment');
 
     $thumbResponse = $this->get(route('download.file', 'logo-thumbnail.webp'));

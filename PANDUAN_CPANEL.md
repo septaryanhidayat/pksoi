@@ -38,39 +38,47 @@ Pastikan pengaturan pada cPanel Anda memenuhi kriteria berikut:
 
 ---
 
-## 📁 3. Upload File Aplikasi ke cPanel
+## 🚀 3. Deployment Menggunakan cPanel Git™ Version Control (Rekomendasi Utama)
 
-### Rekomendasi Struktur Folder (Paling Aman & Standar Industri):
+Website ini telah dilengkapi file otomasi **`.cpanel.yml`** sehingga proses sinkronisasi dengan repositori GitHub Anda dapat dilakukan langsung melalui antarmuka cPanel dengan 1-klik!
 
-1. Di **File Manager** cPanel, pada direktori home (di luar `public_html`), buat folder bernama:
-   ```
-   laravel_pksoi
-   ```
-2. Compress (ZIP) seluruh folder project ini di komputer Anda **KECUALI** folder `BACKUP WEb LAMA`, `Desain Web Lama`, dan `database/berandad_wppksoi.sql` (karena file-file lama tersebut sudah diproses dan tidak dibutuhkan lagi di server produksi).
-3. Upload file ZIP tersebut ke `/home/username/laravel_pksoi/` dan ekstrak (Extract).
-4. Pindahkan seluruh isi dari dalam folder:
-   `/home/username/laravel_pksoi/public/`
-   ke direktori:
-   `/home/username/public_html/`
-   *(Termasuk folder `uploads`, `build`, file `index.php`, `.htaccess`, dan `robots.txt`)*.
-5. Buka dan edit file `/home/username/public_html/index.php`:
-   - Cari baris:
-     ```php
-     require __DIR__.'/../vendor/autoload.php';
+### Langkah Clone Repositori di cPanel:
+1. Buka cPanel Anda dan klik menu **Git™ Version Control** (di bawah kategori *Files*).
+2. Klik tombol **Create** di sebelah kanan.
+3. Masukkan informasi repositori:
+   - **Clone URL**:
      ```
-     Ubah menjadi:
-     ```php
-     require __DIR__.'/../laravel_pksoi/vendor/autoload.php';
+     https://github.com/septaryanhidayat/pksoi.git
      ```
-   - Cari baris:
-     ```php
-     $app = require_once __DIR__.'/../bootstrap/app.php';
+   - **Repository Path**:
      ```
-     Ubah menjadi:
-     ```php
-     $app = require_once __DIR__.'/../laravel_pksoi/bootstrap/app.php';
+     /home/username/laravel_pksoi
      ```
-   - Simpan perubahan.
+     *(Ganti `username` dengan username cPanel Anda. Repositori disimpan di luar folder `public_html` demi keamanan)*.
+   - **Repository Name**: `pksoi` (atau biarkan default).
+4. Klik tombol **Create**. Tunggu beberapa saat hingga cPanel selesai mengunduh seluruh file proyek dari GitHub.
+
+### Langkah Deploy & Menjalankan .cpanel.yml:
+1. Setelah repositori selesai di-clone, klik tombol **Manage** di sebelah kanan repositori `pksoi`.
+2. Klik tab **Pull or Deploy**.
+3. Di bagian **Deploy HEAD Commit**, klik tombol **Deploy HEAD Commit**.
+   - *Sistem cPanel akan otomatis mengeksekusi instruksi di dalam `.cpanel.yml`: menyalin seluruh aset `public/` ke `public_html/`, memasang `.htaccess`, dan mengatur hak akses folder `storage`.*
+
+### Langkah Otomatisasi Webhook GitHub (Setiap kali push otomatis sync ke cPanel):
+1. Pada tab **Basic Information** di menu Git cPanel, salin URL pada kolom **Webhook URL**.
+2. Buka repositori Anda di GitHub: `https://github.com/septaryanhidayat/pksoi`.
+3. Klik **Settings** > **Webhooks** > **Add webhook**.
+4. Tempelkan URL cPanel tersebut ke dalam kolom **Payload URL**.
+5. Pilih **Content type**: `application/json` dan pilih event **Just the push event**.
+6. Klik **Add webhook**.
+7. *Mulai saat ini, setiap kali Anda melakukan commit & push ke GitHub, website Anda di hosting cPanel akan otomatis terupdate sendiri!*
+
+---
+
+### Alternatif: Upload Manual Menggunakan File ZIP (Jika Tanpa Git):
+1. Jika suatu saat Anda ingin upload manual via File Manager, compress (ZIP) seluruh folder project KECUALI folder `BACKUP WEb LAMA` dan `Desain Web Lama`.
+2. Ekstrak file ZIP ke `/home/username/laravel_pksoi/`.
+3. Pindahkan isi folder `/home/username/laravel_pksoi/public/` ke `/home/username/public_html/`.
 
 ---
 
