@@ -1,19 +1,22 @@
 <?php
+
+use Illuminate\Contracts\Console\Kernel;
+
 /**
  * cPanel Setup, Maintenance & Diagnostic Helper for Laravel
  * DPD PKS Ogan Ilir
- * 
+ *
  * Akses: https://pksoganilir.com/cpanel_setup.php?token=PksOi2026Setup&action=status
  */
 
 // 1. Auto-detect Laravel repository root directory
 $possibleRoots = [
-    __DIR__ . '/..',
-    dirname(__DIR__) . '/repositories/pksoi',
-    dirname(__DIR__) . '/laravel_pksoi',
-    dirname(__DIR__) . '/pksoi',
-    ($_SERVER['HOME'] ?? '') . '/repositories/pksoi',
-    ($_SERVER['HOME'] ?? '') . '/laravel_pksoi',
+    __DIR__.'/..',
+    dirname(__DIR__).'/repositories/pksoi',
+    dirname(__DIR__).'/laravel_pksoi',
+    dirname(__DIR__).'/pksoi',
+    ($_SERVER['HOME'] ?? '').'/repositories/pksoi',
+    ($_SERVER['HOME'] ?? '').'/laravel_pksoi',
     '/home/berandad/repositories/pksoi',
     '/home/berandad/laravel_pksoi',
     '/home/berandad/pksoi',
@@ -21,37 +24,39 @@ $possibleRoots = [
 
 $laravelRoot = null;
 foreach ($possibleRoots as $candidate) {
-    if ($candidate && file_exists($candidate . '/bootstrap/app.php')) {
+    if ($candidate && file_exists($candidate.'/bootstrap/app.php')) {
         $laravelRoot = realpath($candidate);
         break;
     }
 }
-if (!$laravelRoot) {
-    $laravelRoot = realpath(__DIR__ . '/..');
+if (! $laravelRoot) {
+    $laravelRoot = realpath(__DIR__.'/..');
 }
 
 // 2. Secret Token Authentication
 $secretToken = 'PksOi2026Setup';
 
 // Parse .env directly if it exists to get custom token if defined
-$envFile = $laravelRoot . '/.env';
+$envFile = $laravelRoot.'/.env';
 $envVars = [];
 if (file_exists($envFile)) {
     $lines = file($envFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
     foreach ($lines as $line) {
         $line = trim($line);
-        if ($line === '' || str_starts_with($line, '#')) continue;
+        if ($line === '' || str_starts_with($line, '#')) {
+            continue;
+        }
         if (str_contains($line, '=')) {
             [$k, $v] = explode('=', $line, 2);
             $envVars[trim($k)] = trim($v, " \t\n\r\0\x0B\"'");
         }
     }
-    if (!empty($envVars['CPANEL_SETUP_TOKEN'])) {
+    if (! empty($envVars['CPANEL_SETUP_TOKEN'])) {
         $secretToken = $envVars['CPANEL_SETUP_TOKEN'];
     }
 }
 
-if (!isset($_GET['token']) || empty($_GET['token']) || !hash_equals($secretToken, (string)$_GET['token'])) {
+if (! isset($_GET['token']) || empty($_GET['token']) || ! hash_equals($secretToken, (string) $_GET['token'])) {
     http_response_code(403);
     echo '<!DOCTYPE html><html><body style="background:#0f172a;color:#ef4444;font-family:sans-serif;text-align:center;padding:50px;">';
     echo '<h2>403 Forbidden: Token Akses Tidak Valid!</h2>';
@@ -62,12 +67,13 @@ if (!isset($_GET['token']) || empty($_GET['token']) || !hash_equals($secretToken
 
 $action = $_GET['action'] ?? 'status';
 $results = [];
-$hasVendor = file_exists($laravelRoot . '/vendor/autoload.php');
+$hasVendor = file_exists($laravelRoot.'/vendor/autoload.php');
 $hasEnv = file_exists($envFile);
 
 // Helper function to recursively create directories and chmod
-function ensureDirWritable($dir) {
-    if (!is_dir($dir)) {
+function ensureDirWritable($dir)
+{
+    if (! is_dir($dir)) {
         @mkdir($dir, 0775, true);
     }
     @chmod($dir, 0775);
@@ -76,33 +82,33 @@ function ensureDirWritable($dir) {
 // 3. Actions Handling
 switch ($action) {
     case 'create_env':
-        $exampleFile = $laravelRoot . '/.env.cpanel.example';
-        if (!file_exists($exampleFile)) {
-            $exampleFile = $laravelRoot . '/.env.production';
+        $exampleFile = $laravelRoot.'/.env.cpanel.example';
+        if (! file_exists($exampleFile)) {
+            $exampleFile = $laravelRoot.'/.env.production';
         }
-        if (!file_exists($envFile)) {
+        if (! file_exists($envFile)) {
             if (file_exists($exampleFile)) {
                 if (@copy($exampleFile, $envFile)) {
-                    $results['Buat .env'] = "SUKSES: File .env berhasil dibuat dari " . basename($exampleFile);
+                    $results['Buat .env'] = 'SUKSES: File .env berhasil dibuat dari '.basename($exampleFile);
                 } else {
-                    $results['Buat .env'] = "GAGAL: Gagal menyalin file. Cek izin folder " . $laravelRoot;
+                    $results['Buat .env'] = 'GAGAL: Gagal menyalin file. Cek izin folder '.$laravelRoot;
                 }
             } else {
-                $results['Buat .env'] = "GAGAL: File template .env.cpanel.example tidak ditemukan di " . $laravelRoot;
+                $results['Buat .env'] = 'GAGAL: File template .env.cpanel.example tidak ditemukan di '.$laravelRoot;
             }
         } else {
-            $results['Buat .env'] = "INFO: File .env sudah ada di " . $envFile;
+            $results['Buat .env'] = 'INFO: File .env sudah ada di '.$envFile;
         }
         break;
 
     case 'fix_storage':
         $storageDirs = [
-            $laravelRoot . '/storage/app/public',
-            $laravelRoot . '/storage/framework/cache/data',
-            $laravelRoot . '/storage/framework/sessions',
-            $laravelRoot . '/storage/framework/views',
-            $laravelRoot . '/storage/logs',
-            $laravelRoot . '/bootstrap/cache',
+            $laravelRoot.'/storage/app/public',
+            $laravelRoot.'/storage/framework/cache/data',
+            $laravelRoot.'/storage/framework/sessions',
+            $laravelRoot.'/storage/framework/views',
+            $laravelRoot.'/storage/logs',
+            $laravelRoot.'/bootstrap/cache',
         ];
         $fixed = 0;
         foreach ($storageDirs as $d) {
@@ -114,9 +120,9 @@ switch ($action) {
 
     case 'extract_vendor':
         $zipCandidates = [
-            $laravelRoot . '/vendor.zip',
-            __DIR__ . '/vendor.zip',
-            dirname(__DIR__) . '/vendor.zip',
+            $laravelRoot.'/vendor.zip',
+            __DIR__.'/vendor.zip',
+            dirname(__DIR__).'/vendor.zip',
         ];
         $foundZip = null;
         foreach ($zipCandidates as $zc) {
@@ -127,11 +133,11 @@ switch ($action) {
         }
         if ($foundZip && class_exists('ZipArchive')) {
             $zip = new ZipArchive;
-            if ($zip->open($foundZip) === TRUE) {
+            if ($zip->open($foundZip) === true) {
                 $zip->extractTo($laravelRoot);
                 $zip->close();
                 $results['Ekstrak vendor.zip'] = "SUKSES: Berhasil mengekstrak {$foundZip} ke folder {$laravelRoot}!";
-                $hasVendor = file_exists($laravelRoot . '/vendor/autoload.php');
+                $hasVendor = file_exists($laravelRoot.'/vendor/autoload.php');
             } else {
                 $results['Ekstrak vendor.zip'] = "GAGAL: Tidak dapat membuka file ZIP {$foundZip}";
             }
@@ -145,25 +151,27 @@ switch ($action) {
     case 'optimize':
     case 'clear_cache':
     case 'migrate':
-        if (!$hasVendor) {
+        if (! $hasVendor) {
             $results['Error'] = "Perintah Artisan membutuhkan folder 'vendor/' yang berisi autoloader Laravel. Silakan jalankan 'composer install' di Terminal cPanel terlebih dahulu.";
             break;
         }
 
         try {
-            require $laravelRoot . '/vendor/autoload.php';
-            $app = require_once $laravelRoot . '/bootstrap/app.php';
-            $kernel = $app->make(Illuminate\Contracts\Console\Kernel::class);
+            require $laravelRoot.'/vendor/autoload.php';
+            $app = require_once $laravelRoot.'/bootstrap/app.php';
+            $kernel = $app->make(Kernel::class);
 
-            function runArtisanCmd($kernel, $command, $params = []) {
+            function runArtisanCmd($kernel, $command, $params = [])
+            {
                 ob_start();
                 try {
                     $kernel->call($command, $params);
                     $output = $kernel->output();
-                } catch (\Throwable $e) {
-                    $output = "Error: " . $e->getMessage();
+                } catch (Throwable $e) {
+                    $output = 'Error: '.$e->getMessage();
                 }
                 ob_end_clean();
+
                 return $output;
             }
 
@@ -179,69 +187,81 @@ switch ($action) {
                 $results['migrate'] = runArtisanCmd($kernel, 'migrate', ['--force' => true]);
             } elseif ($action === 'git_reset') {
                 $commands = [
-                    'cd ' . escapeshellarg($laravelRoot),
+                    'cd '.escapeshellarg($laravelRoot),
                     'git config core.filemode false',
                     'git reset --hard HEAD',
                     'git clean -fd',
                     'git status',
                 ];
-                $cmd = implode(' && ', $commands) . ' 2>&1';
+                $cmd = implode(' && ', $commands).' 2>&1';
                 $output = [];
                 @exec($cmd, $output, $returnCode);
                 $results['Git Reset & Clean'] = empty($output) ? 'Perintah dieksekusi (Silakan cek status di cPanel Git Version Control)' : implode("\n", $output);
             } elseif ($action === 'deploy_sync') {
                 // Ensure storage directories exist
                 $storageDirs = [
-                    $laravelRoot . '/storage/framework/cache/data',
-                    $laravelRoot . '/storage/framework/sessions',
-                    $laravelRoot . '/storage/framework/views',
-                    $laravelRoot . '/storage/logs',
-                    $laravelRoot . '/bootstrap/cache',
+                    $laravelRoot.'/storage/framework/cache/data',
+                    $laravelRoot.'/storage/framework/sessions',
+                    $laravelRoot.'/storage/framework/views',
+                    $laravelRoot.'/storage/logs',
+                    $laravelRoot.'/bootstrap/cache',
                 ];
-                foreach ($storageDirs as $d) ensureDirWritable($d);
+                foreach ($storageDirs as $d) {
+                    ensureDirWritable($d);
+                }
 
                 $currentDir = __DIR__;
-                $sourcePublic = $laravelRoot . '/public';
+                $sourcePublic = $laravelRoot.'/public';
                 $synced = 0;
 
-                // 1. Copy from repository public/ to active web docroot ($currentDir)
-                if (is_dir($sourcePublic) && realpath($sourcePublic) !== realpath($currentDir)) {
-                    $iterator = new RecursiveIteratorIterator(
-                        new RecursiveDirectoryIterator($sourcePublic, RecursiveDirectoryIterator::SKIP_DOTS),
-                        RecursiveIteratorIterator::SELF_FIRST
-                    );
-                    foreach ($iterator as $item) {
-                        $subPath = $iterator->getSubPathName();
-                        $target = $currentDir . '/' . $subPath;
-                        if ($item->isDir()) {
-                            if (!is_dir($target)) @mkdir($target, 0755, true);
-                        } else {
-                            @copy($item->getPathname(), $target);
-                            $synced++;
+                $targetDirs = array_unique([
+                    $currentDir,
+                    '/home/berandad/public_html',
+                    '/home/berandad/pksoganilir.com/public',
+                ]);
+
+                foreach ($targetDirs as $targetDir) {
+                    if (is_dir($targetDir) && is_dir($sourcePublic)) {
+                        $iterator = new RecursiveIteratorIterator(
+                            new RecursiveDirectoryIterator($sourcePublic, RecursiveDirectoryIterator::SKIP_DOTS),
+                            RecursiveIteratorIterator::SELF_FIRST
+                        );
+                        foreach ($iterator as $item) {
+                            $subPath = $iterator->getSubPathName();
+                            $target = $targetDir.'/'.$subPath;
+                            if ($item->isDir()) {
+                                if (! is_dir($target)) {
+                                    @mkdir($target, 0755, true);
+                                }
+                            } else {
+                                @copy($item->getPathname(), $target);
+                                $synced++;
+                            }
                         }
                     }
                 }
-                $results['Asset Sync'] = "Berhasil menyinkronkan {$synced} file aset dari repositori public/ ke web document root ({$currentDir})!";
+
+                $results['Asset Sync'] = "Berhasil menyinkronkan {$synced} file aset dari repositori public/ ke seluruh web document root (pksoganilir.com & oganilir.pks.id)!";
                 $results['storage:link'] = runArtisanCmd($kernel, 'storage:link');
                 $results['cache:clear'] = runArtisanCmd($kernel, 'optimize:clear');
                 $results['config:cache'] = runArtisanCmd($kernel, 'config:cache');
                 $results['route:cache'] = runArtisanCmd($kernel, 'route:cache');
                 $results['view:cache'] = runArtisanCmd($kernel, 'view:cache');
             }
-        } catch (\Throwable $e) {
-            $results['Bootstrap Error'] = $e->getMessage() . " (" . $e->getFile() . ":" . $e->getLine() . ")";
+        } catch (Throwable $e) {
+            $results['Bootstrap Error'] = $e->getMessage().' ('.$e->getFile().':'.$e->getLine().')';
         }
         break;
 
     case 'status':
     default:
         $results['Lokasi Root Laravel'] = $laravelRoot;
-        $results['Versi PHP'] = PHP_VERSION . (version_compare(PHP_VERSION, '8.2.0', '>=') ? ' (OK)' : ' (TERLALU RENDAH - Butuh PHP 8.2+)');
+        $results['Versi PHP'] = PHP_VERSION.(version_compare(PHP_VERSION, '8.2.0', '>=') ? ' (OK)' : ' (TERLALU RENDAH - Butuh PHP 8.2+)');
         $results['Status vendor/'] = $hasVendor ? 'TERSEDIA (Autoloader Siap)' : 'BELUM ADA (Perlu composer install atau upload vendor.zip)';
-        $results['Status file .env'] = $hasEnv ? 'TERSEDIA (' . $envFile . ')' : 'BELUM ADA (Gunakan tombol Buat .env Otomatis)';
+        $results['Status file .env'] = $hasEnv ? 'TERSEDIA ('.$envFile.')' : 'BELUM ADA (Gunakan tombol Buat .env Otomatis)';
 
         // Test Database connection using PDO directly from .env variables
-        if ($hasEnv && !empty($envVars['DB_DATABASE'])) {
+        if ($hasEnv && ! empty($envVars['DB_DATABASE'])) {
             $dbHost = $envVars['DB_HOST'] ?? '127.0.0.1';
             $dbPort = $envVars['DB_PORT'] ?? '3306';
             $dbName = $envVars['DB_DATABASE'];
@@ -255,15 +275,15 @@ switch ($action) {
                 $stmt = $pdo->query("SELECT count(*) FROM information_schema.tables WHERE table_schema = '{$dbName}'");
                 $tableCount = $stmt->fetchColumn();
                 $results['Koneksi Database MySQL'] = "SUKSES TERHUBUNG ke database '{$dbName}' ({$tableCount} tabel terdeteksi)";
-            } catch (\Throwable $e) {
-                $results['Koneksi Database MySQL'] = "GAGAL: " . $e->getMessage();
+            } catch (Throwable $e) {
+                $results['Koneksi Database MySQL'] = 'GAGAL: '.$e->getMessage();
             }
         } else {
-            $results['Koneksi Database MySQL'] = "Menunggu konfigurasi .env";
+            $results['Koneksi Database MySQL'] = 'Menunggu konfigurasi .env';
         }
 
         // Storage writable check
-        $storageDir = $laravelRoot . '/storage';
+        $storageDir = $laravelRoot.'/storage';
         $results['Folder Storage Writable'] = is_writable($storageDir) ? 'AKTIF (Bisa ditulisi)' : 'PERIKSA IZIN (Gunakan tombol Perbaiki Storage)';
         $results['Dukungan GD WebP'] = function_exists('imagewebp') ? 'AKTIF (Siap konversi gambar WebP otomatis)' : 'NON-AKTIF';
         break;
@@ -304,9 +324,9 @@ switch ($action) {
         <div class="nav-links">
             <a href="?token=<?= $secretToken ?>&amp;action=status" class="blue">🔍 Cek Status Sistem</a>
             <a href="?token=<?= $secretToken ?>&amp;action=git_reset" style="background:#dc2626;">🔄 Bersihkan Git &amp; Aktifkan Deploy</a>
-            <?php if (!$hasEnv): ?>
+            <?php if (! $hasEnv) { ?>
                 <a href="?token=<?= $secretToken ?>&amp;action=create_env" class="green">📝 Buat File .env Otomatis</a>
-            <?php endif; ?>
+            <?php } ?>
             <a href="?token=<?= $secretToken ?>&amp;action=fix_storage" class="gray">📁 Perbaiki Izin Storage (0775)</a>
             <a href="?token=<?= $secretToken ?>&amp;action=extract_vendor" class="gray">📦 Ekstrak vendor.zip</a>
         </div>
@@ -321,13 +341,13 @@ switch ($action) {
         </div>
 
         <div class="result-box">
-            <?php foreach ($results as $k => $v): ?>
+            <?php foreach ($results as $k => $v) { ?>
                 <strong>[<?= htmlspecialchars($k) ?>]</strong><br>
                 <?= nl2br(htmlspecialchars(trim($v))) ?><br><br>
-            <?php endforeach; ?>
+            <?php } ?>
         </div>
 
-        <?php if (!$hasVendor): ?>
+        <?php if (! $hasVendor) { ?>
             <div class="terminal-box">
                 <strong>💡 Solusi Folder vendor/ yang Belum Ada:</strong><br>
                 Folder <code>vendor/</code> tidak ikut di-commit ke Git. Untuk memasangnya di server cPanel:<br>
@@ -336,7 +356,7 @@ switch ($action) {
                 <div class="terminal-cmd">cd <?= htmlspecialchars($laravelRoot) ?> &amp;&amp; composer install --no-dev --optimize-autoloader</div>
                 <em>Alternatif tanpa terminal:</em> Zip folder <code>vendor</code> di komputer lokal Anda, upload <code>vendor.zip</code> ke folder <code><?= htmlspecialchars($laravelRoot) ?></code> melalui cPanel File Manager, lalu klik tombol <strong>Ekstrak vendor.zip</strong> di atas.
             </div>
-        <?php endif; ?>
+        <?php } ?>
 
         <div class="warning">
             ⚠️ <strong>Keamanan:</strong> Setelah website Anda berjalan lancar di cPanel, hapus file <code>public/cpanel_setup.php</code> demi keamanan sistem produksi.

@@ -114,7 +114,36 @@ class AdminDashboardController extends Controller
             Artisan::call('migrate', ['--force' => true]);
             $output = Artisan::output();
 
-            return back()->with('success', 'Migrasi database berhasil dijalankan! '.(trim($output) ?: 'Tabel berhasil dibuat.'));
+            // Sync build assets to all docroots (pksoganilir.com/public & public_html for oganilir.pks.id)
+            $sourceBuild = public_path('build');
+            $targetDirs = [
+                '/home/berandad/public_html/build',
+                '/home/berandad/pksoganilir.com/public/build',
+            ];
+            foreach ($targetDirs as $targetDir) {
+                if (is_dir(dirname($targetDir)) && is_dir($sourceBuild) && realpath(dirname($targetDir)) !== realpath(public_path())) {
+                    if (! is_dir($targetDir)) {
+                        @mkdir($targetDir, 0755, true);
+                    }
+                    $iterator = new \RecursiveIteratorIterator(
+                        new \RecursiveDirectoryIterator($sourceBuild, \RecursiveDirectoryIterator::SKIP_DOTS),
+                        \RecursiveIteratorIterator::SELF_FIRST
+                    );
+                    foreach ($iterator as $item) {
+                        $subPath = $iterator->getSubPathName();
+                        $target = $targetDir.'/'.$subPath;
+                        if ($item->isDir()) {
+                            if (! is_dir($target)) {
+                                @mkdir($target, 0755, true);
+                            }
+                        } else {
+                            @copy($item->getPathname(), $target);
+                        }
+                    }
+                }
+            }
+
+            return back()->with('success', 'Migrasi database & sinkronisasi aset berhasil dijalankan! '.(trim($output) ?: 'Tabel berhasil dibuat.'));
         } catch (\Throwable $e) {
             return back()->with('error', 'Gagal menjalankan migrasi: '.$e->getMessage());
         }
