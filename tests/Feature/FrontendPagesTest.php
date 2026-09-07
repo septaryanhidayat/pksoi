@@ -208,3 +208,31 @@ test('sambutan page renders dynamic content from database', function () {
     $response->assertStatus(200);
     $response->assertSee('Uji coba pidato resmi dinamis ketua DPD.', false);
 });
+
+test('anggota dewan page dynamically reflects updated name and photo from database', function () {
+    $dewan = AnggotaDewan::create([
+        'name' => 'Nama Anggota Lama',
+        'slug' => 'nama-anggota-lama',
+        'position' => 'Anggota Fraksi PKS',
+        'fraction' => 'Dapil 2 Ogan Ilir',
+        'photo' => '/uploads/dewan/foto-lama.webp',
+        'order' => 1,
+    ]);
+
+    $res1 = $this->get('/anggota-dewan');
+    $res1->assertStatus(200);
+    $res1->assertSee('Nama Anggota Lama');
+    $res1->assertSee('/uploads/dewan/foto-lama.webp');
+
+    $dewan->update([
+        'name' => 'Ustadz Fulan Al-Hafidz, M.Ag',
+        'photo' => '/uploads/dewan/foto-terbaru.webp',
+        'fraction' => 'Dapil 3 Ogan Ilir',
+    ]);
+
+    $res2 = $this->get('/anggota-dewan');
+    $res2->assertStatus(200);
+    $res2->assertSee('Ustadz Fulan Al-Hafidz, M.Ag');
+    $res2->assertSee('/uploads/dewan/foto-terbaru.webp');
+    $res2->assertDontSee('Nama Anggota Lama');
+});

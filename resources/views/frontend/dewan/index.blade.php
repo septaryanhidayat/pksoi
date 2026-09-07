@@ -32,62 +32,33 @@
         <div class="w-16 h-1 bg-[#f37023] mx-auto rounded-full mt-3"></div>
     </div>
 
-    @php
-        $dewanData = [
-            [
-                'name' => 'H. Asmawi',
-                'position' => 'Anggota DPRD Fraksi PKS',
-                'dapil' => 'Dapil 4 Ogan Ilir',
-                'photo' => '/uploads/2023/11/Asmawi.webp',
-                'summary' => 'Mewakili aspirasi masyarakat Kecamatan Muara Kuang, Rambang Kuang, dan Lubuk Keliat dengan dedikasi penuh memperjuangkan kesejahteraan pedesaan.'
-            ],
-            [
-                'name' => 'Eko Satria Asnan, S.E.',
-                'position' => 'Anggota DPRD Fraksi PKS',
-                'dapil' => 'Dapil 5 Ogan Ilir',
-                'photo' => '/uploads/2023/11/Eko-Satria.webp',
-                'summary' => 'Mengawal pembangunan infrastruktur, ekonomi kerakyatan, dan pendidikan di wilayah Kecamatan Tanjung Batu dan Payaraman.'
-            ],
-            [
-                'name' => 'Muhammad Sayuti, S.H.',
-                'position' => 'Ketua Fraksi PKS DPRD OI',
-                'dapil' => 'Dapil 3 Ogan Ilir',
-                'photo' => '/uploads/2023/11/Sayuti.webp',
-                'summary' => 'Ketua Fraksi PKS DPRD Kabupaten Ogan Ilir, memperjuangkan kebijakan publik yang pro-rakyat, transparansi anggaran, dan keadilan sosial.'
-            ],
-            [
-                'name' => 'Muhammad Ilham',
-                'position' => 'Anggota DPRD Fraksi PKS',
-                'dapil' => 'Dapil 1 Ogan Ilir',
-                'photo' => '/uploads/2025/09/Web-DPD-Dewan-Ilham.webp',
-                'summary' => 'Wakil rakyat Dapil 1 meliputi Indralaya, Indralaya Utara, dan Indralaya Selatan yang aktif memperjuangkan kemajuan generasi muda dan UMKM.'
-            ],
-        ];
-    @endphp
-
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-        @foreach($dewanData as $idx => $d)
-            <div class="bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-2xl border border-gray-100 transition transform hover:-translate-y-1.5 flex flex-col justify-between reveal-fade-up delay-{{ $idx }}">
+        @forelse($dewan as $idx => $d)
+            <div class="bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-2xl border border-gray-100 transition transform hover:-translate-y-1.5 flex flex-col justify-between reveal-fade-up delay-{{ $idx % 4 }}">
                 
                 {{-- FOTO DEWAN --}}
                 <div class="h-80 w-full overflow-hidden bg-gray-100 relative group">
-                    <img src="{{ $d['photo'] }}" alt="{{ $d['name'] }}" class="w-full h-full object-cover object-top group-hover:scale-105 transition duration-500" onerror="this.src='/uploads/2025/09/logo-thumbnail.webp'">
+                    <img src="{{ $d->photo_url }}" alt="{{ $d->name }}" class="w-full h-full object-cover object-top group-hover:scale-105 transition duration-500" onerror="this.src='/uploads/2025/09/logo-thumbnail.webp'">
                     <div class="absolute bottom-0 inset-x-0 h-24 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
+                    @if($d->fraction)
                     <span class="absolute bottom-3 left-4 text-[11px] font-extrabold text-white bg-[#f37023] px-3 py-1 rounded-full shadow">
-                        {{ $d['dapil'] }}
+                        {{ $d->fraction }}
                     </span>
+                    @endif
                 </div>
 
                 {{-- DESKRIPSI DEWAN --}}
                 <div class="p-6 flex-grow flex flex-col justify-between space-y-4">
                     <div>
                         <h3 class="font-extrabold text-gray-900 text-lg leading-snug hover:text-[#f37023] transition">
-                            {{ $d['name'] }}
+                            {{ $d->name }}
                         </h3>
-                        <span class="text-xs font-semibold text-[#f37023] block mt-1">{{ $d['position'] }}</span>
-                        <p class="mt-3 text-xs text-gray-600 leading-relaxed font-light">
-                            {{ $d['summary'] }}
-                        </p>
+                        <span class="text-xs font-semibold text-[#f37023] block mt-1">{{ $d->position }}</span>
+                        @if($d->profile_summary)
+                        <div class="mt-3 text-xs text-gray-600 leading-relaxed font-light line-clamp-4">
+                            {!! strip_tags($d->profile_summary) !!}
+                        </div>
+                        @endif
                     </div>
 
                     <div class="pt-4 border-t border-gray-100 flex items-center justify-between text-xs text-gray-500">
@@ -99,7 +70,12 @@
                 </div>
 
             </div>
-        @endforeach
+        @empty
+            <div class="col-span-full text-center py-16 text-gray-400 bg-white rounded-3xl border border-gray-100">
+                <i class="fa-solid fa-users text-4xl text-gray-300 mb-3 block"></i>
+                <span>Belum ada data anggota dewan yang terdaftar.</span>
+            </div>
+        @endforelse
     </div>
 
 </div>
