@@ -161,9 +161,9 @@ switch ($action) {
         @exec($cmd, $output, $returnCode);
         $results['Git Pull & Sync'] = empty($output) ? 'Perintah dieksekusi' : implode("\n", $output);
 
-        // Langsung sinkronkan aset public ke kedua folder web root
+        // Langsung sinkronkan aset public ke folder web root pksoganilir.com
         $sourcePublic = $laravelRoot.'/public';
-        foreach (['/home/berandad/pksoganilir.com/public', '/home/berandad/public_html'] as $targetDir) {
+        foreach (['/home/berandad/pksoganilir.com/public'] as $targetDir) {
             if (is_dir($targetDir) && is_dir($sourcePublic)) {
                 $iterator = new RecursiveIteratorIterator(
                     new RecursiveDirectoryIterator($sourcePublic, RecursiveDirectoryIterator::SKIP_DOTS),
@@ -254,7 +254,6 @@ switch ($action) {
 
                 $targetDirs = array_unique([
                     $currentDir,
-                    '/home/berandad/public_html',
                     '/home/berandad/pksoganilir.com/public',
                 ]);
 
@@ -279,32 +278,7 @@ switch ($action) {
                     }
                 }
 
-                // Cross-sync: Pastikan folder build/ di /home/berandad/public_html identik dengan pksoganilir.com
-                $mainBuild = '/home/berandad/pksoganilir.com/public/build';
-                $secBuild = '/home/berandad/public_html/build';
-                if (is_dir($mainBuild) && is_dir('/home/berandad/public_html')) {
-                    if (! is_dir($secBuild)) {
-                        @mkdir($secBuild, 0755, true);
-                    }
-                    $iterator = new RecursiveIteratorIterator(
-                        new RecursiveDirectoryIterator($mainBuild, RecursiveDirectoryIterator::SKIP_DOTS),
-                        RecursiveIteratorIterator::SELF_FIRST
-                    );
-                    foreach ($iterator as $item) {
-                        $subPath = $iterator->getSubPathName();
-                        $target = $secBuild.'/'.$subPath;
-                        if ($item->isDir()) {
-                            if (! is_dir($target)) {
-                                @mkdir($target, 0755, true);
-                            }
-                        } else {
-                            @copy($item->getPathname(), $target);
-                            $synced++;
-                        }
-                    }
-                }
-
-                $results['Asset Sync'] = "Berhasil menyinkronkan {$synced} file aset dari repositori public/ ke seluruh web document root (pksoganilir.com & oganilir.pks.id)!";
+                $results['Asset Sync'] = "Berhasil menyinkronkan {$synced} file aset dari repositori public/ ke folder web document root pksoganilir.com!";
                 $results['storage:link'] = runArtisanCmd($kernel, 'storage:link');
                 $results['cache:clear'] = runArtisanCmd($kernel, 'optimize:clear');
                 $results['config:cache'] = runArtisanCmd($kernel, 'config:cache');

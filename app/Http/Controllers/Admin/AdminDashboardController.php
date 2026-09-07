@@ -114,10 +114,9 @@ class AdminDashboardController extends Controller
             Artisan::call('migrate', ['--force' => true]);
             $output = Artisan::output();
 
-            // Sync build assets to all docroots (pksoganilir.com/public & public_html for oganilir.pks.id)
+            // Sync build assets to pksoganilir.com/public docroot
             $sourceBuild = public_path('build');
             $targetDirs = [
-                '/home/berandad/public_html/build',
                 '/home/berandad/pksoganilir.com/public/build',
             ];
             foreach ($targetDirs as $targetDir) {

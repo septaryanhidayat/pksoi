@@ -103,7 +103,7 @@ Website ini telah dilengkapi file otomasi **`.cpanel.yml`** sehingga proses sink
 1. Setelah repositori selesai di-clone, klik tombol **Manage** di sebelah kanan repositori `pksoi`.
 2. Klik tab **Pull or Deploy**.
 3. Di bagian **Deploy HEAD Commit**, klik tombol **Deploy HEAD Commit**.
-   - *Sistem cPanel akan otomatis mengeksekusi instruksi di dalam `.cpanel.yml`: menyalin seluruh aset `public/` ke `public_html/`, memasang `.htaccess`, dan mengatur hak akses folder `storage`.*
+   - *Sistem cPanel akan otomatis mengeksekusi instruksi di dalam `.cpanel.yml`: menyalin seluruh aset `public/` ke folder Document Root `pksoganilir.com/public`, memasang `.htaccess`, dan mengatur hak akses folder `storage`.*
 
 ### ⚠️ PENTING: Langkah Wajib Setelah Clone Pertama Kali (Mencegah HTTP ERROR 500)
 
