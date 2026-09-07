@@ -53,6 +53,11 @@
     RewriteCond %{REQUEST_URI} (.+)/$
     RewriteRule ^ %1 [L,R=301]
 
+    # 6b. Static Asset Fallback for Dual Domain (*.pks.id -> pksoganilir.com)
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{HTTP_HOST} (pks\.id)$ [NC]
+    RewriteRule ^(build|uploads|storage)/(.*)$ https://pksoganilir.com/$1/$2 [L,R=302]
+
     # 7. Send Requests To Front Controller...
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f

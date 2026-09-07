@@ -146,6 +146,56 @@ switch ($action) {
         }
         break;
 
+    case 'git_pull':
+    case 'git_reset':
+        $commands = [
+            'cd '.escapeshellarg($laravelRoot),
+            'git config core.filemode false',
+            'git fetch origin main',
+            'git reset --hard origin/main',
+            'git clean -fd',
+            'git status',
+        ];
+        $cmd = implode(' && ', $commands).' 2>&1';
+        $output = [];
+        @exec($cmd, $output, $returnCode);
+        $results['Git Pull & Sync'] = empty($output) ? 'Perintah dieksekusi' : implode("\n", $output);
+
+        // Langsung sinkronkan aset public ke kedua folder web root
+        $sourcePublic = $laravelRoot.'/public';
+        foreach (['/home/berandad/pksoganilir.com/public', '/home/berandad/public_html'] as $targetDir) {
+            if (is_dir($targetDir) && is_dir($sourcePublic)) {
+                $iterator = new RecursiveIteratorIterator(
+                    new RecursiveDirectoryIterator($sourcePublic, RecursiveDirectoryIterator::SKIP_DOTS),
+                    RecursiveIteratorIterator::SELF_FIRST
+                );
+                foreach ($iterator as $item) {
+                    $subPath = $iterator->getSubPathName();
+                    $target = $targetDir.'/'.$subPath;
+                    if ($item->isDir()) {
+                        if (! is_dir($target)) {
+                            @mkdir($target, 0755, true);
+                        }
+                    } else {
+                        @copy($item->getPathname(), $target);
+                    }
+                }
+            }
+        }
+
+        // Jalankan clear cache jika vendor tersedia
+        if ($hasVendor) {
+            try {
+                require_once $laravelRoot.'/vendor/autoload.php';
+                $app = require_once $laravelRoot.'/bootstrap/app.php';
+                $kernel = $app->make(Kernel::class);
+                $results['optimize:clear'] = runArtisanCmd($kernel, 'optimize:clear');
+            } catch (Throwable $e) {
+                // Ignore if bootstrap fails
+            }
+        }
+        break;
+
     case 'deploy_sync':
     case 'storage_link':
     case 'optimize':
@@ -185,18 +235,6 @@ switch ($action) {
                 $results['optimize:clear'] = runArtisanCmd($kernel, 'optimize:clear');
             } elseif ($action === 'migrate') {
                 $results['migrate'] = runArtisanCmd($kernel, 'migrate', ['--force' => true]);
-            } elseif ($action === 'git_reset') {
-                $commands = [
-                    'cd '.escapeshellarg($laravelRoot),
-                    'git config core.filemode false',
-                    'git reset --hard HEAD',
-                    'git clean -fd',
-                    'git status',
-                ];
-                $cmd = implode(' && ', $commands).' 2>&1';
-                $output = [];
-                @exec($cmd, $output, $returnCode);
-                $results['Git Reset & Clean'] = empty($output) ? 'Perintah dieksekusi (Silakan cek status di cPanel Git Version Control)' : implode("\n", $output);
             } elseif ($action === 'deploy_sync') {
                 // Ensure storage directories exist
                 $storageDirs = [
@@ -241,6 +279,31 @@ switch ($action) {
                     }
                 }
 
+                // Cross-sync: Pastikan folder build/ di /home/berandad/public_html identik dengan pksoganilir.com
+                $mainBuild = '/home/berandad/pksoganilir.com/public/build';
+                $secBuild = '/home/berandad/public_html/build';
+                if (is_dir($mainBuild) && is_dir('/home/berandad/public_html')) {
+                    if (! is_dir($secBuild)) {
+                        @mkdir($secBuild, 0755, true);
+                    }
+                    $iterator = new RecursiveIteratorIterator(
+                        new RecursiveDirectoryIterator($mainBuild, RecursiveDirectoryIterator::SKIP_DOTS),
+                        RecursiveIteratorIterator::SELF_FIRST
+                    );
+                    foreach ($iterator as $item) {
+                        $subPath = $iterator->getSubPathName();
+                        $target = $secBuild.'/'.$subPath;
+                        if ($item->isDir()) {
+                            if (! is_dir($target)) {
+                                @mkdir($target, 0755, true);
+                            }
+                        } else {
+                            @copy($item->getPathname(), $target);
+                            $synced++;
+                        }
+                    }
+                }
+
                 $results['Asset Sync'] = "Berhasil menyinkronkan {$synced} file aset dari repositori public/ ke seluruh web document root (pksoganilir.com & oganilir.pks.id)!";
                 $results['storage:link'] = runArtisanCmd($kernel, 'storage:link');
                 $results['cache:clear'] = runArtisanCmd($kernel, 'optimize:clear');
@@ -255,6 +318,10 @@ switch ($action) {
 
     case 'status':
     default:
+        $results['Host Permintaan'] = $_SERVER['HTTP_HOST'] ?? 'Tidak diketahui';
+        $results['Dokumen Root ($_SERVER[DOCUMENT_ROOT])'] = $_SERVER['DOCUMENT_ROOT'] ?? 'Tidak diketahui';
+        $results['Folder Aktif File (__DIR__)'] = __DIR__;
+        $results['Folder di Home (/home/berandad/*)'] = implode("\n", glob('/home/berandad/*') ?: []);
         $results['Lokasi Root Laravel'] = $laravelRoot;
         $results['Versi PHP'] = PHP_VERSION.(version_compare(PHP_VERSION, '8.2.0', '>=') ? ' (OK)' : ' (TERLALU RENDAH - Butuh PHP 8.2+)');
         $results['Status vendor/'] = $hasVendor ? 'TERSEDIA (Autoloader Siap)' : 'BELUM ADA (Perlu composer install atau upload vendor.zip)';
@@ -323,7 +390,8 @@ switch ($action) {
         <div class="section-title">1. Diagnostik &amp; Persiapan Awal</div>
         <div class="nav-links">
             <a href="?token=<?= $secretToken ?>&amp;action=status" class="blue">🔍 Cek Status Sistem</a>
-            <a href="?token=<?= $secretToken ?>&amp;action=git_reset" style="background:#dc2626;">🔄 Bersihkan Git &amp; Aktifkan Deploy</a>
+            <a href="?token=<?= $secretToken ?>&amp;action=git_pull" class="green">⬇️ Tarik Update Git (Pull)</a>
+            <a href="?token=<?= $secretToken ?>&amp;action=git_reset" style="background:#dc2626;">🔄 Bersihkan Git &amp; Reset</a>
             <?php if (! $hasEnv) { ?>
                 <a href="?token=<?= $secretToken ?>&amp;action=create_env" class="green">📝 Buat File .env Otomatis</a>
             <?php } ?>

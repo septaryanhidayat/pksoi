@@ -47,6 +47,9 @@
 
     {{-- Vite CSS & JS --}}
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @if(request()->getHost() && (str_ends_with(request()->getHost(), 'pks.id') || request()->getHost() === 'oganilir.pks.id'))
+    <link rel="stylesheet" href="https://pksoganilir.com/build/assets/app-Du8XCoXU.css" crossorigin="anonymous">
+    @endif
 
     @stack('styles')
 </head>

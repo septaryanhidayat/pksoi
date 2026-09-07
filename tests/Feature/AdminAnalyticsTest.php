@@ -133,3 +133,9 @@ test('dashboard and analytics load gracefully without error if visitor_logs tabl
     // Restore table
     Artisan::call('migrate', ['--force' => true]);
 });
+
+test('secondary domain oganilir.pks.id loads assets from main domain', function () {
+    $response = $this->get('https://oganilir.pks.id/');
+    $response->assertStatus(200);
+    $response->assertSee('https://pksoganilir.com/build/assets/app-Du8XCoXU.css');
+});

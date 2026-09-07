@@ -8,6 +8,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Vite;
 use Symfony\Component\HttpFoundation\Response;
 
 class IncrementVisitorCounter
@@ -23,6 +24,14 @@ class IncrementVisitorCounter
      */
     public function handle(Request $request, Closure $next): Response
     {
+        // Dual-domain asset support: Jika web diakses via domain sekunder (oganilir.pks.id),
+        // arahkan aset Vite dan publik ke https://pksoganilir.com agar styling dan JS selalu sinkron.
+        $host = $request->getHost();
+        if ($host && (str_ends_with($host, 'pks.id') || $host === 'oganilir.pks.id')) {
+            config(['app.asset_url' => 'https://pksoganilir.com']);
+            Vite::createAssetPathsUsing(fn ($path) => 'https://pksoganilir.com/'.ltrim($path, '/'));
+        }
+
         $counterFile = storage_path('app/visitor_hits.txt');
 
         // Ambil base hit counter dari database Setting jika ada
