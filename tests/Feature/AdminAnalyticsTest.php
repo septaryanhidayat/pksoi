@@ -3,7 +3,9 @@
 use App\Models\Setting;
 use App\Models\User;
 use App\Models\VisitorLog;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 test('public page visit records real visitor log in database', function () {
     // Kunjungi beranda
@@ -105,4 +107,29 @@ test('admin can update analytics settings in database', function () {
     $response->assertRedirect();
     $this->assertEquals('60000', Setting::get('analytics_base_hits'));
     $this->assertEquals('1', Setting::get('analytics_enabled'));
+});
+
+test('admin can execute database migration runner', function () {
+    $admin = User::factory()->create(['role' => 'admin']);
+
+    $response = $this->actingAs($admin)->post('/admin/migrate');
+    $response->assertRedirect();
+    $response->assertSessionHas('success');
+});
+
+test('dashboard and analytics load gracefully without error if visitor_logs table is missing', function () {
+    $admin = User::factory()->create(['role' => 'admin']);
+
+    Schema::dropIfExists('visitor_logs');
+
+    $responseDashboard = $this->actingAs($admin)->get('/admin');
+    $responseDashboard->assertStatus(200);
+    $responseDashboard->assertSee('Tabel Database');
+
+    $responseAnalytics = $this->actingAs($admin)->get('/admin/analytics');
+    $responseAnalytics->assertStatus(200);
+    $responseAnalytics->assertSee('Tabel Database');
+
+    // Restore table
+    Artisan::call('migrate', ['--force' => true]);
 });

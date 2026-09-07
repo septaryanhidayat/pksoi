@@ -100,6 +100,9 @@ Route::prefix('admin')->middleware('auth')->name('admin.')->group(function () {
     // Website & SEO Settings
     Route::get('/settings', [AdminSettingController::class, 'index'])->name('settings.index');
     Route::post('/settings', [AdminSettingController::class, 'update'])->name('settings.update');
+
+    // Database Migration Runner
+    Route::post('/migrate', [AdminDashboardController::class, 'runMigration'])->name('migrate');
 });
 
 // === FRONTEND PUBLIC ROUTES ===

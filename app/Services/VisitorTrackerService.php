@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 
 class VisitorTrackerService
@@ -18,6 +19,11 @@ class VisitorTrackerService
     public function record(Request $request): ?VisitorLog
     {
         try {
+            // Pastikan tabel visitor_logs sudah dibuat
+            if (! Schema::hasTable('visitor_logs')) {
+                return null;
+            }
+
             // 1. Cek apakah tracking diaktifkan di pengaturan
             if (Setting::get('analytics_enabled', '1') === '0') {
                 return null;

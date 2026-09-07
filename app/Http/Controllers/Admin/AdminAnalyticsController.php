@@ -8,12 +8,45 @@ use App\Models\VisitorLog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 class AdminAnalyticsController extends Controller
 {
     public function index(Request $request)
     {
         $period = $request->query('period', '7days');
+
+        $hasVisitorLogs = false;
+        try {
+            $hasVisitorLogs = Schema::hasTable('visitor_logs');
+        } catch (\Throwable $e) {
+            $hasVisitorLogs = false;
+        }
+
+        if (! $hasVisitorLogs) {
+            return view('admin.analytics.index', [
+                'hasVisitorLogs' => false,
+                'period' => $period,
+                'totalPageviews' => 0,
+                'uniqueVisitors' => 0,
+                'todayPageviews' => 0,
+                'todayUniques' => 0,
+                'yesterdayPageviews' => 0,
+                'yesterdayUniques' => 0,
+                'mobilePercentage' => 0,
+                'chartLabels' => [],
+                'chartPageviews' => [],
+                'chartUniques' => [],
+                'topPages' => collect(),
+                'trafficSources' => collect(),
+                'topLocations' => collect(),
+                'devices' => collect(),
+                'browsers' => collect(),
+                'platforms' => collect(),
+                'recentVisits' => collect(),
+                'totalBotsBlocked' => 0,
+            ]);
+        }
 
         // Query dasar (hanya pengunjung manusia asli)
         $baseQuery = VisitorLog::humans();
@@ -155,6 +188,7 @@ class AdminAnalyticsController extends Controller
         $totalBotsBlocked = VisitorLog::where('is_bot', true)->count();
 
         return view('admin.analytics.index', compact(
+            'hasVisitorLogs',
             'period',
             'totalPageviews',
             'uniqueVisitors',
@@ -182,6 +216,11 @@ class AdminAnalyticsController extends Controller
      */
     public function prune(Request $request)
     {
+        if (! Schema::hasTable('visitor_logs')) {
+            return redirect()->route('admin.analytics.index')
+                ->with('error', 'Tabel visitor_logs belum dibuat di database.');
+        }
+
         $days = (int) $request->input('days', 90);
         if ($days < 7) {
             $days = 7;

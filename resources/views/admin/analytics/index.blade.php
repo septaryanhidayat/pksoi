@@ -38,6 +38,84 @@
         </div>
     </div>
 
+    @if(! ($hasVisitorLogs ?? false))
+        <div class="bg-amber-50 border border-amber-200/90 rounded-3xl p-6 sm:p-8 text-amber-950 space-y-5 shadow-xs">
+            <div class="flex items-start space-x-4">
+                <div class="w-12 h-12 rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center shrink-0 text-2xl">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                </div>
+                <div class="space-y-1">
+                    <h3 class="text-base font-black text-amber-950">Tabel Database <code>visitor_logs</code> Belum Terpasang di Server MySQL</h3>
+                    <p class="text-xs sm:text-sm text-amber-800 leading-relaxed">
+                        Anda telah menarik (deploy) file kode terbaru, namun tabel database untuk mencatat analitik belum dibuat di database MySQL hosting server Anda. Pilih salah satu cara berikut untuk membuatnya:
+                    </p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+                {{-- Opsi 1: Otomatis --}}
+                <div class="bg-white p-5 rounded-2xl border border-amber-200 shadow-xs space-y-3">
+                    <span class="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 uppercase">Cara 1 (Rekomendasi / Paling Praktis)</span>
+                    <h4 class="font-bold text-xs text-slate-800">Satu Klik Migrasi Otomatis</h4>
+                    <p class="text-xs text-slate-500">Sistem akan menjalankan perintah migrasi database langsung dari panel ini.</p>
+                    <form action="{{ route('admin.migrate') }}" method="POST" onsubmit="return confirm('Jalankan migrasi database sekarang?');">
+                        @csrf
+                        <button type="submit" class="w-full inline-flex items-center justify-center space-x-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-4 py-2.5 rounded-xl transition shadow-sm cursor-pointer">
+                            <i class="fa-solid fa-play text-xs"></i>
+                            <span>Jalankan Migrasi Database Otomatis</span>
+                        </button>
+                    </form>
+                </div>
+
+                {{-- Opsi 2: phpMyAdmin / Terminal --}}
+                <div class="bg-white p-5 rounded-2xl border border-amber-200 shadow-xs space-y-3">
+                    <span class="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-slate-100 text-slate-700 uppercase">Cara 2 (Manual via phpMyAdmin / SSH)</span>
+                    <h4 class="font-bold text-xs text-slate-800">Via Terminal atau phpMyAdmin</h4>
+                    <p class="text-xs text-slate-500">Di Terminal cPanel / SSH jalankan: <code class="bg-slate-100 px-1.5 py-0.5 rounded text-[11px] font-mono font-bold text-slate-900">php artisan migrate</code></p>
+                    <details class="text-xs group">
+                        <summary class="font-bold text-[#ff5001] cursor-pointer hover:underline list-none flex items-center space-x-1">
+                            <i class="fa-solid fa-code text-[11px]"></i>
+                            <span>Klik untuk melihat Query SQL (phpMyAdmin)</span>
+                        </summary>
+                        <div class="mt-2 bg-slate-900 text-slate-100 p-3 rounded-xl font-mono text-[10px] overflow-x-auto select-all">
+CREATE TABLE IF NOT EXISTS `visitor_logs` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `ip_address` varchar(45) DEFAULT NULL,
+  `session_id` varchar(80) DEFAULT NULL,
+  `user_agent` text DEFAULT NULL,
+  `device_type` varchar(30) NOT NULL DEFAULT 'Desktop',
+  `browser` varchar(50) DEFAULT NULL,
+  `platform` varchar(50) DEFAULT NULL,
+  `referer` text DEFAULT NULL,
+  `referer_source` varchar(50) DEFAULT NULL,
+  `url` text DEFAULT NULL,
+  `path` varchar(255) DEFAULT NULL,
+  `page_title` varchar(255) DEFAULT NULL,
+  `country` varchar(100) DEFAULT NULL,
+  `country_code` varchar(10) DEFAULT NULL,
+  `city` varchar(100) DEFAULT NULL,
+  `region` varchar(100) DEFAULT NULL,
+  `is_bot` tinyint(1) NOT NULL DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `visitor_logs_ip_address_index` (`ip_address`),
+  KEY `visitor_logs_session_id_index` (`session_id`),
+  KEY `visitor_logs_device_type_index` (`device_type`),
+  KEY `visitor_logs_referer_source_index` (`referer_source`),
+  KEY `visitor_logs_path_index` (`path`),
+  KEY `visitor_logs_country_index` (`country`),
+  KEY `visitor_logs_city_index` (`city`),
+  KEY `visitor_logs_is_bot_index` (`is_bot`),
+  KEY `visitor_logs_created_at_is_bot_index` (`created_at`,`is_bot`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </div>
+    @endif
+
     {{-- KPI METRICS CARDS --}}
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         
