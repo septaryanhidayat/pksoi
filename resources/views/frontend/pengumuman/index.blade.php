@@ -52,7 +52,7 @@
                         <i class="fa-solid fa-arrow-right ml-1.5 text-[10px]"></i>
                     </a>
                     <span class="text-[11px] text-gray-400 font-normal">
-                        {{ $item->post_date ? \Carbon\Carbon::parse($item->post_date)->translatedFormat('d M Y') : '' }}
+                        {{ $item->created_at ? $item->created_at->translatedFormat('d M Y') : '' }}
                     </span>
                 </div>
             </div>

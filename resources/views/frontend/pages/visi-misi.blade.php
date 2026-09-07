@@ -139,7 +139,7 @@
                                     {{ $lp->title }}
                                 </h4>
                                 <span class="text-[11px] text-gray-400 block mt-1">
-                                    {{ $lp->post_date ? \Carbon\Carbon::parse($lp->post_date)->translatedFormat('d M Y') : '' }}
+                                    {{ $lp->published_at ? $lp->published_at->translatedFormat('d M Y') : ($lp->created_at ? $lp->created_at->translatedFormat('d M Y') : '') }}
                                 </span>
                             </div>
                         </a>
@@ -162,15 +162,15 @@
                     @forelse($latestAgendas ?? [] as $la)
                         <a href="{{ route('agenda.show', $la->slug) }}" class="flex items-start space-x-3 group p-3 rounded-xl hover:bg-orange-50/50 transition">
                             <div class="w-12 h-12 rounded-xl bg-orange-100 text-[#f37023] flex flex-col items-center justify-center flex-shrink-0 font-bold text-xs">
-                                <span class="text-sm font-extrabold leading-none">{{ $la->post_date ? \Carbon\Carbon::parse($la->post_date)->format('d') : '01' }}</span>
-                                <span class="text-[9px] uppercase">{{ $la->post_date ? \Carbon\Carbon::parse($la->post_date)->format('M') : 'PKS' }}</span>
+                                <span class="text-sm font-extrabold leading-none">{{ $la->event_date ? $la->event_date->format('d') : '01' }}</span>
+                                <span class="text-[9px] uppercase">{{ $la->event_date ? $la->event_date->translatedFormat('M') : 'PKS' }}</span>
                             </div>
                             <div>
                                 <h4 class="text-xs font-bold text-gray-800 group-hover:text-[#f37023] transition line-clamp-2 leading-snug">
                                     {{ $la->title }}
                                 </h4>
                                 <span class="text-[11px] text-gray-400 block mt-1">
-                                    <i class="fa-solid fa-location-dot mr-1 text-orange-400"></i> Ogan Ilir
+                                    <i class="fa-solid fa-location-dot mr-1 text-orange-400"></i> {{ $la->location ?: 'Kabupaten Ogan Ilir' }}
                                 </span>
                             </div>
                         </a>

@@ -36,10 +36,10 @@
             <div class="bg-white p-6 sm:p-8 rounded-3xl shadow-md hover:shadow-xl border border-gray-100 flex flex-col sm:flex-row gap-6 transition transform hover:-translate-y-1 reveal-fade-up delay-{{ $idx % 4 }}">
                 <div class="bg-orange-50 border-2 border-orange-200 rounded-2xl p-4 text-center flex flex-col items-center justify-center flex-shrink-0 w-24 h-24 sm:w-28 sm:h-28 shadow-inner">
                     <span class="text-3xl font-extrabold text-[#f37023]">
-                        {{ $agenda->post_date ? \Carbon\Carbon::parse($agenda->post_date)->format('d') : '01' }}
+                        {{ $agenda->event_date ? $agenda->event_date->format('d') : '01' }}
                     </span>
                     <span class="text-xs uppercase font-extrabold text-gray-700 mt-0.5">
-                        {{ $agenda->post_date ? \Carbon\Carbon::parse($agenda->post_date)->translatedFormat('M Y') : '2026' }}
+                        {{ $agenda->event_date ? $agenda->event_date->translatedFormat('M Y') : '2026' }}
                     </span>
                 </div>
                 <div class="flex-grow flex flex-col justify-between space-y-3">

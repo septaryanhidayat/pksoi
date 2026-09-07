@@ -7,6 +7,8 @@ use App\Models\Category;
 use App\Models\Download;
 use App\Models\Pengumuman;
 use App\Models\Post;
+use App\Models\Setting;
+use Illuminate\Support\Facades\View;
 
 test('home page renders all authentic sections successfully', function () {
     $response = $this->get('/');
@@ -72,11 +74,25 @@ test('static profil pages render successfully', function () {
         'status' => 'publish',
         'type' => 'page',
     ]);
+    Post::create([
+        'title' => 'Berita Terkini PKS',
+        'slug' => 'berita-terkini-pks',
+        'content' => 'Konten berita',
+        'status' => 'publish',
+        'type' => 'post',
+        'published_at' => now(),
+    ]);
+    Agenda::create([
+        'title' => 'Musda PKS OI',
+        'slug' => 'musda-pks-oi',
+        'event_date' => now()->addDays(2),
+        'status' => 'publish',
+    ]);
 
     $this->get('/sambutan-ketua-dpd')->assertStatus(200);
     $this->get('/tentang-kami')->assertStatus(200);
-    $this->get('/visi-dan-misi')->assertStatus(200);
-    $this->get('/sejarah')->assertStatus(200);
+    $this->get('/visi-dan-misi')->assertStatus(200)->assertSee('Berita Terkini PKS')->assertSee('Musda PKS OI');
+    $this->get('/sejarah')->assertStatus(200)->assertSee('Berita Terkini PKS')->assertSee('Musda PKS OI');
     $this->get('/struktur-kepengurusan')->assertStatus(200);
 });
 
@@ -155,13 +171,13 @@ test('footer has visitor counter with data-target and responsive mobile center a
 });
 
 test('site settings update dynamically reflects across header, footer, and contact page', function () {
-    \App\Models\Setting::updateOrCreate(['key' => 'contact_phone'], ['value' => '08999888777', 'group' => 'general']);
-    \App\Models\Setting::updateOrCreate(['key' => 'contact_email'], ['value' => 'sekretariat@pks-oi.id', 'group' => 'general']);
-    \App\Models\Setting::updateOrCreate(['key' => 'contact_address'], ['value' => 'Gedung Dakwah DPD PKS Ogan Ilir Baru', 'group' => 'general']);
+    Setting::updateOrCreate(['key' => 'contact_phone'], ['value' => '08999888777', 'group' => 'general']);
+    Setting::updateOrCreate(['key' => 'contact_email'], ['value' => 'sekretariat@pks-oi.id', 'group' => 'general']);
+    Setting::updateOrCreate(['key' => 'contact_address'], ['value' => 'Gedung Dakwah DPD PKS Ogan Ilir Baru', 'group' => 'general']);
 
     // Re-share to simulate fresh request
-    $settings = \App\Models\Setting::all()->pluck('value', 'key')->toArray();
-    \Illuminate\Support\Facades\View::share('siteSettings', $settings);
+    $settings = Setting::all()->pluck('value', 'key')->toArray();
+    View::share('siteSettings', $settings);
 
     $home = $this->get('/');
     $home->assertSee('08999888777');
@@ -176,7 +192,7 @@ test('site settings update dynamically reflects across header, footer, and conta
 
 test('sambutan page renders dynamic content from database', function () {
     $page = Post::where('slug', 'sambutan-ketua-dpd')->first();
-    if (!$page) {
+    if (! $page) {
         $page = Post::create([
             'title' => 'Sambutan Ketua DPD PKS Ogan Ilir',
             'slug' => 'sambutan-ketua-dpd',
