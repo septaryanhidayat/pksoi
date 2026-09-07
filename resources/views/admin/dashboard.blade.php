@@ -132,6 +132,7 @@
                 <span>Firewall & WAF aktif</span>
             </div>
         </div>
+    </div>
 
     {{-- RINGKASAN ANALITIK PENGUNJUNG NYATA (REAL DATA SUMMARY) --}}
     <div class="bg-white p-6 sm:p-8 rounded-3xl shadow-xs border border-slate-200/80 space-y-6">
