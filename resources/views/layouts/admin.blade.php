@@ -87,7 +87,12 @@
                     
                     <a href="{{ route('admin.dashboard') }}" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl transition {{ request()->routeIs('admin.dashboard') ? 'bg-gradient-to-r from-[#ff5001] to-[#ff6a00] text-white font-bold shadow-md shadow-orange-500/20' : 'hover:bg-slate-800/70 text-slate-300 hover:text-white' }}">
                         <i class="fa-solid fa-gauge-high text-sm w-4 text-center"></i>
-                        <span>Dashboard Analitik</span>
+                        <span>Dashboard Utama</span>
+                    </a>
+
+                    <a href="{{ route('admin.analytics.index') }}" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl transition {{ request()->routeIs('admin.analytics*') ? 'bg-gradient-to-r from-[#ff5001] to-[#ff6a00] text-white font-bold shadow-md shadow-orange-500/20' : 'hover:bg-slate-800/70 text-slate-300 hover:text-white' }}">
+                        <i class="fa-solid fa-chart-line text-sm w-4 text-center text-cyan-400"></i>
+                        <span>Analitik Pengunjung</span>
                     </a>
 
                     <a href="{{ route('admin.posts.index') }}" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl transition {{ request()->routeIs('admin.posts*') ? 'bg-gradient-to-r from-[#ff5001] to-[#ff6a00] text-white font-bold shadow-md shadow-orange-500/20' : 'hover:bg-slate-800/70 text-slate-300 hover:text-white' }}">

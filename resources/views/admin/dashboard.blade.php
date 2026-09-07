@@ -133,6 +133,75 @@
             </div>
         </div>
 
+    {{-- RINGKASAN ANALITIK PENGUNJUNG NYATA (REAL DATA SUMMARY) --}}
+    <div class="bg-white p-6 sm:p-8 rounded-3xl shadow-xs border border-slate-200/80 space-y-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-100">
+            <div>
+                <div class="inline-flex items-center space-x-2 bg-emerald-50 text-emerald-700 px-3 py-0.5 rounded-full text-xs font-bold mb-1">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span>Real-Time Visitor Insights</span>
+                </div>
+                <h3 class="font-black text-slate-900 text-lg">Ringkasan Analitik Pengunjung & Tren Hari Ini</h3>
+                <p class="text-xs text-slate-400">Data riil pengunjung unik, sumber asal lalu lintas, dan artikel yang sedang ramai dibaca.</p>
+            </div>
+            <a href="{{ route('admin.analytics.index') }}" class="inline-flex items-center space-x-2 bg-slate-900 hover:bg-[#ff5001] text-white text-xs font-bold px-4 py-2.5 rounded-xl transition shadow-sm">
+                <span>Lihat Analitik Lengkap</span>
+                <i class="fa-solid fa-arrow-right text-[10px]"></i>
+            </a>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {{-- Box 1: Statistik Riil Hari Ini --}}
+            <div class="bg-slate-50/80 rounded-2xl p-5 border border-slate-200/60 space-y-3">
+                <span class="text-xs font-bold text-slate-500 uppercase tracking-wider block">Aktivitas Hari Ini</span>
+                <div class="flex items-baseline space-x-2">
+                    <span class="text-3xl font-black text-slate-900">{{ number_format($stats['today_visitors']) }}</span>
+                    <span class="text-xs text-slate-500 font-semibold">pengunjung unik</span>
+                </div>
+                <div class="text-xs text-slate-600 space-y-1 pt-1 border-t border-slate-200/60 font-medium">
+                    <div class="flex justify-between">
+                        <span>Total Tayangan (Pageviews):</span>
+                        <strong class="text-slate-800">{{ number_format($stats['today_pageviews']) }}</strong>
+                    </div>
+                    <div class="flex justify-between">
+                        <span>Pengunjung 7 Hari Terakhir:</span>
+                        <strong class="text-slate-800">{{ number_format($stats['week_visitors']) }}</strong>
+                    </div>
+                </div>
+            </div>
+
+            {{-- Box 2: Top Sumber Asal Kunjungan --}}
+            <div class="bg-slate-50/80 rounded-2xl p-5 border border-slate-200/60 space-y-3">
+                <span class="text-xs font-bold text-slate-500 uppercase tracking-wider block">Asal Rujukan Teratas Hari Ini</span>
+                <div class="space-y-2">
+                    @forelse($topTodayReferrers as $ref)
+                        <div class="flex items-center justify-between text-xs">
+                            <span class="font-medium text-slate-700 truncate max-w-[140px]">{{ $ref->referer_source }}</span>
+                            <span class="font-bold text-slate-900 bg-white px-2 py-0.5 rounded-md border border-slate-200/80">{{ number_format($ref->total) }}</span>
+                        </div>
+                    @empty
+                        <p class="text-xs text-slate-400 italic py-2">Belum ada rujukan hari ini.</p>
+                    @endforelse
+                </div>
+            </div>
+
+            {{-- Box 3: Top Artikel / Halaman yang Dibaca --}}
+            <div class="bg-slate-50/80 rounded-2xl p-5 border border-slate-200/60 space-y-3">
+                <span class="text-xs font-bold text-slate-500 uppercase tracking-wider block">Halaman Paling Banyak Dibaca</span>
+                <div class="space-y-2">
+                    @forelse($topTodayPages as $tp)
+                        <div class="flex items-center justify-between text-xs">
+                            <a href="{{ $tp->path }}" target="_blank" class="font-medium text-slate-700 hover:text-[#ff5001] truncate max-w-[150px]" title="{{ $tp->title ?: $tp->path }}">
+                                {{ $tp->title ?: $tp->path }}
+                            </a>
+                            <span class="font-bold text-[#ff5001] bg-orange-50 px-2 py-0.5 rounded-md border border-orange-100">{{ number_format($tp->views) }}x</span>
+                        </div>
+                    @empty
+                        <p class="text-xs text-slate-400 italic py-2">Belum ada kunjungan halaman hari ini.</p>
+                    @endforelse
+                </div>
+            </div>
+        </div>
     </div>
 
     {{-- 4. QUICK ACTION MENU --}}

@@ -8,7 +8,6 @@ use App\Models\Setting;
 use App\Services\WebpService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
 
 class AdminSettingController extends Controller
 {
@@ -22,6 +21,7 @@ class AdminSettingController extends Controller
     public function index()
     {
         $settings = Setting::all()->pluck('value', 'key')->toArray();
+
         return view('admin.settings.index', compact('settings'));
     }
 
@@ -50,6 +50,10 @@ class AdminSettingController extends Controller
                 ['key' => $key],
                 ['value' => $val ?? '', 'group' => 'general']
             );
+        }
+
+        if (isset($data['analytics_base_hits']) && is_numeric($data['analytics_base_hits'])) {
+            @file_put_contents(storage_path('app/visitor_hits.txt'), (string) (int) $data['analytics_base_hits']);
         }
 
         ActivityLog::create([

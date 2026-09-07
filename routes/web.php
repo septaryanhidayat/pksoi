@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminAgendaController;
+use App\Http\Controllers\Admin\AdminAnalyticsController;
 use App\Http\Controllers\Admin\AdminBackupController;
 use App\Http\Controllers\Admin\AdminBidangController;
 use App\Http\Controllers\Admin\AdminDashboardController;
@@ -35,6 +36,10 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 // === ADMIN CMS PANEL ROUTES (PROTECTED) ===
 Route::prefix('admin')->middleware('auth')->name('admin.')->group(function () {
     Route::get('/', [AdminDashboardController::class, 'index'])->name('dashboard');
+
+    // Analitik Pengunjung & Tren Pembaca
+    Route::get('/analytics', [AdminAnalyticsController::class, 'index'])->name('analytics.index');
+    Route::post('/analytics/prune', [AdminAnalyticsController::class, 'prune'])->name('analytics.prune');
 
     // Posts Management
     Route::resource('posts', AdminPostController::class);
@@ -101,7 +106,7 @@ Route::prefix('admin')->middleware('auth')->name('admin.')->group(function () {
 
 // Beranda (Homepage)
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/beranda', fn() => redirect()->route('home'));
+Route::get('/beranda', fn () => redirect()->route('home'));
 
 // Berita & Artikel
 Route::get('/artikel', [ArticleController::class, 'index'])->name('artikel.index');
@@ -161,13 +166,13 @@ Route::get('/wp-content/uploads/{path}', function (string $path) {
 
     $allowedExtensions = ['webp', 'jpg', 'jpeg', 'png', 'gif', 'svg', 'ico', 'pdf', 'mp3'];
     $requestedExt = strtolower(pathinfo($path, PATHINFO_EXTENSION));
-    if (!in_array($requestedExt, $allowedExtensions)) {
+    if (! in_array($requestedExt, $allowedExtensions)) {
         abort(404);
     }
 
     // 1. Check if webp version exists
-    $baseName = pathinfo($path, PATHINFO_DIRNAME) . '/' . pathinfo($path, PATHINFO_FILENAME);
-    $webpPath = public_path('uploads/' . trim($baseName, '/') . '.webp');
+    $baseName = pathinfo($path, PATHINFO_DIRNAME).'/'.pathinfo($path, PATHINFO_FILENAME);
+    $webpPath = public_path('uploads/'.trim($baseName, '/').'.webp');
     $realUploadsBase = realpath(public_path('uploads'));
 
     if (file_exists($webpPath)) {
@@ -178,7 +183,7 @@ Route::get('/wp-content/uploads/{path}', function (string $path) {
     }
 
     // 2. Check original file inside public/uploads
-    $originalPath = public_path('uploads/' . $path);
+    $originalPath = public_path('uploads/'.$path);
     if (file_exists($originalPath)) {
         $realOriginal = realpath($originalPath);
         if ($realOriginal && $realUploadsBase && str_starts_with($realOriginal, $realUploadsBase)) {

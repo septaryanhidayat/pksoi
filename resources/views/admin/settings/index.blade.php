@@ -350,6 +350,57 @@
                         <textarea name="donation_intro_text" rows="2" class="w-full bg-gray-50 text-xs text-gray-800 rounded-xl p-3 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#f37023]">{{ $settings['donation_intro_text'] ?? 'Salurkan infaq dan donasi perjuangan dakwah untuk kemaslahatan masyarakat Kabupaten Ogan Ilir melalui rekening resmi DPD PKS Ogan Ilir.' }}</textarea>
                     </div>
                 </div>
+        {{-- 6. PENGATURAN ANALITIK & PENGUNJUNG --}}
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+            <div class="px-6 py-4 bg-gray-50/80 border-b border-gray-100 flex items-center justify-between">
+                <div class="flex items-center space-x-2.5">
+                    <span class="w-7 h-7 rounded-lg bg-orange-100 text-[#f37023] flex items-center justify-center text-xs font-bold">6</span>
+                    <div>
+                        <h2 class="font-bold text-sm text-gray-900">Pengaturan Analitik & Pelacak Pengunjung (Real Data)</h2>
+                        <p class="text-[11px] text-gray-500">Kontrol pencatatan log kunjungan, lokasi, dan angka counter publik</p>
+                    </div>
+                </div>
+                <a href="{{ route('admin.analytics.index') }}" class="inline-flex items-center text-xs font-bold text-[#f37023] hover:underline">
+                    <span>Buka Halaman Analitik</span>
+                    <i class="fa-solid fa-arrow-right ml-1"></i>
+                </a>
+            </div>
+
+            <div class="p-6 space-y-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Status Pencatatan Analitik (Visitor Tracking)</label>
+                        <select name="analytics_enabled" class="w-full bg-gray-50 text-xs text-gray-800 rounded-xl px-4 py-3 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#f37023] font-semibold">
+                            <option value="1" {{ ($settings['analytics_enabled'] ?? '1') === '1' ? 'selected' : '' }}>Aktif (Mencatat data pengunjung nyata)</option>
+                            <option value="0" {{ ($settings['analytics_enabled'] ?? '1') === '0' ? 'selected' : '' }}>Non-Aktif (Jeda pencatatan)</option>
+                        </select>
+                        <p class="text-[10px] text-slate-400 mt-1">Saat aktif, sistem akan merekam IP, referer, halaman yang dibaca, dan perangkat.</p>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Abaikan Kunjungan Pengurus/Admin</label>
+                        <select name="analytics_ignore_admin" class="w-full bg-gray-50 text-xs text-gray-800 rounded-xl px-4 py-3 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#f37023] font-semibold">
+                            <option value="1" {{ ($settings['analytics_ignore_admin'] ?? '1') === '1' ? 'selected' : '' }}>Ya, Abaikan Admin (Data statistik murni pengunjung publik)</option>
+                            <option value="0" {{ ($settings['analytics_ignore_admin'] ?? '1') === '0' ? 'selected' : '' }}>Tidak (Catat semua termasuk aktivitas admin)</option>
+                        </select>
+                        <p class="text-[10px] text-slate-400 mt-1">Mencegah statistik membengkak saat admin sedang mengedit konten.</p>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Angka Basis Counter Publik (Database Setting)</label>
+                        <input type="number" name="analytics_base_hits" value="{{ $settings['analytics_base_hits'] ?? '53512' }}" class="w-full bg-gray-50 text-xs text-gray-800 rounded-xl px-4 py-3 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#f37023] font-mono font-bold">
+                        <p class="text-[10px] text-slate-400 mt-1">Angka awal counter publik di footer/beranda yang tersimpan di database MySQL.</p>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Deteksi Lokasi Geografis (Geo-IP Lookup)</label>
+                        <select name="analytics_ip_lookup" class="w-full bg-gray-50 text-xs text-gray-800 rounded-xl px-4 py-3 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#f37023] font-semibold">
+                            <option value="1" {{ ($settings['analytics_ip_lookup'] ?? '1') === '1' ? 'selected' : '' }}>Aktif (Deteksi Kota & Provinsi secara otomatis)</option>
+                            <option value="0" {{ ($settings['analytics_ip_lookup'] ?? '1') === '0' ? 'selected' : '' }}>Non-Aktif</option>
+                        </select>
+                        <p class="text-[10px] text-slate-400 mt-1">Menggunakan lookup IP publik dengan caching 7 hari agar web tetap super cepat.</p>
+                    </div>
+                </div>
             </div>
         </div>
 
