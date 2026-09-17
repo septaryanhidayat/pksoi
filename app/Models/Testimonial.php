@@ -19,10 +19,12 @@ class Testimonial extends Model
 
     public function getPhotoUrlAttribute(): string
     {
-        if (!empty($this->photo)) {
+        if (! empty($this->photo)) {
             $path = parse_url($this->photo, PHP_URL_PATH);
-            return '/' . ltrim($path, '/');
+
+            return '/'.ltrim($path, '/');
         }
+
         return '/uploads/2023/08/user-2.webp';
     }
 }

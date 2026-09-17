@@ -18,9 +18,11 @@ class AdminBidangController extends Controller
     {
         $this->webpService = $webpService;
     }
+
     public function index()
     {
         $bidangs = Bidang::orderBy('order', 'asc')->get();
+
         return view('admin.bidang.index', compact('bidangs'));
     }
 

@@ -25,10 +25,13 @@ use Illuminate\Support\Str;
 class ImportWordPressContentCommand extends Command
 {
     protected $signature = 'app:import-wordpress-content {--xml= : Path to XML export file}';
+
     protected $description = 'Import 100% of WordPress content, convert all images to WebP, and populate Laravel models';
 
     protected WebpService $webpService;
+
     protected array $attachmentMap = []; // attachment_id => ['webp_url' => ..., 'original_url' => ..., 'file_path' => ...]
+
     protected array $urlMap = []; // old_url => new_url
 
     public function __construct(WebpService $webpService)
@@ -43,70 +46,72 @@ class ImportWordPressContentCommand extends Command
         $sqlPath = base_path('database/berandad_wppksoi.sql');
         $uploadsDir = base_path('BACKUP WEb LAMA/wp-content/uploads');
 
-        if (!file_exists($xmlPath)) {
+        if (! file_exists($xmlPath)) {
             $this->error("XML file not found at: {$xmlPath}");
+
             return 1;
         }
 
         $this->info("Loading WordPress XML: {$xmlPath}...");
         $xml = simplexml_load_file($xmlPath);
-        if (!$xml) {
-            $this->error("Failed to parse XML file.");
+        if (! $xml) {
+            $this->error('Failed to parse XML file.');
+
             return 1;
         }
 
-        $this->info("Step 1: Importing Authors & Users...");
+        $this->info('Step 1: Importing Authors & Users...');
         $this->importUsers($xml);
 
-        $this->info("Step 2: Importing Categories & Tags...");
+        $this->info('Step 2: Importing Categories & Tags...');
         $this->importTaxonomies($xml);
 
-        $this->info("Step 3: Processing Media & Converting all Images to WebP...");
+        $this->info('Step 3: Processing Media & Converting all Images to WebP...');
         $this->processMediaAndWebp($xml, $uploadsDir);
 
-        $this->info("Step 4: Importing Posts (Articles & News)...");
+        $this->info('Step 4: Importing Posts (Articles & News)...');
         $this->importPosts($xml);
 
-        $this->info("Step 5: Importing Pages...");
+        $this->info('Step 5: Importing Pages...');
         $this->importPages($xml);
 
-        $this->info("Step 6: Importing Custom Post Types (Dewan, Bidang, DPC, Agenda, Pengumuman, Testimonial, Video)...");
+        $this->info('Step 6: Importing Custom Post Types (Dewan, Bidang, DPC, Agenda, Pengumuman, Testimonial, Video)...');
         $this->importCustomPostTypes($xml);
 
-        $this->info("Step 7: Importing Downloads & Feedbacks from SQL Dump...");
+        $this->info('Step 7: Importing Downloads & Feedbacks from SQL Dump...');
         $this->importSqlDumpData($sqlPath);
 
-        $this->info("Step 8: Populating Default Website Settings...");
+        $this->info('Step 8: Populating Default Website Settings...');
         $this->populateSettings();
 
-        $this->info("=== IMPORT COMPLETED SUCCESSFULLY! ===");
-        $this->info("Total Posts: " . Post::where('type', 'post')->count());
-        $this->info("Total Pages: " . Post::where('type', 'page')->count());
-        $this->info("Total Categories: " . Category::count());
-        $this->info("Total Tags: " . Tag::count());
-        $this->info("Total Agendas: " . Agenda::count());
-        $this->info("Total Pengumuman: " . Pengumuman::count());
-        $this->info("Total Anggota Dewan: " . AnggotaDewan::count());
-        $this->info("Total Bidang: " . Bidang::count());
-        $this->info("Total DPC: " . Dpc::count());
-        $this->info("Total Testimonials: " . Testimonial::count());
-        $this->info("Total Videos: " . Video::count());
-        $this->info("Total Downloads: " . Download::count());
-        $this->info("Total Feedbacks: " . Feedback::count());
+        $this->info('=== IMPORT COMPLETED SUCCESSFULLY! ===');
+        $this->info('Total Posts: '.Post::where('type', 'post')->count());
+        $this->info('Total Pages: '.Post::where('type', 'page')->count());
+        $this->info('Total Categories: '.Category::count());
+        $this->info('Total Tags: '.Tag::count());
+        $this->info('Total Agendas: '.Agenda::count());
+        $this->info('Total Pengumuman: '.Pengumuman::count());
+        $this->info('Total Anggota Dewan: '.AnggotaDewan::count());
+        $this->info('Total Bidang: '.Bidang::count());
+        $this->info('Total DPC: '.Dpc::count());
+        $this->info('Total Testimonials: '.Testimonial::count());
+        $this->info('Total Videos: '.Video::count());
+        $this->info('Total Downloads: '.Download::count());
+        $this->info('Total Feedbacks: '.Feedback::count());
 
         return 0;
     }
 
     protected function importUsers($xml): void
     {
-        $wpNs = "http://wordpress.org/export/1.2/";
+        $wpNs = 'http://wordpress.org/export/1.2/';
         foreach ($xml->channel->children($wpNs)->author as $author) {
-            $email = (string)$author->author_email;
-            $login = (string)$author->author_login;
-            $displayName = (string)$author->author_display_name;
+            $email = (string) $author->author_email;
+            $login = (string) $author->author_login;
+            $displayName = (string) $author->author_display_name;
 
-            if (!$email) {
-                $email = Str::slug($login) . '@pksoganilir.com';
+            if (! $email) {
+                $email = Str::slug($login).'@pksoganilir.com';
             }
 
             User::updateOrCreate(
@@ -122,11 +127,11 @@ class ImportWordPressContentCommand extends Command
 
     protected function importTaxonomies($xml): void
     {
-        $wpNs = "http://wordpress.org/export/1.2/";
+        $wpNs = 'http://wordpress.org/export/1.2/';
 
         foreach ($xml->channel->children($wpNs)->category as $cat) {
-            $name = (string)$cat->cat_name;
-            $slug = (string)$cat->category_nicename;
+            $name = (string) $cat->cat_name;
+            $slug = (string) $cat->category_nicename;
             if ($name && $slug) {
                 Category::updateOrCreate(
                     ['slug' => $slug],
@@ -134,11 +139,11 @@ class ImportWordPressContentCommand extends Command
                 );
             }
         }
-        $this->line(" - Categories imported: " . Category::count());
+        $this->line(' - Categories imported: '.Category::count());
 
         foreach ($xml->channel->children($wpNs)->tag as $tag) {
-            $name = (string)$tag->tag_name;
-            $slug = (string)$tag->tag_slug;
+            $name = (string) $tag->tag_name;
+            $slug = (string) $tag->tag_slug;
             if ($name && $slug) {
                 Tag::updateOrCreate(
                     ['slug' => $slug],
@@ -146,14 +151,14 @@ class ImportWordPressContentCommand extends Command
                 );
             }
         }
-        $this->line(" - Tags imported: " . Tag::count());
+        $this->line(' - Tags imported: '.Tag::count());
     }
 
     protected function processMediaAndWebp($xml, string $uploadsDir): void
     {
-        $wpNs = "http://wordpress.org/export/1.2/";
+        $wpNs = 'http://wordpress.org/export/1.2/';
         $destBase = public_path('uploads');
-        if (!is_dir($destBase)) {
+        if (! is_dir($destBase)) {
             mkdir($destBase, 0755, true);
         }
 
@@ -163,55 +168,55 @@ class ImportWordPressContentCommand extends Command
 
         foreach ($xml->channel->item as $item) {
             $wp = $item->children($wpNs);
-            if ((string)$wp->post_type !== 'attachment') {
+            if ((string) $wp->post_type !== 'attachment') {
                 continue;
             }
 
-            $postId = (int)$wp->post_id;
-            $guid = (string)$item->guid;
+            $postId = (int) $wp->post_id;
+            $guid = (string) $item->guid;
             $attachedFile = '';
 
             foreach ($wp->postmeta as $meta) {
-                if ((string)$meta->meta_key === '_wp_attached_file') {
-                    $attachedFile = (string)$meta->meta_value;
+                if ((string) $meta->meta_key === '_wp_attached_file') {
+                    $attachedFile = (string) $meta->meta_value;
                 }
             }
 
-            if (!$attachedFile && $guid) {
+            if (! $attachedFile && $guid) {
                 // Parse relative path from GUID
                 if (preg_match('/wp-content\/uploads\/(.*)$/i', $guid, $m)) {
                     $attachedFile = $m[1];
                 }
             }
 
-            if (!$attachedFile) {
+            if (! $attachedFile) {
                 continue;
             }
 
-            $sourcePath = $uploadsDir . '/' . $attachedFile;
+            $sourcePath = $uploadsDir.'/'.$attachedFile;
             $ext = strtolower(pathinfo($attachedFile, PATHINFO_EXTENSION));
-            $basePathWithoutExt = pathinfo($attachedFile, PATHINFO_DIRNAME) . '/' . pathinfo($attachedFile, PATHINFO_FILENAME);
+            $basePathWithoutExt = pathinfo($attachedFile, PATHINFO_DIRNAME).'/'.pathinfo($attachedFile, PATHINFO_FILENAME);
             $basePathWithoutExt = trim(str_replace('\\', '/', $basePathWithoutExt), './');
 
-            $destRelWebp = 'uploads/' . $basePathWithoutExt . '.webp';
+            $destRelWebp = 'uploads/'.$basePathWithoutExt.'.webp';
             $destAbsWebp = public_path($destRelWebp);
 
-            $destRelOriginal = 'uploads/' . $attachedFile;
+            $destRelOriginal = 'uploads/'.$attachedFile;
             $destAbsOriginal = public_path($destRelOriginal);
 
             // Ensure directory exists
             $dir = dirname($destAbsWebp);
-            if (!is_dir($dir)) {
+            if (! is_dir($dir)) {
                 mkdir($dir, 0755, true);
             }
 
-            $finalUrl = '/' . $destRelOriginal;
+            $finalUrl = '/'.$destRelOriginal;
 
             // If it's an image and source file exists, convert to WebP
             if (in_array($ext, $imageExtensions) && file_exists($sourcePath)) {
                 $convertRes = $this->webpService->convertToWebp($sourcePath, $destAbsWebp, 82, 1920);
                 if ($convertRes['success']) {
-                    $finalUrl = '/' . $destRelWebp;
+                    $finalUrl = '/'.$destRelWebp;
                     $webpCount++;
                 } else {
                     // Copy original as fallback
@@ -220,22 +225,22 @@ class ImportWordPressContentCommand extends Command
             } elseif (file_exists($sourcePath)) {
                 // Non-image file (e.g. MP3, PDF): copy directly
                 @copy($sourcePath, $destAbsOriginal);
-                $finalUrl = '/' . $destRelOriginal;
+                $finalUrl = '/'.$destRelOriginal;
             }
 
             $this->attachmentMap[$postId] = [
                 'url' => $finalUrl,
                 'path' => $attachedFile,
-                'title' => (string)$item->title,
+                'title' => (string) $item->title,
             ];
 
             // Map old WordPress URLs to new WebP/local URLs
             if ($guid) {
                 $this->urlMap[$guid] = $finalUrl;
             }
-            $this->urlMap['http://oganilir.pks.id/wp-content/uploads/' . $attachedFile] = $finalUrl;
-            $this->urlMap['https://pksoganilir.com/wp-content/uploads/' . $attachedFile] = $finalUrl;
-            $this->urlMap['/wp-content/uploads/' . $attachedFile] = $finalUrl;
+            $this->urlMap['http://oganilir.pks.id/wp-content/uploads/'.$attachedFile] = $finalUrl;
+            $this->urlMap['https://pksoganilir.com/wp-content/uploads/'.$attachedFile] = $finalUrl;
+            $this->urlMap['/wp-content/uploads/'.$attachedFile] = $finalUrl;
 
             $count++;
         }
@@ -245,7 +250,7 @@ class ImportWordPressContentCommand extends Command
 
     protected function cleanHtmlContent(?string $content): string
     {
-        if (!$content) {
+        if (! $content) {
             return '';
         }
 
@@ -260,10 +265,11 @@ class ImportWordPressContentCommand extends Command
 
         // Convert jpg/jpeg/png image references inside /uploads/ to .webp if corresponding webp exists
         $content = preg_replace_callback('/(\/uploads\/[a-zA-Z0-9_\-\/]+)\.(jpg|jpeg|png)/i', function ($matches) {
-            $webpAbs = public_path(trim($matches[1], '/') . '.webp');
+            $webpAbs = public_path(trim($matches[1], '/').'.webp');
             if (file_exists($webpAbs)) {
-                return $matches[1] . '.webp';
+                return $matches[1].'.webp';
             }
+
             return $matches[0];
         }, $content);
 
@@ -274,8 +280,8 @@ class ImportWordPressContentCommand extends Command
     {
         $thumbId = 0;
         foreach ($wp->postmeta as $meta) {
-            if ((string)$meta->meta_key === '_thumbnail_id') {
-                $thumbId = (int)$meta->meta_value;
+            if ((string) $meta->meta_key === '_thumbnail_id') {
+                $thumbId = (int) $meta->meta_value;
             }
         }
 
@@ -288,38 +294,38 @@ class ImportWordPressContentCommand extends Command
 
     protected function importPosts($xml): void
     {
-        $wpNs = "http://wordpress.org/export/1.2/";
-        $contentNs = "http://purl.org/rss/1.0/modules/content/";
+        $wpNs = 'http://wordpress.org/export/1.2/';
+        $contentNs = 'http://purl.org/rss/1.0/modules/content/';
         $user = User::first();
         $importedCount = 0;
 
         foreach ($xml->channel->item as $item) {
             $wp = $item->children($wpNs);
-            if ((string)$wp->post_type !== 'post') {
+            if ((string) $wp->post_type !== 'post') {
                 continue;
             }
 
-            $title = (string)$item->title;
-            $slug = (string)$wp->post_name ?: Str::slug($title);
-            $rawContent = (string)$item->children($contentNs)->encoded;
-            $excerpt = (string)$item->children("http://wordpress.org/export/1.2/excerpt/")->encoded;
-            $status = (string)$wp->status === 'publish' ? 'publish' : 'draft';
-            $postDate = (string)$wp->post_date;
+            $title = (string) $item->title;
+            $slug = (string) $wp->post_name ?: Str::slug($title);
+            $rawContent = (string) $item->children($contentNs)->encoded;
+            $excerpt = (string) $item->children('http://wordpress.org/export/1.2/excerpt/')->encoded;
+            $status = (string) $wp->status === 'publish' ? 'publish' : 'draft';
+            $postDate = (string) $wp->post_date;
 
             // Custom fields
             $metaFields = [];
             foreach ($wp->postmeta as $meta) {
-                $metaFields[(string)$meta->meta_key] = (string)$meta->meta_value;
+                $metaFields[(string) $meta->meta_key] = (string) $meta->meta_value;
             }
 
-            if (!empty($metaFields['isi-artikel'])) {
+            if (! empty($metaFields['isi-artikel'])) {
                 $rawContent = $metaFields['isi-artikel'];
             }
 
             $cleanedContent = $this->cleanHtmlContent($rawContent);
             $featuredImage = $this->getThumbnailUrl($wp);
 
-            $views = (int)($metaFields['_ahcfree_total_views'] ?? 0);
+            $views = (int) ($metaFields['_ahcfree_total_views'] ?? 0);
             $metaTitle = $metaFields['_yoast_wpseo_title'] ?? $title;
             $metaDesc = $metaFields['_yoast_wpseo_metadesc'] ?? Str::limit(strip_tags($cleanedContent), 160);
             $metaKeywords = $metaFields['_yoast_wpseo_focuskw'] ?? null;
@@ -347,8 +353,8 @@ class ImportWordPressContentCommand extends Command
             $tagIds = [];
 
             foreach ($item->category as $cat) {
-                $domain = (string)$cat['domain'];
-                $termSlug = (string)$cat['nicename'];
+                $domain = (string) $cat['domain'];
+                $termSlug = (string) $cat['nicename'];
 
                 if ($domain === 'category') {
                     $c = Category::where('slug', $termSlug)->first();
@@ -363,10 +369,10 @@ class ImportWordPressContentCommand extends Command
                 }
             }
 
-            if (!empty($catIds)) {
+            if (! empty($catIds)) {
                 $post->categories()->sync($catIds);
             }
-            if (!empty($tagIds)) {
+            if (! empty($tagIds)) {
                 $post->tags()->sync($tagIds);
             }
 
@@ -378,22 +384,22 @@ class ImportWordPressContentCommand extends Command
 
     protected function importPages($xml): void
     {
-        $wpNs = "http://wordpress.org/export/1.2/";
-        $contentNs = "http://purl.org/rss/1.0/modules/content/";
+        $wpNs = 'http://wordpress.org/export/1.2/';
+        $contentNs = 'http://purl.org/rss/1.0/modules/content/';
         $user = User::first();
         $importedCount = 0;
 
         foreach ($xml->channel->item as $item) {
             $wp = $item->children($wpNs);
-            if ((string)$wp->post_type !== 'page') {
+            if ((string) $wp->post_type !== 'page') {
                 continue;
             }
 
-            $title = (string)$item->title;
-            $slug = (string)$wp->post_name ?: Str::slug($title);
-            $rawContent = (string)$item->children($contentNs)->encoded;
-            $status = (string)$wp->status === 'publish' ? 'publish' : 'draft';
-            $postDate = (string)$wp->post_date;
+            $title = (string) $item->title;
+            $slug = (string) $wp->post_name ?: Str::slug($title);
+            $rawContent = (string) $item->children($contentNs)->encoded;
+            $status = (string) $wp->status === 'publish' ? 'publish' : 'draft';
+            $postDate = (string) $wp->post_date;
 
             $featuredImage = $this->getThumbnailUrl($wp);
             $cleanedContent = $this->cleanHtmlContent($rawContent);
@@ -420,21 +426,21 @@ class ImportWordPressContentCommand extends Command
 
     protected function importCustomPostTypes($xml): void
     {
-        $wpNs = "http://wordpress.org/export/1.2/";
-        $contentNs = "http://purl.org/rss/1.0/modules/content/";
+        $wpNs = 'http://wordpress.org/export/1.2/';
+        $contentNs = 'http://purl.org/rss/1.0/modules/content/';
 
         foreach ($xml->channel->item as $item) {
             $wp = $item->children($wpNs);
-            $type = (string)$wp->post_type;
-            $title = (string)$item->title;
-            $slug = (string)$wp->post_name ?: Str::slug($title);
-            $rawContent = (string)$item->children($contentNs)->encoded;
-            $status = (string)$wp->status === 'publish' ? 'publish' : 'draft';
-            $postDate = (string)$wp->post_date;
+            $type = (string) $wp->post_type;
+            $title = (string) $item->title;
+            $slug = (string) $wp->post_name ?: Str::slug($title);
+            $rawContent = (string) $item->children($contentNs)->encoded;
+            $status = (string) $wp->status === 'publish' ? 'publish' : 'draft';
+            $postDate = (string) $wp->post_date;
 
             $meta = [];
             foreach ($wp->postmeta as $m) {
-                $meta[(string)$m->meta_key] = (string)$m->meta_value;
+                $meta[(string) $m->meta_key] = (string) $m->meta_value;
             }
 
             $featuredImage = $this->getThumbnailUrl($wp);
@@ -536,23 +542,26 @@ class ImportWordPressContentCommand extends Command
 
     protected function importSqlDumpData(string $sqlPath): void
     {
-        if (!file_exists($sqlPath)) {
+        if (! file_exists($sqlPath)) {
             $this->warn("SQL dump file not found at: {$sqlPath}. Skipping SQL-specific import.");
+
             return;
         }
 
         $fp = fopen($sqlPath, 'r');
-        if (!$fp) {
+        if (! $fp) {
             return;
         }
 
         $currentTable = '';
         while (($line = fgets($fp)) !== false) {
-            if (str_contains($line, "INSERT INTO `wp1pksoi_jet_cct_download`")) {
+            if (str_contains($line, 'INSERT INTO `wp1pksoi_jet_cct_download`')) {
                 $currentTable = 'download';
+
                 continue;
-            } elseif (str_contains($line, "INSERT INTO `wp1pksoi_jet_cct_kritik`")) {
+            } elseif (str_contains($line, 'INSERT INTO `wp1pksoi_jet_cct_kritik`')) {
                 $currentTable = 'kritik';
+
                 continue;
             } elseif (str_starts_with(trim($line), 'INSERT INTO `') || str_starts_with(trim($line), '--')) {
                 $currentTable = '';
@@ -563,8 +572,8 @@ class ImportWordPressContentCommand extends Command
                 if (preg_match("/\((\d+),\s*'([^']+)',\s*'([^']+)',\s*'([^']+)',\s*(\d+)/", $line, $m)) {
                     $title = $m[3];
                     $jenis = $m[4];
-                    $attachId = (int)$m[5];
-                    $filePath = $this->attachmentMap[$attachId]['url'] ?? ('/uploads/' . Str::slug($title) . '.' . strtolower($jenis));
+                    $attachId = (int) $m[5];
+                    $filePath = $this->attachmentMap[$attachId]['url'] ?? ('/uploads/'.Str::slug($title).'.'.strtolower($jenis));
 
                     Download::updateOrCreate(
                         ['title' => $title],

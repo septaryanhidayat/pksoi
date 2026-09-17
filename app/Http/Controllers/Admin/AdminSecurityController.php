@@ -17,13 +17,13 @@ class AdminSecurityController extends Controller
             $query->where('status', $request->input('status'));
         }
 
-        if ($request->has('search') && !empty($request->input('search'))) {
+        if ($request->has('search') && ! empty($request->input('search'))) {
             $search = $request->input('search');
             $query->where(function ($q) use ($search) {
                 $q->where('description', 'like', "%{$search}%")
-                  ->orWhere('user_name', 'like', "%{$search}%")
-                  ->orWhere('ip_address', 'like', "%{$search}%")
-                  ->orWhere('action', 'like', "%{$search}%");
+                    ->orWhere('user_name', 'like', "%{$search}%")
+                    ->orWhere('ip_address', 'like', "%{$search}%")
+                    ->orWhere('action', 'like', "%{$search}%");
             });
         }
 
@@ -41,7 +41,7 @@ class AdminSecurityController extends Controller
 
     public function clear(Request $request)
     {
-        if (!Auth::user()->isSuperAdmin() && !Auth::user()->isAdmin()) {
+        if (! Auth::user()->isSuperAdmin() && ! Auth::user()->isAdmin()) {
             return back()->with('error', 'Hanya Administrator yang dapat mengosongkan log aktivitas.');
         }
 

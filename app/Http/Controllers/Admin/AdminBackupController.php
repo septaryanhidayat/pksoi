@@ -33,7 +33,7 @@ class AdminBackupController extends Controller
         }
 
         $dbFile = database_path('database.sqlite');
-        $dbSize = file_exists($dbFile) ? round(filesize($dbFile) / (1024 * 1024), 2) . ' MB' : '1.8 MB';
+        $dbSize = file_exists($dbFile) ? round(filesize($dbFile) / (1024 * 1024), 2).' MB' : '1.8 MB';
 
         return view('admin.backup.index', compact('tableDetails', 'totalRecords', 'dbSize'));
     }
@@ -50,12 +50,12 @@ class AdminBackupController extends Controller
             'status' => 'warning',
         ]);
 
-        $filename = 'pks_oganilir_database_backup_' . date('Y-m-d_His') . '.sql';
+        $filename = 'pks_oganilir_database_backup_'.date('Y-m-d_His').'.sql';
 
         return response()->streamDownload(function () {
             echo "-- ==========================================================\n";
             echo "-- DPD PKS KABUPATEN OGAN ILIR - DATABASE SQL DUMP\n";
-            echo "-- Generated at: " . date('Y-m-d H:i:s') . "\n";
+            echo '-- Generated at: '.date('Y-m-d H:i:s')."\n";
             echo "-- Platform: Laravel 12 / MySQL 8 & MariaDB Compatible\n";
             echo "-- ==========================================================\n\n";
             echo "SET FOREIGN_KEY_CHECKS=0;\n";
@@ -71,7 +71,9 @@ class AdminBackupController extends Controller
                 }
 
                 $columns = Schema::getColumnListing($table);
-                if (empty($columns)) continue;
+                if (empty($columns)) {
+                    continue;
+                }
 
                 echo "-- --------------------------------------------------------\n";
                 echo "-- Table structure for table `{$table}`\n";
@@ -82,7 +84,7 @@ class AdminBackupController extends Controller
                 $colDefs = [];
                 foreach ($columns as $col) {
                     if ($col === 'id') {
-                        $colDefs[] = "  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT";
+                        $colDefs[] = '  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT';
                     } elseif (str_contains($col, 'content') || str_contains($col, 'description') || str_contains($col, 'summary') || str_contains($col, 'bio') || str_contains($col, 'education')) {
                         $colDefs[] = "  `{$col}` longtext DEFAULT NULL";
                     } elseif (str_contains($col, '_id')) {
@@ -95,15 +97,15 @@ class AdminBackupController extends Controller
                         $colDefs[] = "  `{$col}` varchar(255) DEFAULT NULL";
                     }
                 }
-                $colDefs[] = "  PRIMARY KEY (`id`)";
-                echo implode(",\n", $colDefs) . "\n";
+                $colDefs[] = '  PRIMARY KEY (`id`)';
+                echo implode(",\n", $colDefs)."\n";
                 echo ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;\n\n";
 
                 // Table data
                 $rows = DB::table($table)->get();
                 if ($rows->count() > 0) {
                     echo "-- Dumping data for table `{$table}`\n";
-                    echo "INSERT INTO `{$table}` (`" . implode('`, `', $columns) . "`) VALUES\n";
+                    echo "INSERT INTO `{$table}` (`".implode('`, `', $columns)."`) VALUES\n";
 
                     $valLines = [];
                     foreach ($rows as $row) {
@@ -111,17 +113,17 @@ class AdminBackupController extends Controller
                         foreach ($columns as $c) {
                             $val = $row->$c ?? null;
                             if (is_null($val)) {
-                                $vals[] = "NULL";
-                            } elseif (is_numeric($val) && !str_starts_with((string)$val, '0')) {
+                                $vals[] = 'NULL';
+                            } elseif (is_numeric($val) && ! str_starts_with((string) $val, '0')) {
                                 $vals[] = $val;
                             } else {
-                                $escaped = str_replace(["\\", "\x00", "\n", "\r", "'", '"', "\x1a"], ["\\\\", "\\0", "\\n", "\\r", "\'", '\\"', "\\Z"], (string)$val);
+                                $escaped = str_replace(['\\', "\x00", "\n", "\r", "'", '"', "\x1a"], ['\\\\', '\\0', '\\n', '\\r', "\'", '\\"', '\\Z'], (string) $val);
                                 $vals[] = "'{$escaped}'";
                             }
                         }
-                        $valLines[] = "(" . implode(", ", $vals) . ")";
+                        $valLines[] = '('.implode(', ', $vals).')';
                     }
-                    echo implode(",\n", $valLines) . ";\n\n";
+                    echo implode(",\n", $valLines).";\n\n";
                 }
             }
 

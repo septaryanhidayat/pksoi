@@ -4,12 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Agenda;
 use App\Models\AnggotaDewan;
-use App\Models\Bidang;
+use App\Models\Download;
 use App\Models\Pengumuman;
 use App\Models\Post;
 use App\Models\Testimonial;
 use App\Models\Video;
-use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
@@ -60,8 +59,8 @@ class HomeController extends Controller
             ->published()
             ->with(['categories'])
             ->where(function ($q) {
-                $q->whereHas('categories', fn($c) => $c->whereIn('slug', ['dpr-ri', 'senayan']))
-                  ->orWhereHas('tags', fn($t) => $t->whereIn('slug', ['dpr-ri', 'dpdr-ri', 'senayan', 'iqbal-romzi', 'iqbal-romzie']));
+                $q->whereHas('categories', fn ($c) => $c->whereIn('slug', ['dpr-ri', 'senayan']))
+                    ->orWhereHas('tags', fn ($t) => $t->whereIn('slug', ['dpr-ri', 'dpdr-ri', 'senayan', 'iqbal-romzi', 'iqbal-romzie']));
             })
             ->orderBy('published_at', 'desc')
             ->orderBy('id', 'desc')
@@ -73,8 +72,8 @@ class HomeController extends Controller
             ->published()
             ->with(['categories'])
             ->where(function ($q) {
-                $q->whereHas('categories', fn($c) => $c->whereIn('slug', ['dprd-oi', 'fraksi', 'kedewanan']))
-                  ->orWhereHas('tags', fn($t) => $t->whereIn('slug', ['dprd-oi', 'fraksi', 'dewan']));
+                $q->whereHas('categories', fn ($c) => $c->whereIn('slug', ['dprd-oi', 'fraksi', 'kedewanan']))
+                    ->orWhereHas('tags', fn ($t) => $t->whereIn('slug', ['dprd-oi', 'fraksi', 'dewan']));
             })
             ->whereNotIn('id', $senayanPosts->pluck('id'))
             ->orderBy('published_at', 'desc')
@@ -91,7 +90,7 @@ class HomeController extends Controller
         $nasionalPosts = Post::posts()
             ->published()
             ->with(['categories'])
-            ->whereHas('categories', fn($c) => $c->where('slug', 'nasional'))
+            ->whereHas('categories', fn ($c) => $c->where('slug', 'nasional'))
             ->orderBy('published_at', 'desc')
             ->orderBy('id', 'desc')
             ->take(6)
@@ -105,7 +104,7 @@ class HomeController extends Controller
         $daerahPosts = Post::posts()
             ->published()
             ->with(['categories'])
-            ->whereHas('categories', fn($c) => $c->whereIn('slug', ['ogan-ilir', 'berita', 'kegiatan']))
+            ->whereHas('categories', fn ($c) => $c->whereIn('slug', ['ogan-ilir', 'berita', 'kegiatan']))
             ->orderBy('published_at', 'desc')
             ->orderBy('id', 'desc')
             ->take(6)
@@ -133,7 +132,7 @@ class HomeController extends Controller
             ->latest('created_at')
             ->take(16)
             ->get()
-            ->map(fn($p) => ['url' => $p->featured_image, 'title' => $p->title])
+            ->map(fn ($p) => ['url' => $p->featured_image, 'title' => $p->title])
             ->toArray();
 
         $fallbackRow1 = [
@@ -155,8 +154,8 @@ class HomeController extends Controller
         ];
 
         // Merge DB gallery photos at the beginning
-        if (!empty($dbGallery)) {
-            $half = (int)ceil(count($dbGallery) / 2);
+        if (! empty($dbGallery)) {
+            $half = (int) ceil(count($dbGallery) / 2);
             $dbRow1 = array_slice($dbGallery, 0, $half);
             $dbRow2 = array_slice($dbGallery, $half);
 
@@ -170,14 +169,14 @@ class HomeController extends Controller
         $galleryPhotos = array_merge($galleryRow1, $galleryRow2);
 
         // 12. E-Books (Section 15 - Etalase Cover E-Book Slider)
-        $ebookDownloads = \App\Models\Download::where('category_type', 'E-Book')->get();
+        $ebookDownloads = Download::where('category_type', 'E-Book')->get();
         $ebookCovers = [
             "Ma'rifatullah" => '/uploads/2025/09/Marifatullah.jpg.webp',
-            "Kurikulum" => '/uploads/2025/09/Cover-Kurikulum-Pembinaan-Dai-Muda-320x455.jpg.webp',
-            "Ghazwul" => '/uploads/2025/09/Ghazwul-Fikri-320x448.jpg.webp',
+            'Kurikulum' => '/uploads/2025/09/Cover-Kurikulum-Pembinaan-Dai-Muda-320x455.jpg.webp',
+            'Ghazwul' => '/uploads/2025/09/Ghazwul-Fikri-320x448.jpg.webp',
             "Qur'an" => '/uploads/2025/09/Marifatul-Quran-320x448.jpg.webp',
-            "Olahraga" => '/uploads/2025/10/ADAB-OLAHRAGA.webp',
-            "Bidayah" => '/uploads/2025/09/Marifatullah.jpg.webp',
+            'Olahraga' => '/uploads/2025/10/ADAB-OLAHRAGA.webp',
+            'Bidayah' => '/uploads/2025/09/Marifatullah.jpg.webp',
         ];
 
         if ($ebookDownloads->isNotEmpty()) {
@@ -189,6 +188,7 @@ class HomeController extends Controller
                         break;
                     }
                 }
+
                 return [
                     'id' => $dl->id,
                     'title' => $dl->title,

@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\File;
 class ExportMySQLDatabaseCommand extends Command
 {
     protected $signature = 'db:export-mysql {output?}';
+
     protected $description = 'Exports active database records into a clean MySQL / MariaDB SQL dump for cPanel deployment';
 
     public function handle()
@@ -18,7 +19,7 @@ class ExportMySQLDatabaseCommand extends Command
 
         $tables = [
             'users' => [
-                'ddl' => "CREATE TABLE `users` (
+                'ddl' => 'CREATE TABLE `users` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -29,18 +30,18 @@ class ExportMySQLDatabaseCommand extends Command
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_email_unique` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;",
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;',
             ],
             'password_reset_tokens' => [
-                'ddl' => "CREATE TABLE `password_reset_tokens` (
+                'ddl' => 'CREATE TABLE `password_reset_tokens` (
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;",
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;',
             ],
             'sessions' => [
-                'ddl' => "CREATE TABLE `sessions` (
+                'ddl' => 'CREATE TABLE `sessions` (
   `id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `user_id` bigint(20) unsigned DEFAULT NULL,
   `ip_address` varchar(45) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -50,28 +51,28 @@ class ExportMySQLDatabaseCommand extends Command
   PRIMARY KEY (`id`),
   KEY `sessions_user_id_index` (`user_id`),
   KEY `sessions_last_activity_index` (`last_activity`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;",
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;',
             ],
             'cache' => [
-                'ddl' => "CREATE TABLE `cache` (
+                'ddl' => 'CREATE TABLE `cache` (
   `key` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `value` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `expiration` bigint(20) NOT NULL,
   PRIMARY KEY (`key`),
   KEY `cache_expiration_index` (`expiration`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;",
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;',
             ],
             'cache_locks' => [
-                'ddl' => "CREATE TABLE `cache_locks` (
+                'ddl' => 'CREATE TABLE `cache_locks` (
   `key` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `owner` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `expiration` bigint(20) NOT NULL,
   PRIMARY KEY (`key`),
   KEY `cache_locks_expiration_index` (`expiration`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;",
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;',
             ],
             'categories' => [
-                'ddl' => "CREATE TABLE `categories` (
+                'ddl' => 'CREATE TABLE `categories` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -83,10 +84,10 @@ class ExportMySQLDatabaseCommand extends Command
   UNIQUE KEY `categories_slug_unique` (`slug`),
   KEY `categories_parent_id_foreign` (`parent_id`),
   CONSTRAINT `categories_parent_id_foreign` FOREIGN KEY (`parent_id`) REFERENCES `categories` (`id`) ON DELETE SET NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;",
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;',
             ],
             'tags' => [
-                'ddl' => "CREATE TABLE `tags` (
+                'ddl' => 'CREATE TABLE `tags` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -94,7 +95,7 @@ class ExportMySQLDatabaseCommand extends Command
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `tags_slug_unique` (`slug`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;",
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;',
             ],
             'posts' => [
                 'ddl' => "CREATE TABLE `posts` (
@@ -121,24 +122,24 @@ class ExportMySQLDatabaseCommand extends Command
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;",
             ],
             'post_category' => [
-                'ddl' => "CREATE TABLE `post_category` (
+                'ddl' => 'CREATE TABLE `post_category` (
   `post_id` bigint(20) unsigned NOT NULL,
   `category_id` bigint(20) unsigned NOT NULL,
   PRIMARY KEY (`post_id`,`category_id`),
   KEY `post_category_category_id_foreign` (`category_id`),
   CONSTRAINT `post_category_category_id_foreign` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE CASCADE,
   CONSTRAINT `post_category_post_id_foreign` FOREIGN KEY (`post_id`) REFERENCES `posts` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;",
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;',
             ],
             'post_tag' => [
-                'ddl' => "CREATE TABLE `post_tag` (
+                'ddl' => 'CREATE TABLE `post_tag` (
   `post_id` bigint(20) unsigned NOT NULL,
   `tag_id` bigint(20) unsigned NOT NULL,
   PRIMARY KEY (`post_id`,`tag_id`),
   KEY `post_tag_tag_id_foreign` (`tag_id`),
   CONSTRAINT `post_tag_post_id_foreign` FOREIGN KEY (`post_id`) REFERENCES `posts` (`id`) ON DELETE CASCADE,
   CONSTRAINT `post_tag_tag_id_foreign` FOREIGN KEY (`tag_id`) REFERENCES `tags` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;",
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;',
             ],
             'agendas' => [
                 'ddl' => "CREATE TABLE `agendas` (
@@ -236,7 +237,7 @@ class ExportMySQLDatabaseCommand extends Command
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;",
             ],
             'videos' => [
-                'ddl' => "CREATE TABLE `videos` (
+                'ddl' => 'CREATE TABLE `videos` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -247,7 +248,7 @@ class ExportMySQLDatabaseCommand extends Command
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `videos_slug_unique` (`slug`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;",
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;',
             ],
             'downloads' => [
                 'ddl' => "CREATE TABLE `downloads` (
@@ -289,12 +290,12 @@ class ExportMySQLDatabaseCommand extends Command
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;",
             ],
             'migrations' => [
-                'ddl' => "CREATE TABLE `migrations` (
+                'ddl' => 'CREATE TABLE `migrations` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;",
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;',
             ],
         ];
 
@@ -302,7 +303,7 @@ class ExportMySQLDatabaseCommand extends Command
         $out .= "-- Database Clean Production Dump: DPD PKS OGAN ILIR\n";
         $out .= "-- Generated for cPanel / phpMyAdmin Import\n";
         $out .= "-- Target Engine: MySQL 8.x / MariaDB 10.x\n";
-        $out .= "-- Date: " . date('Y-m-d H:i:s') . "\n";
+        $out .= '-- Date: '.date('Y-m-d H:i:s')."\n";
         $out .= "-- ========================================================\n\n";
         $out .= "SET NAMES utf8mb4;\n";
         $out .= "SET FOREIGN_KEY_CHECKS = 0;\n";
@@ -314,14 +315,14 @@ class ExportMySQLDatabaseCommand extends Command
             $out .= "-- Table structure for `{$table}`\n";
             $out .= "-- --------------------------------------------------------\n";
             $out .= "DROP TABLE IF EXISTS `{$table}`;\n";
-            $out .= $info['ddl'] . "\n\n";
+            $out .= $info['ddl']."\n\n";
 
             // Fetch records
             $rows = DB::table($table)->get();
             if ($rows->count() > 0) {
                 $out .= "-- Dumping data for table `{$table}`\n";
                 $columns = array_keys((array) $rows->first());
-                $colList = '`' . implode('`, `', $columns) . '`';
+                $colList = '`'.implode('`, `', $columns).'`';
 
                 $chunkSize = 50;
                 $chunks = $rows->chunk($chunkSize);
@@ -333,21 +334,21 @@ class ExportMySQLDatabaseCommand extends Command
                         foreach ($columns as $col) {
                             $val = $row->$col;
                             if (is_null($val)) {
-                                $values[] = "NULL";
-                            } elseif (is_numeric($val) && !preg_match('/^0\d+/', (string)$val)) {
+                                $values[] = 'NULL';
+                            } elseif (is_numeric($val) && ! preg_match('/^0\d+/', (string) $val)) {
                                 $values[] = $val;
                             } else {
                                 $escaped = str_replace(
-                                    ["\\", "\x00", "\n", "\r", "'", '"', "\x1a"],
-                                    ["\\\\", "\\0", "\\n", "\\r", "\'", '\\"', "\\Z"],
-                                    (string)$val
+                                    ['\\', "\x00", "\n", "\r", "'", '"', "\x1a"],
+                                    ['\\\\', '\\0', '\\n', '\\r', "\'", '\\"', '\\Z'],
+                                    (string) $val
                                 );
                                 $values[] = "'{$escaped}'";
                             }
                         }
-                        $insertValues[] = "(" . implode(", ", $values) . ")";
+                        $insertValues[] = '('.implode(', ', $values).')';
                     }
-                    $out .= "INSERT INTO `{$table}` ({$colList}) VALUES\n" . implode(",\n", $insertValues) . ";\n";
+                    $out .= "INSERT INTO `{$table}` ({$colList}) VALUES\n".implode(",\n", $insertValues).";\n";
                 }
                 $out .= "\n";
             }

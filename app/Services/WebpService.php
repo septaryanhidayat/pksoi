@@ -16,18 +16,18 @@ class WebpService
         int $quality = 82,
         int $maxWidth = 1920
     ): array {
-        if (!file_exists($sourcePath)) {
+        if (! file_exists($sourcePath)) {
             return [
                 'success' => false,
-                'error' => 'Source file does not exist: ' . $sourcePath,
+                'error' => 'Source file does not exist: '.$sourcePath,
             ];
         }
 
         $imageInfo = @getimagesize($sourcePath);
-        if (!$imageInfo) {
+        if (! $imageInfo) {
             return [
                 'success' => false,
-                'error' => 'Invalid image file or unsupported format: ' . $sourcePath,
+                'error' => 'Invalid image file or unsupported format: '.$sourcePath,
             ];
         }
 
@@ -45,15 +45,15 @@ class WebpService
             default => null,
         };
 
-        if (!$image) {
+        if (! $image) {
             return [
                 'success' => false,
-                'error' => 'Failed to create GD image resource from ' . $mime,
+                'error' => 'Failed to create GD image resource from '.$mime,
             ];
         }
 
         // Palette images (e.g. indexed PNG/GIF) must be converted to truecolor for WebP
-        if (function_exists('imagepalettetotruecolor') && !imageistruecolor($image)) {
+        if (function_exists('imagepalettetotruecolor') && ! imageistruecolor($image)) {
             imagepalettetotruecolor($image);
         }
 
@@ -94,7 +94,7 @@ class WebpService
 
         // Ensure target directory exists
         $dir = dirname($destinationPath);
-        if (!is_dir($dir)) {
+        if (! is_dir($dir)) {
             mkdir($dir, 0755, true);
         }
 
@@ -102,10 +102,10 @@ class WebpService
         $saved = imagewebp($image, $destinationPath, $quality);
         imagedestroy($image);
 
-        if (!$saved) {
+        if (! $saved) {
             return [
                 'success' => false,
-                'error' => 'Failed to save WebP image to ' . $destinationPath,
+                'error' => 'Failed to save WebP image to '.$destinationPath,
             ];
         }
 
@@ -132,38 +132,38 @@ class WebpService
     ): array {
         $filename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
         $slugName = Str::slug($filename) ?: 'image';
-        $uniqueName = $slugName . '-' . time() . '-' . Str::random(5) . '.webp';
+        $uniqueName = $slugName.'-'.time().'-'.Str::random(5).'.webp';
 
-        $relativeDirectory = 'uploads/' . trim($subfolder, '/');
+        $relativeDirectory = 'uploads/'.trim($subfolder, '/');
         $absoluteDirectory = public_path($relativeDirectory);
 
-        if (!is_dir($absoluteDirectory)) {
+        if (! is_dir($absoluteDirectory)) {
             mkdir($absoluteDirectory, 0755, true);
         }
 
-        $destinationPath = $absoluteDirectory . '/' . $uniqueName;
+        $destinationPath = $absoluteDirectory.'/'.$uniqueName;
         $result = $this->convertToWebp($file->getRealPath(), $destinationPath, $quality, $maxWidth);
 
         if ($result['success']) {
-            $result['url'] = '/' . $relativeDirectory . '/' . $uniqueName;
+            $result['url'] = '/'.$relativeDirectory.'/'.$uniqueName;
             $result['filename'] = $uniqueName;
 
             // Mirror file to active web document roots (cPanel separate docroot support)
             $docRootCandidates = array_filter([
                 $_SERVER['DOCUMENT_ROOT'] ?? null,
-                dirname(public_path()) . '/../pksoganilir.com',
-                dirname(public_path()) . '/../pksoganilir.com/public',
+                dirname(public_path()).'/../pksoganilir.com',
+                dirname(public_path()).'/../pksoganilir.com/public',
                 '/home/berandad/pksoganilir.com',
                 '/home/berandad/pksoganilir.com/public',
             ]);
 
             foreach ($docRootCandidates as $docRoot) {
                 if ($docRoot && is_dir($docRoot) && realpath($docRoot) !== realpath(public_path())) {
-                    $targetDir = rtrim($docRoot, '/\\') . '/' . $relativeDirectory;
-                    if (!is_dir($targetDir)) {
+                    $targetDir = rtrim($docRoot, '/\\').'/'.$relativeDirectory;
+                    if (! is_dir($targetDir)) {
                         @mkdir($targetDir, 0755, true);
                     }
-                    @copy($destinationPath, $targetDir . '/' . $uniqueName);
+                    @copy($destinationPath, $targetDir.'/'.$uniqueName);
                 }
             }
         }

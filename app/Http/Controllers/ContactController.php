@@ -12,6 +12,7 @@ class ContactController extends Controller
     public function hubungi()
     {
         $page = Post::pages()->where('slug', 'hubungi')->first();
+
         return view('frontend.hubungi.index', compact('page'));
     }
 
@@ -24,9 +25,10 @@ class ContactController extends Controller
         }
 
         // 2. Rate limiting: Max 5 submissions per 5 minutes per IP address
-        $ipThrottleKey = 'feedback-submission|' . $request->ip();
+        $ipThrottleKey = 'feedback-submission|'.$request->ip();
         if (RateLimiter::tooManyAttempts($ipThrottleKey, 5)) {
             $seconds = RateLimiter::availableIn($ipThrottleKey);
+
             return back()->withErrors([
                 'saran_kritik' => "Terlalu banyak pengiriman pesan. Silakan tunggu {$seconds} detik sebelum mengirimkan aspirasi kembali.",
             ])->withInput();
@@ -42,8 +44,8 @@ class ContactController extends Controller
 
         // 3. Sanitize inputs to prevent stored XSS or HTML injection
         $cleanName = strip_tags(trim($validated['nama']));
-        $cleanEmail = !empty($validated['email']) ? filter_var(trim($validated['email']), FILTER_SANITIZE_EMAIL) : null;
-        $cleanWhatsapp = !empty($validated['whatsapp']) ? preg_replace('/[^0-9+\-\s]/', '', $validated['whatsapp']) : null;
+        $cleanEmail = ! empty($validated['email']) ? filter_var(trim($validated['email']), FILTER_SANITIZE_EMAIL) : null;
+        $cleanWhatsapp = ! empty($validated['whatsapp']) ? preg_replace('/[^0-9+\-\s]/', '', $validated['whatsapp']) : null;
         $cleanMessage = strip_tags(trim($validated['saran_kritik']));
 
         Feedback::create([
@@ -60,6 +62,7 @@ class ContactController extends Controller
     public function donasi()
     {
         $page = Post::pages()->where('slug', 'donasi')->first();
+
         return view('frontend.donasi.index', compact('page'));
     }
 }

@@ -27,6 +27,10 @@ class Post extends Model
         'meta_keywords',
     ];
 
+    protected $attributes = [
+        'views_count' => 0,
+    ];
+
     protected $casts = [
         'published_at' => 'datetime',
         'views_count' => 'integer',

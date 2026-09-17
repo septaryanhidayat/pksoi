@@ -13,6 +13,7 @@ class AdminQuickMenuController extends Controller
     public function index()
     {
         $quickMenus = QuickMenu::orderBy('order', 'asc')->get();
+
         return view('admin.quick_menus.index', compact('quickMenus'));
     }
 
@@ -35,9 +36,9 @@ class AdminQuickMenuController extends Controller
         $iconPath = $validated['icon'] ?? 'fa-solid fa-link';
         if ($request->hasFile('icon_file')) {
             $file = $request->file('icon_file');
-            $filename = 'icon_' . time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+            $filename = 'icon_'.time().'_'.uniqid().'.'.$file->getClientOriginalExtension();
             $file->move(public_path('uploads/icons'), $filename);
-            $iconPath = '/uploads/icons/' . $filename;
+            $iconPath = '/uploads/icons/'.$filename;
         }
 
         $menu = QuickMenu::create([
@@ -80,9 +81,9 @@ class AdminQuickMenuController extends Controller
         $iconPath = $quickMenu->icon;
         if ($request->hasFile('icon_file')) {
             $file = $request->file('icon_file');
-            $filename = 'icon_' . time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+            $filename = 'icon_'.time().'_'.uniqid().'.'.$file->getClientOriginalExtension();
             $file->move(public_path('uploads/icons'), $filename);
-            $iconPath = '/uploads/icons/' . $filename;
+            $iconPath = '/uploads/icons/'.$filename;
         } elseif ($request->filled('icon')) {
             $iconPath = $validated['icon'];
         }

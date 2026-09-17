@@ -6,8 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\ActivityLog;
 use App\Models\Post;
 use App\Models\Video;
-use Illuminate\Http\Request;
 use App\Services\WebpService;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
@@ -24,6 +24,7 @@ class AdminMediaController extends Controller
     {
         $photos = Post::where('type', 'attachment')->orWhere('type', 'gallery')->latest()->paginate(16, ['*'], 'photos_page');
         $videos = Video::latest()->paginate(10, ['*'], 'videos_page');
+
         return view('admin.media.index', compact('photos', 'videos'));
     }
 
@@ -38,19 +39,20 @@ class AdminMediaController extends Controller
         $converted = $this->webpService->processUploadedFile($file, 'galeri', 85, 1920);
         $photoUrl = $converted['success'] ? $converted['url'] : null;
 
-        if (!$photoUrl) {
-            $filename = time() . '_' . Str::slug($request->input('title')) . '.' . $file->getClientOriginalExtension();
+        if (! $photoUrl) {
+            $filename = time().'_'.Str::slug($request->input('title')).'.'.$file->getClientOriginalExtension();
             $file->move(public_path('uploads/galeri'), $filename);
-            $photoUrl = '/uploads/galeri/' . $filename;
+            $photoUrl = '/uploads/galeri/'.$filename;
         }
 
         $photo = Post::create([
             'title' => $request->input('title'),
-            'slug' => Str::slug($request->input('title')) . '-' . time(),
+            'slug' => Str::slug($request->input('title')).'-'.time(),
             'type' => 'gallery',
             'status' => 'publish',
             'featured_image' => $photoUrl,
             'content' => $request->input('description') ?? '',
+            'views_count' => 0,
             'author_id' => Auth::id(),
             'published_at' => now(),
         ]);
@@ -100,7 +102,7 @@ class AdminMediaController extends Controller
 
         $video = Video::create([
             'title' => $validated['title'],
-            'slug' => Str::slug($validated['title']) . '-' . time(),
+            'slug' => Str::slug($validated['title']).'-'.time(),
             'youtube_url' => $validated['youtube_url'],
             'youtube_id' => $youtubeId,
             'description' => $validated['description'] ?? '',

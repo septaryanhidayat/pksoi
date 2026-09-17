@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bidang;
-use Illuminate\Http\Request;
 
 class BidangController extends Controller
 {
     public function index()
     {
         $bidangs = Bidang::orderBy('order', 'asc')->get();
+
         return view('frontend.bidang.index', compact('bidangs'));
     }
 
@@ -17,6 +17,7 @@ class BidangController extends Controller
     {
         $bidang = Bidang::where('slug', $slug)->firstOrFail();
         $otherBidangs = Bidang::where('id', '!=', $bidang->id)->take(5)->get();
+
         return view('frontend.bidang.show', compact('bidang', 'otherBidangs'));
     }
 }

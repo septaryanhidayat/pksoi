@@ -68,6 +68,7 @@ test('admin can manage posts and convert images to webp on upload', function () 
 
     $post = Post::where('title', 'Berita Pelayanan DPD PKS Baru')->first();
     expect($post)->not->toBeNull();
+    expect($post->views_count)->toBe(0);
     expect($post->featured_image)->toEndWith('.webp');
 
     $uploadedPath = public_path(ltrim(parse_url($post->featured_image, PHP_URL_PATH), '/'));
@@ -128,5 +129,23 @@ test('admin can manage feedbacks and settings', function () {
     $this->assertDatabaseHas('settings', [
         'key' => 'site_name',
         'value' => 'DPD PKS OGAN ILIR JAYA',
+    ]);
+});
+
+test('post creation sets views_count to zero by default', function () {
+    $post = Post::create([
+        'title' => 'Test Default Views Count',
+        'slug' => 'test-default-views-count-'.time(),
+        'content' => '<p>Konten artikel</p>',
+        'excerpt' => 'Ringkasan',
+        'status' => 'publish',
+        'type' => 'post',
+    ]);
+
+    expect($post->views_count)->toBe(0);
+
+    $this->assertDatabaseHas('posts', [
+        'id' => $post->id,
+        'views_count' => 0,
     ]);
 });

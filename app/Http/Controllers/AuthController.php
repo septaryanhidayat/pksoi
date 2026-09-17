@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ActivityLog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
@@ -14,6 +15,7 @@ class AuthController extends Controller
         if (Auth::check()) {
             return redirect()->route('admin.dashboard');
         }
+
         return view('auth.login');
     }
 
@@ -24,10 +26,11 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
 
-        $throttleKey = Str::transliterate(Str::lower($request->input('email')) . '|' . $request->ip());
+        $throttleKey = Str::transliterate(Str::lower($request->input('email')).'|'.$request->ip());
 
         if (RateLimiter::tooManyAttempts($throttleKey, 5)) {
             $seconds = RateLimiter::availableIn($throttleKey);
+
             return back()->withErrors([
                 'email' => "Terlalu banyak percobaan login gagal. Demi keamanan, silakan coba lagi dalam {$seconds} detik.",
             ])->onlyInput('email');
@@ -39,7 +42,7 @@ class AuthController extends Controller
             RateLimiter::clear($throttleKey);
             $request->session()->regenerate();
 
-            \App\Models\ActivityLog::create([
+            ActivityLog::create([
                 'user_id' => Auth::id(),
                 'user_name' => Auth::user()->name,
                 'action' => 'login_success',
@@ -54,11 +57,11 @@ class AuthController extends Controller
 
         RateLimiter::hit($throttleKey, 60);
 
-        \App\Models\ActivityLog::create([
+        ActivityLog::create([
             'user_id' => null,
             'user_name' => 'Tamu / Percobaan',
             'action' => 'login_failed',
-            'description' => 'Percobaan login gagal untuk email: ' . $request->input('email'),
+            'description' => 'Percobaan login gagal untuk email: '.$request->input('email'),
             'ip_address' => $request->ip(),
             'user_agent' => $request->userAgent(),
             'status' => 'warning',
@@ -72,7 +75,7 @@ class AuthController extends Controller
     public function logout(Request $request)
     {
         if ($user = Auth::user()) {
-            \App\Models\ActivityLog::create([
+            ActivityLog::create([
                 'user_id' => $user->id,
                 'user_name' => $user->name,
                 'action' => 'logout',

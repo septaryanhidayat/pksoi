@@ -13,6 +13,7 @@ class AdminDownloadController extends Controller
     public function index()
     {
         $downloads = Download::latest()->paginate(15);
+
         return view('admin.downloads.index', compact('downloads'));
     }
 
@@ -36,12 +37,12 @@ class AdminDownloadController extends Controller
 
         if ($request->hasFile('file')) {
             $uploaded = $request->file('file');
-            $filename = time() . '_' . $uploaded->getClientOriginalName();
+            $filename = time().'_'.$uploaded->getClientOriginalName();
             $uploaded->move(public_path('uploads/downloads'), $filename);
-            $filePath = '/uploads/downloads/' . $filename;
+            $filePath = '/uploads/downloads/'.$filename;
             $fileType = strtoupper($uploaded->getClientOriginalExtension());
-            $bytes = filesize(public_path('uploads/downloads/' . $filename));
-            $fileSize = round($bytes / (1024 * 1024), 2) . ' MB';
+            $bytes = filesize(public_path('uploads/downloads/'.$filename));
+            $fileSize = round($bytes / (1024 * 1024), 2).' MB';
         }
 
         $download = Download::create([
@@ -82,13 +83,13 @@ class AdminDownloadController extends Controller
 
         if ($request->hasFile('file')) {
             $uploaded = $request->file('file');
-            $filename = time() . '_' . $uploaded->getClientOriginalName();
+            $filename = time().'_'.$uploaded->getClientOriginalName();
             $uploaded->move(public_path('uploads/downloads'), $filename);
-            $download->file_path = '/uploads/downloads/' . $filename;
+            $download->file_path = '/uploads/downloads/'.$filename;
             $download->file_type = strtoupper($uploaded->getClientOriginalExtension());
-            $bytes = filesize(public_path('uploads/downloads/' . $filename));
-            $download->file_size = round($bytes / (1024 * 1024), 2) . ' MB';
-        } elseif (!empty($validated['file_path'])) {
+            $bytes = filesize(public_path('uploads/downloads/'.$filename));
+            $download->file_size = round($bytes / (1024 * 1024), 2).' MB';
+        } elseif (! empty($validated['file_path'])) {
             $download->file_path = $validated['file_path'];
         }
 

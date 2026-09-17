@@ -14,6 +14,7 @@ class AdminDpcController extends Controller
     public function index()
     {
         $dpcs = Dpc::orderBy('order', 'asc')->get();
+
         return view('admin.dpc.index', compact('dpcs'));
     }
 

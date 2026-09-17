@@ -32,7 +32,8 @@ class QuickMenu extends Model
         if (empty($this->icon)) {
             return false;
         }
-        return str_starts_with($this->icon, '/') 
+
+        return str_starts_with($this->icon, '/')
             || str_starts_with($this->icon, 'http')
             || str_contains($this->icon, '.webp')
             || str_contains($this->icon, '.png')

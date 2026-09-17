@@ -22,6 +22,7 @@ class AdminDewanController extends Controller
     public function index()
     {
         $dewan = AnggotaDewan::orderBy('order', 'asc')->get();
+
         return view('admin.dewan.index', compact('dewan'));
     }
 

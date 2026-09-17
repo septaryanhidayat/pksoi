@@ -4,13 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Download;
 use App\Models\Post;
-use Illuminate\Http\Request;
 
 class DownloadController extends Controller
 {
     public function index()
     {
         $downloads = Download::orderBy('id', 'asc')->paginate(12);
+
         return view('frontend.download.index', compact('downloads'));
     }
 
@@ -18,6 +18,7 @@ class DownloadController extends Controller
     {
         $page = Post::pages()->where('slug', 'e-book')->first();
         $ebooks = Download::where('category_type', 'E-Book')->orWhere('file_type', 'PDF')->get();
+
         return view('frontend.download.ebook', compact('page', 'ebooks'));
     }
 
@@ -25,6 +26,7 @@ class DownloadController extends Controller
     {
         $page = Post::pages()->where('slug', 'hymne-mars-pks')->first();
         $audioFiles = Download::where('file_type', 'MP3')->orWhere('title', 'like', '%Mars%')->orWhere('title', 'like', '%Hymne%')->get();
+
         return view('frontend.download.hymne-mars', compact('page', 'audioFiles'));
     }
 
@@ -32,6 +34,7 @@ class DownloadController extends Controller
     {
         $page = Post::pages()->where('slug', 'logo')->first();
         $logoDownloads = Download::where('title', 'like', '%Logo%')->get();
+
         return view('frontend.download.logo', compact('page', 'logoDownloads'));
     }
 
@@ -53,7 +56,7 @@ class DownloadController extends Controller
 
         $download = is_numeric($id)
             ? Download::find($id)
-            : Download::where('file_path', 'like', '%' . $id . '%')->orWhere('title', 'like', '%' . $id . '%')->first();
+            : Download::where('file_path', 'like', '%'.$id.'%')->orWhere('title', 'like', '%'.$id.'%')->first();
 
         if (! $download) {
             $cleanParam = str_replace(['/', '\\'], DIRECTORY_SEPARATOR, trim((string) $id, '/\\'));
@@ -64,7 +67,7 @@ class DownloadController extends Controller
             }
 
             $candidatePaths = [
-                public_path('uploads' . DIRECTORY_SEPARATOR . $cleanParam),
+                public_path('uploads'.DIRECTORY_SEPARATOR.$cleanParam),
                 public_path($cleanParam),
             ];
 
@@ -82,7 +85,7 @@ class DownloadController extends Controller
             }
 
             // Search in subdirectories of public/uploads
-            $found = glob(public_path('uploads' . DIRECTORY_SEPARATOR . '*' . DIRECTORY_SEPARATOR . '*' . DIRECTORY_SEPARATOR . basename($cleanParam)));
+            $found = glob(public_path('uploads'.DIRECTORY_SEPARATOR.'*'.DIRECTORY_SEPARATOR.'*'.DIRECTORY_SEPARATOR.basename($cleanParam)));
             if (! empty($found) && file_exists($found[0])) {
                 $real = realpath($found[0]);
                 if ($real && is_file($real) && in_array(strtolower(pathinfo($real, PATHINFO_EXTENSION)), $allowedExtensions)) {
@@ -99,10 +102,10 @@ class DownloadController extends Controller
         $fullPath = public_path($relativePath);
 
         if (! file_exists($fullPath)) {
-            if (file_exists(public_path('uploads' . DIRECTORY_SEPARATOR . $relativePath))) {
-                $fullPath = public_path('uploads' . DIRECTORY_SEPARATOR . $relativePath);
-            } elseif (file_exists(storage_path('app/public/' . $relativePath))) {
-                $fullPath = storage_path('app/public/' . $relativePath);
+            if (file_exists(public_path('uploads'.DIRECTORY_SEPARATOR.$relativePath))) {
+                $fullPath = public_path('uploads'.DIRECTORY_SEPARATOR.$relativePath);
+            } elseif (file_exists(storage_path('app/public/'.$relativePath))) {
+                $fullPath = storage_path('app/public/'.$relativePath);
             }
         }
 

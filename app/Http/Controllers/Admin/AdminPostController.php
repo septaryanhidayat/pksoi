@@ -29,6 +29,7 @@ class AdminPostController extends Controller
         }
 
         $posts = $query->latest('published_at')->paginate(15)->withQueryString();
+
         return view('admin.posts.index', compact('posts'));
     }
 
@@ -36,6 +37,7 @@ class AdminPostController extends Controller
     {
         $categories = Category::all();
         $tags = Tag::all();
+
         return view('admin.posts.create', compact('categories', 'tags'));
     }
 
@@ -70,22 +72,23 @@ class AdminPostController extends Controller
 
         $post = Post::create([
             'title' => $validated['title'],
-            'slug' => Str::slug($validated['title']) . '-' . time(),
+            'slug' => Str::slug($validated['title']).'-'.time(),
             'content' => $validated['content'],
             'excerpt' => ($validated['excerpt'] ?? null) ?: Str::limit(strip_tags($validated['content']), 180),
             'status' => $validated['status'],
             'type' => 'post',
             'featured_image' => $featuredImageUrl,
+            'views_count' => 0,
             'author_id' => Auth::id(),
             'published_at' => now(),
         ]);
 
-        if (!empty($validated['categories'])) {
+        if (! empty($validated['categories'])) {
             $post->categories()->sync($validated['categories']);
         }
 
         // Process tags
-        if (!empty($validated['tags'])) {
+        if (! empty($validated['tags'])) {
             $tagNames = explode(',', $validated['tags']);
             $tagIds = [];
             foreach ($tagNames as $tName) {
@@ -177,6 +180,7 @@ class AdminPostController extends Controller
     public function destroy(Post $post)
     {
         $post->delete();
+
         return redirect()->route('admin.posts.index')->with('success', 'Artikel berhasil dihapus!');
     }
 }

@@ -13,6 +13,7 @@ class AdminTestimonialController extends Controller
     public function index()
     {
         $testimonials = Testimonial::orderBy('id', 'desc')->paginate(15);
+
         return view('admin.testimonials.index', compact('testimonials'));
     }
 
@@ -35,9 +36,9 @@ class AdminTestimonialController extends Controller
         $photoPath = $validated['photo'] ?? null;
         if ($request->hasFile('photo_file')) {
             $file = $request->file('photo_file');
-            $filename = 'testimonial_' . time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+            $filename = 'testimonial_'.time().'_'.uniqid().'.'.$file->getClientOriginalExtension();
             $file->move(public_path('uploads/testimonials'), $filename);
-            $photoPath = '/uploads/testimonials/' . $filename;
+            $photoPath = '/uploads/testimonials/'.$filename;
         }
 
         $testimonial = Testimonial::create([
@@ -80,9 +81,9 @@ class AdminTestimonialController extends Controller
         $photoPath = $testimonial->photo;
         if ($request->hasFile('photo_file')) {
             $file = $request->file('photo_file');
-            $filename = 'testimonial_' . time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+            $filename = 'testimonial_'.time().'_'.uniqid().'.'.$file->getClientOriginalExtension();
             $file->move(public_path('uploads/testimonials'), $filename);
-            $photoPath = '/uploads/testimonials/' . $filename;
+            $photoPath = '/uploads/testimonials/'.$filename;
         } elseif ($request->filled('photo')) {
             $photoPath = $validated['photo'];
         }

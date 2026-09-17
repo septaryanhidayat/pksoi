@@ -160,7 +160,7 @@ Route::post('/hubungi', [ContactController::class, 'submitFeedback'])->name('fee
 Route::post('/hubungi-store', [ContactController::class, 'submitFeedback'])->name('hubungi.store');
 Route::get('/donasi', [ContactController::class, 'donasi'])->name('donasi');
 
-// Legacy URL Fallback for WordPress images: /wp-content/uploads/{path}
+// Legacy URL 301 Redirect for WordPress images to clean Laravel /uploads/ path
 Route::get('/wp-content/uploads/{path}', function (string $path) {
     // Prevent path traversal and null byte injections
     if (str_contains($path, '..') || str_contains($path, "\0")) {
@@ -173,7 +173,7 @@ Route::get('/wp-content/uploads/{path}', function (string $path) {
         abort(404);
     }
 
-    // 1. Check if webp version exists
+    // 1. If webp version exists in uploads, 301 redirect to it
     $baseName = pathinfo($path, PATHINFO_DIRNAME).'/'.pathinfo($path, PATHINFO_FILENAME);
     $webpPath = public_path('uploads/'.trim($baseName, '/').'.webp');
     $realUploadsBase = realpath(public_path('uploads'));
@@ -181,21 +181,26 @@ Route::get('/wp-content/uploads/{path}', function (string $path) {
     if (file_exists($webpPath)) {
         $realWebp = realpath($webpPath);
         if ($realWebp && $realUploadsBase && str_starts_with($realWebp, $realUploadsBase)) {
-            return response()->file($realWebp);
+            return redirect('/uploads/'.trim($baseName, '/').'.webp', 301);
         }
     }
 
-    // 2. Check original file inside public/uploads
+    // 2. If original file exists inside public/uploads, 301 redirect to it
     $originalPath = public_path('uploads/'.$path);
     if (file_exists($originalPath)) {
         $realOriginal = realpath($originalPath);
         if ($realOriginal && $realUploadsBase && str_starts_with($realOriginal, $realUploadsBase)) {
-            return response()->file($realOriginal);
+            return redirect('/uploads/'.ltrim($path, '/'), 301);
         }
     }
 
     abort(404);
 })->where('path', '.*');
+
+// Block legacy WordPress paths from bots and scanners (return 404 immediately without hitting page query)
+Route::any('/wp-{any}', function () {
+    abort(404);
+})->where('any', '.*');
 
 // Generic page fallback route
 Route::get('/{slug}', [PageController::class, 'show'])->name('page.show');

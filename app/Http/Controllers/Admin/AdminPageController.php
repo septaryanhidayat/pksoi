@@ -13,6 +13,7 @@ class AdminPageController extends Controller
     public function index()
     {
         $pages = Post::where('type', 'page')->latest('updated_at')->paginate(20);
+
         return view('admin.pages.index', compact('pages'));
     }
 

@@ -40,6 +40,15 @@ Options -Indexes
     RewriteCond %{HTTP_HOST} ^www\.ogan\.ilir\.pks\.id$ [NC]
     RewriteRule ^(.*)$ https://ogan.ilir.pks.id/$1 [L,R=301]
 
+    # 4b. Legacy WordPress uploads redirect to clean Laravel /uploads/ (HTTP 301)
+    RewriteRule ^wp-content/uploads/(.*)$ /uploads/$1 [R=301,L,NC]
+
+    # 4c. Block legacy WordPress paths from scanner bots
+    RewriteRule ^wp-content/(themes|plugins|cache|languages)(/.*)?$ - [F,L,NC]
+    RewriteRule ^wp-includes(/.*)?$ - [F,L,NC]
+    RewriteRule ^wp-admin(/.*)?$ - [F,L,NC]
+    RewriteRule ^wp-login\.php$ - [F,L,NC]
+
     # 5. Enforce HTTPS (preserves whichever domain the user requested)
     RewriteCond %{HTTPS} off
     RewriteCond %{HTTP:X-Forwarded-Proto} !https

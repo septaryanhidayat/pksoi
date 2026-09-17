@@ -270,7 +270,7 @@ CREATE TABLE `posts` (
   `status` varchar(255) NOT NULL,
   `type` varchar(255) NOT NULL,
   `featured_image` varchar(255) DEFAULT NULL,
-  `views_count` int(11) NOT NULL,
+  `views_count` bigint(20) unsigned NOT NULL DEFAULT 0,
   `author_id` bigint(20) unsigned DEFAULT 0,
   `published_at` timestamp NULL DEFAULT NULL,
   `meta_title` varchar(255) DEFAULT NULL,
@@ -1855,9 +1855,9 @@ CREATE TABLE `pengumumen` (
 
 -- Dumping data for table `pengumumen`
 INSERT INTO `pengumumen` (`id`, `title`, `slug`, `content`, `file_attachment`, `status`, `featured_image`, `created_at`, `updated_at`) VALUES
-(1, 'Program PKS Menyapa Masyarakat Ogan Ilir', 'program-pks-menyapa-masyarakat-ogan-ilir', '', 'https://pksoganilir.com/wp-content/uploads/2025/09/01a8c8526b7cd464f0c321b1244f1888.jpg', 'publish', '/uploads/2025/09/01a8c8526b7cd464f0c321b1244f1888.webp', '2026-09-05 09:50:10', '2026-09-05 09:50:10'),
+(1, 'Program PKS Menyapa Masyarakat Ogan Ilir', 'program-pks-menyapa-masyarakat-ogan-ilir', '', '/uploads/2025/09/01a8c8526b7cd464f0c321b1244f1888.webp', 'publish', '/uploads/2025/09/01a8c8526b7cd464f0c321b1244f1888.webp', '2026-09-05 09:50:10', '2026-09-05 09:50:10'),
 (2, 'Kegiatan Bakti Sosial DPD PKS Ogan Ilir', 'kegiatan-bakti-sosial-dpd-pks-ogan-ilir', '', '', 'publish', '/uploads/2025/09/WhatsApp-Image-2025-09-07-at-18.01.10-1.webp', '2026-09-05 09:50:10', '2026-09-05 09:50:10'),
-(3, 'Launching Official Website DPD PKS Ogan Ilir', 'launchinge-official-website-dpd-pks-ogan-ilir', '', 'https://pksoganilir.com/wp-content/uploads/2025/09/WhatsApp-Image-2025-09-07-at-18.01.08-2.jpeg', 'publish', '/uploads/2025/09/WhatsApp-Image-2025-09-07-at-18.01.08-2.webp', '2026-09-05 09:50:10', '2026-09-05 09:50:10'),
+(3, 'Launching Official Website DPD PKS Ogan Ilir', 'launchinge-official-website-dpd-pks-ogan-ilir', '', '/uploads/2025/09/WhatsApp-Image-2025-09-07-at-18.01.08-2.webp', 'publish', '/uploads/2025/09/WhatsApp-Image-2025-09-07-at-18.01.08-2.webp', '2026-09-05 09:50:10', '2026-09-05 09:50:10'),
 (4, 'Hasil Donasi Bencana Sumatera', 'hasil-donasi-bencana-sumatera', '<p data-path-to-node="3"><b>OGAN ILIR</b> - Sebagai bentuk kepedulian dan respon cepat terhadap musibah yang menimpa saudara-saudara kita di wilayah Sumatera, Dewan Pengurus Daerah (DPD) Partai Keadilan Sejahtera (PKS) Kabupaten Ogan Ilir resmi menyalurkan bantuan kemanusiaan.</p>
 <p data-path-to-node="4">Berdasarkan laporan hasil penggalangan dana yang dihimpun dari seluruh struktur dan kader, PKS Ogan Ilir berhasil mengumpulkan total donasi sebesar <b>Rp 61.070.000 (Enam Puluh Satu Juta Tujuh Puluh Ribu Rupiah).</b></p>
 <p data-path-to-node="5">Bantuan ini ditujukan khusus untuk membantu pemulihan korban bencana alam yang terjadi di tiga provinsi, yakni:</p>

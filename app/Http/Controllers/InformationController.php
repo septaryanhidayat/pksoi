@@ -7,7 +7,6 @@ use App\Models\Pengumuman;
 use App\Models\Post;
 use App\Models\Testimonial;
 use App\Models\Video;
-use Illuminate\Http\Request;
 
 class InformationController extends Controller
 {
@@ -16,6 +15,7 @@ class InformationController extends Controller
         $agendas = Agenda::where('status', 'publish')
             ->orderBy('event_date', 'desc')
             ->paginate(8);
+
         return view('frontend.agenda.index', compact('agendas'));
     }
 
@@ -27,6 +27,7 @@ class InformationController extends Controller
             ->orderBy('event_date', 'desc')
             ->take(4)
             ->get();
+
         return view('frontend.agenda.show', compact('agenda', 'otherAgendas'));
     }
 
@@ -35,6 +36,7 @@ class InformationController extends Controller
         $pengumuman = Pengumuman::where('status', 'publish')
             ->latest()
             ->paginate(8);
+
         return view('frontend.pengumuman.index', compact('pengumuman'));
     }
 
@@ -46,25 +48,28 @@ class InformationController extends Controller
             ->latest()
             ->take(4)
             ->get();
+
         return view('frontend.pengumuman.show', compact('announcement', 'otherAnnouncements'));
     }
 
     public function testimonial()
     {
         $testimonials = Testimonial::where('status', 'publish')->get();
+
         return view('frontend.testimonial.index', compact('testimonials'));
     }
 
     public function video()
     {
         $videos = Video::latest()->paginate(9);
+
         return view('frontend.video.index', compact('videos'));
     }
 
     public function galeri()
     {
         $page = Post::pages()->where('slug', 'galeri')->first();
-        
+
         // Ambil semua foto galeri yang diunggah dan foto berita
         $galleryImages = Post::whereIn('type', ['gallery', 'attachment', 'post'])
             ->where('status', 'publish')

@@ -24,10 +24,12 @@ class Bidang extends Model
 
     public function getThumbnailUrlAttribute(): string
     {
-        if (!empty($this->thumbnail)) {
+        if (! empty($this->thumbnail)) {
             $path = parse_url($this->thumbnail, PHP_URL_PATH);
-            return '/' . ltrim($path, '/');
+
+            return '/'.ltrim($path, '/');
         }
+
         return '/uploads/2024/01/cd1787310f135df61a8832283565af3b.webp';
     }
 
@@ -36,7 +38,8 @@ class Bidang extends Model
         if (empty($this->icon)) {
             return false;
         }
-        return str_starts_with($this->icon, '/') 
+
+        return str_starts_with($this->icon, '/')
             || str_starts_with($this->icon, 'http')
             || str_contains($this->icon, '.webp')
             || str_contains($this->icon, '.png')
@@ -48,8 +51,10 @@ class Bidang extends Model
     {
         if ($this->is_image_icon) {
             $path = parse_url($this->icon, PHP_URL_PATH);
-            return '/' . ltrim($path, '/');
+
+            return '/'.ltrim($path, '/');
         }
+
         return '/uploads/2023/08/Icon-KD2.webp';
     }
 }

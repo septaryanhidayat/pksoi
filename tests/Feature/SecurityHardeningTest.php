@@ -1,7 +1,6 @@
 <?php
 
 use App\Models\Feedback;
-use App\Models\User;
 use Illuminate\Support\Facades\RateLimiter;
 
 it('blocks path traversal attempts on legacy uploads route', function () {
@@ -16,6 +15,23 @@ it('blocks path traversal attempts on legacy uploads route', function () {
     // Attempt requesting unauthorized extension
     $response3 = $this->get('/wp-content/uploads/shell.php');
     expect($response3->status())->toBeIn([403, 404]);
+});
+
+it('permanently redirects legacy wp-content image URLs to clean uploads route', function () {
+    $response = $this->get('/wp-content/uploads/2025/09/Logo-Web-DPD3.png');
+    $response->assertStatus(301);
+    expect($response->headers->get('Location'))->toContain('/uploads/2025/09/Logo-Web-DPD3.webp');
+});
+
+it('blocks legacy wordpress scanner paths with 404', function () {
+    $response1 = $this->get('/wp-admin');
+    expect($response1->status())->toBe(404);
+
+    $response2 = $this->get('/wp-login.php');
+    expect($response2->status())->toBe(404);
+
+    $response3 = $this->get('/wp-content/plugins/revslider/temp.php');
+    expect($response3->status())->toBe(404);
 });
 
 it('blocks unauthorized file download extensions and path traversal', function () {
@@ -46,7 +62,7 @@ it('rate limits failed login attempts against brute-force attacks', function () 
     for ($i = 0; $i < 5; $i++) {
         $this->post('/login', [
             'email' => 'badlogin@example.com',
-            'password' => 'wrong-password-' . $i,
+            'password' => 'wrong-password-'.$i,
         ]);
     }
 

@@ -15,6 +15,7 @@ class AdminUserController extends Controller
     public function index()
     {
         $users = User::latest()->paginate(15);
+
         return view('admin.users.index', compact('users'));
     }
 
@@ -70,7 +71,7 @@ class AdminUserController extends Controller
         $user->email = $validated['email'];
         $user->role = $validated['role'];
 
-        if (!empty($validated['password'])) {
+        if (! empty($validated['password'])) {
             $user->password = Hash::make($validated['password']);
         }
 

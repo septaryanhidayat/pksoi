@@ -24,6 +24,7 @@ class ActivityLog extends Model
     public static function log(string $action, string $description, string $status = 'info', ?User $user = null): self
     {
         $currentUser = $user ?? auth()->user();
+
         return self::create([
             'user_id' => $currentUser?->id,
             'user_name' => $currentUser?->name ?? 'Pengunjung / Sistem',

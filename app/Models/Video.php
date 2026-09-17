@@ -22,11 +22,11 @@ class Video extends Model
      */
     public function getYoutubeIdAttribute($value): ?string
     {
-        if (!empty($value)) {
+        if (! empty($value)) {
             return trim($value);
         }
 
-        if (!empty($this->youtube_url)) {
+        if (! empty($this->youtube_url)) {
             $url = html_entity_decode((string) $this->youtube_url);
             if (preg_match('/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})/', $url, $matches)) {
                 return $matches[1];
@@ -46,6 +46,6 @@ class Video extends Model
             return "https://i.ytimg.com/vi/{$id}/hqdefault.jpg";
         }
 
-        return "/uploads/2025/09/logo-thumbnail.webp";
+        return '/uploads/2025/09/logo-thumbnail.webp';
     }
 }

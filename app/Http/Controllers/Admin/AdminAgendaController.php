@@ -16,6 +16,7 @@ class AdminAgendaController extends Controller
     {
         $agendas = Agenda::latest('event_date')->paginate(10, ['*'], 'agenda_page');
         $pengumumen = Pengumuman::latest()->paginate(10, ['*'], 'pengumuman_page');
+
         return view('admin.agenda.index', compact('agendas', 'pengumumen'));
     }
 
@@ -31,7 +32,7 @@ class AdminAgendaController extends Controller
 
         $agenda = Agenda::create([
             'title' => $validated['title'],
-            'slug' => Str::slug($validated['title']) . '-' . time(),
+            'slug' => Str::slug($validated['title']).'-'.time(),
             'event_date' => $validated['event_date'],
             'location' => $validated['location'],
             'content' => $validated['content'] ?? '',
@@ -79,7 +80,7 @@ class AdminAgendaController extends Controller
 
         $pengumuman = Pengumuman::create([
             'title' => $validated['title'],
-            'slug' => Str::slug($validated['title']) . '-' . time(),
+            'slug' => Str::slug($validated['title']).'-'.time(),
             'content' => $validated['content'],
             'status' => $validated['status'],
         ]);
