@@ -35,7 +35,13 @@
                 <div class="space-y-2 pt-1 text-sm sm:text-[15px] text-white">
                     <div class="flex items-center justify-center md:justify-start space-x-3">
                         <i class="fa-solid fa-phone-alt text-[#ff5001] w-4 text-center text-sm" aria-hidden="true"></i>
-                        <a href="tel:{{ $siteSettings['contact_phone'] ?? '082382336505' }}" class="text-white hover:text-[#ff5001] transition py-1" aria-label="Telepon Kantor {{ $siteSettings['contact_phone'] ?? '082382336505' }}">{{ $siteSettings['contact_phone'] ?? '082382336505' }}</a>
+                        @php
+                            $footerPhone = $siteSettings['contact_phone'] ?? '082382336505';
+                            if ($footerPhone === '082280041658') {
+                                $footerPhone = '082382336505';
+                            }
+                        @endphp
+                        <a href="tel:{{ $footerPhone }}" class="text-white hover:text-[#ff5001] transition py-1" aria-label="Telepon Kantor {{ $footerPhone }}">{{ $footerPhone }}</a>
                     </div>
                     <div class="flex items-center justify-center md:justify-start space-x-3">
                         <i class="fa-solid fa-envelope text-[#ff5001] w-4 text-center text-sm" aria-hidden="true"></i>

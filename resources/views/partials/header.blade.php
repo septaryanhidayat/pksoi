@@ -1,9 +1,15 @@
 {{-- TOP MINI BAR (Hitam Pekat Sesuai Desain Web Lama: Cukup HP & Email) --}}
 <div class="bg-[#000000] text-white text-xs py-2 border-b border-neutral-900" style="background-color: #000000;">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-center sm:justify-start items-center space-x-4 sm:space-x-6">
-        <a href="tel:{{ $siteSettings['contact_phone'] ?? '082382336505' }}" class="flex items-center text-white hover:text-[#fdb913] transition py-1 text-xs font-semibold" aria-label="Hubungi Telepon {{ $siteSettings['contact_phone'] ?? '082382336505' }}">
+        @php
+            $headerPhone = $siteSettings['contact_phone'] ?? '082382336505';
+            if ($headerPhone === '082280041658') {
+                $headerPhone = '082382336505';
+            }
+        @endphp
+        <a href="tel:{{ $headerPhone }}" class="flex items-center text-white hover:text-[#fdb913] transition py-1 text-xs font-semibold" aria-label="Hubungi Telepon {{ $headerPhone }}">
             <i class="fa-solid fa-phone mr-2 text-[#ff5001]" aria-hidden="true" style="color: #ff5001;"></i>
-            <span>{{ $siteSettings['contact_phone'] ?? '082382336505' }}</span>
+            <span>{{ $headerPhone }}</span>
         </a>
         <span class="text-neutral-600" aria-hidden="true">|</span>
         <a href="mailto:{{ $siteSettings['contact_email'] ?? 'pksoganilir@gmail.com' }}" class="flex items-center text-white hover:text-[#fdb913] transition py-1 text-xs font-semibold" aria-label="Kirim Email ke {{ $siteSettings['contact_email'] ?? 'pksoganilir@gmail.com' }}">

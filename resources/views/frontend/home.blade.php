@@ -1116,14 +1116,17 @@
             </a>
 
             @php
-                $waContact = $siteSettings['contact_whatsapp'] ?? $siteSettings['contact_phone'] ?? '082382336505';
+                $waContact = $siteSettings['contact_phone'] ?? $siteSettings['contact_whatsapp'] ?? '082382336505';
+                if (empty($waContact) || str_contains((string) $waContact, '82280041658')) {
+                    $waContact = '082382336505';
+                }
                 $cleanWa = preg_replace('/[^0-9]/', '', (string) $waContact);
                 if (str_starts_with($cleanWa, '0')) {
                     $cleanWa = '62' . substr($cleanWa, 1);
                 } elseif (str_starts_with($cleanWa, '8')) {
                     $cleanWa = '62' . $cleanWa;
                 }
-                if (empty($cleanWa)) {
+                if (empty($cleanWa) || $cleanWa === '6282280041658') {
                     $cleanWa = '6282382336505';
                 }
             @endphp
