@@ -181,11 +181,13 @@ test('site settings update dynamically reflects across header, footer, and conta
 
     $home = $this->get('/');
     $home->assertSee('08999888777');
+    $home->assertSee('https://wa.me/628999888777', false);
     $home->assertSee('sekretariat@pks-oi.id');
     $home->assertSee('Gedung Dakwah DPD PKS Ogan Ilir Baru');
 
     $contact = $this->get('/hubungi');
     $contact->assertSee('08999888777');
+    $contact->assertSee('https://wa.me/628999888777', false);
     $contact->assertSee('sekretariat@pks-oi.id');
     $contact->assertSee('Gedung Dakwah DPD PKS Ogan Ilir Baru');
 });

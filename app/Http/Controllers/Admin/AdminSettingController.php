@@ -45,6 +45,11 @@ class AdminSettingController extends Controller
             }
         }
 
+        // Ensure contact_whatsapp is kept in sync with contact_phone
+        if (isset($data['contact_phone']) && ! isset($data['contact_whatsapp'])) {
+            $data['contact_whatsapp'] = $data['contact_phone'];
+        }
+
         foreach ($data as $key => $val) {
             Setting::updateOrCreate(
                 ['key' => $key],

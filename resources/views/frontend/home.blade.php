@@ -1115,7 +1115,19 @@
                 </div>
             </a>
 
-            <a href="https://wa.me/6282280041658" target="_blank" class="bg-white p-4 rounded-xl border-t-4 border-green-500 shadow-sm hover:shadow-md transition flex items-center space-x-3.5 group reveal-fade-up delay-2" aria-label="Hubungi DPD PKS via WhatsApp">
+            @php
+                $waContact = $siteSettings['contact_whatsapp'] ?? $siteSettings['contact_phone'] ?? '082280041658';
+                $cleanWa = preg_replace('/[^0-9]/', '', (string) $waContact);
+                if (str_starts_with($cleanWa, '0')) {
+                    $cleanWa = '62' . substr($cleanWa, 1);
+                } elseif (str_starts_with($cleanWa, '8')) {
+                    $cleanWa = '62' . $cleanWa;
+                }
+                if (empty($cleanWa)) {
+                    $cleanWa = '6282280041658';
+                }
+            @endphp
+            <a href="https://wa.me/{{ $cleanWa }}" target="_blank" class="bg-white p-4 rounded-xl border-t-4 border-green-500 shadow-sm hover:shadow-md transition flex items-center space-x-3.5 group reveal-fade-up delay-2" aria-label="Hubungi DPD PKS via WhatsApp">
                 <div class="w-12 h-12 rounded-full bg-green-50 text-green-600 flex items-center justify-center text-xl flex-shrink-0 group-hover:bg-green-500 group-hover:text-white transition" aria-hidden="true">
                     <i class="fa-brands fa-whatsapp"></i>
                 </div>
