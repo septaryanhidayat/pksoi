@@ -67,7 +67,7 @@
 
         {{-- Box 3: WhatsApp --}}
         @php
-            $rawPhone = $siteSettings['contact_whatsapp'] ?? $siteSettings['contact_phone'] ?? '082280041658';
+            $rawPhone = $siteSettings['contact_whatsapp'] ?? $siteSettings['contact_phone'] ?? '082382336505';
             $cleanWa = preg_replace('/[^0-9]/', '', (string) $rawPhone);
             if (str_starts_with($cleanWa, '0')) {
                 $cleanWa = '62' . substr($cleanWa, 1);
@@ -75,7 +75,7 @@
                 $cleanWa = '62' . $cleanWa;
             }
             if (empty($cleanWa)) {
-                $cleanWa = '6282280041658';
+                $cleanWa = '6282382336505';
             }
         @endphp
         <div class="bg-white p-6 sm:p-8 rounded-3xl shadow-md border border-gray-100 hover:shadow-xl transition transform hover:-translate-y-1 space-y-4 reveal-fade-up delay-2">

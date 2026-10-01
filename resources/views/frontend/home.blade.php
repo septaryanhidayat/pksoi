@@ -1116,7 +1116,7 @@
             </a>
 
             @php
-                $waContact = $siteSettings['contact_whatsapp'] ?? $siteSettings['contact_phone'] ?? '082280041658';
+                $waContact = $siteSettings['contact_whatsapp'] ?? $siteSettings['contact_phone'] ?? '082382336505';
                 $cleanWa = preg_replace('/[^0-9]/', '', (string) $waContact);
                 if (str_starts_with($cleanWa, '0')) {
                     $cleanWa = '62' . substr($cleanWa, 1);
@@ -1124,7 +1124,7 @@
                     $cleanWa = '62' . $cleanWa;
                 }
                 if (empty($cleanWa)) {
-                    $cleanWa = '6282280041658';
+                    $cleanWa = '6282382336505';
                 }
             @endphp
             <a href="https://wa.me/{{ $cleanWa }}" target="_blank" class="bg-white p-4 rounded-xl border-t-4 border-green-500 shadow-sm hover:shadow-md transition flex items-center space-x-3.5 group reveal-fade-up delay-2" aria-label="Hubungi DPD PKS via WhatsApp">
